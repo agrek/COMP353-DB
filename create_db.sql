@@ -191,7 +191,7 @@ CREATE TABLE ResearchFunds
 CREATE TABLE ResearchFundingApplications
 (
     id               INT AUTO_INCREMENT,
-    status           ENUM ('Applied', 'Granted') NOT NULL,
+    status           ENUM ('Applied', 'Granted', 'Denied') NOT NULL,
     student_id       INT(8)                      NULL,
     research_fund_id INT(8)                      NOT NULL,
     CONSTRAINT ResearchFundingApplications_pk
