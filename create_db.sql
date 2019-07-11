@@ -23,7 +23,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE Student
 (
-    id         INT(8)       NOT NULL AUTO_INCREMENT,
+    id         INT(8) AUTO_INCREMENT,
     first_name VARCHAR(255) NOT NULL,
     last_name  VARCHAR(255) NOT NULL,
     address    VARCHAR(255),
@@ -33,7 +33,7 @@ CREATE TABLE Student
 
 CREATE TABLE Department
 (
-    id   INT(8)       NOT NULL AUTO_INCREMENT,
+    id   INT(8) AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     CONSTRAINT Department_pk
         PRIMARY KEY (id),
@@ -56,7 +56,7 @@ CREATE TABLE Instructor
 
 CREATE TABLE GradStudents
 (
-    id         INT(8)                    NULL,
+    id         INT(8),
     type       ENUM ('thesis', 'course') NOT NULL,
     supervisor INT(8)                    NULL,
     CONSTRAINT GradStudents_pk
@@ -152,9 +152,9 @@ CREATE TABLE Class
 
 CREATE TABLE Section
 (
-    id            INT AUTO_INCREMENT,
+    id            INT(8) AUTO_INCREMENT,
     name          VARCHAR(255) NOT NULL,
-    course_id     INT          NOT NULL,
+    course_id     INT(8)          NOT NULL,
     type          VARCHAR(255) NOT NULL,
     day           VARCHAR(255) NOT NULL,
     start_time    TIME         NOT NULL,
@@ -165,17 +165,18 @@ CREATE TABLE Section
     room_number   VARCHAR(255) NULL,
     CONSTRAINT Section_pk
         PRIMARY KEY (id),
+    CONSTRAINT Section_uq
+        UNIQUE (course_id, name),
     CONSTRAINT Section_Class_room_number_fk
         FOREIGN KEY (room_number) REFERENCES Class (room_number),
     CONSTRAINT Section_Course_id_fk
         FOREIGN KEY (course_id) REFERENCES Course (id),
     CONSTRAINT Section_Instructor_id_fk
         FOREIGN KEY (instructor_id) REFERENCES Instructor (id),
-    CONSTRAINT Section_uq
-        UNIQUE (course_id, name),
     CONSTRAINT Section_TA_assignee_fk
         FOREIGN KEY (ta_id) REFERENCES TAPosition (assignee_id)
 );
+
 
 CREATE TABLE ResearchFunds
 (
@@ -190,7 +191,7 @@ CREATE TABLE ResearchFunds
 
 CREATE TABLE ResearchFundingApplications
 (
-    id               INT AUTO_INCREMENT,
+    id               INT(8) AUTO_INCREMENT,
     status           ENUM ('Applied', 'Granted', 'Denied') NOT NULL,
     student_id       INT(8)                      NULL,
     research_fund_id INT(8)                      NOT NULL,
