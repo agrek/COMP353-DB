@@ -1,0 +1,248 @@
+INSERT INTO LetterToGpa 
+VALUES 
+('A+', 4.30),
+('A', 4.00),
+('A-', 3.70),
+('B+', 3.30), 
+('B', 3.00),
+('B-', 2.70),
+('C+', 2.30),
+('C', 2.00),
+('C-', 1.70),
+('D+', 1.30),
+('D', 1.00),
+('D-', 0.70),
+('F', 0.00),
+('FNS', 0.00),
+('R', 0.00),
+(DEFAULT, 0.00);
+
+INSERT INTO Department
+VALUES
+(DEFAULT, 'Computer Engineering'),
+(DEFAULT, 'Physics'),
+(DEFAULT, 'Computer Science'),
+(DEFAULT, 'Software Engineering'),
+(DEFAULT, 'Chemistry'),
+(DEFAULT, 'English'),
+(DEFAULT, 'Electrical Engineering'),
+(DEFAULT, 'Mathematics'),
+(DEFAULT, 'Economics'),
+(DEFAULT, 'Psychology');
+
+INSERT INTO Advisor
+VALUES
+(DEFAULT, 'Ellen', 'Kirk', '44 Engineering Building'),
+(DEFAULT, 'Tobias', 'Farmer', '12 Physics Building'),
+(DEFAULT, 'Paige', 'Cannon', '14 Chemistry Building'),
+(DEFAULT, 'Leo', 'Salinas', '74 Engineering Building'),
+(DEFAULT, 'Rosie', 'Cobb', '587 Math Building'),
+(DEFAULT, 'Dominic', 'Jensen', '729 Engineering Building'),
+(DEFAULT, 'Scarlett', 'Bishop', '534 English Building'),
+(DEFAULT, 'Steve', 'Schultz', '36 Psychology Building'),
+(DEFAULT, 'Lucas', 'Wang', '21 Computer Science Building'), 
+(DEFAULT, 'Lillian', 'Frazier', '511 Business Building');
+
+INSERT INTO Program
+VALUES
+(DEFAULT, 'Actuarial Mathematics Undergraduate', 'undergraduate', 90, 8, 5),
+(DEFAULT, 'Actuarial Mathematics Graduate', 'graduate', 44, 8, 5),
+(DEFAULT, 'Mathematics Undergraduate', 'undergraduate', 90, 8, 5),
+(DEFAULT, 'Mathematics Graduate', 'graduate', 44, 8, 5),
+(DEFAULT, 'Physics Undergraduate', 'undergraduate', 90, 2, 2),
+(DEFAULT, 'Physics Graduate', 'graduate', 44, 2, 2),
+(DEFAULT, 'English Literature Undergraduate', 'undergraduate', 90, 6, 7),
+(DEFAULT, 'English Literature Graduate', 'graduate', 44, 6, 7),
+(DEFAULT, 'Psychology Undergraduate', 'undergraduate', 90, 10, 8),
+(DEFAULT, 'Psychology Graduate', 'graduate', 44, 10, 8),
+(DEFAULT, 'Economics Undergraduate', 'undergraduate', 90, 9, 10),
+(DEFAULT, 'Economics Graduate', 'graduate', 44, 9, 10),
+(DEFAULT, 'Chemistry Undergraduate', 'undergraduate', 90, 5, 3),
+(DEFAULT, 'Chemistry Graduate', 'graduate', 44, 5, 3),
+(DEFAULT, 'Biochemistry Undergraduate', 'undergraduate', 90, 5, 3),
+(DEFAULT, 'Biochemistry Graduate', 'graduate', 44, 5, 3),
+(DEFAULT, 'Computer Systems Undergraduate', 'undergraduate', 90, 3, 9),
+(DEFAULT, 'Computer Systems Graduate', 'graduate', 44, 3, 9),
+(DEFAULT, 'Computer Science Undergraduate', 'undergraduate', 90, 3, 9),
+(DEFAULT, 'Computer Science Graduate', 'graduate', 44, 3, 9),
+(DEFAULT, 'Computer Engineering Undergraduate', 'undergraduate', 90, 1, 1),
+(DEFAULT, 'Computer Engineering Graduate', 'graduate', 44, 1, 1),
+(DEFAULT, 'Software Engineering Undergraduate', 'undergraduate', 90, 4, 4),
+(DEFAULT, 'Software Engineering Graduate', 'graduate', 44, 4, 4),
+(DEFAULT, 'Electrical Engineering Undergraduate', 'undergraduate', 90, 7, 6),
+(DEFAULT, 'Electrical Engineering Graduate', 'graduate', 44, 7, 6);
+
+INSERT INTO Student
+VALUES
+(DEFAULT, 'Isabelle', 'Ramirez', '552 Broadway Street'),
+(DEFAULT, 'Benjamin', 'Moore', '76 Chestnut Grove'),
+(DEFAULT, 'Hannah', 'Hayes', '223 Abby Lane'),
+(DEFAULT, 'Amber', 'Baker', '57 Mendip Close'),
+(DEFAULT, 'David', 'Williams', '6398 Beverley Road'),
+(DEFAULT, 'Mildred', 'Jackson', '764 Saint Mary Street'),
+(DEFAULT, 'Josh', 'Murray', '7321 Church Street'),
+(DEFAULT, 'Phoebe', 'Mitchell', '88 Elm Avenue'),
+(DEFAULT, 'Imogen', 'Hughes', '1154 Charles Street'),
+(DEFAULT, 'Luke', 'Washington', '62 Castle Street'),
+(DEFAULT, 'Ella', 'Wright', '18 Norman Road'),
+(DEFAULT, 'Harrison', 'Shaw', '709 Saint Andrews Road'),
+(DEFAULT, 'Mohammed', 'Nguyen', '482 West Street'),
+(DEFAULT, 'Alice', 'Ford', '4 Chapel Lane'),
+(DEFAULT, 'James', 'West', '7622 Common Road'), 
+(DEFAULT, 'Harry', 'Cooke', '562 Coronation Street'),
+(DEFAULT, 'Liam', 'Shaw', '709 Saint Andrews Road'),
+(DEFAULT, 'Megan', 'Murray', '612 Chatsworth Road'),
+(DEFAULT, 'Oliver', 'Gonzalez', '835 Maple Street'),
+(DEFAULT, 'Allie', 'Hamilton', '9662 Brunswick Street'),
+(DEFAULT, 'Brandon', 'Cassidy', '35 Hyacynth Drive'),
+(DEFAULT, 'Justin', 'Santiago', '329 Pennant Road'),
+(DEFAULT, 'Leonard', 'Li', '71 Drake Avenue'),
+(DEFAULT, 'Jess', 'Singh', '732 Terrace Gardens'),
+(DEFAULT, 'Declan', 'Simmons', '5 Balmoral Crescent'),
+(DEFAULT, 'Maja', 'Little', '7 Barberry Avenue'),
+(DEFAULT, 'Hugo', 'Harrison', '222 Mill hill Road'),
+(DEFAULT, 'Christian', 'Gilbert', '41 Whitegates Road'),
+(DEFAULT, 'Monica', 'Owen', '68 Blossom Road'),
+(DEFAULT, 'Brian', 'Crawford', '90 Argosy Road'),
+(DEFAULT, 'Gina', 'Wilkes', '72 Hamerton Road'),
+(DEFAULT, 'Lloyd', 'Greene', '33 Danburry Road'),
+(DEFAULT, 'Ewan', 'Ortega', '198 King George Road'),
+(DEFAULT, 'Declan', 'Manning', '2 Easdale Street'),
+(DEFAULT, 'Caitlin', 'Gill', '69 Douglas Way'),
+(DEFAULT, 'Sara', 'Cole', '83 Salmon Street'),
+(DEFAULT, 'Annie', 'Huang', '710 Howie Road'),
+(DEFAULT, 'Jen', 'Carr', '944 Onslow Street'),
+(DEFAULT, 'Aisha', 'Flores', '23 Liddel Street'),
+(DEFAULT, 'Matilda', 'Beckett', '15 Columba Street');
+
+INSERT INTO Instructor
+VALUES
+(DEFAULT, 'Sophie', 'Morton', 3),
+(DEFAULT, 'Jacob', 'Hutchinson', 3),
+(DEFAULT, 'Chloe', 'Booth', 9),
+(DEFAULT, 'Ibrahim', 'Pham', 1),
+(DEFAULT, 'Aaron', 'Rice', 8),
+(DEFAULT, 'Elizabeth', 'Aguilar', 10),
+(DEFAULT, 'Rebecca', 'Ross', 4),
+(DEFAULT, 'Sebastien', 'Arnold', 7),
+(DEFAULT, 'Reuben', 'Pratt', 2),
+(DEFAULT, 'Travis', 'Cummings', 8),
+(DEFAULT, 'Molly', 'Byrne', 5),
+(DEFAULT, 'Charles', 'Mccoy', 7),
+(DEFAULT, 'Elizabeth', 'Ingram', 6);
+
+INSERT INTO GradStudents
+VALUES
+(3, 'thesis', 9),
+(6, 'course', NULL),
+(12, 'thesis', 7),
+(9, 'course', NULL),
+(8, 'course', NULL),
+(4, 'thesis', 7),
+(10, 'thesis', 6),
+(16, 'course', NULL),
+(7, 'thesis', 2),
+(13, 'thesis', 5),
+(21, 'thesis', 2),
+(22, 'thesis', 2),
+(23, 'thesis', 2),
+(24, 'thesis', 2),
+(25, 'thesis', 2),
+(26, 'thesis', 2),
+(27, 'thesis', 2),
+(28, 'thesis', 2),
+(29, 'thesis', 2),
+(30, 'thesis', 2),
+(31, 'thesis', 2),
+(32, 'thesis', 2),
+(33, 'thesis', 2),
+(34, 'thesis', 2),
+(35, 'thesis', 2),
+(36, 'thesis', 2),
+(37, 'thesis', 2),
+(38, 'thesis', 2),
+(39, 'thesis', 2),
+(40, 'thesis', 2);
+
+INSERT INTO Studies
+VALUES
+(1, 17),
+(2, 1),
+(3, 26),
+(4, 26),
+(5, 23),
+(6, 2),
+(7, 19),
+(8, 12),
+(9, 24),
+(10, 10),
+/*(11, 3), commented out b/c currently student id is unique, possibly primary key student_id, program_id)*/
+(11, 5),
+(12, 26),
+(13, 4),
+(14, 21),
+(15, 15),
+(16, 19),
+/*(16, 17), ***This is the student that should staisfy query 2 about 2 different programs for one student in the comp sci department*/
+(17, 9),
+(18, 7),
+(19, 11),
+(20, 13),
+(21, 19),
+(22, 19),
+(23, 19),
+(24, 19),
+(25, 19),
+(26, 19),
+(27, 19),
+(28, 19),
+(29, 19),
+(30, 19),
+(31, 19),
+(32, 19),
+(33, 19),
+(34, 19),
+(35, 19),
+(36, 19),
+(37, 19),
+(38, 19),
+(39, 19),
+(40, 19);
+
+/*
+INSERT INTO TAPosition
+VALUES
+(DEFAULT, 'name_necessary??' 111 , 3),
+*/
+
+INSERT INTO Course
+VALUES
+(DEFAULT, 'Databases', 'COMP353', 3),
+(DEFAULT, 'Data structures and algorithms', 'COMP352', 3),
+(DEFAULT, 'Software processes', 'SOEN341', 4),
+(DEFAULT, 'Software requirements and specifications', 'SOEN342', 4),
+(DEFAULT, 'Software architecture and design 1' , 'SOEN343', 4),
+(DEFAULT, 'Software testing and validation', 'COEN345', 1),
+(DEFAULT, 'Fundamentals of electrical power engineering', 'ELEC331', 7),
+(DEFAULT, 'Fundamentals of applied electromagnetics', 'ELEC251', 7),
+(DEFAULT, 'Natural Products', 'CHEM326', 5),
+(DEFAULT, 'Statistical methods 1', 'ECON221', 9),
+(DEFAULT, 'Statistical methods 2', 'ECON222', 9),
+(DEFAULT, 'Fundamental mathematics 2', 'MATH209', 8),
+(DEFAULT, 'Critical reading', 'ENGL233', 6),
+(DEFAULT, 'Brain and behavior', 'PSYC255', 10),
+(DEFAULT, 'Thermodynamics', 'PHYS334', 2),
+(DEFAULT, 'Experimental thermodynamics', 'PHYS393', 2);
+
+INSERT INTO Requisites
+VALUES
+(1, 'prerequisite', 2),
+(3, 'prerequisite', 2),
+(4, 'prerequisite', 3),
+(5, 'prerequisite', 3),
+/*(5, 'corequisite', 4), commented out b/c primary key needs to be a combo of course and req id's*/
+(6, 'prerequisite', 3),
+(7, 'prerequisite', 8),
+(11, 'prerequisite', 10),
+/*(11, 'prerequisite', 12), see above*/
+(15, 'corequisite', 16);
