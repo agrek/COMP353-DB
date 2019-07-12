@@ -156,7 +156,7 @@ CREATE TABLE Section
 (
     id            INT(8) AUTO_INCREMENT,
     name          VARCHAR(255) NOT NULL,
-    course_id     INT(8)          NOT NULL,
+    course_id     INT(8)       NOT NULL,
     type          VARCHAR(255) NOT NULL,
     day           VARCHAR(255) NOT NULL,
     start_time    TIME         NOT NULL,
@@ -195,8 +195,8 @@ CREATE TABLE ResearchFundingApplications
 (
     id               INT(8) AUTO_INCREMENT,
     status           ENUM ('Applied', 'Granted', 'Denied') NOT NULL,
-    student_id       INT(8)                      NULL,
-    research_fund_id INT(8)                      NOT NULL,
+    student_id       INT(8)                                NULL,
+    research_fund_id INT(8)                                NOT NULL,
     CONSTRAINT ResearchFundingApplications_pk
         PRIMARY KEY (id),
     CONSTRAINT ResearchFundingApplications_GradStudents_id_fk
