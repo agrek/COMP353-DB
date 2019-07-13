@@ -132,9 +132,10 @@ CREATE TABLE Studies
 CREATE TABLE Course
 (
     id            INT(8) AUTO_INCREMENT,
-    name          VARCHAR(255) NOT NULL,
-    code          VARCHAR(255) NOT NULL,
-    department_id INT(8)       NOT NULL,
+    name          VARCHAR(255)  NOT NULL,
+    code          VARCHAR(255)  NOT NULL,
+    department_id INT(8)        NOT NULL,
+    credits       DECIMAL(3, 2) NOT NULL,
     CONSTRAINT Course_pk
         PRIMARY KEY (id),
     CONSTRAINT Course_uq

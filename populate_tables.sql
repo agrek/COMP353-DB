@@ -322,22 +322,22 @@ VALUES (DEFAULT, 'Databases tutorial TA summer', 35, 21),
        (DEFAULT, ' Experimental Thermodynamics Lab TA', 50, 44);
 
 INSERT INTO Course
-VALUES (DEFAULT, 'Databases', 'COMP353', 3),
-       (DEFAULT, 'Data structures and algorithms', 'COMP352', 3),
-       (DEFAULT, 'Software processes', 'SOEN341', 4),
-       (DEFAULT, 'Software requirements and specifications', 'SOEN342', 4),
-       (DEFAULT, 'Software architecture and design 1', 'SOEN343', 4),
-       (DEFAULT, 'Software testing and validation', 'COEN345', 1),
-       (DEFAULT, 'Fundamentals of electrical power engineering', 'ELEC331', 7),
-       (DEFAULT, 'Fundamentals of applied electromagnetics', 'ELEC251', 7),
-       (DEFAULT, 'Organic Structure and Stereochemistry', 'CHEM325', 5),
-       (DEFAULT, 'Statistical methods 1', 'ECON221', 9),
-       (DEFAULT, 'Statistical methods 2', 'ECON222', 9),
-       (DEFAULT, 'Fundamental mathematics 2', 'MATH209', 8),
-       (DEFAULT, 'Critical reading', 'ENGL233', 6),
-       (DEFAULT, 'Brain and behavior', 'PSYC255', 10),
-       (DEFAULT, 'Thermodynamics', 'PHYS334', 2),
-       (DEFAULT, 'Experimental thermodynamics', 'PHYS393', 2);
+VALUES (DEFAULT, 'Databases', 'COMP353', 3, '3.0'),
+       (DEFAULT, 'Data structures and algorithms', 'COMP352', 3, '3.0'),
+       (DEFAULT, 'Software processes', 'SOEN341', 4, '3.0'),
+       (DEFAULT, 'Software requirements and specifications', 'SOEN342', 4, '3.0'),
+       (DEFAULT, 'Software architecture and design 1', 'SOEN343', 4, '3.0'),
+       (DEFAULT, 'Software testing and validation', 'COEN345', 1, '3.0'),
+       (DEFAULT, 'Fundamentals of electrical power engineering', 'ELEC331', 7, '3.0'),
+       (DEFAULT, 'Fundamentals of applied electromagnetics', 'ELEC251', 7, '3.0'),
+       (DEFAULT, 'Organic Structure and Stereochemistry', 'CHEM325', 5, '3.0'),
+       (DEFAULT, 'Statistical methods 1', 'ECON221', 9, '3.0'),
+       (DEFAULT, 'Statistical methods 2', 'ECON222', 9, '3.0'),
+       (DEFAULT, 'Fundamental mathematics 2', 'MATH209', 8, '3.0'),
+       (DEFAULT, 'Critical reading', 'ENGL233', 6, '3.0'),
+       (DEFAULT, 'Brain and behavior', 'PSYC255', 10, '3.0'),
+       (DEFAULT, 'Thermodynamics', 'PHYS334', 2, '3.0'),
+       (DEFAULT, 'Experimental thermodynamics', 'PHYS393', 2, '3.0');
 
 INSERT INTO Class
 VALUES ('H535', 120),
