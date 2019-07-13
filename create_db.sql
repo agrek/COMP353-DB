@@ -55,7 +55,6 @@ CREATE TABLE Instructor
         FOREIGN KEY (dept_id) REFERENCES Department (id)
 );
 
-
 CREATE TABLE GradStudents
 (
     id         INT(8),
@@ -68,7 +67,6 @@ CREATE TABLE GradStudents
     CONSTRAINT Undergrad_Student_id_fk
         FOREIGN KEY (id) REFERENCES Student (id)
 );
-
 
 CREATE TABLE TAPosition
 (
@@ -179,7 +177,6 @@ CREATE TABLE Section
         FOREIGN KEY (ta_id) REFERENCES TAPosition (assignee_id)
 );
 
-
 CREATE TABLE ResearchFunds
 (
     id     INT(8) AUTO_INCREMENT,
@@ -207,9 +204,9 @@ CREATE TABLE ResearchFundingApplications
 
 CREATE TABLE SectionEnrollment
 (
-    section_id INT(8)                                                                                                        NOT NULL,
-    student_id INT(8)                                                                                                        NULL,
-    grade      ENUM ('A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F', 'FNS', 'R', 'NR') DEFAULT 'NR' NOT NULL,
+    section_id INT(8)                                                                                           NOT NULL,
+    student_id INT(8)                                                                                           NULL,
+    grade      ENUM ('A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F', 'FNS', 'R', 'NR') NULL,
     CONSTRAINT SectionEnrollment_pk
         PRIMARY KEY (section_id),
     CONSTRAINT SectionEnrollment_LetterToGpa_letter_fk
