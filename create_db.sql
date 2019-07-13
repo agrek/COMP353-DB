@@ -26,9 +26,10 @@ SET FOREIGN_KEY_CHECKS = 1;
 CREATE TABLE Student
 (
     id         INT(8) AUTO_INCREMENT,
-    first_name VARCHAR(255) NOT NULL,
-    last_name  VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255)  NOT NULL,
+    last_name  VARCHAR(255)  NOT NULL,
     address    VARCHAR(255),
+    gpa        DECIMAL(3, 2) NULL,
     CONSTRAINT Student_pk
         PRIMARY KEY (id)
 );
@@ -157,8 +158,8 @@ CREATE TABLE Section
     course_id     INT(8)       NOT NULL,
     type          VARCHAR(255) NOT NULL,
     day           VARCHAR(255) NOT NULL,
-    start_time    TIMESTAMP         NOT NULL,
-    end_time      TIMESTAMP         NOT NULL,
+    start_time    TIMESTAMP    NOT NULL,
+    end_time      TIMESTAMP    NOT NULL,
     term          VARCHAR(255) NOT NULL,
     ta_id         INT(8)       NULL,
     instructor_id INT(8)       NULL,
@@ -205,7 +206,7 @@ CREATE TABLE ResearchFundingApplications
 CREATE TABLE SectionEnrollment
 (
     section_id INT(8)                                                                                           NOT NULL,
-    student_id INT(8)                                                                                           NOT NULL,
+    student_id INT(8)                                                                                           NULL,
     grade      ENUM ('A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F', 'FNS', 'R', 'NR') NULL,
     CONSTRAINT SectionEnrollment_pk
         PRIMARY KEY (section_id, student_id),
