@@ -58,8 +58,8 @@ CREATE TABLE Instructor
 
 CREATE TABLE GradStudents
 (
-    id         INT(8),
-    type       ENUM ('thesis', 'course') NOT NULL,
+    id            INT(8),
+    type          ENUM ('thesis', 'course') NOT NULL,
     supervisor_id INT(8)                    NULL,
     CONSTRAINT GradStudents_pk
         PRIMARY KEY (id),
