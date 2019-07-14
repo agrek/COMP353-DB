@@ -319,7 +319,6 @@ VALUES (DEFAULT, 'TA', 35, 21),
        (DEFAULT, 'marker', 80, 10),
        (DEFAULT, 'TA', 30, 44),
        (DEFAULT, 'marker', 90, 45),
-       (DEFAULT, 'Lab Instructor', 50, 44);
 
 INSERT INTO Course
 VALUES (DEFAULT, 'Databases', 'COMP353', 3, '3.0'),
