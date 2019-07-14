@@ -47,11 +47,11 @@ select concat(first_name, ' ', last_name) as name,
 from Instructor
 inner join Section on Instructor.id = Section.instructor_id
 inner join Course on course_id = Course.id
-where Course.code = 'comp352'
-group by name
-having term = 'fall' and
+where Course.code = 'comp352' and
+      term = 'fall' and
       start_time between '2019/00/00' and '2020/00/00' and
-      not(start_time < '2019/00/00');		-- irreconcilable dates and terms
+      not(start_time < '2019/00/00')		-- irreconcilable dates and terms
+group by name;
 
 /*	IV
 	Find the name of all the programs offered by the Computer Science
@@ -112,25 +112,27 @@ having count >= 20;
 	section, room location, start and end time, professor teaching the course,
 	max class capacity and number of enrolled students.
 */
-select capacity, Course.name as course_name, Section.name as section,
-       Class.room_number, start_time, end_time,
-       concat(first_name, ' ', last_name) as Professor
+select Course.code, Course.name as course_name, Section.name as section,
+       credits, start_time, end_time, capacity,
+       concat(Instructor.first_name, ' ', Instructor.last_name) as Professor,
+       count(distinct student_id) as num_students
 from Section
-inner join Course on Course.id = course_id
-inner join Instructor on Instructor.id = instructor_id
-inner join Class on Class.room_number = Section.room_number
+inner join Instructor on Section.instructor_id = Instructor.id
+inner join SectionEnrollment on Section.id = SectionEnrollment.section_id
+inner join Course on Section.course_id = Course.id
+inner join Class on Section.room_number = Class.room_number
 where term = 'summer' and
       start_time between '2019/00/00' and '2020/00/00' and
-      Course.department_id in(
-          select id
-          from Department
+      department_id in (
+          select id from Department
           where Department.name = 'Computer Science'
-          );
+          )
+group by Course.code;
 
 /*	IX
 	For each department, find the total number of courses offered by the department.
 */
-select Department.name, count(Course.department_id) as num_courses
+select Department.name as dep_name, count(Course.department_id) as num_courses
 from Department, Course
 where Course.department_id = Department.id
 group by Department.name;
@@ -138,7 +140,7 @@ group by Department.name;
 /*	X
 	For each program, find the total number of students enrolled into the program.
 */
-select Program.name, count(program_id) as number_of_students
+select Program.name, count(student_id) as number_of_students
 from Program, Studies
 where program_id = id
 group by Program.name;
