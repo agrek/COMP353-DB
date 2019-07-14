@@ -17,10 +17,11 @@ where id in(
     )
 );
 -- i like this alternative better because it shows grade and course code
-select student_id, first_name, last_name, grade, code
-from SectionEnrollment
-inner join Course on Course.id = section_id
-inner join Student on SectionEnrollment.student_id = Student.id
+select distinct student_id, first_name, last_name, grade, code
+from Student
+inner join SectionEnrollment on SectionEnrollment.student_id = Student.id
+inner join Section on SectionEnrollment.section_id = Section.id
+inner join Course on Course.id = Section.course_id
 where (grade = 'a+' or grade = 'a') and Course.code = 'comp353';
 
 /*	II
@@ -48,10 +49,9 @@ from Instructor
 inner join Section on Instructor.id = Section.instructor_id
 inner join Course on course_id = Course.id
 where Course.code = 'comp352' and
-      term = 'fall' and
+      term = 'fall' and type = 'lecture' and
       start_time between '2019/00/00' and '2020/00/00' and
-      not(start_time < '2019/00/00')		-- irreconcilable dates and terms
-group by name;
+      not(start_time < '2019/00/00');		-- irreconcilable dates and terms
 
 /*	IV
 	Find the name of all the programs offered by the Computer Science
@@ -67,11 +67,14 @@ where Department.name = 'Computer Science';
 	Find the name and IDs of all the undergraduate students who do not have
 	an advisor.
 */
-select concat(Student.first_name, ' ', Student.last_name) as name,
-       Student.id, supervisor
-from Student
-inner join GradStudents on Student.id = GradStudents.id
-where supervisor IS NULL;			-- supervision is taken for advisor here
+select concat(Advisor.first_name, ' ', Advisor.last_name) as Adv_name, advisor_id,
+       concat(Student.first_name, ' ', Student.last_name) as student_name,
+       student_id, Program.name as prog_name
+from Advisor
+right join Program on advisor_id = Advisor.id
+inner join Studies on Program.id = Studies.program_id
+inner join Student on Studies.student_id = Student.id
+where advisor_id is null;
 
 /*	VI
 	Find the ID, name and assignment mandate of all the graduate students
