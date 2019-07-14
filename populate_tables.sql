@@ -14,7 +14,7 @@ VALUES ('A+', 4.30),
        ('F', 0.00),
        ('FNS', 0.00),
        ('R', 0.00),
-       (DEFAULT, 0.00);
+       ('NR', 0.00);
 
 INSERT INTO Department
 VALUES	(1, 'Computer Engineering'),
@@ -27,7 +27,7 @@ VALUES	(1, 'Computer Engineering'),
 	(8, 'Mathematics'),
 	(9, 'Economics'),
 	(10, 'Psychology'),
-	(11, 'General Engineering')
+	(11, 'General Engineering');
 
 INSERT INTO Advisor
 VALUES (DEFAULT, 'Ellen', 'Kirk', '44 Engineering Building'),
@@ -323,7 +323,7 @@ VALUES (DEFAULT, 'TA', 35, 21),
        (DEFAULT, 'marker', 90, 43),
        (DEFAULT, 'marker', 80, 10),
        (DEFAULT, 'TA', 30, 44),
-       (DEFAULT, 'marker', 90, 45),
+       (DEFAULT, 'marker', 90, 45);
 
 INSERT INTO Course
 VALUES (DEFAULT, 'Databases', 'COMP353', 3, '3.0'),
