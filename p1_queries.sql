@@ -9,11 +9,9 @@ where id in(
     from SectionEnrollment
     where (grade = 'a+' or grade = 'a')
     and section_id in(
-        select id
-        from Section
+        select id from Section
         where course_id in(
-            select id
-            from Course
+            select id from Course
             where code = 'comp353'
         )
     )
@@ -21,8 +19,8 @@ where id in(
 -- i like this alternative better because it shows grade and course code
 select student_id, first_name, last_name, grade, code
 from SectionEnrollment
-left join Course on Course.id = section_id
-left join Student on SectionEnrollment.student_id = Student.id
+inner join Course on Course.id = section_id
+inner join Student on SectionEnrollment.student_id = Student.id
 where (grade = 'a+' or grade = 'a') and Course.code = 'comp353';
 
 /*	II
@@ -33,9 +31,9 @@ where (grade = 'a+' or grade = 'a') and Course.code = 'comp353';
 select Student.id, concat(first_name, ' ', last_name) as name,
        count(*) as num_programs, Department.name as dep_name
 from Student
-left join Studies on Student.id = student_id
-left join Program on program_id = Program.id
-left join Department on Program.department_id = Department.id
+inner join Studies on Student.id = student_id
+inner join Program on program_id = Program.id
+inner join Department on Program.department_id = Department.id
 where Department.name = 'Computer Science'
 group by Student.id
 having count(*) > 1;
@@ -47,25 +45,25 @@ having count(*) > 1;
 select concat(first_name, ' ', last_name) as name,
        start_time, term
 from Instructor
-left join Section on Instructor.id = Section.instructor_id
-left join Course on course_id = Course.id
+inner join Section on Instructor.id = Section.instructor_id
+inner join Course on course_id = Course.id
 where Course.code = 'comp352'
 group by name
 having term = 'fall' and
       start_time between '2019/00/00' and '2020/00/00' and
       not(start_time < '2019/00/00');		-- irreconcilable dates and terms
-	  
+
 /*	IV
 	Find the name of all the programs offered by the Computer Science
 	department along with the number of credits required for completion in
 	each program.
-*/	  
+*/
 select Program.name as prog_name, credits
 from Program
 inner join Department on department_id = Department.id
 where Department.name = 'Computer Science';
 
-/*	V 
+/*	V
 	Find the name and IDs of all the undergraduate students who do not have
 	an advisor.
 */
@@ -81,14 +79,14 @@ where supervisor IS NULL;			-- supervision is taken for advisor here
 	of 2019.
 */
 select TAPosition.id as TA_ID, assignee_id,
-       concat(Instructor.first_name, ' ', +Instructor.last_name) as Instructor_name,
+       concat(Instructor.first_name, ' ', +Instructor.last_name) as Professor,
        concat(Student.first_name, ' ', Student.last_name) as TA_name,
        term, start_time
 from Student
-left join GradStudents on Student.id = GradStudents.id
-left join Instructor on GradStudents.supervisor = Instructor.id
-left join TAPosition on Student.id = assignee_id
-left join Section on ta_id = Student.id
+inner join GradStudents on Student.id = GradStudents.id
+inner join Instructor on GradStudents.supervisor = Instructor.id
+inner join TAPosition on Student.id = assignee_id
+inner join Section on ta_id = Student.id
 where term = 'summer' and
       start_time between '2019/00/00' and '2020/00/00' and
       Section.course_id in(
@@ -97,8 +95,8 @@ where term = 'summer' and
           where code = 'comp353'
           )
 group by Student.id;
-	
-/*	VII 
+
+/*	VII
 	Find the name of all the supervisors in the Computer Science department
 	who have supervised at least 20 students,
 */
@@ -106,7 +104,7 @@ select concat(first_name, ' ', last_name) as TA, count(*) as count
 from GradStudents
 inner join Instructor on supervisor = Instructor.id
 group by Instructor.first_name
-having count > 20;
+having count >= 20;
 
 /*	VIII
 	Find the details of all the courses offered by the Computer Science
@@ -115,11 +113,12 @@ having count > 20;
 	max class capacity and number of enrolled students.
 */
 select capacity, Course.name as course_name, Section.name as section,
-       Class.room_number, start_time, end_time, first_name, last_name
+       Class.room_number, start_time, end_time,
+       concat(first_name, ' ', last_name) as Professor
 from Section
-left join Course on Course.id = course_id
-left join Instructor on Instructor.id = instructor_id
-left join Class on Class.room_number = Section.room_number
+inner join Course on Course.id = course_id
+inner join Instructor on Instructor.id = instructor_id
+inner join Class on Class.room_number = Section.room_number
 where term = 'summer' and
       start_time between '2019/00/00' and '2020/00/00' and
       Course.department_id in(
@@ -127,16 +126,16 @@ where term = 'summer' and
           from Department
           where Department.name = 'Computer Science'
           );
-		  
-/*	IX 
+
+/*	IX
 	For each department, find the total number of courses offered by the department.
 */
 select Department.name, count(Course.department_id) as num_courses
 from Department, Course
 where Course.department_id = Department.id
 group by Department.name;
-	
-/*	X 
+
+/*	X
 	For each program, find the total number of students enrolled into the program.
 */
 select Program.name, count(program_id) as number_of_students
