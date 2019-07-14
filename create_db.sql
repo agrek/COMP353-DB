@@ -1,6 +1,6 @@
 # https://dev.mysql.com/doc/refman/8.0/en/drop-table.html
 # https://tableplus.io/blog/2018/08/mysql-how-to-drop-all-tables.html
-# CREATE DATABASE arc353_1;
+CREATE DATABASE IF NOT EXISTS arc353_1;
 USE arc353_1;
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS arc353_1.Student;
@@ -60,11 +60,11 @@ CREATE TABLE GradStudents
 (
     id         INT(8),
     type       ENUM ('thesis', 'course') NOT NULL,
-    supervisor INT(8)                    NULL,
+    supervisor_id INT(8)                    NULL,
     CONSTRAINT GradStudents_pk
         PRIMARY KEY (id),
     CONSTRAINT GradStudents_Instructor_id_fk
-        FOREIGN KEY (supervisor) REFERENCES Instructor (id),
+        FOREIGN KEY (supervisor_id) REFERENCES Instructor (id),
     CONSTRAINT Undergrad_Student_id_fk
         FOREIGN KEY (id) REFERENCES Student (id)
 );
@@ -159,8 +159,8 @@ CREATE TABLE Section
     course_id     INT(8)       NOT NULL,
     type          VARCHAR(255) NOT NULL,
     day           VARCHAR(255) NOT NULL,
-    start_time    TIMESTAMP    NOT NULL,
-    end_time      TIMESTAMP    NOT NULL,
+    start_time    DATETIME     NOT NULL,
+    end_time      DATETIME     NOT NULL,
     term          VARCHAR(255) NOT NULL,
     ta_id         INT(8)       NULL,
     instructor_id INT(8)       NULL,
