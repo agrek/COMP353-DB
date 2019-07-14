@@ -60,11 +60,11 @@ CREATE TABLE GradStudents
 (
     id         INT(8),
     type       ENUM ('thesis', 'course') NOT NULL,
-    supervisor INT(8)                    NULL,
+    supervisor_id INT(8)                    NULL,
     CONSTRAINT GradStudents_pk
         PRIMARY KEY (id),
     CONSTRAINT GradStudents_Instructor_id_fk
-        FOREIGN KEY (supervisor) REFERENCES Instructor (id),
+        FOREIGN KEY (supervisor_id) REFERENCES Instructor (id),
     CONSTRAINT Undergrad_Student_id_fk
         FOREIGN KEY (id) REFERENCES Student (id)
 );
