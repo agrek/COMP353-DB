@@ -415,7 +415,7 @@ VALUES (DEFAULT, 'AAA', 1, 'lecture', 'M, W', '2019-06-01 14:45:00', '2019-06-01
        (DEFAULT, 'AAA', 14, 'lecture', 'M, W', '2019-06-01 14:00:00', '2019-06-01 16:30:00', 'summer', 10, 6, 'H420'),
        (DEFAULT, 'AAA', 15, 'lecture', 'W, F', '2019-06-01 12:45:00', '2019-06-01 14:00:00', 'winter', 45, 9, 'H520'),
        (DEFAULT, 'AAT', 15, 'tutorial', 'W', '2019-06-01 10:00:00', '2019-06-01 10:50:00', 'winter', 44, 9, 'H505'),
-       (DEFAULT, 'AAL', 16, 'lab', 'Th', '2019-06-01 14:30', '2019-06-01 17:30:00', 'winter', 44, 9, 'H907');
+       (DEFAULT, 'AAL', 16, 'lab', 'Th', '2019-06-01 14:30', '2019-06-01 17:30:00', 'winter', NULL, 9, 'H907');
 
 INSERT INTO SectionEnrollment
 VALUES (45, 2, 'A-'),
