@@ -20,15 +20,16 @@ DROP TABLE IF EXISTS arc353_1.ResearchFunds;
 DROP TABLE IF EXISTS arc353_1.ResearchFundingApplications;
 DROP TABLE IF EXISTS arc353_1.SectionEnrollment;
 DROP TABLE IF EXISTS arc353_1.Requisites;
+DROP TABLE IF EXISTS arc353_1.ProgramRequirements;
 SET FOREIGN_KEY_CHECKS = 1;
 
 
 CREATE TABLE Student
 (
     id         INT(8) AUTO_INCREMENT,
-    first_name VARCHAR(255)  NOT NULL,
-    last_name  VARCHAR(255)  NOT NULL,
-    address    VARCHAR(255),
+    first_name VARCHAR(45)   NOT NULL,
+    last_name  VARCHAR(45)   NOT NULL,
+    address    VARCHAR(45),
     gpa        DECIMAL(3, 2) NULL,
     CONSTRAINT Student_pk
         PRIMARY KEY (id)
@@ -37,7 +38,7 @@ CREATE TABLE Student
 CREATE TABLE Department
 (
     id   INT(8) AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(45) NOT NULL,
     CONSTRAINT Department_pk
         PRIMARY KEY (id),
     CONSTRAINT Department_uq
@@ -47,9 +48,9 @@ CREATE TABLE Department
 CREATE TABLE Instructor
 (
     id         INT(8) AUTO_INCREMENT,
-    first_name VARCHAR(255) NOT NULL,
-    last_name  VARCHAR(255) NULL,
-    dept_id    INT(8)       NOT NULL,
+    first_name VARCHAR(45) NOT NULL,
+    last_name  VARCHAR(45) NULL,
+    dept_id    INT(8)      NOT NULL,
     CONSTRAINT Instructor_pk
         PRIMARY KEY (id),
     CONSTRAINT Instructor_Department_id_fk
@@ -72,9 +73,9 @@ CREATE TABLE GradStudents
 CREATE TABLE TAPosition
 (
     id          INT(8) AUTO_INCREMENT,
-    name        VARCHAR(255) NOT NULL,
-    hours       INT(3)       NOT NULL,
-    assignee_id INT(8)       NULL,
+    name        VARCHAR(45) NOT NULL,
+    hours       INT(3)      NOT NULL,
+    assignee_id INT(8)      NULL,
     CONSTRAINT TA_pk
         PRIMARY KEY (id),
     CONSTRAINT TA_GradStudents_id_fk
@@ -92,9 +93,9 @@ CREATE TABLE LetterToGpa
 CREATE TABLE Advisor
 (
     id         INT(8) AUTO_INCREMENT,
-    first_name VARCHAR(255) NOT NULL,
-    last_name  VARCHAR(255) NOT NULL,
-    office     VARCHAR(255) NULL,
+    first_name VARCHAR(45) NOT NULL,
+    last_name  VARCHAR(45) NOT NULL,
+    office     VARCHAR(45) NULL,
     CONSTRAINT Advisor_pk
         PRIMARY KEY (id)
 );
@@ -102,11 +103,11 @@ CREATE TABLE Advisor
 CREATE TABLE Program
 (
     id            INT(8) AUTO_INCREMENT,
-    name          VARCHAR(255) NOT NULL,
-    type          VARCHAR(255) NOT NULL,
-    credits       SMALLINT     NOT NULL,
-    department_id INT(8)       NOT NULL,
-    advisor_id    INT(8)       NULL,
+    name          VARCHAR(45) NOT NULL,
+    type          VARCHAR(45) NOT NULL,
+    credits       SMALLINT    NOT NULL,
+    department_id INT(8)      NOT NULL,
+    advisor_id    INT(8)      NULL,
     CONSTRAINT Program_pk
         PRIMARY KEY (id),
     CONSTRAINT Program_uq
@@ -132,8 +133,8 @@ CREATE TABLE Studies
 CREATE TABLE Course
 (
     id            INT(8) AUTO_INCREMENT,
-    name          VARCHAR(255)  NOT NULL,
-    code          VARCHAR(255)  NOT NULL,
+    name          VARCHAR(45)   NOT NULL,
+    code          VARCHAR(45)   NOT NULL,
     department_id INT(8)        NOT NULL,
     credits       DECIMAL(3, 2) NOT NULL,
     CONSTRAINT Course_pk
@@ -146,8 +147,8 @@ CREATE TABLE Course
 
 CREATE TABLE Class
 (
-    room_number VARCHAR(255) NOT NULL,
-    capacity    INT          NULL,
+    room_number VARCHAR(45) NOT NULL,
+    capacity    INT         NULL,
     CONSTRAINT Class_pk
         PRIMARY KEY (room_number)
 );
@@ -155,16 +156,16 @@ CREATE TABLE Class
 CREATE TABLE Section
 (
     id            INT(8) AUTO_INCREMENT,
-    name          VARCHAR(255) NOT NULL,
-    course_id     INT(8)       NOT NULL,
-    type          VARCHAR(255) NOT NULL,
-    day           VARCHAR(255) NOT NULL,
-    start_time    DATETIME     NOT NULL,
-    end_time      DATETIME     NOT NULL,
-    term          VARCHAR(255) NOT NULL,
-    ta_id         INT(8)       NULL,
-    instructor_id INT(8)       NULL,
-    room_number   VARCHAR(255) NULL,
+    name          VARCHAR(45) NOT NULL,
+    course_id     INT(8)      NOT NULL,
+    type          VARCHAR(45) NOT NULL,
+    day           VARCHAR(45) NOT NULL,
+    start_time    DATETIME    NOT NULL,
+    end_time      DATETIME    NOT NULL,
+    term          VARCHAR(45) NOT NULL,
+    ta_id         INT(8)      NULL,
+    instructor_id INT(8)      NULL,
+    room_number   VARCHAR(45) NULL,
     CONSTRAINT Section_pk
         PRIMARY KEY (id),
     CONSTRAINT Section_uq
@@ -182,8 +183,8 @@ CREATE TABLE Section
 CREATE TABLE ResearchFunds
 (
     id     INT(8) AUTO_INCREMENT,
-    name   VARCHAR(255) NOT NULL,
-    amount INT          NULL,
+    name   VARCHAR(45) NOT NULL,
+    amount INT         NULL,
     CONSTRAINT ResearchFunds_pk
         PRIMARY KEY (id),
     CONSTRAINT ResearchFunds_uq
@@ -230,4 +231,16 @@ CREATE TABLE Requisites
         FOREIGN KEY (course_id) REFERENCES Course (id),
     CONSTRAINT Requisites_Course_id_fk_2
         FOREIGN KEY (req_id) REFERENCES Course (id)
+);
+
+CREATE TABLE ProgramRequirements
+(
+    program_id INT(8) NOT NULL,
+    course_id  INT(8) NOT NULL,
+    CONSTRAINT ProgramRequirements_pk
+        PRIMARY KEY (program_id, course_id),
+    CONSTRAINT ProgramRequirements_Course_id_fk
+        FOREIGN KEY (course_id) REFERENCES Course (id),
+    CONSTRAINT ProgramRequirements_Program_id_fk
+        FOREIGN KEY (program_id) REFERENCES Program (id)
 );
