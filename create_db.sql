@@ -132,15 +132,14 @@ CREATE TABLE Studies
 
 CREATE TABLE Course
 (
-    id            INT(8) AUTO_INCREMENT,
+    code          VARCHAR(16)   NOT NULL,
     name          VARCHAR(45)   NOT NULL,
-    code          VARCHAR(45)   NOT NULL,
     department_id INT(8)        NOT NULL,
     credits       DECIMAL(3, 2) NOT NULL,
     CONSTRAINT Course_pk
-        PRIMARY KEY (id),
+        PRIMARY KEY (code),
     CONSTRAINT Course_uq
-        UNIQUE (id, name, code),
+        UNIQUE (name),
     CONSTRAINT Course_Department_id_fk
         FOREIGN KEY (department_id) REFERENCES Department (id)
 );
@@ -157,7 +156,7 @@ CREATE TABLE Section
 (
     id            INT(8) AUTO_INCREMENT,
     name          VARCHAR(45) NOT NULL,
-    course_id     INT(8)      NOT NULL,
+    course_code   VARCHAR(16) NOT NULL,
     type          VARCHAR(45) NOT NULL,
     day           VARCHAR(45) NOT NULL,
     start_time    TIME        NOT NULL,
@@ -169,11 +168,11 @@ CREATE TABLE Section
     CONSTRAINT Section_pk
         PRIMARY KEY (id),
     CONSTRAINT Section_uq
-        UNIQUE (course_id, name),
+        UNIQUE (course_code, name),
     CONSTRAINT Section_Class_room_number_fk
         FOREIGN KEY (room_number) REFERENCES Class (room_number),
     CONSTRAINT Section_Course_id_fk
-        FOREIGN KEY (course_id) REFERENCES Course (id),
+        FOREIGN KEY (course_code) REFERENCES Course (code),
     CONSTRAINT Section_Instructor_id_fk
         FOREIGN KEY (instructor_id) REFERENCES Instructor (id),
     CONSTRAINT Section_TA_assignee_fk
@@ -222,25 +221,25 @@ CREATE TABLE SectionEnrollment
 
 CREATE TABLE Requisites
 (
-    course_id INT(8)                               NOT NULL,
-    req_id    INT(8)                               NOT NULL,
-    type      ENUM ('prerequisite', 'corequisite') NOT NULL,
+    course_code VARCHAR(16)                          NOT NULL,
+    req_code    VARCHAR(16)                          NOT NULL,
+    type        ENUM ('prerequisite', 'corequisite') NOT NULL,
     CONSTRAINT Requisites_pk
-        PRIMARY KEY (course_id, req_id),
+        PRIMARY KEY (course_code, req_code),
     CONSTRAINT Requisites_Course_id_fk
-        FOREIGN KEY (course_id) REFERENCES Course (id),
+        FOREIGN KEY (course_code) REFERENCES Course (code),
     CONSTRAINT Requisites_Course_id_fk_2
-        FOREIGN KEY (req_id) REFERENCES Course (id)
+        FOREIGN KEY (req_code) REFERENCES Course (code)
 );
 
 CREATE TABLE ProgramRequirements
 (
-    program_id INT(8) NOT NULL,
-    course_id  INT(8) NOT NULL,
+    program_id  INT(8)      NOT NULL,
+    course_code VARCHAR(16) NOT NULL,
     CONSTRAINT ProgramRequirements_pk
-        PRIMARY KEY (program_id, course_id),
+        PRIMARY KEY (program_id, course_code),
     CONSTRAINT ProgramRequirements_Course_id_fk
-        FOREIGN KEY (course_id) REFERENCES Course (id),
+        FOREIGN KEY (course_code) REFERENCES Course (code),
     CONSTRAINT ProgramRequirements_Program_id_fk
         FOREIGN KEY (program_id) REFERENCES Program (id)
 );
