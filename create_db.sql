@@ -73,7 +73,7 @@ CREATE TABLE GradStudents
 CREATE TABLE TAPosition
 (
     id          INT(8) AUTO_INCREMENT,
-    name        VARCHAR(45) NOT NULL,
+    position    VARCHAR(45) NOT NULL,
     hours       INT(3)      NOT NULL,
     assignee_id INT(8)      NULL,
     CONSTRAINT TA_pk
@@ -162,6 +162,7 @@ CREATE TABLE Section
     start_time    TIME        NOT NULL,
     end_time      TIME        NOT NULL,
     term          VARCHAR(45) NOT NULL,
+    year          INT(4)      NOT NULL,
     ta_id         INT(8)      NULL,
     instructor_id INT(8)      NULL,
     room_number   VARCHAR(45) NULL,
