@@ -246,6 +246,7 @@ CREATE TABLE ProgramRequirements
 );
 
 
+
 DROP TRIGGER IF EXISTS preReqTrig;
 
 DELIMITER //
