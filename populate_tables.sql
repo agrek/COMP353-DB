@@ -592,4 +592,4 @@ VALUES ('COMP353', 'COMP352', 'prerequisite'),
        ('COEN345', 'SOEN341', 'prerequisite'),
        ('COEN345', 'ELEC331', 'prerequisite'),
        ('ECON221', 'ECON222', 'prerequisite'),
-	('PHYS393', 'PHYS334', 'corequisite');
+       ('PHYS393', 'PHYS334', 'corequisite');
