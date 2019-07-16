@@ -307,38 +307,47 @@ END;
 //
 DELIMITER ;
 
-drop trigger if exists gpaTrigger;
-delimiter //
+DROP TRIGGER IF EXISTS gpaTrigger;
+DELIMITER //
 CREATE TRIGGER gpaTrigger
 
     AFTER INSERT
 
-    ON  SectionEnrollment
+    ON SectionEnrollment
 
     FOR EACH ROW
 
 BEGIN
 
-DROP TEMPORARY  TABLE  if exists tempResult;
+    DROP TEMPORARY TABLE IF EXISTS tempResult;
 
-DROP TEMPORARY  TABLE  if exists allGrades;
+    DROP TEMPORARY TABLE IF EXISTS allGrades;
 
-CREATE TEMPORARY  TABLE  allGrades AS ( SELECT  grade, credits ,gpa ,credits*gpa mult FROM Course, Section, SectionEnrollment
+    CREATE TEMPORARY TABLE allGrades AS (SELECT grade, credits, gpa, credits * gpa mult
+                                         FROM Course,
+                                              Section,
+                                              SectionEnrollment
 
-                                        INNER JOIN LetterToGpa ON grade = letter
+                                                  INNER JOIN LetterToGpa ON grade = letter
 
-                                        WHERE section_id =Section.id AND course_code = Course.code AND type =  'lecture' AND student_id = NEW.student_id);
+                                         WHERE section_id = Section.id
+                                           AND course_code = Course.code
+                                           AND type = 'lecture'
+                                           AND student_id = NEW.student_id);
 
-SELECT SUM(credits) into @sumCredits from allGrades;
+    SELECT SUM(credits) INTO @sumCredits FROM allGrades;
 
-SELECT SUM(mult) into @sumMult from allGrades;
+    SELECT SUM(mult) INTO @sumMult FROM allGrades;
 
-CREATE TEMPORARY TABLE tempResult (resultGPA float(8)) ;
+    CREATE TEMPORARY TABLE tempResult
+    (
+        resultGPA FLOAT(8)
+    );
 
-insert into tempResult VALUES  (@sumMult/@sumCredits);
+    INSERT INTO tempResult VALUES (@sumMult / @sumCredits);
 
-UPDATE  Student SET gpa=(@sumMult/@sumCredits) WHERE id = NEW.student_id;
+    UPDATE Student SET gpa=(@sumMult / @sumCredits) WHERE id = NEW.student_id;
 
-end ;//
-
-delimiter ;
+END;
+//
+DELIMITER ;
