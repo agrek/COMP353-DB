@@ -306,3 +306,39 @@ BEGIN
 END;
 //
 DELIMITER ;
+
+drop trigger if exists gpaTrigger;
+delimiter //
+CREATE TRIGGER gpaTrigger
+
+    AFTER INSERT
+
+    ON  SectionEnrollment
+
+    FOR EACH ROW
+
+BEGIN
+
+DROP TEMPORARY  TABLE  if exists tempResult;
+
+DROP TEMPORARY  TABLE  if exists allGrades;
+
+CREATE TEMPORARY  TABLE  allGrades AS ( SELECT  grade, credits ,gpa ,credits*gpa mult FROM Course, Section, SectionEnrollment
+
+                                        INNER JOIN LetterToGpa ON grade = letter
+
+                                        WHERE section_id =Section.id AND course_code = Course.code AND type =  'lecture' AND student_id = NEW.student_id);
+
+SELECT SUM(credits) into @sumCredits from allGrades;
+
+SELECT SUM(mult) into @sumMult from allGrades;
+
+CREATE TEMPORARY TABLE tempResult (resultGPA float(8)) ;
+
+insert into tempResult VALUES  (@sumMult/@sumCredits);
+
+UPDATE  Student SET gpa=(@sumMult/@sumCredits) WHERE id = NEW.student_id;
+
+end ;//
+
+delimiter ;
