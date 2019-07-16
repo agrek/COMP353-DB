@@ -244,3 +244,65 @@ CREATE TABLE ProgramRequirements
     CONSTRAINT ProgramRequirements_Program_id_fk
         FOREIGN KEY (program_id) REFERENCES Program (id)
 );
+
+
+
+DROP TRIGGER IF EXISTS preReqTrig;
+
+DELIMITER //
+CREATE TRIGGER preReqTrig
+    BEFORE INSERT
+    ON SectionEnrollment
+    FOR EACH ROW
+BEGIN
+
+    DROP TEMPORARY TABLE IF EXISTS Course_Code;
+    DROP TEMPORARY TABLE IF EXISTS req_table;
+    DROP TEMPORARY TABLE IF EXISTS req_secs;
+    DROP TEMPORARY TABLE IF EXISTS req_secs2;
+    DROP TEMPORARY TABLE IF EXISTS fail_grade;
+
+    CREATE TEMPORARY TABLE Course_Code AS (SELECT course_code FROM Section WHERE id = NEW.section_id);
+    CREATE TEMPORARY TABLE req_table AS (SELECT req_code
+                                         FROM Requisites
+                                                  INNER JOIN Course_Code ON Requisites.course_code = Course_Code.course_code
+                                         WHERE type = 'prerequisite');
+    -- req_secs has all sections given for the prereqs classes
+    CREATE TEMPORARY TABLE req_secs AS (SELECT id, Section.course_code
+                                        FROM Section
+                                                 INNER JOIN req_table ON Section.course_code = req_table.req_code);
+    CREATE TEMPORARY TABLE req_secs2 AS (SELECT * FROM req_secs);
+
+    CREATE TEMPORARY TABLE fail_grade AS (
+        SELECT Section.course_code, grade
+        FROM Section,
+             SectionEnrollment,
+             req_table,
+             req_secs
+        WHERE Section.id = SectionEnrollment.section_id
+          AND req_table.req_code = Section.course_code
+          AND SectionEnrollment.student_id = NEW.student_id
+          AND req_secs.course_code = req_table.req_code
+          AND (grade = 'F' OR grade = 'FNS' OR grade = 'R' OR grade = 'NR')
+    );
+
+    SELECT count(*) INTO @numFail FROM fail_grade;
+    SELECT count(*) INTO @num_Pre FROM req_table;
+
+    SELECT count(*)
+    INTO @notTaken
+    FROM (SELECT Section.course_code, grade
+          FROM Section,
+               SectionEnrollment,
+               req_table
+          WHERE Section.id = SectionEnrollment.section_id
+            AND req_table.req_code = Section.course_code
+            AND SectionEnrollment.student_id = NEW.student_id) t;
+    IF (@numFail > 0 OR ((@notTaken = 0) AND (@num_Pre > 0))) THEN
+        /*DELETE FROM SectionEnrollment WHERE student_id=NEW.student_id;*/
+        SIGNAL SQLSTATE '45000';
+    END IF;
+
+END;
+//
+DELIMITER ;
