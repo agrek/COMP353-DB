@@ -11,7 +11,7 @@ WHERE id IN (
       AND section_id IN (
         SELECT id
         FROM Section
-        WHERE course_id IN (
+        WHERE course_code IN (
             SELECT id
             FROM Course
             WHERE code = 'comp353'
@@ -23,7 +23,7 @@ SELECT DISTINCT student_id, first_name, last_name, grade, code
 FROM Student
          INNER JOIN SectionEnrollment ON SectionEnrollment.student_id = Student.id
          INNER JOIN Section ON SectionEnrollment.section_id = Section.id
-         INNER JOIN Course ON Course.id = Section.course_id
+         INNER JOIN Course ON Course.code = Section.course_code
 WHERE (grade = 'a+' OR grade = 'a')
   AND Course.code = 'comp353';
 
@@ -53,7 +53,7 @@ SELECT concat(first_name, ' ', last_name) AS name,
        term
 FROM Instructor
          INNER JOIN Section ON Instructor.id = Section.instructor_id
-         INNER JOIN Course ON course_id = Course.id
+         INNER JOIN Course ON course_code = Course.code
 WHERE Course.code = 'comp352'
   AND term = 'fall'
   AND type = 'lecture'
@@ -99,13 +99,13 @@ SELECT TAPosition.id                                             AS TA_ID,
        start_time
 FROM Student
          INNER JOIN GradStudents ON Student.id = GradStudents.id
-         INNER JOIN Instructor ON GradStudents.supervisor = Instructor.id
+         INNER JOIN Instructor ON GradStudents.supervisor_id = Instructor.id
          INNER JOIN TAPosition ON Student.id = assignee_id
          INNER JOIN Section ON ta_id = Student.id
 WHERE term = 'summer'
   AND start_time BETWEEN '2019/00/00' AND '2020/00/00'
-  AND Section.course_id IN (
-    SELECT id
+  AND Section.course_code IN (
+    SELECT Code
     FROM Course
     WHERE code = 'comp353'
 )
@@ -117,7 +117,7 @@ GROUP BY Student.id;
 */
 SELECT concat(first_name, ' ', last_name) AS TA, count(*) AS count
 FROM GradStudents
-         INNER JOIN Instructor ON supervisor = Instructor.id
+         INNER JOIN Instructor ON supervisor_id = Instructor.id
 GROUP BY Instructor.first_name
 HAVING count >= 20;
 
@@ -139,7 +139,7 @@ SELECT Course.code,
 FROM Section
          INNER JOIN Instructor ON Section.instructor_id = Instructor.id
          INNER JOIN SectionEnrollment ON Section.id = SectionEnrollment.section_id
-         INNER JOIN Course ON Section.course_id = Course.id
+         INNER JOIN Course ON Section.course_code = Course.code
          INNER JOIN Class ON Section.room_number = Class.room_number
 WHERE term = 'summer'
   AND start_time BETWEEN '2019/00/00' AND '2020/00/00'
