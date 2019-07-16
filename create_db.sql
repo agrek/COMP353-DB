@@ -172,7 +172,7 @@ CREATE TABLE Section
         UNIQUE (course_code, name),
     CONSTRAINT Section_Class_room_number_fk
         FOREIGN KEY (room_number) REFERENCES Class (room_number),
-    CONSTRAINT Section_Course_id_fk
+    CONSTRAINT Section_Course_code_fk
         FOREIGN KEY (course_code) REFERENCES Course (code),
     CONSTRAINT Section_Instructor_id_fk
         FOREIGN KEY (instructor_id) REFERENCES Instructor (id),
@@ -227,9 +227,9 @@ CREATE TABLE Requisites
     type        ENUM ('prerequisite', 'corequisite') NOT NULL,
     CONSTRAINT Requisites_pk
         PRIMARY KEY (course_code, req_code),
-    CONSTRAINT Requisites_Course_id_fk
+    CONSTRAINT Requisites_Course_code_fk
         FOREIGN KEY (course_code) REFERENCES Course (code),
-    CONSTRAINT Requisites_Course_id_fk_2
+    CONSTRAINT Requisites_Course_code_fk_2
         FOREIGN KEY (req_code) REFERENCES Course (code)
 );
 
@@ -239,12 +239,11 @@ CREATE TABLE ProgramRequirements
     course_code VARCHAR(16) NOT NULL,
     CONSTRAINT ProgramRequirements_pk
         PRIMARY KEY (program_id, course_code),
-    CONSTRAINT ProgramRequirements_Course_id_fk
+    CONSTRAINT ProgramRequirements_Course_code_fk
         FOREIGN KEY (course_code) REFERENCES Course (code),
     CONSTRAINT ProgramRequirements_Program_id_fk
         FOREIGN KEY (program_id) REFERENCES Program (id)
 );
-
 
 
 DROP TRIGGER IF EXISTS preReqTrig;

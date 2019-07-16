@@ -105,7 +105,7 @@ FROM Student
 WHERE term = 'summer'
   AND start_time BETWEEN '2019/00/00' AND '2020/00/00'
   AND Section.course_code IN (
-    SELECT Code
+    SELECT code
     FROM Course
     WHERE code = 'comp353'
 )
