@@ -344,24 +344,27 @@ BEGIN
 END;
 //
 DELIMITER ;
-                                              
-drop trigger if exists taHoursTrig;
 
-delimiter //
+DROP TRIGGER IF EXISTS taHoursTrig;
+
+DELIMITER //
 CREATE TRIGGER taHoursTrig
     BEFORE INSERT
     ON Section
     FOR EACH ROW
 BEGIN
 
-    SELECT SUM(hours)  INTO @totalHours FROM (SELECT DISTINCT (TAPosition.id), hours FROM TAPosition
-                            INNER JOIN Section ON assignee_id=ta_id
-                            WHERE ta_id=NEW.ta_id AND year=NEW.year)t;
+    SELECT SUM(hours)
+    INTO @totalHours
+    FROM (SELECT DISTINCT (TAPosition.id), hours
+          FROM TAPosition
+                   INNER JOIN Section ON assignee_id = ta_id
+          WHERE ta_id = NEW.ta_id
+            AND year = NEW.year) t;
 
     IF (@totalHours > 260) THEN
         SIGNAL SQLSTATE '55000';
     END IF;
 
-end //
-delimiter ;
-
+END //
+DELIMITER ;
