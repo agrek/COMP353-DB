@@ -312,15 +312,12 @@ DELIMITER //
 CREATE TRIGGER gpaTrigger
 
     AFTER INSERT
-
     ON SectionEnrollment
-
     FOR EACH ROW
 
 BEGIN
 
     DROP TEMPORARY TABLE IF EXISTS tempResult;
-
     DROP TEMPORARY TABLE IF EXISTS allGrades;
 
     CREATE TEMPORARY TABLE allGrades AS (SELECT grade, credits, gpa, credits * gpa mult
@@ -336,18 +333,35 @@ BEGIN
                                            AND student_id = NEW.student_id);
 
     SELECT SUM(credits) INTO @sumCredits FROM allGrades;
-
     SELECT SUM(mult) INTO @sumMult FROM allGrades;
-
     CREATE TEMPORARY TABLE tempResult
     (
         resultGPA FLOAT(8)
     );
 
     INSERT INTO tempResult VALUES (@sumMult / @sumCredits);
-
     UPDATE Student SET gpa=(@sumMult / @sumCredits) WHERE id = NEW.student_id;
-
 END;
 //
 DELIMITER ;
+                                              
+drop trigger if exists taHoursTrig;
+
+delimiter //
+CREATE TRIGGER taHoursTrig
+    BEFORE INSERT
+    ON Section
+    FOR EACH ROW
+BEGIN
+
+    SELECT SUM(hours)  INTO @totalHours FROM (SELECT DISTINCT (TAPosition.id), hours FROM TAPosition
+                            INNER JOIN Section ON assignee_id=ta_id
+                            WHERE ta_id=NEW.ta_id AND year=NEW.year)t;
+
+    IF (@totalHours > 260) THEN
+        SIGNAL SQLSTATE '55000';
+    END IF;
+
+end //
+delimiter ;
+
