@@ -316,6 +316,8 @@ CREATE TRIGGER gpaTrigger
     FOR EACH ROW
 
 BEGIN
+    
+    /******************* Update GPA *******************/
 
     DROP TEMPORARY TABLE IF EXISTS tempResult;
     DROP TEMPORARY TABLE IF EXISTS allGrades;
@@ -364,6 +366,13 @@ BEGIN
 
     IF (@totalHours > 260) THEN
         SIGNAL SQLSTATE '55000';
+    END IF;
+	
+    /******************* TA GPA Check *******************/
+
+	SELECT gpa INTO @applicantGpa FROM Student WHERE id = NEW.ta_id;
+    IF @applicantGpa < 3.2 THEN
+        SIGNAL SQLSTATE '75000';
     END IF;
 
     /******************* Instructor Time Conflict Check *******************/
@@ -526,4 +535,45 @@ BEGIN
 
     END IF;
 END //
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS researchTrigger;
+DELIMITER //
+CREATE TRIGGER researchTrigger
+
+    BEFORE INSERT
+    ON ResearchFundingApplications
+    FOR EACH ROW
+
+BEGIN
+
+    SELECT gpa INTO @applicantGpa FROM Student WHERE id = NEW.student_id;
+    SELECT type INTO @stuType FROM Student INNER JOIN GradStudents GS on Student.id = GS.id
+    WHERE Student.id = NEW.student_id;
+
+    IF @applicantGpa < 3 AND @stuType = 'thesis' THEN
+        SIGNAL SQLSTATE '70000';
+    END IF;
+
+END;
+//
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS taPositionTrigger;
+DELIMITER //
+CREATE TRIGGER taPositionTrigger
+
+    BEFORE INSERT
+    ON TAPosition
+    FOR EACH ROW
+
+BEGIN
+
+    SELECT gpa INTO @applicantGpa FROM Student WHERE id = NEW.assignee_id;
+    IF @applicantGpa < 3.2 THEN
+        SIGNAL SQLSTATE '75000';
+    END IF;
+
+END;
+//
 DELIMITER ;
