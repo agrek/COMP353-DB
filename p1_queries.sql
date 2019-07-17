@@ -2,6 +2,7 @@
 	Find ID, first name and last name of all the students who have taken
 	Database course and received an A or A+ grade for the course.
 */
+-- this is one way
 SELECT first_name, last_name, id
 FROM Student
 WHERE id IN (
@@ -11,15 +12,11 @@ WHERE id IN (
       AND section_id IN (
         SELECT id
         FROM Section
-        WHERE course_code IN (
-            SELECT id
-            FROM Course
-            WHERE code = 'comp353'
-        )
+        WHERE course_code = 'comp353'
     )
 );
--- i like this alternative better because it shows grade and course code
-SELECT DISTINCT student_id, first_name, last_name, grade, code
+-- i like this alternative better because it shows grade
+SELECT DISTINCT student_id, concat(first_name, ' ', last_name) AS name, grade
 FROM Student
          INNER JOIN SectionEnrollment ON SectionEnrollment.student_id = Student.id
          INNER JOIN Section ON SectionEnrollment.section_id = Section.id
@@ -48,18 +45,21 @@ HAVING count(*) > 1;
 	Find the name of all the instructors who taught Comp 352 in the fall term
 	of 2018 but have never taught the same course before.
 */
-SELECT concat(first_name, ' ', last_name) AS name,
-       start_time,
-       term
+SELECT concat(first_name, ' ', last_name)                                  AS name,
+       group_concat(Section.term, year ORDER BY term_order SEPARATOR ', ') AS allTerms
 FROM Instructor
          INNER JOIN Section ON Instructor.id = Section.instructor_id
          INNER JOIN Course ON course_code = Course.code
+         INNER JOIN TermToNumber ON Section.term = TermToNumber.term
 WHERE Course.code = 'comp352'
-  AND term = 'fall'
   AND type = 'lecture'
-  AND start_time BETWEEN '2019/00/00' AND '2020/00/00'
-  AND NOT (start_time < '2019/00/00');
--- irreconcilable dates and terms
+GROUP BY Instructor.id
+HAVING min(year) = 2018
+   AND min(term_order) = (
+    SELECT term_order
+    FROM TermToNumber
+    WHERE term = 'fall'
+);
 
 /*	IV
 	Find the name of all the programs offered by the Computer Science
@@ -84,32 +84,25 @@ FROM Advisor
          RIGHT JOIN Program ON advisor_id = Advisor.id
          INNER JOIN Studies ON Program.id = Studies.program_id
          INNER JOIN Student ON Studies.student_id = Student.id
-WHERE advisor_id IS NULL;
+WHERE advisor_id IS NULL
+  AND Program.type = 'undergraduate';
 
 /*	VI
 	Find the ID, name and assignment mandate of all the graduate students
 	who are assigned as teaching assistants to Comp 353 for the summer term
 	of 2019.
 */
-SELECT TAPosition.id                                             AS TA_ID,
+SELECT TAPosition.id                                      AS TA_ID,
        assignee_id,
-       concat(Instructor.first_name, ' ', +Instructor.last_name) AS Professor,
-       concat(Student.first_name, ' ', Student.last_name)        AS TA_name,
-       term,
-       start_time
+       position,
+       concat(Student.first_name, ' ', Student.last_name) AS TA_name
 FROM Student
          INNER JOIN GradStudents ON Student.id = GradStudents.id
-         INNER JOIN Instructor ON GradStudents.supervisor_id = Instructor.id
          INNER JOIN TAPosition ON Student.id = assignee_id
-         INNER JOIN Section ON ta_id = Student.id
+         INNER JOIN Section ON ta_id = TAPosition.id
 WHERE term = 'summer'
-  AND start_time BETWEEN '2019/00/00' AND '2020/00/00'
-  AND Section.course_code IN (
-    SELECT code
-    FROM Course
-    WHERE code = 'comp353'
-)
-GROUP BY Student.id;
+  AND year = 2018
+  AND course_code = 'comp353';
 
 /*	VII
 	Find the name of all the supervisors in the Computer Science department
@@ -127,28 +120,32 @@ HAVING count >= 20;
 	section, room location, start and end time, professor teaching the course,
 	max class capacity and number of enrolled students.
 */
-SELECT Course.code,
+SELECT code,
        Course.name                                              AS course_name,
        Section.name                                             AS section,
-       credits,
        start_time,
        end_time,
-       capacity,
+       day,
+       type,
+       Class.room_number,
+       Section.term,
+       credits,
        concat(Instructor.first_name, ' ', Instructor.last_name) AS Professor,
-       count(DISTINCT student_id)                               AS num_students
+       count(DISTINCT student_id)                               AS num_students,
+       capacity
 FROM Section
          INNER JOIN Instructor ON Section.instructor_id = Instructor.id
          INNER JOIN SectionEnrollment ON Section.id = SectionEnrollment.section_id
          INNER JOIN Course ON Section.course_code = Course.code
          INNER JOIN Class ON Section.room_number = Class.room_number
 WHERE term = 'summer'
-  AND start_time BETWEEN '2019/00/00' AND '2020/00/00'
-  AND department_id IN (
+  AND year = 2018
+  AND department_id = (
     SELECT id
     FROM Department
     WHERE Department.name = 'Computer Science'
 )
-GROUP BY Course.code;
+GROUP BY Section.id;
 
 /*	IX
 	For each department, find the total number of courses offered by the department.
