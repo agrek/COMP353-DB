@@ -153,6 +153,14 @@ CREATE TABLE Class
         PRIMARY KEY (room_number)
 );
 
+CREATE TABLE TermToNumber
+(
+    term       VARCHAR(45) NOT NULL,
+    term_order INT(1)      NOT NULL,
+    CONSTRAINT TermToNumber_pk
+        PRIMARY KEY (term)
+);
+
 CREATE TABLE Section
 (
     id            INT(8) AUTO_INCREMENT,
@@ -178,7 +186,8 @@ CREATE TABLE Section
     CONSTRAINT Section_Instructor_id_fk
         FOREIGN KEY (instructor_id) REFERENCES Instructor (id),
     CONSTRAINT Section_TA_assignee_fk
-        FOREIGN KEY (ta_id) REFERENCES TAPosition (assignee_id)
+        FOREIGN KEY (ta_id) REFERENCES TAPosition (assignee_id),
+    CONSTRAINT term_name_fk FOREIGN KEY (term) REFERENCES TermToNumber (term)
 );
 
 CREATE TABLE ResearchFunds
