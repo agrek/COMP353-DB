@@ -317,6 +317,8 @@ CREATE TRIGGER gpaTrigger
 
 BEGIN
 
+    /******************* Update GPA *******************/
+
     DROP TEMPORARY TABLE IF EXISTS tempResult;
     DROP TEMPORARY TABLE IF EXISTS allGrades;
 
@@ -366,61 +368,69 @@ BEGIN
         SIGNAL SQLSTATE '55000';
     END IF;
 
+    /******************* TA GPA Check *******************/
+
+    SELECT gpa INTO @applicantGpa FROM Student WHERE id = NEW.ta_id;
+    IF @applicantGpa < 3.2 THEN
+        SIGNAL SQLSTATE '75000';
+    END IF;
+
     /******************* Instructor Time Conflict Check *******************/
+    DROP TEMPORARY TABLE IF EXISTS numbers;
+    DROP TEMPORARY TABLE IF EXISTS newRow;
+    DROP TEMPORARY TABLE IF EXISTS separatedNew;
+    DROP TEMPORARY TABLE IF EXISTS newEntry;
+    DROP TEMPORARY TABLE IF EXISTS oldInstSec;
+    DROP TEMPORARY TABLE IF EXISTS oldTASec;
+    DROP TEMPORARY TABLE IF EXISTS separatedOld;
+    DROP TEMPORARY TABLE IF EXISTS oldSecs;
+    DROP TEMPORARY TABLE IF EXISTS conflictSecs;
+
+    -- numbers table is used for how many possible days can there be
+    CREATE TEMPORARY TABLE numbers
+    (
+        n INT PRIMARY KEY
+    );
+    INSERT INTO numbers VALUES (1), (2);
+
+    -- Created because of need to operate on the NEW data in the form of a table
+    CREATE TEMPORARY TABLE newRow
+    (
+        id            INT(8),
+        start_time    TIME,
+        end_time      TIME,
+        day           VARCHAR(45),
+        term          VARCHAR(45),
+        year          INT(8),
+        instructor_id INT(8),
+        ta_id         INT(8)
+    );
+    INSERT INTO newRow
+    VALUES (NEW.id, NEW.start_time, NEW.end_time, NEW.day, NEW.term, NEW.year, NEW.instructor_id, NEW.ta_id);
+
+    -- Separating the inserted row into two if there was two days in it
+    CREATE TEMPORARY TABLE separatedNew AS (SELECT newRow.id,
+                                                   SUBSTRING_INDEX(SUBSTRING_INDEX(newRow.day, ', ', numbers.n), ', ',
+                                                                   -1) day
+                                            FROM numbers
+                                                     INNER JOIN newRow
+                                                                ON CHAR_LENGTH(newRow.day)
+                                                                       - CHAR_LENGTH(REPLACE(newRow.day, ', ', '')) >=
+                                                                   numbers.n - 1
+                                            ORDER BY id, n);
+
+    CREATE TEMPORARY TABLE newEntry AS (SELECT newRow.id,
+                                               separatedNew.day,
+                                               start_time,
+                                               end_time,
+                                               term,
+                                               year,
+                                               ta_id,
+                                               instructor_id
+                                        FROM newRow
+                                                 INNER JOIN separatedNew ON separatedNew.id = newRow.id);
+
     IF NEW.type = 'lecture' THEN
-
-        DROP TEMPORARY TABLE IF EXISTS numbers;
-        DROP TEMPORARY TABLE IF EXISTS newRow;
-        DROP TEMPORARY TABLE IF EXISTS separatedNew;
-        DROP TEMPORARY TABLE IF EXISTS newEntry;
-        DROP TEMPORARY TABLE IF EXISTS oldInstSec;
-        DROP TEMPORARY TABLE IF EXISTS separatedOld;
-        DROP TEMPORARY TABLE IF EXISTS oldSecs;
-        DROP TEMPORARY TABLE IF EXISTS conflictSecs;
-
-        -- numbers table is used for how many possible days can there be
-        CREATE TEMPORARY TABLE numbers
-        (
-            n INT PRIMARY KEY
-        );
-        INSERT INTO numbers VALUES (1), (2);
-
-        -- Created because of need to operate on the NEW data in the form of a table
-        CREATE TEMPORARY TABLE newRow
-        (
-            id            INT(8),
-            start_time    TIME,
-            end_time      TIME,
-            day           VARCHAR(45),
-            term          VARCHAR(45),
-            year          INT(8),
-            instructor_id INT(8)
-        );
-        INSERT INTO newRow
-        VALUES (NEW.id, NEW.start_time, NEW.end_time, NEW.day, NEW.term, NEW.year, NEW.instructor_id);
-
-        -- Separating the inserted row into two if there was two days in it
-        CREATE TEMPORARY TABLE separatedNew AS (SELECT newRow.id,
-                                                       SUBSTRING_INDEX(SUBSTRING_INDEX(newRow.day, ', ', numbers.n),
-                                                                       ', ',
-                                                                       -1) day
-                                                FROM numbers
-                                                         INNER JOIN newRow
-                                                                    ON CHAR_LENGTH(newRow.day)
-                                                                           -
-                                                                       CHAR_LENGTH(REPLACE(newRow.day, ', ', '')) >=
-                                                                       numbers.n - 1
-                                                ORDER BY id, n);
-
-        CREATE TEMPORARY TABLE newEntry AS (SELECT newRow.id,
-                                                   separatedNew.day,
-                                                   start_time,
-                                                   end_time,
-                                                   term,
-                                                   year,
-                                                   instructor_id
-                                            FROM newRow
-                                                     INNER JOIN separatedNew ON separatedNew.id = newRow.id);
 
         /* Fetching all sections taught by the instructor in same year, and term*/
         CREATE TEMPORARY TABLE oldInstSec AS (SELECT Section.id, day, start_time, end_time, term, year, instructor_id
@@ -470,7 +480,102 @@ BEGIN
         IF (@confCount > 0) THEN
             SIGNAL SQLSTATE '60000';
         END IF;
+
+        /******************* TA Time Conflict Check *******************/
+    ELSEIF NEW.type = 'tutorial' OR NEW.type = 'lab' THEN
+        /* Fetching all tutorial and lab sections taught by the TA in same year, and term*/
+        CREATE TEMPORARY TABLE oldTASec AS (SELECT Section.id, day, start_time, end_time, term, year, ta_id
+                                            FROM Section
+                                            WHERE (type = 'tutorial' OR type = 'lab')
+                                              AND ta_id = NEW.ta_id
+                                              AND year = NEW.year
+                                              AND term = NEW.term);
+
+        CREATE TEMPORARY TABLE separatedOld AS (SELECT oldTASec.id,
+                                                       SUBSTRING_INDEX(SUBSTRING_INDEX(oldTASec.day, ', ', numbers.n),
+                                                                       ', ', -1) day
+                                                FROM numbers
+                                                         INNER JOIN oldTASec
+                                                                    ON CHAR_LENGTH(oldTASec.day)
+                                                                           -
+                                                                       CHAR_LENGTH(REPLACE(oldTASec.day, ', ', '')) >=
+                                                                       numbers.n - 1
+                                                ORDER BY id, n);
+
+        CREATE TEMPORARY TABLE oldSecs AS (SELECT Section.id,
+                                                  separatedOld.day,
+                                                  start_time,
+                                                  end_time,
+                                                  term,
+                                                  year,
+                                                  ta_id
+                                           FROM Section
+                                                    INNER JOIN separatedOld ON separatedOld.id = Section.id);
+
+        CREATE TEMPORARY TABLE conflictSecs AS (SELECT oldSecs.day         d1,
+                                                       newEntry.day        d2,
+                                                       oldSecs.start_time  s1,
+                                                       newEntry.start_time s2,
+                                                       oldSecs.end_time    e1,
+                                                       newEntry.end_time   e2
+                                                FROM oldSecs
+                                                         INNER JOIN newEntry ON oldSecs.day = newEntry.day
+                                                WHERE ((oldSecs.start_time >= newEntry.start_time) AND
+                                                       (oldSecs.start_time < newEntry.end_time))
+                                                   OR ((newEntry.start_time >= oldSecs.start_time) AND
+                                                       (newEntry.start_time < oldSecs.end_time))
+        );
+
+        SELECT count(*) INTO @confCount FROM conflictSecs;
+
+        IF (@confCount > 0) THEN
+            SIGNAL SQLSTATE '65000';
+        END IF;
+
+    END IF;
+END //
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS researchTrigger;
+DELIMITER //
+CREATE TRIGGER researchTrigger
+
+    BEFORE INSERT
+    ON ResearchFundingApplications
+    FOR EACH ROW
+
+BEGIN
+
+    SELECT gpa INTO @applicantGpa FROM Student WHERE id = NEW.student_id;
+    SELECT type
+    INTO @stuType
+    FROM Student
+             INNER JOIN GradStudents GS ON Student.id = GS.id
+    WHERE Student.id = NEW.student_id;
+
+    IF @applicantGpa < 3 AND @stuType = 'thesis' THEN
+        SIGNAL SQLSTATE '70000';
     END IF;
 
-END //
+END;
+//
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS taPositionTrigger;
+DELIMITER //
+CREATE TRIGGER taPositionTrigger
+
+    BEFORE INSERT
+    ON TAPosition
+    FOR EACH ROW
+
+BEGIN
+
+    SELECT gpa INTO @applicantGpa FROM Student WHERE id = NEW.assignee_id;
+    IF @applicantGpa < 3.2 THEN
+        SIGNAL SQLSTATE '75000';
+    END IF;
+
+END;
+//
 DELIMITER ;
