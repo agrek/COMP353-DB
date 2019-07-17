@@ -316,7 +316,7 @@ CREATE TRIGGER gpaTrigger
     FOR EACH ROW
 
 BEGIN
-    
+
     /******************* Update GPA *******************/
 
     DROP TEMPORARY TABLE IF EXISTS tempResult;
@@ -367,10 +367,10 @@ BEGIN
     IF (@totalHours > 260) THEN
         SIGNAL SQLSTATE '55000';
     END IF;
-	
+
     /******************* TA GPA Check *******************/
 
-	SELECT gpa INTO @applicantGpa FROM Student WHERE id = NEW.ta_id;
+    SELECT gpa INTO @applicantGpa FROM Student WHERE id = NEW.ta_id;
     IF @applicantGpa < 3.2 THEN
         SIGNAL SQLSTATE '75000';
     END IF;
@@ -396,14 +396,14 @@ BEGIN
     -- Created because of need to operate on the NEW data in the form of a table
     CREATE TEMPORARY TABLE newRow
     (
-        id            int(8),
-        start_time    time,
-        end_time      time,
-        day           varchar(45),
-        term          varchar(45),
-        year          int(8),
-        instructor_id int(8),
-        ta_id         int(8)
+        id            INT(8),
+        start_time    TIME,
+        end_time      TIME,
+        day           VARCHAR(45),
+        term          VARCHAR(45),
+        year          INT(8),
+        instructor_id INT(8),
+        ta_id         INT(8)
     );
     INSERT INTO newRow
     VALUES (NEW.id, NEW.start_time, NEW.end_time, NEW.day, NEW.term, NEW.year, NEW.instructor_id, NEW.ta_id);
@@ -469,9 +469,9 @@ BEGIN
                                                        newEntry.end_time   e2
                                                 FROM oldSecs
                                                          INNER JOIN newEntry ON oldSecs.day = newEntry.day
-                                                WHERE ((oldSecs.start_time >= newEntry.start_time) and
+                                                WHERE ((oldSecs.start_time >= newEntry.start_time) AND
                                                        (oldSecs.start_time < newEntry.end_time))
-                                                   OR ((newEntry.start_time >= oldSecs.start_time) and
+                                                   OR ((newEntry.start_time >= oldSecs.start_time) AND
                                                        (newEntry.start_time < oldSecs.end_time))
         );
 
@@ -480,7 +480,6 @@ BEGIN
         IF (@confCount > 0) THEN
             SIGNAL SQLSTATE '60000';
         END IF;
-
 
         /******************* TA Time Conflict Check *******************/
     ELSEIF NEW.type = 'tutorial' OR NEW.type = 'lab' THEN
@@ -548,7 +547,10 @@ CREATE TRIGGER researchTrigger
 BEGIN
 
     SELECT gpa INTO @applicantGpa FROM Student WHERE id = NEW.student_id;
-    SELECT type INTO @stuType FROM Student INNER JOIN GradStudents GS on Student.id = GS.id
+    SELECT type
+    INTO @stuType
+    FROM Student
+             INNER JOIN GradStudents GS ON Student.id = GS.id
     WHERE Student.id = NEW.student_id;
 
     IF @applicantGpa < 3 AND @stuType = 'thesis' THEN
