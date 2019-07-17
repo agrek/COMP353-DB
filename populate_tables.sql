@@ -391,6 +391,12 @@ VALUES ('H535', 120),
        ('JMB321', 60),
        ('JMB202', 130);
 
+INSERT INTO TermToNumber
+VALUES ('summer', 0),
+       ('fall', 1),
+       ('fall/winter', 2),
+       ('winter', 3);
+
 INSERT INTO Section
 VALUES (DEFAULT, 'AAA', 'COMP353', 'lecture', 'M, W', '14:45:00', '17:30:00', 'summer', '2018', 23, 1, 'H535'),
        (DEFAULT, 'BBB', 'COMP353', 'lecture', 'Tu, Th', '13:45:00', '15:00:00', 'fall', '2018', 23, 1, 'H420'),
