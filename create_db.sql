@@ -256,14 +256,77 @@ CREATE TABLE ProgramRequirements
 );
 
 
-DROP TRIGGER IF EXISTS preReqTrig;
-
+DROP TRIGGER IF EXISTS gpaTrigger;
 DELIMITER //
-CREATE TRIGGER preReqTrig
+CREATE TRIGGER gpaTrigger
+
+    AFTER INSERT
+    ON SectionEnrollment
+    FOR EACH ROW
+
+BEGIN
+    /******************* Update GPA *******************/
+
+    DROP TEMPORARY TABLE IF EXISTS tempResult;
+    DROP TEMPORARY TABLE IF EXISTS allGrades;
+
+    CREATE TEMPORARY TABLE allGrades AS (SELECT grade, credits, gpa, credits * gpa mult
+                                         FROM Course,
+                                              Section,
+                                              SectionEnrollment
+
+                                                  INNER JOIN LetterToGpa ON grade = letter
+
+                                         WHERE section_id = Section.id
+                                           AND Section.course_code = Course.code
+                                           AND type = 'lecture'
+                                           AND student_id = NEW.student_id);
+
+    SELECT SUM(credits) INTO @sumCredits FROM allGrades;
+    SELECT SUM(mult) INTO @sumMult FROM allGrades;
+    CREATE TEMPORARY TABLE tempResult
+    (
+        resultGPA FLOAT(8)
+    );
+
+    INSERT INTO tempResult VALUES (@sumMult / @sumCredits);
+    UPDATE Student SET gpa=(@sumMult / @sumCredits) WHERE id = NEW.student_id;
+
+END;
+//
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS secEnrollmentTrigger;
+DELIMITER //
+CREATE TRIGGER secEnrollmentTrigger
+
     BEFORE INSERT
     ON SectionEnrollment
     FOR EACH ROW
+
 BEGIN
+    /******************* Multiple Sections of Same Course Check *******************/
+
+    DROP TEMPORARY TABLE IF EXISTS secInfo;
+    CREATE TEMPORARY TABLE secInfo AS (SELECT course_code, type, term, year FROM Section WHERE id = NEW.section_id);
+    SELECT COUNT(*)
+    INTO @multipleSecs
+    FROM (SELECT Section.id
+          FROM Section
+                   INNER JOIN SectionEnrollment SE on Section.id = SE.section_id
+                   INNER JOIN secInfo on Section.course_code = secInfo.course_code
+          WHERE student_id = NEW.student_id
+            AND Section.type = secInfo.type
+            AND Section.year = secInfo.year
+            AND Section.term = secInfo.term) r;
+
+    IF (@multipleSecs > 0) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                'A student cannot register to two different sections of same type,term, and year';
+
+    END IF;
+
+    /******************* Prerequisites Check *******************/
 
     DROP TEMPORARY TABLE IF EXISTS Course_Code;
     DROP TEMPORARY TABLE IF EXISTS req_table;
@@ -309,49 +372,110 @@ BEGIN
             AND SectionEnrollment.student_id = NEW.student_id) t;
     IF (@numFail > 0 OR ((@notTaken = 0) AND (@num_Pre > 0))) THEN
         /*DELETE FROM SectionEnrollment WHERE student_id=NEW.student_id;*/
-        SIGNAL SQLSTATE '45000';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                'The student did not meet the prerequisites requirement for the course';
     END IF;
 
-END;
-//
-DELIMITER ;
+    /******************* Student Time Conflict Check *******************/
 
-DROP TRIGGER IF EXISTS gpaTrigger;
-DELIMITER //
-CREATE TRIGGER gpaTrigger
+    DROP TEMPORARY TABLE IF EXISTS numbers;
+    DROP TEMPORARY TABLE IF EXISTS newRow;
+    DROP TEMPORARY TABLE IF EXISTS separatedNew;
+    DROP TEMPORARY TABLE IF EXISTS newEntry;
+    DROP TEMPORARY TABLE IF EXISTS oldStuSec;
+    DROP TEMPORARY TABLE IF EXISTS separatedOld;
+    DROP TEMPORARY TABLE IF EXISTS oldSecs;
+    DROP TEMPORARY TABLE IF EXISTS conflictSecs;
 
-    AFTER INSERT
-    ON SectionEnrollment
-    FOR EACH ROW
-
-BEGIN
-
-    /******************* Update GPA *******************/
-
-    DROP TEMPORARY TABLE IF EXISTS tempResult;
-    DROP TEMPORARY TABLE IF EXISTS allGrades;
-
-    CREATE TEMPORARY TABLE allGrades AS (SELECT grade, credits, gpa, credits * gpa mult
-                                         FROM Course,
-                                              Section,
-                                              SectionEnrollment
-
-                                                  INNER JOIN LetterToGpa ON grade = letter
-
-                                         WHERE section_id = Section.id
-                                           AND course_code = Course.code
-                                           AND type = 'lecture'
-                                           AND student_id = NEW.student_id);
-
-    SELECT SUM(credits) INTO @sumCredits FROM allGrades;
-    SELECT SUM(mult) INTO @sumMult FROM allGrades;
-    CREATE TEMPORARY TABLE tempResult
+    -- numbers table is used for how many possible days can there be
+    CREATE TEMPORARY TABLE numbers
     (
-        resultGPA FLOAT(8)
+        n INT PRIMARY KEY
+    );
+    INSERT INTO numbers VALUES (1), (2);
+
+    -- Created because of need to operate on the NEW data in the form of a table
+    CREATE TEMPORARY TABLE newRow AS (SELECT Section.id,
+                                             start_time,
+                                             end_time,
+                                             day,
+                                             term,
+                                             year
+                                      FROM Section
+                                      WHERE Section.id = NEW.section_id);
+
+    SELECT year INTO @year FROM newRow;
+    SELECT term INTO @term FROM newRow;
+
+    -- Separating the inserted row into two if there was two days in it
+    CREATE TEMPORARY TABLE separatedNew AS (SELECT newRow.id,
+                                                   SUBSTRING_INDEX(SUBSTRING_INDEX(newRow.day, ', ', numbers.n), ', ',
+                                                                   -1) day
+                                            FROM numbers
+                                                     INNER JOIN newRow
+                                                                ON CHAR_LENGTH(newRow.day)
+                                                                       - CHAR_LENGTH(REPLACE(newRow.day, ', ', '')) >=
+                                                                   numbers.n - 1
+                                            ORDER BY id, n);
+
+    CREATE TEMPORARY TABLE newEntry AS (SELECT newRow.id,
+                                               separatedNew.day,
+                                               start_time,
+                                               end_time,
+                                               term,
+                                               year
+                                        FROM newRow
+                                                 INNER JOIN separatedNew ON separatedNew.id = newRow.id);
+
+    /* Fetching all sections taken by the student in same year, and term*/
+    CREATE TEMPORARY TABLE oldStuSec AS (SELECT Section.id, day, start_time, end_time, term, year
+                                         FROM Section
+                                                  INNER JOIN SectionEnrollment SE ON Section.id = SE.section_id
+                                         WHERE SE.student_id = NEW.student_id
+                                           AND year = @year
+                                           AND term = @term);
+
+    CREATE TEMPORARY TABLE separatedOld AS (SELECT oldStuSec.id,
+                                                   SUBSTRING_INDEX(SUBSTRING_INDEX(oldStuSec.day, ', ', numbers.n),
+                                                                   ', ', -1) day
+                                            FROM numbers
+                                                     INNER JOIN oldStuSec
+                                                                ON CHAR_LENGTH(oldStuSec.day)
+                                                                       -
+                                                                   CHAR_LENGTH(REPLACE(oldStuSec.day, ', ', '')) >=
+                                                                   numbers.n - 1
+                                            ORDER BY id, n);
+
+    CREATE TEMPORARY TABLE oldSecs AS (SELECT Section.id,
+                                              separatedOld.day,
+                                              start_time,
+                                              end_time,
+                                              term,
+                                              year
+                                        FROM Section
+                                                INNER JOIN separatedOld ON separatedOld.id = Section.id);
+
+    CREATE TEMPORARY TABLE conflictSecs AS (SELECT oldSecs.day         d1,
+                                                   newEntry.day        d2,
+                                                   oldSecs.start_time  s1,
+                                                   newEntry.start_time s2,
+                                                   oldSecs.end_time    e1,
+                                                   newEntry.end_time   e2
+                                            FROM oldSecs
+                                                     INNER JOIN newEntry ON oldSecs.day = newEntry.day
+                                            WHERE ((oldSecs.start_time >= newEntry.start_time) and
+                                                   (oldSecs.start_time < newEntry.end_time))
+                                               OR ((newEntry.start_time >= oldSecs.start_time) and
+                                                   (newEntry.start_time < oldSecs.end_time))
     );
 
-    INSERT INTO tempResult VALUES (@sumMult / @sumCredits);
-    UPDATE Student SET gpa=(@sumMult / @sumCredits) WHERE id = NEW.student_id;
+    SELECT count(*) INTO @confCount FROM conflictSecs;
+
+    IF @confCount > 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The section conflicts with other sections taken by the student in the same semester';
+    END IF;
+
+
 END;
 //
 DELIMITER ;
@@ -374,14 +498,14 @@ BEGIN
             AND year = NEW.year) t;
 
     IF (@totalHours > 260) THEN
-        SIGNAL SQLSTATE '55000';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The TA exceeds the max hours permitted in a year of 260 hours';
     END IF;
 
     /******************* TA GPA Check *******************/
 
     SELECT gpa INTO @applicantGpa FROM Student WHERE id = NEW.ta_id;
     IF @applicantGpa < 3.2 THEN
-        SIGNAL SQLSTATE '75000';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The student does not meet the minimum GPA required for a TA which is 3.2';
     END IF;
 
     /******************* Instructor Time Conflict Check *******************/
@@ -487,7 +611,7 @@ BEGIN
         SELECT count(*) INTO @confCount FROM conflictSecs;
 
         IF (@confCount > 0) THEN
-            SIGNAL SQLSTATE '60000';
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The instructor has a time conflict with another section he teaches';
         END IF;
 
         /******************* TA Time Conflict Check *******************/
@@ -538,7 +662,7 @@ BEGIN
         SELECT count(*) INTO @confCount FROM conflictSecs;
 
         IF (@confCount > 0) THEN
-            SIGNAL SQLSTATE '65000';
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The TA has a time conflict with another section he teaches';
         END IF;
 
     END IF;
@@ -563,7 +687,7 @@ BEGIN
     WHERE Student.id = NEW.student_id;
 
     IF @applicantGpa < 3 AND @stuType = 'thesis' THEN
-        SIGNAL SQLSTATE '70000';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The student does not meet the minimum GPA required for research funding which is 3';
     END IF;
 
 END;
@@ -582,7 +706,7 @@ BEGIN
 
     SELECT gpa INTO @applicantGpa FROM Student WHERE id = NEW.assignee_id;
     IF @applicantGpa < 3.2 THEN
-        SIGNAL SQLSTATE '75000';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The student does not meet the minimum GPA required for a TA position which is 3.2';
     END IF;
 
 END;
