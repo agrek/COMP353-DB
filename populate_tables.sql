@@ -430,13 +430,13 @@ VALUES (1, 'AAA', 'COMP353', 'lecture', 'M, W', '14:45:00', '17:30:00', 'summer'
        (22, 'AATX', 'SOEN341', 'tutorial', 'F', '12:00:00', '12:50:00', 'winter', '2018', 30, 7, 'JMB321'),
        (23, 'AATY', 'SOEN341', 'tutorial', 'F', '10:00:00', '10:50:00', 'winter', '2018', 22, 7, 'JMB325'),
        (24, 'AAA', 'SOEN342', 'lecture', 'Tu, Th', '10:00:00', '12:15:00', 'fall', '2018', 25, 7, 'H435'),
-       (25, 'AATX', 'SOEN342', 'tutorial', 'Th', '9:45:00', '10:30:00', 'fall', '2018', 24, 7, 'H504'),
+       (25, 'AATX', 'SOEN342', 'tutorial', 'Th', '9:00:00', '9:45:00', 'fall', '2018', 24, 7, 'H504'),
        (26, 'AATY', 'SOEN342', 'tutorial', 'Tu', '12:30:00', '13:20:00', 'fall', '2018', 37, 7, 'H603'),
        (27, 'AAA', 'SOEN343', 'lecture', 'M, W', '10:45:00', '12:00:00', 'fall', '2018', 25, 7, 'H520'),
        (28, 'AATX', 'SOEN343', 'tutorial', 'M, W', '12:15:00', '13:05:00', 'fall', '2018', 27, 7, 'H408'),
        (29, 'AATY', 'SOEN343', 'tutorial', 'M, W', '13:15:00', '14:05:00', 'fall', '2018', 28, 7, 'H408'),
        (30, 'AAA', 'COEN345', 'lecture', 'Tu, Th', '13:15:00', '14:30:00', 'winter', '2018', 27, 4, 'H520'),
-       (31, 'AATX', 'COEN345', 'tutotial', 'Tu', '14:30:00', '15:20:00', 'winter', '2018', 29, 4, 'H609'),
+       (31, 'AATX', 'COEN345', 'tutorial', 'Tu', '14:30:00', '15:20:00', 'winter', '2018', 29, 4, 'H609'),
        (32, 'AATY', 'COEN345', 'tutorial', 'Th', '14:30:00', '15:20:00', 'winter', '2018', 31, 4, 'H409'),
        (33, 'AAL', 'COEN345', 'lab', 'F', '8:45:00', '10:15:00', 'winter', '2018', 48, 4, 'H907'),
        (34, 'AAA', 'ELEC331', 'lecture', 'M, W', '13:15:00', '14:30:00', 'winter', '2018', 12, 8, 'FGB90'),
@@ -479,244 +479,244 @@ VALUES ('COMP353', 'COMP352', 'prerequisite'),
        ('ECON222', 'ECON221', 'prerequisite'),
        ('PHYS393', 'PHYS334', 'corequisite');
 
-INSERT INTO SectionEnrollment
-VALUES (41, 2, 'C+'),
-       (45, 2, 'A-'),
-       (48, 2, 'B'),
-       (12, 1, 'B+'),
-       (15, 1, 'B+'),
-       (2, 1, 'FNS'),
-       (5, 1, 'FNS'),
-       (10, 1, 'FNS'),
-       (3, 1, 'B'),
-       (7, 1, 'B'),
-       (11, 1, 'B'),
-       (34, 3, 'C-'),
-       (35, 3, 'C-'),
-       (36, 3, 'C-'),
-       (54, 4, 'B+'),
-       (55, 4, 'B+'),
-       (56, 4, 'B'),
-       (57, 4, 'B'),
-       (58, 4, 'B'),
-       (59, 4, 'B+'),
-       (60, 4, 'B+'),
-       (30, 4, 'A'),
-       (31, 4, 'A'),
-       (33, 4, 'A'),
-       (54, 5, 'C+'),
-       (55, 5, 'C+'),
-       (21, 5, 'B+'),
-       (22, 5, 'B+'),
-       (24, 5, 'A'),
-       (25, 5, 'A'),
-       (27, 5, 'A-'),
-       (28, 5, 'A-'),
-       (13, 6, 'B'),
-       (17, 6, 'B'),
-       (3, 6, 'B-'),
-       (7, 6, 'B-'),
-       (11, 6, 'B-'),
-       (14, 7, 'A+'),
-       (20, 7, 'A+'),
-       (41, 8, 'A-'),
-       (44, 8, 'A-'),
-       (54, 9, 'B-'),
-       (55, 9, 'B-'),
-       (2, 9, 'B+'),
-       (5, 9, 'B+'),
-       (10, 9, 'B+'),
-       (21, 9, 'A'),
-       (23, 9, 'A'),
-       (45, 10, 'A-'),
-       (45, 11, 'A'),
-       (51, 11, 'A+'),
-       (52, 11, 'A+'),
-       (53, 11, 'A+'),
-       (54, 12, 'B-'),
-       (55, 12, 'B-'),
-       (56, 12, 'A'),
-       (57, 12, 'A'),
-       (58, 12, 'A'),
-       (59, 12, 'B'),
-       (60, 12, 'B'),
-       (51, 13, 'C+'),
-       (52, 13, 'C+'),
-       (54, 14, 'C'),
-       (55, 14, 'C'),
-       (56, 14, 'C'),
-       (57, 14, 'C'),
-       (58, 14, 'C'),
-       (59, 14, 'A'),
-       (60, 14, 'A'),
-       (30, 14, 'B+'),
-       (31, 14, 'B+'),
-       (33, 14, 'B+'),
-       (39, 15, 'B'),
-       (40, 15, 'B'),
-       (12, 16, 'A+'),
-       (15, 16, 'A+'),
-       (3, 16, 'B'),
-       (8, 16, 'B'),
-       (11, 16, 'B'),
-       (50, 17, 'C'),
-       (42, 18, 'B+'),
-       (48, 18, 'B'),
-       (46, 19, 'B+'),
-       (39, 20, 'A'),
-       (40, 20, 'A'),
-       (54, 21, 'A-'),
-       (55, 21, 'A-'),
-       (21, 21, 'B'),
-       (22, 21, 'B'),
-       (24, 21, 'A-'),
-       (25, 21, 'A-'),
-       (27, 21, 'A-'),
-       (28, 21, 'A-'),
-       (54, 22, 'B-'),
-       (55, 22, 'B-'),
-       (2, 22, 'B'),
-       (6, 22, 'B'),
-       (10, 22, 'B'),
-       (45, 23, 'A+'),
-       (12, 24, 'A'),
-       (15, 24, 'A'),
-       (2, 24, 'C+'),
-       (5, 24, 'C+'),
-       (10, 24, 'C+'),
-       (12, 25, 'B'),
-       (15, 25, 'B'),
-       (3, 25, 'B+'),
-       (8, 25, 'B+'),
-       (11, 25, 'B+'),
-       (54, 26, 'C+'),
-       (55, 26, 'C+'),
-       (21, 26, 'A'),
-       (22, 26, 'A'),
-       (24, 26, 'A-'),
-       (25, 26, 'A-'),
-       (27, 26, 'A'),
-       (28, 26, 'A'),
-       (34, 27, 'B+'),
-       (35, 27, 'B+'),
-       (36, 27, 'B+'),
-       (54, 28, 'A'),
-       (55, 28, 'A'),
-       (1, 28, 'A-'),
-       (4, 28, 'A-'),
-       (9, 28, 'A-'),
-       (12, 29, 'A+'),
-       (15, 29, 'A+'),
-       (3, 29, 'C'),
-       (7, 29, 'C'),
-       (11, 29, 'C'),
-       (48, 30, 'B+'),
-       (54, 31, 'B'),
-       (55, 31, 'B'),
-       (1, 31, 'A'),
-       (4, 31, 'A'),
-       (9, 31, 'A'),
-       (54, 32, 'B+'),
-       (55, 32, 'B+'),
-       (1, 32, 'B+'),
-       (4, 32, 'B+'),
-       (9, 32, 'B+'),
-       (12, 33, 'B+'),
-       (15, 33, 'B+'),
-       (2, 33, 'C-'),
-       (5, 33, 'C-'),
-       (10, 33, 'C-'),
-       (54, 34, 'A'),
-       (55, 34, 'A'),
-       (56, 34, 'A-'),
-       (57, 34, 'A-'),
-       (58, 34, 'A-'),
-       (59, 34, 'B'),
-       (60, 34, 'B'),
-       (30, 34, 'B'),
-       (32, 34, 'B'),
-       (33, 34, 'B'),
-       (54, 35, 'A-'),
-       (55, 35, 'A-'),
-       (56, 35, 'C-'),
-       (57, 35, 'C-'),
-       (58, 35, 'C-'),
-       (59, 35, 'B+'),
-       (60, 35, 'B+'),
-       (30, 35, 'C+'),
-       (31, 35, 'C+'),
-       (33, 35, 'C+'),
-       (54, 36, 'A-'),
-       (55, 36, 'A-'),
-       (21, 36, 'C'),
-       (22, 36, 'C'),
-       (24, 36, 'B'),
-       (25, 36, 'B'),
-       (27, 36, 'B'),
-       (28, 36, 'B'),
-       (54, 37, 'B-'),
-       (55, 37, 'B-'),
-       (2, 37, 'A+'),
-       (6, 37, 'A+'),
-       (10, 37, 'A+'),
-       (54, 38, 'A+'),
-       (55, 38, 'A+'),
-       (2, 38, 'A-'),
-       (7, 38, 'A-'),
-       (10, 38, 'A-'),
-       (54, 39, 'B'),
-       (55, 39, 'B'),
-       (56, 39, 'A'),
-       (57, 39, 'A'),
-       (58, 39, 'A'),
-       (59, 39, 'C+'),
-       (60, 39, 'C+'),
-       (30, 39, 'B+'),
-       (31, 39, 'B+'),
-       (33, 39, 'B+'),
-       (54, 40, 'B'),
-       (55, 40, 'B'),
-       (1, 40, 'B-'),
-       (4, 40, 'B-'),
-       (9, 40, 'B-'),
-       (34, 41, 'B'),
-       (35, 41, 'B'),
-       (36, 41, 'B'),
-       (41, 42, 'B+'),
-       (44, 42, 'A-'),
-       (50, 43, 'B'),
-       (39, 44, 'A-'),
-       (40, 44, 'A-'),
-       (54, 45, 'B'),
-       (55, 45, 'B'),
-       (56, 45, 'C+'),
-       (57, 45, 'C+'),
-       (58, 45, 'C+'),
-       (59, 45, 'B'),
-       (60, 45, 'B'),
-       (30, 45, 'C'),
-       (32, 45, 'C'),
-       (33, 45, 'C'),
-       (51, 46, 'A'),
-       (52, 46, 'A'),
-       (53, 46, 'B-'),
-       (54, 47, 'B-'),
-       (55, 47, 'B-'),
-       (2, 47, 'A-'),
-       (7, 47, 'A-'),
-       (10, 47, 'A-'),
-       (12, 48, 'A-'),
-       (15, 48, 'A-'),
-       (2, 48, 'B'),
-       (5, 48, 'B'),
-       (10, 48, 'B'),
-       (54, 49, 'B+'),
-       (55, 49, 'B+'),
-       (56, 49, 'A'),
-       (57, 49, 'A'),
-       (58, 49, 'A'),
-       (59, 49, 'B'),
-       (60, 49, 'B'),
-       (30, 49, 'B+'),
-       (32, 49, 'B+'),
-       (33, 49, 'B+');
+
+INSERT INTO SectionEnrollment VALUE (41, 2, 'C+');
+INSERT INTO SectionEnrollment VALUE (45, 2, 'A-');
+INSERT INTO SectionEnrollment VALUE (48, 2, 'B');
+INSERT INTO SectionEnrollment VALUE (12, 1, 'B+');
+INSERT INTO SectionEnrollment VALUE (15, 1, 'B+');
+INSERT INTO SectionEnrollment VALUE (2, 1, 'FNS');
+INSERT INTO SectionEnrollment VALUE (5, 1, 'FNS');
+INSERT INTO SectionEnrollment VALUE (10, 1, 'FNS');
+INSERT INTO SectionEnrollment VALUE (3, 1, 'B');
+INSERT INTO SectionEnrollment VALUE (7, 1, 'B');
+INSERT INTO SectionEnrollment VALUE (11, 1, 'B');
+INSERT INTO SectionEnrollment VALUE (34, 3, 'C-');
+INSERT INTO SectionEnrollment VALUE (35, 3, 'C-');
+INSERT INTO SectionEnrollment VALUE (36, 3, 'C-');
+INSERT INTO SectionEnrollment VALUE (54, 4, 'B+');
+INSERT INTO SectionEnrollment VALUE (55, 4, 'B+');
+INSERT INTO SectionEnrollment VALUE (56, 4, 'B');
+INSERT INTO SectionEnrollment VALUE (57, 4, 'B');
+INSERT INTO SectionEnrollment VALUE (58, 4, 'B');
+INSERT INTO SectionEnrollment VALUE (59, 4, 'B+');
+INSERT INTO SectionEnrollment VALUE (60, 4, 'B+');
+INSERT INTO SectionEnrollment VALUE (30, 4, 'A');
+INSERT INTO SectionEnrollment VALUE (31, 4, 'A');
+INSERT INTO SectionEnrollment VALUE (33, 4, 'A');
+INSERT INTO SectionEnrollment VALUE (54, 5, 'C+');
+INSERT INTO SectionEnrollment VALUE (55, 5, 'C+');
+INSERT INTO SectionEnrollment VALUE (21, 5, 'B+');
+INSERT INTO SectionEnrollment VALUE (22, 5, 'B+');
+INSERT INTO SectionEnrollment VALUE (24, 5, 'A');
+INSERT INTO SectionEnrollment VALUE (25, 5, 'A');
+INSERT INTO SectionEnrollment VALUE (27, 5, 'A-');
+INSERT INTO SectionEnrollment VALUE (28, 5, 'A-');
+INSERT INTO SectionEnrollment VALUE (13, 6, 'B');
+INSERT INTO SectionEnrollment VALUE (17, 6, 'B');
+INSERT INTO SectionEnrollment VALUE (3, 6, 'B-');
+INSERT INTO SectionEnrollment VALUE (7, 6, 'B-');
+INSERT INTO SectionEnrollment VALUE (11, 6, 'B-');
+INSERT INTO SectionEnrollment VALUE (14, 7, 'A+');
+INSERT INTO SectionEnrollment VALUE (20, 7, 'A+');
+INSERT INTO SectionEnrollment VALUE (41, 8, 'A-');
+INSERT INTO SectionEnrollment VALUE (44, 8, 'A-');
+INSERT INTO SectionEnrollment VALUE (54, 9, 'B-');
+INSERT INTO SectionEnrollment VALUE (55, 9, 'B-');
+INSERT INTO SectionEnrollment VALUE (2, 9, 'B+');
+INSERT INTO SectionEnrollment VALUE (5, 9, 'B+');
+INSERT INTO SectionEnrollment VALUE (10, 9, 'B+');
+INSERT INTO SectionEnrollment VALUE (21, 9, 'A');
+INSERT INTO SectionEnrollment VALUE (23, 9, 'A');
+INSERT INTO SectionEnrollment VALUE (45, 10, 'A-');
+INSERT INTO SectionEnrollment VALUE (45, 11, 'A');
+INSERT INTO SectionEnrollment VALUE (51, 11, 'A+');
+INSERT INTO SectionEnrollment VALUE (52, 11, 'A+');
+INSERT INTO SectionEnrollment VALUE (53, 11, 'A+');
+INSERT INTO SectionEnrollment VALUE (54, 12, 'B-');
+INSERT INTO SectionEnrollment VALUE (55, 12, 'B-');
+INSERT INTO SectionEnrollment VALUE (56, 12, 'A');
+INSERT INTO SectionEnrollment VALUE (57, 12, 'A');
+INSERT INTO SectionEnrollment VALUE (58, 12, 'A');
+INSERT INTO SectionEnrollment VALUE (59, 12, 'B');
+INSERT INTO SectionEnrollment VALUE (60, 12, 'B');
+INSERT INTO SectionEnrollment VALUE (51, 13, 'C+');
+INSERT INTO SectionEnrollment VALUE (52, 13, 'C+');
+INSERT INTO SectionEnrollment VALUE (54, 14, 'C');
+INSERT INTO SectionEnrollment VALUE (55, 14, 'C');
+INSERT INTO SectionEnrollment VALUE (56, 14, 'C');
+INSERT INTO SectionEnrollment VALUE (57, 14, 'C');
+INSERT INTO SectionEnrollment VALUE (58, 14, 'C');
+INSERT INTO SectionEnrollment VALUE (59, 14, 'A');
+INSERT INTO SectionEnrollment VALUE (60, 14, 'A');
+INSERT INTO SectionEnrollment VALUE (30, 14, 'B+');
+INSERT INTO SectionEnrollment VALUE (31, 14, 'B+');
+INSERT INTO SectionEnrollment VALUE (33, 14, 'B+');
+INSERT INTO SectionEnrollment VALUE (39, 15, 'B');
+INSERT INTO SectionEnrollment VALUE (40, 15, 'B');
+INSERT INTO SectionEnrollment VALUE (12, 16, 'A+');
+INSERT INTO SectionEnrollment VALUE (15, 16, 'A+');
+INSERT INTO SectionEnrollment VALUE (3, 16, 'B');
+INSERT INTO SectionEnrollment VALUE (8, 16, 'B');
+INSERT INTO SectionEnrollment VALUE (11, 16, 'B');
+INSERT INTO SectionEnrollment VALUE (50, 17, 'C');
+INSERT INTO SectionEnrollment VALUE (42, 18, 'B+');
+INSERT INTO SectionEnrollment VALUE (48, 18, 'B');
+INSERT INTO SectionEnrollment VALUE (46, 19, 'B+');
+INSERT INTO SectionEnrollment VALUE (39, 20, 'A');
+INSERT INTO SectionEnrollment VALUE (40, 20, 'A');
+INSERT INTO SectionEnrollment VALUE (54, 21, 'A-');
+INSERT INTO SectionEnrollment VALUE (55, 21, 'A-');
+INSERT INTO SectionEnrollment VALUE (21, 21, 'B');
+INSERT INTO SectionEnrollment VALUE (22, 21, 'B');
+INSERT INTO SectionEnrollment VALUE (24, 21, 'A-');
+INSERT INTO SectionEnrollment VALUE (25, 21, 'A-');
+INSERT INTO SectionEnrollment VALUE (27, 21, 'A-');
+INSERT INTO SectionEnrollment VALUE (28, 21, 'A-');
+INSERT INTO SectionEnrollment VALUE (54, 22, 'B-');
+INSERT INTO SectionEnrollment VALUE (55, 22, 'B-');
+INSERT INTO SectionEnrollment VALUE (2, 22, 'B');
+INSERT INTO SectionEnrollment VALUE (6, 22, 'B');
+INSERT INTO SectionEnrollment VALUE (10, 22, 'B');
+INSERT INTO SectionEnrollment VALUE (45, 23, 'A+');
+INSERT INTO SectionEnrollment VALUE (12, 24, 'A');
+INSERT INTO SectionEnrollment VALUE (15, 24, 'A');
+INSERT INTO SectionEnrollment VALUE (2, 24, 'C+');
+INSERT INTO SectionEnrollment VALUE (5, 24, 'C+');
+INSERT INTO SectionEnrollment VALUE (10, 24, 'C+');
+INSERT INTO SectionEnrollment VALUE (12, 25, 'B');
+INSERT INTO SectionEnrollment VALUE (15, 25, 'B');
+INSERT INTO SectionEnrollment VALUE (3, 25, 'B+');
+INSERT INTO SectionEnrollment VALUE (8, 25, 'B+');
+INSERT INTO SectionEnrollment VALUE (11, 25, 'B+');
+INSERT INTO SectionEnrollment VALUE (54, 26, 'C+');
+INSERT INTO SectionEnrollment VALUE (55, 26, 'C+');
+INSERT INTO SectionEnrollment VALUE (21, 26, 'A');
+INSERT INTO SectionEnrollment VALUE (22, 26, 'A');
+INSERT INTO SectionEnrollment VALUE (24, 26, 'A-');
+INSERT INTO SectionEnrollment VALUE (25, 26, 'A-');
+INSERT INTO SectionEnrollment VALUE (27, 26, 'A');
+INSERT INTO SectionEnrollment VALUE (28, 26, 'A');
+INSERT INTO SectionEnrollment VALUE (34, 27, 'B+');
+INSERT INTO SectionEnrollment VALUE (35, 27, 'B+');
+INSERT INTO SectionEnrollment VALUE (36, 27, 'B+');
+INSERT INTO SectionEnrollment VALUE (54, 28, 'A');
+INSERT INTO SectionEnrollment VALUE (55, 28, 'A');
+INSERT INTO SectionEnrollment VALUE (1, 28, 'A-');
+INSERT INTO SectionEnrollment VALUE (4, 28, 'A-');
+INSERT INTO SectionEnrollment VALUE (9, 28, 'A-');
+INSERT INTO SectionEnrollment VALUE (12, 29, 'A+');
+INSERT INTO SectionEnrollment VALUE (15, 29, 'A+');
+INSERT INTO SectionEnrollment VALUE (3, 29, 'C');
+INSERT INTO SectionEnrollment VALUE (7, 29, 'C');
+INSERT INTO SectionEnrollment VALUE (11, 29, 'C');
+INSERT INTO SectionEnrollment VALUE (48, 30, 'B+');
+INSERT INTO SectionEnrollment VALUE (54, 31, 'B');
+INSERT INTO SectionEnrollment VALUE (55, 31, 'B');
+INSERT INTO SectionEnrollment VALUE (1, 31, 'A');
+INSERT INTO SectionEnrollment VALUE (4, 31, 'A');
+INSERT INTO SectionEnrollment VALUE (9, 31, 'A');
+INSERT INTO SectionEnrollment VALUE (54, 32, 'B+');
+INSERT INTO SectionEnrollment VALUE (55, 32, 'B+');
+INSERT INTO SectionEnrollment VALUE (1, 32, 'B+');
+INSERT INTO SectionEnrollment VALUE (4, 32, 'B+');
+INSERT INTO SectionEnrollment VALUE (9, 32, 'B+');
+INSERT INTO SectionEnrollment VALUE (12, 33, 'B+');
+INSERT INTO SectionEnrollment VALUE (15, 33, 'B+');
+INSERT INTO SectionEnrollment VALUE (2, 33, 'C-');
+INSERT INTO SectionEnrollment VALUE (5, 33, 'C-');
+INSERT INTO SectionEnrollment VALUE (10, 33, 'C-');
+INSERT INTO SectionEnrollment VALUE (54, 34, 'A');
+INSERT INTO SectionEnrollment VALUE (55, 34, 'A');
+INSERT INTO SectionEnrollment VALUE (56, 34, 'A-');
+INSERT INTO SectionEnrollment VALUE (57, 34, 'A-');
+INSERT INTO SectionEnrollment VALUE (58, 34, 'A-');
+INSERT INTO SectionEnrollment VALUE (59, 34, 'B');
+INSERT INTO SectionEnrollment VALUE (60, 34, 'B');
+INSERT INTO SectionEnrollment VALUE (30, 34, 'B');
+INSERT INTO SectionEnrollment VALUE (32, 34, 'B');
+INSERT INTO SectionEnrollment VALUE (33, 34, 'B');
+INSERT INTO SectionEnrollment VALUE (54, 35, 'A-');
+INSERT INTO SectionEnrollment VALUE (55, 35, 'A-');
+INSERT INTO SectionEnrollment VALUE (56, 35, 'C-');
+INSERT INTO SectionEnrollment VALUE (57, 35, 'C-');
+INSERT INTO SectionEnrollment VALUE (58, 35, 'C-');
+INSERT INTO SectionEnrollment VALUE (59, 35, 'B+');
+INSERT INTO SectionEnrollment VALUE (60, 35, 'B+');
+INSERT INTO SectionEnrollment VALUE (30, 35, 'C+');
+INSERT INTO SectionEnrollment VALUE (31, 35, 'C+');
+INSERT INTO SectionEnrollment VALUE (33, 35, 'C+');
+INSERT INTO SectionEnrollment VALUE (54, 36, 'A-');
+INSERT INTO SectionEnrollment VALUE (55, 36, 'A-');
+INSERT INTO SectionEnrollment VALUE (21, 36, 'C');
+INSERT INTO SectionEnrollment VALUE (22, 36, 'C');
+INSERT INTO SectionEnrollment VALUE (24, 36, 'B');
+INSERT INTO SectionEnrollment VALUE (25, 36, 'B');
+INSERT INTO SectionEnrollment VALUE (27, 36, 'B');
+INSERT INTO SectionEnrollment VALUE (28, 36, 'B');
+INSERT INTO SectionEnrollment VALUE (54, 37, 'B-');
+INSERT INTO SectionEnrollment VALUE (55, 37, 'B-');
+INSERT INTO SectionEnrollment VALUE (2, 37, 'A+');
+INSERT INTO SectionEnrollment VALUE (6, 37, 'A+');
+INSERT INTO SectionEnrollment VALUE (10, 37, 'A+');
+INSERT INTO SectionEnrollment VALUE (54, 38, 'A+');
+INSERT INTO SectionEnrollment VALUE (55, 38, 'A+');
+INSERT INTO SectionEnrollment VALUE (2, 38, 'A-');
+INSERT INTO SectionEnrollment VALUE (7, 38, 'A-');
+INSERT INTO SectionEnrollment VALUE (10, 38, 'A-');
+INSERT INTO SectionEnrollment VALUE (54, 39, 'B');
+INSERT INTO SectionEnrollment VALUE (55, 39, 'B');
+INSERT INTO SectionEnrollment VALUE (56, 39, 'A');
+INSERT INTO SectionEnrollment VALUE (57, 39, 'A');
+INSERT INTO SectionEnrollment VALUE (58, 39, 'A');
+INSERT INTO SectionEnrollment VALUE (59, 39, 'C+');
+INSERT INTO SectionEnrollment VALUE (60, 39, 'C+');
+INSERT INTO SectionEnrollment VALUE (30, 39, 'B+');
+INSERT INTO SectionEnrollment VALUE (31, 39, 'B+');
+INSERT INTO SectionEnrollment VALUE (33, 39, 'B+');
+INSERT INTO SectionEnrollment VALUE (54, 40, 'B');
+INSERT INTO SectionEnrollment VALUE (55, 40, 'B');
+INSERT INTO SectionEnrollment VALUE (1, 40, 'B-');
+INSERT INTO SectionEnrollment VALUE (4, 40, 'B-');
+INSERT INTO SectionEnrollment VALUE (9, 40, 'B-');
+INSERT INTO SectionEnrollment VALUE (34, 41, 'B');
+INSERT INTO SectionEnrollment VALUE (35, 41, 'B');
+INSERT INTO SectionEnrollment VALUE (36, 41, 'B');
+INSERT INTO SectionEnrollment VALUE (41, 42, 'B+');
+INSERT INTO SectionEnrollment VALUE (44, 42, 'A-');
+INSERT INTO SectionEnrollment VALUE (50, 43, 'B');
+INSERT INTO SectionEnrollment VALUE (39, 44, 'A-');
+INSERT INTO SectionEnrollment VALUE (40, 44, 'A-');
+INSERT INTO SectionEnrollment VALUE (54, 45, 'B');
+INSERT INTO SectionEnrollment VALUE (55, 45, 'B');
+INSERT INTO SectionEnrollment VALUE (56, 45, 'C+');
+INSERT INTO SectionEnrollment VALUE (57, 45, 'C+');
+INSERT INTO SectionEnrollment VALUE (58, 45, 'C+');
+INSERT INTO SectionEnrollment VALUE (59, 45, 'B');
+INSERT INTO SectionEnrollment VALUE (60, 45, 'B');
+INSERT INTO SectionEnrollment VALUE (30, 45, 'C');
+INSERT INTO SectionEnrollment VALUE (32, 45, 'C');
+INSERT INTO SectionEnrollment VALUE (33, 45, 'C');
+INSERT INTO SectionEnrollment VALUE (51, 46, 'A');
+INSERT INTO SectionEnrollment VALUE (52, 46, 'A');
+INSERT INTO SectionEnrollment VALUE (53, 46, 'B-');
+INSERT INTO SectionEnrollment VALUE (54, 47, 'B-');
+INSERT INTO SectionEnrollment VALUE (55, 47, 'B-');
+INSERT INTO SectionEnrollment VALUE (2, 47, 'A-');
+INSERT INTO SectionEnrollment VALUE (7, 47, 'A-');
+INSERT INTO SectionEnrollment VALUE (10, 47, 'A-');
+INSERT INTO SectionEnrollment VALUE (12, 48, 'A-');
+INSERT INTO SectionEnrollment VALUE (15, 48, 'A-');
+INSERT INTO SectionEnrollment VALUE (2, 48, 'B');
+INSERT INTO SectionEnrollment VALUE (5, 48, 'B');
+INSERT INTO SectionEnrollment VALUE (10, 48, 'B');
+INSERT INTO SectionEnrollment VALUE (54, 49, 'B+');
+INSERT INTO SectionEnrollment VALUE (55, 49, 'B+');
+INSERT INTO SectionEnrollment VALUE (56, 49, 'A');
+INSERT INTO SectionEnrollment VALUE (57, 49, 'A');
+INSERT INTO SectionEnrollment VALUE (58, 49, 'A');
+INSERT INTO SectionEnrollment VALUE (59, 49, 'B');
+INSERT INTO SectionEnrollment VALUE (60, 49, 'B');
+INSERT INTO SectionEnrollment VALUE (30, 49, 'B+');
+INSERT INTO SectionEnrollment VALUE (32, 49, 'B+');
+INSERT INTO SectionEnrollment VALUE (33, 49, 'B+');
