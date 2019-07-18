@@ -313,8 +313,8 @@ BEGIN
     INTO @multipleSecs
     FROM (SELECT Section.id
           FROM Section
-                   INNER JOIN SectionEnrollment SE on Section.id = SE.section_id
-                   INNER JOIN secInfo on Section.course_code = secInfo.course_code
+                   INNER JOIN SectionEnrollment SE ON Section.id = SE.section_id
+                   INNER JOIN secInfo ON Section.course_code = secInfo.course_code
           WHERE student_id = NEW.student_id
             AND Section.type = secInfo.type
             AND Section.year = secInfo.year
@@ -452,7 +452,7 @@ BEGIN
                                               end_time,
                                               term,
                                               year
-                                        FROM Section
+                                       FROM Section
                                                 INNER JOIN separatedOld ON separatedOld.id = Section.id);
 
     CREATE TEMPORARY TABLE conflictSecs AS (SELECT oldSecs.day         d1,
@@ -463,18 +463,18 @@ BEGIN
                                                    newEntry.end_time   e2
                                             FROM oldSecs
                                                      INNER JOIN newEntry ON oldSecs.day = newEntry.day
-                                            WHERE ((oldSecs.start_time >= newEntry.start_time) and
+                                            WHERE ((oldSecs.start_time >= newEntry.start_time) AND
                                                    (oldSecs.start_time < newEntry.end_time))
-                                               OR ((newEntry.start_time >= oldSecs.start_time) and
+                                               OR ((newEntry.start_time >= oldSecs.start_time) AND
                                                    (newEntry.start_time < oldSecs.end_time))
     );
 
     SELECT count(*) INTO @confCount FROM conflictSecs;
 
     IF @confCount > 0 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The section conflicts with other sections taken by the student in the same semester';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                'The section conflicts with other sections taken by the student in the same semester';
     END IF;
-
 
 END;
 //
@@ -505,7 +505,8 @@ BEGIN
 
     SELECT gpa INTO @applicantGpa FROM Student WHERE id = NEW.ta_id;
     IF @applicantGpa < 3.2 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The student does not meet the minimum GPA required for a TA which is 3.2';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                'The student does not meet the minimum GPA required for a TA which is 3.2';
     END IF;
 
     /******************* Instructor Time Conflict Check *******************/
@@ -611,7 +612,8 @@ BEGIN
         SELECT count(*) INTO @confCount FROM conflictSecs;
 
         IF (@confCount > 0) THEN
-            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The instructor has a time conflict with another section he teaches';
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                    'The instructor has a time conflict with another section he teaches';
         END IF;
 
         /******************* TA Time Conflict Check *******************/
@@ -687,7 +689,8 @@ BEGIN
     WHERE Student.id = NEW.student_id;
 
     IF @applicantGpa < 3 AND @stuType = 'thesis' THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The student does not meet the minimum GPA required for research funding which is 3';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                'The student does not meet the minimum GPA required for research funding which is 3';
     END IF;
 
 END;
@@ -706,7 +709,8 @@ BEGIN
 
     SELECT gpa INTO @applicantGpa FROM Student WHERE id = NEW.assignee_id;
     IF @applicantGpa < 3.2 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The student does not meet the minimum GPA required for a TA position which is 3.2';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                'The student does not meet the minimum GPA required for a TA position which is 3.2';
     END IF;
 
 END;
