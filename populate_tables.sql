@@ -72,16 +72,16 @@ VALUES (1, 'Actuarial Mathematics Undergraduate', 'undergraduate', 90, 8, 5),
        (28, 'General Engineering Graduate', 'graduate', 44, 11, NULL);
 
 INSERT INTO Course
-VALUES ('COMP353', 'Databases', 3, '3.0'),
+VALUES ('COMP353', 'Databases', 3, '4.0'),
        ('COMP352', 'Data structures and algorithms', 3, '3.0'),
        ('SOEN341', 'Software processes', 4, '3.0'),
-       ('SOEN342', 'Software requirements and specifications', 4, '3.0'),
+       ('SOEN342', 'Software requirements and specifications', 4, '3.5'),
        ('SOEN343', 'Software architecture and design 1', 4, '3.0'),
-       ('COEN345', 'Software testing and validation', 1, '3.0'),
+       ('COEN345', 'Software testing and validation', 1, '3.5'),
        ('ELEC331', 'Fundamentals of electrical power engineering', 7, '3.0'),
        ('ELEC251', 'Fundamentals of applied electromagnetics', 7, '3.0'),
-       ('CHEM325', 'Organic Structure and Stereochemistry', 5, '3.0'),
-       ('ECON221', 'Statistical methods 1', 9, '3.0'),
+       ('CHEM325', 'Organic Structure and Stereochemistry', 5, '3.5'),
+       ('ECON221', 'Statistical methods 1', 9, '2.5'),
        ('ECON222', 'Statistical methods 2', 9, '3.0'),
        ('MATH209', 'Fundamental mathematics 2', 8, '3.0'),
        ('ENGL233', 'Critical reading', 6, '3.0'),
@@ -400,10 +400,10 @@ VALUES ('H535', 120),
        ('JMB202', 130);
 
 INSERT INTO TermToNumber
-VALUES ('summer', 0),
-       ('fall', 1),
-       ('fall/winter', 2),
-       ('winter', 3);
+VALUES ('winter', 0),
+       ('summer', 1),
+       ('fall', 2),
+       ('fall/winter', 3);
 
 INSERT INTO Section
 VALUES (1, 'AAA', 'COMP353', 'lecture', 'M, W', '14:45:00', '17:30:00', 'summer', '2018', 23, 1, 'H535'),
