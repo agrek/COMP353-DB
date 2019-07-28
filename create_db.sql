@@ -8,7 +8,6 @@ DROP TABLE IF EXISTS arc353_1.Advisor;
 DROP TABLE IF EXISTS arc353_1.Awards;
 DROP TABLE IF EXISTS arc353_1.Building;
 DROP TABLE IF EXISTS arc353_1.Campus;
-DROP TABLE IF EXISTS arc353_1.Class;
 DROP TABLE IF EXISTS arc353_1.Contract;
 DROP TABLE IF EXISTS arc353_1.Course;
 DROP TABLE IF EXISTS arc353_1.Degree;
@@ -86,14 +85,6 @@ CREATE TABLE Room
         FOREIGN KEY (building_abbreviation) REFERENCES Building (abbreviation)
 );
 
-CREATE TABLE Class
-(
-    room_number VARCHAR(45) NOT NULL,
-    capacity    INT         NULL,
-    CONSTRAINT Class_pk
-        PRIMARY KEY (room_number)
-);
-
 CREATE TABLE RoomOverhead
 (
     id        INT AUTO_INCREMENT,
@@ -151,16 +142,6 @@ CREATE TABLE Student
         FOREIGN KEY (ssn) REFERENCES Person (ssn)
 );
 
-CREATE TABLE Instructor
-(
-    ssn     INT NOT NULL,
-    dept_id INT NOT NULL,
-    CONSTRAINT Instructor_pk
-        PRIMARY KEY (ssn),
-    CONSTRAINT Instructor_Employee_ssn_fk
-        FOREIGN KEY (ssn) REFERENCES Employee (ssn)
-);
-
 CREATE TABLE Department
 (
     id           INT AUTO_INCREMENT,
@@ -172,13 +153,22 @@ CREATE TABLE Department
         UNIQUE (name)
 );
 
+CREATE TABLE Instructor
+(
+    ssn               INT  NOT NULL,
+    dept_id           INT  NOT NULL,
+    funding_available BOOL NOT NULL,
+    CONSTRAINT Instructor_pk
+        PRIMARY KEY (ssn),
+    CONSTRAINT Instructor_Department_id_fk
+        FOREIGN KEY (dept_id) REFERENCES Department (id),
+    CONSTRAINT Instructor_Employee_ssn_fk
+        FOREIGN KEY (ssn) REFERENCES Employee (ssn)
+);
+
 ALTER TABLE Department
     ADD CONSTRAINT Department_Instructor_ssn_fk
         FOREIGN KEY (chairman_ssn) REFERENCES Instructor (ssn);
-
-ALTER TABLE Instructor
-    ADD CONSTRAINT Instructor_Department_id_fk
-        FOREIGN KEY (dept_id) REFERENCES Department (id);
 
 CREATE TABLE UGradStudents
 (
@@ -340,6 +330,7 @@ CREATE TABLE TAPosition
     position     VARCHAR(45) NOT NULL,
     hours        INT(3)      NOT NULL,
     assignee_ssn INT         NULL,
+    salary       INT         NOT NULL,
     CONSTRAINT TA_pk
         PRIMARY KEY (ssn),
     CONSTRAINT TA_GradStudents_id_fk
