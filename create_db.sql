@@ -761,15 +761,17 @@ BEGIN
                                                year,
                                                ta_id,
                                                instructor_id,
+                                               building_abbreviation,
                                                room_number
                                         FROM newRow
                                                  INNER JOIN separatedNew ON separatedNew.id = newRow.id);
 
     /******************* Room Time Conflict Check *******************/
-        /* Fetching all sections taught in same room, year, and term*/
+        /* Fetching all sections taught in same building, room_number, year, and term*/
         CREATE TEMPORARY TABLE oldRoomSec AS (SELECT Section.id, day, start_time, end_time, term, year, room_number
                                               FROM Section
-                                              WHERE room_number = NEW.room_number
+                                              WHERE building_abbreviation = NEW.building_abbreviation
+                                                AND room_number = NEW.room_number
                                                 AND year = NEW.year
                                                 AND term = NEW.term);
 
@@ -790,6 +792,7 @@ BEGIN
                                                   end_time,
                                                   term,
                                                   year,
+                                                  building_abbreviation,
                                                   room_number
                                            FROM Section
                                                     INNER JOIN separatedOld ON separatedOld.id = Section.id);
