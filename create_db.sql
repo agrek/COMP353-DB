@@ -1,6 +1,6 @@
 # https://dev.mysql.com/doc/refman/8.0/en/drop-table.html
 # https://tableplus.io/blog/2018/08/mysql-how-to-drop-all-tables.html
-CREATE DATABASE IF NOT EXISTS arc353_1;
+# CREATE DATABASE IF NOT EXISTS arc353_1;
 USE arc353_1;
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS arc353_1.Address;
@@ -28,6 +28,7 @@ DROP TABLE IF EXISTS arc353_1.ResearchFundingApplications;
 DROP TABLE IF EXISTS arc353_1.ResearchFunds;
 DROP TABLE IF EXISTS arc353_1.Room;
 DROP TABLE IF EXISTS arc353_1.RoomOverhead;
+DROP TABLE IF EXISTS arc353_1.RoomNeeds;
 DROP TABLE IF EXISTS arc353_1.Section;
 DROP TABLE IF EXISTS arc353_1.SectionEnrollment;
 DROP TABLE IF EXISTS arc353_1.Student;
@@ -93,6 +94,20 @@ CREATE TABLE RoomOverhead
         PRIMARY KEY (id),
     CONSTRAINT RoomOverhead_uq
         UNIQUE (equipment)
+);
+
+CREATE TABLE RoomNeeds
+(
+    building_abbreviation VARCHAR(45)   NOT NULL,
+    room_number           INT           NOT NULL,
+    quantity              INT DEFAULT 0 NOT NULL,
+    room_overhead_id      INT           NOT NULL,
+    CONSTRAINT RoomNeeds_pk
+        PRIMARY KEY (building_abbreviation, room_number, room_overhead_id),
+    CONSTRAINT RoomNeeds_RoomOverhead_id_fk
+        FOREIGN KEY (room_overhead_id) REFERENCES RoomOverhead (id),
+    CONSTRAINT RoomNeeds_Room_building_abbreviation_room_number_fk
+        FOREIGN KEY (building_abbreviation, room_number) REFERENCES Room (building_abbreviation, room_number)
 );
 
 CREATE TABLE Person
@@ -200,7 +215,9 @@ CREATE TABLE Experience
     start_date DATE        NOT NULL,
     end_date   DATE        NOT NULL,
     CONSTRAINT HasExperience_pk
-        PRIMARY KEY (ssn, title, company, start_date, end_date)
+        PRIMARY KEY (ssn, title, company, start_date, end_date),
+    CONSTRAINT Experience_Person_ssn_fk
+        FOREIGN KEY (ssn) REFERENCES Person (ssn)
 );
 
 CREATE TABLE Publications
@@ -211,7 +228,9 @@ CREATE TABLE Publications
     title     VARCHAR(45)                    NOT NULL,
     publisher VARCHAR(45)                    NOT NULL,
     CONSTRAINT Publications_pk
-        PRIMARY KEY (ssn, date, title, publisher)
+        PRIMARY KEY (ssn, date, title, publisher),
+    CONSTRAINT Publications_Person_ssn_fk
+        FOREIGN KEY (ssn) REFERENCES Person (ssn)
 );
 
 CREATE TABLE Awards
@@ -220,7 +239,9 @@ CREATE TABLE Awards
     name VARCHAR(45) NOT NULL,
     date DATE        NOT NULL,
     CONSTRAINT Awards_pk
-        PRIMARY KEY (ssn, date, name)
+        PRIMARY KEY (ssn, date, name),
+    CONSTRAINT Awards_Person_ssn_fk
+        FOREIGN KEY (ssn) REFERENCES Person (ssn)
 );
 
 CREATE TABLE Degree
