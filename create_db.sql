@@ -67,6 +67,7 @@ CREATE TABLE Building
     name         VARCHAR(45) NOT NULL,
     num_rooms    INT         NULL,
     num_labs     INT         NOT NULL,
+    num_floors   INT         NOT NULL,
     campus       VARCHAR(45) NOT NULL,
     CONSTRAINT Building_pk
         PRIMARY KEY (abbreviation),
