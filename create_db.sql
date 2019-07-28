@@ -38,7 +38,6 @@ DROP TABLE IF EXISTS arc353_1.TermToNumber;
 DROP TABLE IF EXISTS arc353_1.UGradStudents;
 SET FOREIGN_KEY_CHECKS = 1;
 
-
 CREATE TABLE Address
 (
     id           INT AUTO_INCREMENT,
@@ -61,7 +60,6 @@ CREATE TABLE Campus
     CONSTRAINT Campus_pk
         PRIMARY KEY (abbreviation)
 );
-
 
 CREATE TABLE Building
 (
@@ -86,6 +84,14 @@ CREATE TABLE Room
         PRIMARY KEY (building_abbreviation, room_number),
     CONSTRAINT Room_Building_abbreviation_fk
         FOREIGN KEY (building_abbreviation) REFERENCES Building (abbreviation)
+);
+
+CREATE TABLE Class
+(
+    room_number VARCHAR(45) NOT NULL,
+    capacity    INT         NULL,
+    CONSTRAINT Class_pk
+        PRIMARY KEY (room_number)
 );
 
 CREATE TABLE RoomOverhead
@@ -174,7 +180,6 @@ ALTER TABLE Instructor
     ADD CONSTRAINT Instructor_Department_id_fk
         FOREIGN KEY (dept_id) REFERENCES Department (id);
 
-
 CREATE TABLE UGradStudents
 (
     ssn INT,
@@ -228,7 +233,6 @@ CREATE TABLE Awards
         PRIMARY KEY (ssn, date, name)
 );
 
-
 CREATE TABLE Degree
 (
     institution VARCHAR(45) NOT NULL,
@@ -252,18 +256,6 @@ CREATE TABLE HasDegree
         FOREIGN KEY (degree_id) REFERENCES Degree (id),
     CONSTRAINT HasDegree_Student_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Student (ssn)
-);
-
-CREATE TABLE TAPosition
-(
-    ssn          INT AUTO_INCREMENT,
-    position     VARCHAR(45) NOT NULL,
-    hours        INT(3)      NOT NULL,
-    assignee_ssn INT         NULL,
-    CONSTRAINT TA_pk
-        PRIMARY KEY (ssn),
-    CONSTRAINT TA_GradStudents_id_fk
-        FOREIGN KEY (assignee_ssn) REFERENCES GradStudents (ssn)
 );
 
 CREATE TABLE LetterToGpa
@@ -334,14 +326,6 @@ CREATE TABLE Course
         FOREIGN KEY (department_id) REFERENCES Department (id)
 );
 
-CREATE TABLE Class
-(
-    room_number VARCHAR(45) NOT NULL,
-    capacity    INT         NULL,
-    CONSTRAINT Class_pk
-        PRIMARY KEY (room_number)
-);
-
 CREATE TABLE TermToNumber
 (
     term       VARCHAR(45) NOT NULL,
@@ -350,33 +334,47 @@ CREATE TABLE TermToNumber
         PRIMARY KEY (term)
 );
 
+CREATE TABLE TAPosition
+(
+    ssn          INT AUTO_INCREMENT,
+    position     VARCHAR(45) NOT NULL,
+    hours        INT(3)      NOT NULL,
+    assignee_ssn INT         NULL,
+    CONSTRAINT TA_pk
+        PRIMARY KEY (ssn),
+    CONSTRAINT TA_GradStudents_id_fk
+        FOREIGN KEY (assignee_ssn) REFERENCES GradStudents (ssn)
+);
+
 CREATE TABLE Section
 (
-    id             INT AUTO_INCREMENT,
-    name           VARCHAR(45) NOT NULL,
-    course_code    VARCHAR(16) NOT NULL,
-    type           VARCHAR(45) NOT NULL,
-    day            VARCHAR(45) NOT NULL,
-    start_time     TIME        NOT NULL,
-    end_time       TIME        NOT NULL,
-    term           VARCHAR(45) NOT NULL,
-    year           INT(4)      NOT NULL,
-    ta_ssn         INT         NULL,
-    instructor_ssn INT         NULL,
-    room_number    VARCHAR(45) NULL,
+    id                    INT AUTO_INCREMENT,
+    name                  VARCHAR(45) NOT NULL,
+    course_code           VARCHAR(16) NOT NULL,
+    type                  VARCHAR(45) NOT NULL,
+    day                   VARCHAR(45) NOT NULL,
+    start_time            TIME        NOT NULL,
+    end_time              TIME        NOT NULL,
+    term                  VARCHAR(45) NOT NULL,
+    year                  INT(4)      NOT NULL,
+    ta_ssn                INT         NULL,
+    instructor_ssn        INT         NULL,
+    building_abbreviation VARCHAR(45) NULL,
+    room_number           INT         NOT NULL,
     CONSTRAINT Section_pk
         PRIMARY KEY (id),
     CONSTRAINT Section_uq
         UNIQUE (course_code, name),
-    CONSTRAINT Section_Class_room_number_fk
-        FOREIGN KEY (room_number) REFERENCES Class (room_number),
+    CONSTRAINT Section_Building_abbreviation_num_rooms_fk
+        FOREIGN KEY (building_abbreviation, room_number) REFERENCES Room (building_abbreviation, room_number),
     CONSTRAINT Section_Course_code_fk
         FOREIGN KEY (course_code) REFERENCES Course (code),
     CONSTRAINT Section_Instructor_id_fk
         FOREIGN KEY (instructor_ssn) REFERENCES Instructor (ssn),
     CONSTRAINT Section_TA_assignee_fk
         FOREIGN KEY (ta_ssn) REFERENCES TAPosition (assignee_ssn),
-    CONSTRAINT term_name_fk FOREIGN KEY (term) REFERENCES TermToNumber (term)
+    CONSTRAINT term_name_fk
+        FOREIGN KEY (term) REFERENCES TermToNumber (term)
 );
 
 CREATE TABLE ResearchFunds
