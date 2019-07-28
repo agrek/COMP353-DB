@@ -17,7 +17,7 @@ VALUES ('A+', 4.30),
        ('NR', 0.00);
 
 INSERT INTO Department
-VALUES (1, 'Computer Engineering'),
+VALUES (1, 'Computer Engineering', ),
        (2, 'Physics'),
        (3, 'Computer Science'),
        (4, 'Software Engineering'),
@@ -115,31 +115,83 @@ INSERT INTO ProgramRequirements(program_id, course_code) VALUE
     (25, 'ELEC331'),
     (25, 'ELEC251');
 
+INSERT INTO Person(ssn,id,first_name,last_name,email) VALUES
+ (1,1,'Lisa','Wood','mddallara@outlook.com')
+,(889993771,2,'Amber','Cooper','dinther@verizon.net')
+,(779332036,3,'Oscar','Howell','jlbaumga@verizon.net')
+,(245007722,4,'Irvin','Collins','bflong@gmail.com')
+,(645399011,5,'Roosevelt','Parsons','nighthawk@aol.com')
+,(445761402,6,'Eugene','Greer','kimvette@aol.com')
+,(616004712,7,'Gwen','Dunn','trygstad@me.com')
+,(223680290,8,'Laurence','Mack','keijser@me.com')
+,(453920929,9,'Sheldon','Walsh','mhouston@msn.com')
+,(146344051,10,'Brandy','Harmon','michiel@yahoo.com')
+,(157682678,11,'Jason','Bush','penna@yahoo.ca')
+,(448602365,12,'Faith','Rhodes','evans@comcast.net')
+,(309348312,13,'Victoria','Anderson','emmanuel@outlook.com')
+,(635775881,14,'Chad','Mcgee','thaljef@yahoo.ca')
+,(563383616,15,'Lauren','Singleton','mwitte@outlook.com')
+,(891468783,16,'Joy','Cook','boser@yahoo.ca')
+,(610091459,17,'Donnie','Lyons','thrymm@aol.com')
+,(108906305,18,'Darla','Warren','stevelim@icloud.com')
+,(667004396,19,'David','Goodwin','camenisch@gmail.com')
+,(752713919,20,'Neil','Vargas','jipsen@outlook.com')
+,(882108144,21,'Tracey','Reese','martyloo@verizon.net')
+,(809493224,22,'Maryann','Valdez','jorgb@yahoo.ca')
+,(814392875,23,'Henrietta','Daniels','chrisj@sbcglobal.net')
+,(426299656,24,'Arlene','Ellis','dawnsong@icloud.com')
+,(357320964,25,'Theodore','Adkins','thomasj@yahoo.ca')
+,(881132104,26,'Bryan','Ballard','morain@verizon.net')
+,(508203017,27,'Carrie','Castillo','dbanarse@optonline.net')
+,(907806961,28,'Sean','Cobb','reziac@sbcglobal.net')
+,(656597000,29,'Pat','Mccarthy','sisyphus@msn.com')
+,(477176451,30,'Shelly','Boone','smpeters@outlook.com')
+,(964663021,31,'Darin','Manning','darin@comcast.net')
+,(249691790,32,'Guadalupe','Peters','nanop@yahoo.com')
+,(665452486,33,'Isaac','Norman','mhouston@comcast.net')
+,(481996433,34,'Jermaine','Carlson','cumarana@hotmail.com')
+,(786482339,35,'Larry','Johnston','keijser@yahoo.com')
+,(927819640,36,'Jim','Schmidt','juerd@outlook.com')
+,(867304329,37,'Hilda','Fields','fallorn@me.com')
+,(195238750,38,'Loretta','Rogers','tromey@sbcglobal.net')
+,(934347739,39,'Eleanor','Mathis','tokuhirom@verizon.net')
+,(246771994,40,'Ryan','Ward','treit@optonline.net')
+,(403876313,41,'Velma','Ramsey','hikoza@hotmail.com')
+,(683192608,42,'Emilio','Ryan','adillon@live.com')
+,(635804780,43,'Percy','Garcia','nighthawk@optonline.net')
+,(177921799,44,'William','Silva','amimojo@verizon.net')
+,(965277745,45,'Alfredo','Tyler','haddawy@yahoo.com')
+,(406932598,46,'Jill','Quinn','sisyphus@outlook.com')
+,(204794691,47,'Bradley','Carr','ryanshaw@mac.com')
+,(293904265,48,'Herbert','Paul','novanet@comcast.net')
+,(373307205,49,'Katherine','Nichols','ehood@icloud.com')
+,(295600928,50,'Nelson','Gregory','dieman@verizon.net');
+
 INSERT INTO Student
-VALUES (DEFAULT, 'Isabelle', 'Ramirez', '552 Broadway Street', NULL),
-       (DEFAULT, 'Benjamin', 'Moore', '76 Chestnut Grove', NULL),
-       (DEFAULT, 'Hannah', 'Hayes', '223 Abby Lane', NULL),
-       (DEFAULT, 'Amber', 'Baker', '57 Mendip Close', NULL),
-       (DEFAULT, 'David', 'Williams', '6398 Beverley Road', NULL),
-       (DEFAULT, 'Mildred', 'Jackson', '764 Saint Mary Street', NULL),
-       (DEFAULT, 'Josh', 'Murray', '7321 Church Street', NULL),
-       (DEFAULT, 'Phoebe', 'Mitchell', '88 Elm Avenue', NULL),
-       (DEFAULT, 'Imogen', 'Hughes', '1154 Charles Street', NULL),
-       (DEFAULT, 'Luke', 'Washington', '62 Castle Street', NULL),
-       (DEFAULT, 'Ella', 'Wright', '18 Norman Road', NULL),
-       (DEFAULT, 'Harrison', 'Shaw', '709 Saint Andrews Road', NULL),
-       (DEFAULT, 'Mohammed', 'Nguyen', '482 West Street', NULL),
-       (DEFAULT, 'Alice', 'Ford', '4 Chapel Lane', NULL),
-       (DEFAULT, 'James', 'West', '7622 Common Road', NULL),
-       (DEFAULT, 'Harry', 'Cooke', '562 Coronation Street', NULL),
-       (DEFAULT, 'Liam', 'Shaw', '709 Saint Andrews Road', NULL),
-       (DEFAULT, 'Megan', 'Murray', '612 Chatsworth Road', NULL),
-       (DEFAULT, 'Oliver', 'Gonzalez', '835 Maple Street', NULL),
-       (DEFAULT, 'Allie', 'Hamilton', '9662 Brunswick Street', NULL),
-       (DEFAULT, 'Brandon', 'Cassidy', '35 Hyacynth Drive', NULL),
-       (DEFAULT, 'Justin', 'Santiago', '329 Pennant Road', NULL),
-       (DEFAULT, 'Leonard', 'Li', '71 Drake Avenue', NULL),
-       (DEFAULT, 'Jess', 'Singh', '732 Terrace Gardens', NULL),
+VALUES (DEFAULT, 'Isabelle', 'Ramirez', '552 Broadway Street', NULL), 1
+       (DEFAULT, 'Benjamin', 'Moore', '76 Chestnut Grove', NULL), 2
+       (DEFAULT, 'Hannah', 'Hayes', '223 Abby Lane', NULL), 3
+       (DEFAULT, 'Amber', 'Baker', '57 Mendip Close', NULL), 4
+       (DEFAULT, 'David', 'Williams', '6398 Beverley Road', NULL), 5
+       (DEFAULT, 'Mildred', 'Jackson', '764 Saint Mary Street', NULL), 6
+       (DEFAULT, 'Josh', 'Murray', '7321 Church Street', NULL), 7
+       (DEFAULT, 'Phoebe', 'Mitchell', '88 Elm Avenue', NULL), 8
+       (DEFAULT, 'Imogen', 'Hughes', '1154 Charles Street', NULL), 9
+       (DEFAULT, 'Luke', 'Washington', '62 Castle Street', NULL), 10
+       (DEFAULT, 'Ella', 'Wright', '18 Norman Road', NULL), 11
+       (DEFAULT, 'Harrison', 'Shaw', '709 Saint Andrews Road', NULL), 12
+       (DEFAULT, 'Mohammed', 'Nguyen', '482 West Street', NULL), 13
+       (DEFAULT, 'Alice', 'Ford', '4 Chapel Lane', NULL), 14
+       (DEFAULT, 'James', 'West', '7622 Common Road', NULL), 15
+       (DEFAULT, 'Harry', 'Cooke', '562 Coronation Street', NULL), 16
+       (DEFAULT, 'Liam', 'Shaw', '709 Saint Andrews Road', NULL), 17
+       (DEFAULT, 'Megan', 'Murray', '612 Chatsworth Road', NULL), 18
+       (DEFAULT, 'Oliver', 'Gonzalez', '835 Maple Street', NULL), 19
+       (DEFAULT, 'Allie', 'Hamilton', '9662 Brunswick Street', NULL), 20
+       (DEFAULT, 'Brandon', 'Cassidy', '35 Hyacynth Drive', NULL), 21
+       (DEFAULT, 'Justin', 'Santiago', '329 Pennant Road', NULL),22
+       (DEFAULT, 'Leonard', 'Li', '71 Drake Avenue', NULL), 23
+       (DEFAULT, 'Jess', 'Singh', '732 Terrace Gardens', NULL), 24
        (DEFAULT, 'Declan', 'Simmons', '5 Balmoral Crescent', NULL),
        (DEFAULT, 'Maja', 'Little', '7 Barberry Avenue', NULL),
        (DEFAULT, 'Hugo', 'Harrison', '222 Mill hill Road', NULL),
