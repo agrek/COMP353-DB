@@ -30,16 +30,16 @@ VALUES (1, 'Computer Engineering'),
        (11, 'General Engineering');
 
 INSERT INTO Advisor
-VALUES (DEFAULT, 'Ellen', 'Kirk', '44 Engineering Building'),
-       (DEFAULT, 'Tobias', 'Farmer', '12 Physics Building'),
-       (DEFAULT, 'Paige', 'Cannon', '14 Chemistry Building'),
-       (DEFAULT, 'Leo', 'Salinas', '74 Engineering Building'),
-       (DEFAULT, 'Rosie', 'Cobb', '587 Math Building'),
-       (DEFAULT, 'Dominic', 'Jensen', '729 Engineering Building'),
-       (DEFAULT, 'Scarlett', 'Bishop', '534 English Building'),
-       (DEFAULT, 'Steve', 'Schultz', '36 Psychology Building'),
-       (DEFAULT, 'Lucas', 'Wang', '21 Computer Science Building'),
-       (DEFAULT, 'Lillian', 'Frazier', '511 Business Building');
+VALUES (DEFAULT, 'Ellen', 'Kirk', 'Engineering Building',44),
+       (DEFAULT, 'Tobias', 'Farmer', 'Physics Building',12),
+       (DEFAULT, 'Paige', 'Cannon', 'Chemistry Building',14),
+       (DEFAULT, 'Leo', 'Salinas', 'Engineering Building',74),
+       (DEFAULT, 'Rosie', 'Cobb', 'Math Building',587),
+       (DEFAULT, 'Dominic', 'Jensen', 'Engineering Building',729),
+       (DEFAULT, 'Scarlett', 'Bishop', 'English Building',534),
+       (DEFAULT, 'Steve', 'Schultz', 'Psychology Building',36),
+       (DEFAULT, 'Lucas', 'Wang', 'Computer Science Building',21),
+       (DEFAULT, 'Lillian', 'Frazier', 'Business Building',511);
 
 INSERT INTO Program
 VALUES (1, 'Actuarial Mathematics Undergraduate', 'undergraduate', 90, 8, 5),
@@ -720,3 +720,5 @@ INSERT INTO SectionEnrollment VALUE (60, 49, 'B');
 INSERT INTO SectionEnrollment VALUE (30, 49, 'B+');
 INSERT INTO SectionEnrollment VALUE (32, 49, 'B+');
 INSERT INTO SectionEnrollment VALUE (33, 49, 'B+');
+
+INSER INTO Building VALUE('H','Henry F. Hall Building',200,100,12,'SGW')
