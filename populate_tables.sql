@@ -773,6 +773,9 @@ INSERT INTO SectionEnrollment VALUE (30, 49, 'B+');
 INSERT INTO SectionEnrollment VALUE (32, 49, 'B+');
 INSERT INTO SectionEnrollment VALUE (33, 49, 'B+');
 
+INSERT INTO Campus('LOY','Loyola'),
+('SGW','Sir George Williams');
+
 INSERT INTO Building VALUE('H','Henry F. Hall Building',200,100,12,'SGW'),
 ('EV','Engineering, Computer Science and Visual Arts Integrated Complex',300,50,15,'SGW'),
 ('VA','Visual Arts Building',25,0,5,'SGW'),
@@ -791,16 +794,16 @@ INSERT INTO Building VALUE('H','Henry F. Hall Building',200,100,12,'SGW'),
 ('LB','J.W. McConnell Building',10,5,3,'SGW'),
 ('M','M Annex',10,6,3,'SGW'),
 ('MB','John Molson Building',100,45,15,'SGW'),
-('AD','Administration Building',10,0,5,'LOYOLA'),
-('BB','BB Annex',10,4,5,'LOYOLA'),
-('HA','Hingston Hall, Wing HA',46,23,5,'LOYOLA'),
-('SH','Solar House',7,4,5,'LOYOLA'),
-('PC','Performing Centre',1,0,2,'LOYOLA'),
-('CC','Central Building',133,0,3,'LOYOLA'),
-('TA','Terrebonne Building',44,0,4,'LOYOLA'),
-('RA','Recreational and Complex Building',34,6,3,'LOYOLA'),
-('HC','Hingston Hall, Wing HC',45,4,4,'LOYOLA'),
-('FC','F.C. Smith Building',34,4,4,'LOYOLA');
+('AD','Administration Building',10,0,5,'LOY'),
+('BB','BB Annex',10,4,5,'LOY'),
+('HA','Hingston Hall, Wing HA',46,23,5,'LOY'),
+('SH','Solar House',7,4,5,'LOY'),
+('PC','Performing Centre',1,0,2,'LOY'),
+('CC','Central Building',133,0,3,'LOY'),
+('TA','Terrebonne Building',44,0,4,'LOY'),
+('RA','Recreational and Complex Building',34,6,3,'LOY'),
+('HC','Hingston Hall, Wing HC',45,4,4,'LOY'),
+('FC','F.C. Smith Building',34,4,4,'LOY');
 
 INSERT INTO Room('H','lab',20,900),
 ('H','lab',20,900),
