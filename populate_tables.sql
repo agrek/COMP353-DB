@@ -264,14 +264,14 @@ INSERT INTO Advisor(ssn) VALUES
 
 
 INSERT INTO GradStudents
-VALUES (3, 'thesis', 9),
-       (6, 'course', NULL),
-       (12, 'thesis', 8),
-       (9, 'course', NULL),
-       (8, 'course', NULL),
-       (4, 'thesis', 8),
-       (10, 'thesis', 6),
-       (16, 'course', NULL),
+VALUES (779332036, 'thesis', 9),
+       (445761402, 'course', NULL),
+       (448602365, 'thesis', 8),
+       (453920929, 'course', NULL),
+       (223680290, 'course', NULL),
+       (245007722, 'thesis', 8),
+       (146344051, 'thesis', 6),
+       (891468783, 'course', NULL),
        (7, 'thesis', 2),
        (13, 'thesis', 5),
        (21, 'thesis', 2),
