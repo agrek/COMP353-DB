@@ -465,6 +465,7 @@ INSERT INTO Employee(ssn,retired,office_building_abbreviation,office_room_floor,
 ,(269828604,0,'EV',5,529)
 ,(195310678,0,'EV',5,530);
 
+
 INSERT INTO UGradStudents VALUES
 (399437700)
 ,(889993771)
@@ -1082,7 +1083,6 @@ INSERT INTO SectionEnrollment VALUE (60, 373307205, 'B');
 INSERT INTO SectionEnrollment VALUE (30, 373307205, 'B+');
 INSERT INTO SectionEnrollment VALUE (32, 373307205, 'B+');
 INSERT INTO SectionEnrollment VALUE (33, 373307205, 'B+');
-
 
 INSERT INTO HasDegree VALUES
 (779332036,'2003-08-11',1,428)
