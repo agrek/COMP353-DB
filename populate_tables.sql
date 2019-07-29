@@ -264,46 +264,6 @@ INSERT INTO Advisor(ssn) VALUES
 
 
 INSERT INTO GradStudents
-<<<<<<< HEAD
-VALUES (779332036, 'thesis', 9),
-       (445761402, 'course', NULL),
-       (448602365, 'thesis', 8),
-       (453920929, 'course', NULL),
-       (223680290, 'course', NULL),
-       (245007722, 'thesis', 8),
-       (146344051, 'thesis', 6),
-       (891468783, 'course', NULL),
-       (7, 'thesis', 2),
-       (13, 'thesis', 5),
-       (21, 'thesis', 2),
-       (22, 'thesis', 2),
-       (23, 'thesis', 2),
-       (24, 'thesis', 2),
-       (25, 'thesis', 2),
-       (26, 'thesis', 2),
-       (27, 'thesis', 2),
-       (28, 'thesis', 2),
-       (29, 'thesis', 2),
-       (30, 'thesis', 2),
-       (31, 'thesis', 2),
-       (32, 'thesis', 2),
-       (33, 'thesis', 2),
-       (34, 'thesis', 2),
-       (35, 'thesis', 2),
-       (36, 'thesis', 2),
-       (37, 'thesis', 2),
-       (38, 'thesis', 2),
-       (39, 'thesis', 2),
-       (40, 'thesis', 2),
-       (41, 'course', NULL),
-       (42, 'thesis', 3),
-       (43, 'course', NULL),
-       (44, 'thesis', 9),
-       (45, 'thesis', 9),
-       (46, 'thesis', 11),
-       (47, 'course', NULL),
-       (48, 'thesis', 4);
-=======
 VALUES (779332036, 'thesis', 575933767),
        (445761402, 'course', NULL),
        (448602365, 'thesis', 747652718),
@@ -342,7 +302,6 @@ VALUES (779332036, 'thesis', 575933767),
        (406932598, 'thesis', 330264593),
        (204794691, 'course', NULL),
        (293904265, 'thesis', 226130537);
->>>>>>> 14ffafccb6cccc2988bba0e07466c576c9f0a83c
 
 INSERT INTO ResearchFunds
 VALUES (1, 'Research Grant in Computer Science 2', 800),
