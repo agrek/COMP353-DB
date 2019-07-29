@@ -382,14 +382,13 @@ CREATE TABLE Section
 
 CREATE TABLE TAPosition
 (
-    id           INT AUTO_INCREMENT,
+    section_id   INT         NOT NULL,
     position     VARCHAR(45) NOT NULL,
     hours        INT(3)      NOT NULL,
     assignee_ssn INT         NULL,
     salary       INT         NOT NULL,
-    section_id   INT         NOT NULL,
-    CONSTRAINT TA_pk
-        PRIMARY KEY (id),
+    CONSTRAINT TAPosition_pk
+        PRIMARY KEY (section_id),
     CONSTRAINT TAPosition_Section_id_fk
         FOREIGN KEY (section_id) REFERENCES Section (id),
     CONSTRAINT TA_GradStudents_id_fk
@@ -688,37 +687,38 @@ DELIMITER ;
 
 DROP TRIGGER IF EXISTS TaTrig;
 
- DELIMITER //
- CREATE TRIGGER TaTrig
-     BEFORE INSERT
-     ON TAPosition
-     FOR EACH ROW
- BEGIN
+DELIMITER //
+CREATE TRIGGER TaTrig
+    BEFORE INSERT
+    ON TAPosition
+    FOR EACH ROW
+BEGIN
 
-     /******************* TA Total Hours Check *******************/
-     SELECT year INTO @posYear FROM Section WHERE NEW.section_id = Section.id;
-     SELECT SUM(hours)
-     INTO @totalHours
-     FROM (SELECT DISTINCT (TAPosition.id), hours
-           FROM TAPosition
-                    INNER JOIN Section ON TAPosition.section_id = Section.id
-           WHERE assignee_ssn = NEW.assignee_ssn
-             AND year = @posYear) t;
+    /******************* TA Total Hours Check *******************/
+    SELECT year INTO @posYear FROM Section WHERE NEW.section_id = Section.id;
+    SELECT SUM(hours)
+    INTO @totalHours
+    # TODO: Verify use of section_id
+    FROM (SELECT DISTINCT (TAPosition.section_id), hours
+          FROM TAPosition
+                   INNER JOIN Section ON TAPosition.section_id = Section.id
+          WHERE assignee_ssn = NEW.assignee_ssn
+            AND year = @posYear) t;
 
-     IF (@totalHours > 260) THEN
-         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The TA exceeds the max hours permitted in a year of 260 hours';
-     END IF;
+    IF (@totalHours > 260) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The TA exceeds the max hours permitted in a year of 260 hours';
+    END IF;
 
-     /******************* TA GPA Check *******************/
+    /******************* TA GPA Check *******************/
 
-     SELECT gpa INTO @applicantGpa FROM Student WHERE ssn = NEW.assignee_ssn;
-     IF @applicantGpa < 3.2 THEN
-         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
-                 'The student does not meet the minimum GPA required for a TA which is 3.2';
-     END IF;
+    SELECT gpa INTO @applicantGpa FROM Student WHERE ssn = NEW.assignee_ssn;
+    IF @applicantGpa < 3.2 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                'The student does not meet the minimum GPA required for a TA which is 3.2';
+    END IF;
 
 
-#         /******************* TA Time Conflict Check *******************/
+    #         /******************* TA Time Conflict Check *******************/
 #     ELSEIF NEW.type = 'tutorial' OR NEW.type = 'lab' THEN
 #         /* Fetching all tutorial and lab sections taught by the TA in same year, and term*/
 #         CREATE TEMPORARY TABLE oldTASec AS (SELECT Section.id, day, start_time, end_time, term, year, ta_ssn
@@ -769,7 +769,8 @@ DROP TRIGGER IF EXISTS TaTrig;
 #             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The TA has a time conflict with another section he teaches';
 #         END IF;
 
-END; //
+END;
+//
 DELIMITER ;
 
 DELIMITER //
