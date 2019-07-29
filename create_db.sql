@@ -64,7 +64,7 @@ CREATE TABLE Campus
 CREATE TABLE Building
 (
     abbreviation VARCHAR(45) NOT NULL,
-    name         VARCHAR(45) NOT NULL,
+    name         VARCHAR(90) NOT NULL,
     num_rooms    INT         NULL,
     num_labs     INT         NOT NULL,
     num_floors   INT         NOT NULL,
@@ -111,6 +111,7 @@ CREATE TABLE RoomNeeds
         FOREIGN KEY (room_overhead_id) REFERENCES RoomOverhead (id),
     CONSTRAINT RoomNeeds_Room_building_abbreviation_room_number_fk
         FOREIGN KEY (building_abbreviation, room_floor, room_number) REFERENCES Room (building_abbreviation, room_floor, room_number)
+
 );
 
 CREATE TABLE Person
@@ -120,8 +121,8 @@ CREATE TABLE Person
     first_name VARCHAR(45) NOT NULL,
     last_name  VARCHAR(45) NOT NULL,
     email      VARCHAR(45) NOT NULL,
-    address    INT         NOT NULL,
-    phone      INT(10)     NULL,
+    address    INT         NULL,
+    phone      VARCHAR(14) NULL,
     CONSTRAINT Person_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Person_uq
@@ -171,7 +172,6 @@ CREATE TABLE Department
 (
     id           INT AUTO_INCREMENT,
     name         VARCHAR(45) NOT NULL,
-    chairman_ssn INT         NULL,
     CONSTRAINT Department_pk
         PRIMARY KEY (id),
     CONSTRAINT Department_uq
@@ -182,7 +182,8 @@ CREATE TABLE Instructor
 (
     ssn               INT  NOT NULL,
     dept_id           INT  NOT NULL,
-    funding_available BOOL NOT NULL,
+    funding_available BOOL DEFAULT FALSE,
+    is_chairman       BOOL DEFAULT FALSE,
     CONSTRAINT Instructor_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Instructor_Department_id_fk
@@ -190,10 +191,6 @@ CREATE TABLE Instructor
     CONSTRAINT Instructor_Employee_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Employee (ssn)
 );
-
-ALTER TABLE Department
-    ADD CONSTRAINT Department_Instructor_ssn_fk
-        FOREIGN KEY (chairman_ssn) REFERENCES Instructor (ssn);
 
 CREATE TABLE UGradStudents
 (
@@ -208,7 +205,7 @@ CREATE TABLE GradStudents
 (
     ssn            INT                       NULL,
     type           ENUM ('thesis', 'course') NOT NULL,
-    supervisor_ssn INT                       NOT NULL,
+    supervisor_ssn INT                       NULL,
     CONSTRAINT GradStudents_pk
         PRIMARY KEY (ssn),
     CONSTRAINT GradStudents_Instructor_ssn_fk
