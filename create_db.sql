@@ -81,7 +81,7 @@ CREATE TABLE Room
     type                  ENUM ('lab', 'class', 'office') NOT NULL,
     capacity              INT                             NOT NULL,
     room_number           INT                             NOT NULL,
-    room_floor            INT                             NOT NULL,
+    room_floor            INT(2)                          NOT NULL,
     CONSTRAINT Room_pk
         PRIMARY KEY (building_abbreviation, room_floor, room_number),
     CONSTRAINT Room_Building_abbreviation_fk
@@ -101,8 +101,8 @@ CREATE TABLE RoomOverhead
 CREATE TABLE RoomNeeds
 (
     building_abbreviation VARCHAR(45)   NOT NULL,
-    room_floor            INT           NOT NULL,
-    room_number           INT           NOT NULL,
+    room_floor            INT(2)        NOT NULL,
+    room_number           INT(3)        NOT NULL,
     quantity              INT DEFAULT 0 NOT NULL,
     room_overhead_id      INT           NOT NULL,
     CONSTRAINT RoomNeeds_pk
@@ -135,8 +135,8 @@ CREATE TABLE Employee
     ssn                          INT                NOT NULL,
     retired                      BOOL DEFAULT FALSE NOT NULL,
     office_building_abbreviation VARCHAR(45)        NULL,
-    office_room_floor            INT                NULL,
-    office_room_number           INT                NULL,
+    office_room_floor            INT(2)             NULL,
+    office_room_number           INT(3)             NULL,
     CONSTRAINT Employee_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Employee_Person_ssn_fk
@@ -376,8 +376,8 @@ CREATE TABLE Section
     ta_ssn                INT         NULL,
     instructor_ssn        INT         NULL,
     building_abbreviation VARCHAR(45) NULL,
-    room_floor            INT         NULL,
-    room_number           INT         NOT NULL,
+    room_floor            INT(2)      NULL,
+    room_number           INT(3)      NOT NULL,
     CONSTRAINT Section_pk
         PRIMARY KEY (id),
     CONSTRAINT Section_uq
