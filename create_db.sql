@@ -142,7 +142,10 @@ CREATE TABLE Employee
     CONSTRAINT Employee_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn),
     CONSTRAINT Employee_Building_abbreviation_fk
-        FOREIGN KEY (office_building_abbreviation, office_room_floor, office_room_number) REFERENCES Room (building_abbreviation, room_floor, room_number)
+        FOREIGN KEY (office_building_abbreviation, office_room_number) REFERENCES Room (building_abbreviation, room_number)
+            CONSTRAINT Advisor_Building_abbreviation_fk
+            FOREIGN KEY (office_building_abbreviation, office_room_floor, office_room_number) REFERENCES Room (building_abbreviation, room_floor, room_number)
+            FOREIGN KEY (office_building_abbreviation, office_room_floor, office_room_number) REFERENCES Room (building_abbreviation, room_floor, room_number)
 
 );
 
@@ -376,7 +379,7 @@ CREATE TABLE Section
     ta_ssn                INT         NULL,
     instructor_ssn        INT         NULL,
     building_abbreviation VARCHAR(45) NULL,
-    room_floor            INT(2)      NULL,
+    room_floor            INT(2)      NOT NULL,
     room_number           INT(3)      NOT NULL,
     CONSTRAINT Section_pk
         PRIMARY KEY (id),
