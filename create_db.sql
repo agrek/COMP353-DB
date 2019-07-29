@@ -142,10 +142,7 @@ CREATE TABLE Employee
     CONSTRAINT Employee_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn),
     CONSTRAINT Employee_Building_abbreviation_fk
-        FOREIGN KEY (office_building_abbreviation, office_room_number) REFERENCES Room (building_abbreviation, room_number)
-            CONSTRAINT Advisor_Building_abbreviation_fk
-            FOREIGN KEY (office_building_abbreviation, office_room_floor, office_room_number) REFERENCES Room (building_abbreviation, room_floor, room_number)
-            FOREIGN KEY (office_building_abbreviation, office_room_floor, office_room_number) REFERENCES Room (building_abbreviation, room_floor, room_number)
+        FOREIGN KEY (office_building_abbreviation, office_room_floor, office_room_number) REFERENCES Room (building_abbreviation, room_floor, room_number)
 
 );
 
