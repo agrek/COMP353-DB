@@ -373,11 +373,11 @@ CREATE TABLE Section
     end_time              TIME        NOT NULL,
     term                  VARCHAR(45) NOT NULL,
     year                  INT(4)      NOT NULL,
-    ta_ssn                INT         NULL,
-    instructor_ssn        INT         NULL,
-    building_abbreviation VARCHAR(45) NULL,
+    instructor_ssn        INT(9)      NOT NULL,
     room_floor            INT(2)      NULL,
     room_number           INT(3)      NOT NULL,
+    building_abbreviation VARCHAR(45) NULL,
+    ta_position_id        INT         NOT NULL,
     CONSTRAINT Section_pk
         PRIMARY KEY (id),
     CONSTRAINT Section_uq
@@ -388,8 +388,10 @@ CREATE TABLE Section
         FOREIGN KEY (course_code) REFERENCES Course (code),
     CONSTRAINT Section_Instructor_id_fk
         FOREIGN KEY (instructor_ssn) REFERENCES Instructor (ssn),
-    CONSTRAINT Section_TA_assignee_fk
-        FOREIGN KEY (ta_ssn) REFERENCES TAPosition (assignee_ssn),
+    CONSTRAINT Section_Instructor_ssn_fk
+        FOREIGN KEY (instructor_ssn) REFERENCES Instructor (ssn),
+    CONSTRAINT Section_TAPosition_id_fk
+        FOREIGN KEY (ta_position_id) REFERENCES TAPosition (id),
     CONSTRAINT term_name_fk
         FOREIGN KEY (term) REFERENCES TermToNumber (term)
 );
