@@ -125,7 +125,7 @@ CREATE TABLE Person
     CONSTRAINT Person_uq
         UNIQUE (id, email),
     CONSTRAINT Person_Address_id_fk
-        FOREIGN KEY (id) REFERENCES Address (id)
+        FOREIGN KEY (address) REFERENCES Address (id)
 );
 
 CREATE TABLE Employee
