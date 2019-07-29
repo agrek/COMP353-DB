@@ -349,20 +349,6 @@ CREATE TABLE TermToNumber
         PRIMARY KEY (term)
 );
 
-CREATE TABLE TAPosition
-(
-    id           INT AUTO_INCREMENT,
-    position     VARCHAR(45) NOT NULL,
-    hours        INT(3)      NOT NULL,
-    assignee_ssn INT         NULL,
-    salary       INT         NOT NULL,
-    section 	 INT	     NOT NULL,
-    CONSTRAINT TA_pk
-        PRIMARY KEY (id), 
-    CONSTRAINT TA_GradStudents_id_fk
-        FOREIGN KEY (assignee_ssn) REFERENCES GradStudents (ssn)
-);
-
 CREATE TABLE Section
 (
     id                    INT AUTO_INCREMENT,
@@ -392,6 +378,22 @@ CREATE TABLE Section
         FOREIGN KEY (instructor_ssn) REFERENCES Instructor (ssn),
     CONSTRAINT term_name_fk
         FOREIGN KEY (term) REFERENCES TermToNumber (term)
+);
+
+CREATE TABLE TAPosition
+(
+    id           INT AUTO_INCREMENT,
+    position     VARCHAR(45) NOT NULL,
+    hours        INT(3)      NOT NULL,
+    assignee_ssn INT         NULL,
+    salary       INT         NOT NULL,
+    section_id   INT         NOT NULL,
+    CONSTRAINT TA_pk
+        PRIMARY KEY (id),
+    CONSTRAINT TAPosition_Section_id_fk
+        FOREIGN KEY (section_id) REFERENCES Section (id),
+    CONSTRAINT TA_GradStudents_id_fk
+        FOREIGN KEY (assignee_ssn) REFERENCES GradStudents (ssn)
 );
 
 CREATE TABLE ResearchFunds
@@ -693,14 +695,14 @@ CREATE TRIGGER TaTrig
     FOR EACH ROW
 BEGIN
 
-DROP TRIGGER IF EXISTS TaTrig;
-/******************* TA Total Hours Check *******************/
-    SELECT year INTO @posYear FROM Section WHERE NEW.section = Section.id; 
+    DROP TRIGGER IF EXISTS TaTrig;
+    /******************* TA Total Hours Check *******************/
+    SELECT year INTO @posYear FROM Section WHERE NEW.section_id = Section.id;
     SELECT SUM(hours)
     INTO @totalHours
     FROM (SELECT DISTINCT (TAPosition.id), hours
           FROM TAPosition
-                   INNER JOIN Section ON TAPosition.section = Section.id
+                   INNER JOIN Section ON TAPosition.section_id = Section.id
           WHERE assignee_ssn = NEW.assignee_ssn
             AND year = @posYear) t;
 
