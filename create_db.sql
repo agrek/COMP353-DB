@@ -716,6 +716,59 @@ DROP TRIGGER IF EXISTS TaTrig;
          SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
                  'The student does not meet the minimum GPA required for a TA which is 3.2';
      END IF;
+
+
+#         /******************* TA Time Conflict Check *******************/
+#     ELSEIF NEW.type = 'tutorial' OR NEW.type = 'lab' THEN
+#         /* Fetching all tutorial and lab sections taught by the TA in same year, and term*/
+#         CREATE TEMPORARY TABLE oldTASec AS (SELECT Section.id, day, start_time, end_time, term, year, ta_ssn
+#                                             FROM Section
+#                                             WHERE (type = 'tutorial' OR type = 'lab')
+#                                               AND ta_ssn = NEW.ta_ssn
+#                                               AND year = NEW.year
+#                                               AND term = NEW.term);
+#
+#         CREATE TEMPORARY TABLE separatedOld AS (SELECT oldTASec.id,
+#                                                        SUBSTRING_INDEX(SUBSTRING_INDEX(oldTASec.day, ', ', numbers.n),
+#                                                                        ', ', -1) day
+#                                                 FROM numbers
+#                                                          INNER JOIN oldTASec
+#                                                                     ON CHAR_LENGTH(oldTASec.day)
+#                                                                            -
+#                                                                        CHAR_LENGTH(REPLACE(oldTASec.day, ', ', '')) >=
+#                                                                        numbers.n - 1
+#                                                 ORDER BY id, n);
+#
+#         CREATE TEMPORARY TABLE oldSecs AS (SELECT Section.id,
+#                                                   separatedOld.day,
+#                                                   start_time,
+#                                                   end_time,
+#                                                   term,
+#                                                   year,
+#                                                   ta_ssn
+#                                            FROM Section
+#                                                     INNER JOIN separatedOld ON separatedOld.id = Section.id);
+#
+#         CREATE TEMPORARY TABLE conflictSecs AS (SELECT oldSecs.day         d1,
+#                                                        newEntry.day        d2,
+#                                                        oldSecs.start_time  s1,
+#                                                        newEntry.start_time s2,
+#                                                        oldSecs.end_time    e1,
+#                                                        newEntry.end_time   e2
+#                                                 FROM oldSecs
+#                                                          INNER JOIN newEntry ON oldSecs.day = newEntry.day
+#                                                 WHERE ((oldSecs.start_time >= newEntry.start_time) AND
+#                                                        (oldSecs.start_time < newEntry.end_time))
+#                                                    OR ((newEntry.start_time >= oldSecs.start_time) AND
+#                                                        (newEntry.start_time < oldSecs.end_time))
+#         );
+#
+#         SELECT count(*) INTO @confCount FROM conflictSecs;
+#
+#         IF (@confCount > 0) THEN
+#             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The TA has a time conflict with another section he teaches';
+#         END IF;
+
 END; //
 DELIMITER ;
 
