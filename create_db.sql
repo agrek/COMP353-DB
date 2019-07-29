@@ -279,8 +279,6 @@ CREATE TABLE LetterToGpa
 CREATE TABLE Advisor
 (
     ssn                          INT         NOT NULL,
-    first_name                   VARCHAR(45) NOT NULL,
-    last_name                    VARCHAR(45) NOT NULL,
     office_building_abbreviation VARCHAR(45) NULL,
     office_room_number           INT         NULL,
     CONSTRAINT Advisor_pk
