@@ -17,49 +17,18 @@ VALUES ('A+', 4.30),
        ('NR', 0.00);
 
 INSERT INTO Department
-VALUES (1, 'Computer Engineering', 226130537),
-       (2, 'Physics', 575933767),
-       (3, 'Computer Science', 254156867),
-       (4, 'Software Engineering', 842440083),
-       (5, 'Chemistry', 330264593),
-       (6, 'English', 477887758),
-       (7, 'Electrical Engineering', 817794537),
-       (8, 'Mathematics', 415879768),
-       (9, 'Economics', 394025466),
-       (10, 'Psychology', 472665242),
-       (11, 'General Engineering', NULL);
+VALUES (1, 'Computer Engineering'),
+       (2, 'Physics'),
+       (3, 'Computer Science'),
+       (4, 'Software Engineering'),
+       (5, 'Chemistry'),
+       (6, 'English'),
+       (7, 'Electrical Engineering'),
+       (8, 'Mathematics'),
+       (9, 'Economics'),
+       (10, 'Psychology' ),
+       (11, 'General Engineering');
 
-
-
-INSERT INTO Program
-VALUES (1, 'Actuarial Mathematics Undergraduate', 'undergraduate', 90, 8, 565829795),
-       (2, 'Actuarial Mathematics Graduate', 'graduate', 44, 8, 565829795),
-       (3, 'Mathematics Undergraduate', 'undergraduate', 90, 8, 565829795),
-       (4, 'Mathematics Graduate', 'graduate', 44, 8, 565829795),
-       (5, 'Physics Undergraduate', 'undergraduate', 90, 2, 332012250),
-       (6, 'Physics Graduate', 'graduate', 44, 2, 332012250),
-       (7, 'English Literature Undergraduate', 'undergraduate', 90, 6, 430977343),
-       (8, 'English Literature Graduate', 'graduate', 44, 6, 430977343),
-       (9, 'Psychology Undergraduate', 'undergraduate', 90, 10, 195731807),
-       (10, 'Psychology Graduate', 'graduate', 44, 10, 195731807),
-       (11, 'Economics Undergraduate', 'undergraduate', 90, 9, 195310678),
-       (12, 'Economics Graduate', 'graduate', 44, 9, 195310678),
-       (13, 'Chemistry Undergraduate', 'undergraduate', 90, 5, 502405693),
-       (14, 'Chemistry Graduate', 'graduate', 44, 5, 502405693),
-       (15, 'Biochemistry Undergraduate', 'undergraduate', 90, 5, 502405693),
-       (16, 'Biochemistry Graduate', 'graduate', 44, 5, 502405693),
-       (17, 'Computer Systems Undergraduate', 'undergraduate', 90, 3, 269828604),
-       (18, 'Computer Systems Graduate', 'graduate', 44, 3, 269828604),
-       (19, 'Computer Science Undergraduate', 'undergraduate', 90, 3, 269828604),
-       (20, 'Computer Science Graduate', 'graduate', 44, 3, 269828604),
-       (21, 'Computer Engineering Undergraduate', 'undergraduate', 90, 1, 772846507),
-       (22, 'Computer Engineering Graduate', 'graduate', 44, 1, 772846507),
-       (23, 'Software Engineering Undergraduate', 'undergraduate', 90, 4, 813718676),
-       (24, 'Software Engineering Graduate', 'graduate', 44, 4, 813718676),
-       (25, 'Electrical Engineering Undergraduate', 'undergraduate', 90, 7, 904560284),
-       (26, 'Electrical Engineering Graduate', 'graduate', 44, 7, 904560284),
-       (27, 'General Engineering Undergraduate', 'undergraduate', 90, 11, NULL),
-       (28, 'General Engineering Graduate', 'graduate', 44, 11, NULL);
 
 INSERT INTO Course
 VALUES ('COMP353', 'Databases', 3, '4.0'),
@@ -78,32 +47,6 @@ VALUES ('COMP353', 'Databases', 3, '4.0'),
        ('PSYC255', 'Brain and behavior', 10, '3.0'),
        ('PHYS334', 'Thermodynamics', 2, '3.0'),
        ('PHYS393', 'Experimental thermodynamics', 2, '3.0');
-
-INSERT INTO ProgramRequirements(program_id, course_code) VALUE
-    (1, 'MATH209'),
-    (3, 'MATH209'),
-    (5, 'PHYS334'),
-    (7, 'ENGL233'),
-    (9, 'PSYC255'),
-    (11, 'ECON221'),
-    (11, 'ECON222'),
-    (13, 'CHEM325'),
-    (15, 'CHEM325'),
-    (17, 'COMP352'),
-    (17, 'COMP353'),
-    (19, 'COMP352'),
-    (19, 'COMP353'),
-    (21, 'COMP352'),
-    (21, 'SOEN341'),
-    (21, 'COEN345'),
-    (21, 'ELEC331'),
-    (23, 'COMP352'),
-    (23, 'SOEN341'),
-    (23, 'SOEN342'),
-    (23, 'SOEN343'),
-    (25, 'COMP352'),
-    (25, 'ELEC331'),
-    (25, 'ELEC251');
 
 /* 1-50 are students, 51-63 are instructors, 64-73 are advisors*/
 INSERT INTO Person(ssn,id,first_name,last_name,email) VALUES
@@ -236,19 +179,19 @@ INSERT INTO Student(ssn) VALUES
 
 
 INSERT INTO Instructor
-VALUES (254156867 ,3, 1), /* 1 - 51 */
-       (803179891 ,3, 1), /* 2 - 52 */
-       (394025466 ,9, 1), /* 3 - 53 */
-       (226130537, 1, 0), /* 4 - 54 */
-       (206289429, 8, 1), /* 5 - 55 */
-       (472665242, 10, 1), /* 6 - 56 */
-       (842440083, 4, 1), /* 7 - 57 */
-       (747652718, 7, 0), /* 8 - 58 */
-       (575933767, 2, 0), /* 9 - 59 */
-       (415879768, 8, 1), /* 10 - 60 */
-       (330264593, 5, 1), /* 11 - 61 */
-       (817794537, 7, 1), /* 12 - 62 */
-       (477887758, 6, 1); /* 13 - 63 */
+VALUES (254156867 ,3, 1, TRUE), /* 1 - 51 */
+       (803179891 ,3, 1, FALSE), /* 2 - 52 */
+       (394025466 ,9, 1, TRUE), /* 3 - 53 */
+       (226130537, 1, 0, TRUE), /* 4 - 54 */
+       (206289429, 8, 1, FALSE), /* 5 - 55 */
+       (472665242, 10, 1, TRUE), /* 6 - 56 */
+       (842440083, 4, 1, TRUE), /* 7 - 57 */
+       (747652718, 7, 0, FALSE), /* 8 - 58 */
+       (575933767, 2, 0, TRUE), /* 9 - 59 */
+       (415879768, 8, 1, TRUE), /* 10 - 60 */
+       (330264593, 5, 1, TRUE), /* 11 - 61 */
+       (817794537, 7, 1, TRUE), /* 12 - 62 */
+       (477887758, 6, 1, TRUE); /* 13 - 63 */
 
 INSERT INTO Advisor(ssn) VALUES
  (772846507) /* 1 - 64 */
@@ -262,6 +205,61 @@ INSERT INTO Advisor(ssn) VALUES
 ,(269828604)
 ,(195310678); /* 10 - 73 */
 
+INSERT INTO Program
+VALUES (1, 'Actuarial Mathematics Undergraduate', 'undergraduate', 90, 8, 565829795),
+       (2, 'Actuarial Mathematics Graduate', 'graduate', 44, 8, 565829795),
+       (3, 'Mathematics Undergraduate', 'undergraduate', 90, 8, 565829795),
+       (4, 'Mathematics Graduate', 'graduate', 44, 8, 565829795),
+       (5, 'Physics Undergraduate', 'undergraduate', 90, 2, 332012250),
+       (6, 'Physics Graduate', 'graduate', 44, 2, 332012250),
+       (7, 'English Literature Undergraduate', 'undergraduate', 90, 6, 430977343),
+       (8, 'English Literature Graduate', 'graduate', 44, 6, 430977343),
+       (9, 'Psychology Undergraduate', 'undergraduate', 90, 10, 195731807),
+       (10, 'Psychology Graduate', 'graduate', 44, 10, 195731807),
+       (11, 'Economics Undergraduate', 'undergraduate', 90, 9, 195310678),
+       (12, 'Economics Graduate', 'graduate', 44, 9, 195310678),
+       (13, 'Chemistry Undergraduate', 'undergraduate', 90, 5, 502405693),
+       (14, 'Chemistry Graduate', 'graduate', 44, 5, 502405693),
+       (15, 'Biochemistry Undergraduate', 'undergraduate', 90, 5, 502405693),
+       (16, 'Biochemistry Graduate', 'graduate', 44, 5, 502405693),
+       (17, 'Computer Systems Undergraduate', 'undergraduate', 90, 3, 269828604),
+       (18, 'Computer Systems Graduate', 'graduate', 44, 3, 269828604),
+       (19, 'Computer Science Undergraduate', 'undergraduate', 90, 3, 269828604),
+       (20, 'Computer Science Graduate', 'graduate', 44, 3, 269828604),
+       (21, 'Computer Engineering Undergraduate', 'undergraduate', 90, 1, 772846507),
+       (22, 'Computer Engineering Graduate', 'graduate', 44, 1, 772846507),
+       (23, 'Software Engineering Undergraduate', 'undergraduate', 90, 4, 813718676),
+       (24, 'Software Engineering Graduate', 'graduate', 44, 4, 813718676),
+       (25, 'Electrical Engineering Undergraduate', 'undergraduate', 90, 7, 904560284),
+       (26, 'Electrical Engineering Graduate', 'graduate', 44, 7, 904560284),
+       (27, 'General Engineering Undergraduate', 'undergraduate', 90, 11, NULL),
+       (28, 'General Engineering Graduate', 'graduate', 44, 11, NULL);
+
+INSERT INTO ProgramRequirements(program_id, course_code) VALUE
+    (1, 'MATH209'),
+    (3, 'MATH209'),
+    (5, 'PHYS334'),
+    (7, 'ENGL233'),
+    (9, 'PSYC255'),
+    (11, 'ECON221'),
+    (11, 'ECON222'),
+    (13, 'CHEM325'),
+    (15, 'CHEM325'),
+    (17, 'COMP352'),
+    (17, 'COMP353'),
+    (19, 'COMP352'),
+    (19, 'COMP353'),
+    (21, 'COMP352'),
+    (21, 'SOEN341'),
+    (21, 'COEN345'),
+    (21, 'ELEC331'),
+    (23, 'COMP352'),
+    (23, 'SOEN341'),
+    (23, 'SOEN342'),
+    (23, 'SOEN343'),
+    (25, 'COMP352'),
+    (25, 'ELEC331'),
+    (25, 'ELEC251');
 
 INSERT INTO GradStudents
 VALUES (779332036, 'thesis', 575933767),
