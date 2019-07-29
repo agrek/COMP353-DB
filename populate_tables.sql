@@ -264,6 +264,7 @@ INSERT INTO Advisor(ssn) VALUES
 
 
 INSERT INTO GradStudents
+<<<<<<< HEAD
 VALUES (779332036, 'thesis', 9),
        (445761402, 'course', NULL),
        (448602365, 'thesis', 8),
@@ -302,184 +303,202 @@ VALUES (779332036, 'thesis', 9),
        (46, 'thesis', 11),
        (47, 'course', NULL),
        (48, 'thesis', 4);
+=======
+VALUES (779332036, 'thesis', 575933767),
+       (445761402, 'course', NULL),
+       (448602365, 'thesis', 747652718),
+       (453920929, 'course', NULL),
+       (223680290, 'course', NULL),
+       (245007722, 'thesis', 747652718),
+       (146344051, 'thesis', 472665242),
+       (891468783, 'course', NULL),
+       (616004712, 'thesis', 803179891),
+       (309348312, 'thesis', 206289429),
+       (882108144, 'thesis', 803179891),
+       (809493224, 'thesis', 803179891),
+       (814392875, 'thesis', 803179891),
+       (426299656, 'thesis', 803179891),
+       (357320964, 'thesis', 803179891),
+       (881132104, 'thesis', 803179891),
+       (508203017, 'thesis', 803179891),
+       (907806961, 'thesis', 803179891),
+       (656597000, 'thesis', 803179891),
+       (477176451, 'thesis', 803179891),
+       (964663021, 'thesis', 803179891),
+       (249691790, 'thesis', 803179891),
+       (665452486, 'thesis', 803179891),
+       (481996433, 'thesis', 803179891),
+       (786482339, 'thesis', 803179891),
+       (927819640, 'thesis', 803179891),
+       (867304329, 'thesis', 803179891),
+       (195238750, 'thesis', 803179891),
+       (934347739, 'thesis', 803179891),
+       (246771994, 'thesis', 803179891),
+       (403876313, 'course', NULL),
+       (683192608, 'thesis', 394025466),
+       (635804780, 'course', NULL),
+       (177921799, 'thesis', 575933767),
+       (965277745, 'thesis', 575933767),
+       (406932598, 'thesis', 330264593),
+       (204794691, 'course', NULL),
+       (293904265, 'thesis', 226130537);
+>>>>>>> 14ffafccb6cccc2988bba0e07466c576c9f0a83c
 
 INSERT INTO ResearchFunds
-VALUES (DEFAULT, 'Research Grant in Computer Science 2', 800),
-       (DEFAULT, 'Research Grant in Computer Science 3', 1000),
-       (DEFAULT, 'Research Grant in Computer Science 4', 1200),
-       (DEFAULT, 'Research Grant in Computer Science 5', 1500),
-       (DEFAULT, 'NSERC tier1', 20000),
-       (DEFAULT, 'NSERC tier2', 17500),
-       (DEFAULT, 'NSERC tier3', 8000),
-       (DEFAULT, 'Engineering Design Grant', 35000),
-       (DEFAULT, 'Pure Applied Science Graduate Funding', 18500),
-       (DEFAULT, 'Graduate Fubding for Liberal Arts', 12500);
+VALUES (1, 'Research Grant in Computer Science 2', 800),
+       (2, 'Research Grant in Computer Science 3', 1000),
+       (3, 'Research Grant in Computer Science 4', 1200),
+       (4, 'Research Grant in Computer Science 5', 1500),
+       (5, 'NSERC tier1', 20000),
+       (6, 'NSERC tier2', 17500),
+       (7, 'NSERC tier3', 8000),
+       (8, 'Engineering Design Grant', 35000),
+       (9, 'Pure Applied Science Graduate Funding', 18500),
+       (10, 'Graduate Fubding for Liberal Arts', 12500);
 
 INSERT INTO ResearchFundingApplications
-VALUES (DEFAULT, 'granted', 23, 1),
-       (DEFAULT, 'granted', 31, 2),
-       (DEFAULT, 'granted', 26, 3),
-       (DEFAULT, 'granted', 29, 4),
-       (DEFAULT, 'denied', 38, 2),
-       (DEFAULT, 'denied', 31, 4),
-       (DEFAULT, 'denied', 30, 1),
-       (DEFAULT, 'denied', 30, 2),
-       (DEFAULT, 'denied', 30, 3),
-       (DEFAULT, 'denied', 30, 4),
-       (DEFAULT, 'denied', 24, 3),
-       (DEFAULT, 'granted', 44, 7),
-       (DEFAULT, 'granted', 4, 6),
-       (DEFAULT, 'applied', 45, 5),
-       (DEFAULT, 'applied', 9, 5),
-       (DEFAULT, 'denied', 10, 6),
-       (DEFAULT, 'denied', 28, 6),
-       (DEFAULT, 'denied', 21, 6),
-       (DEFAULT, 'applied', 12, 8),
-       (DEFAULT, 'applied', 3, 8),
-       (DEFAULT, 'applied', 6, 8),
-       (DEFAULT, 'applied', 9, 8),
-       (DEFAULT, 'granted', 23, 9),
-       (DEFAULT, 'denied', 46, 9),
-       (DEFAULT, 'denied', 43, 10);
+VALUES (1, 'granted', 814392875, 1),
+       (2, 'granted', 964663021, 2),
+       (3, 'granted', 881132104, 3),
+       (4, 'granted', 656597000, 4),
+       (5, 'denied', 195238750, 2),
+       (6, 'denied', 964663021, 4),
+       (7, 'denied', 477176451, 1),
+       (8, 'denied', 477176451, 2),
+       (9, 'denied', 477176451, 3),
+       (10, 'denied', 477176451, 4),
+       (11, 'denied', 426299656, 3),
+       (12, 'granted', 177921799, 7),
+       (13, 'granted', 245007722, 6),
+       (14, 'applied', 965277745, 5),
+       (15, 'applied', 453920929, 5),
+       (16, 'denied', 146344051, 6),
+       (17, 'denied', 907806961, 6),
+       (18, 'denied', 882108144, 6),
+       (19, 'applied', 448602365, 8),
+       (20, 'applied', 779332036, 8),
+       (21, 'applied', 445761402, 8),
+       (22, 'applied', 453920929, 8),
+       (23, 'granted', 814392875, 9),
+       (24, 'denied', 406932598, 9),
+       (25, 'denied', 635804780, 10);
 
 
 INSERT INTO Studies
-VALUES (1, 17),
-       (2, 1),
-       (3, 26),
-       (4, 26),
-       (5, 23),
-       (6, 2),
-       (7, 19),
-       (8, 12),
-       (9, 24),
-       (10, 10),
-       (11, 3),
-       (11, 5),
-       (12, 26),
-       (13, 4),
-       (14, 21),
-       (15, 15),
-       (16, 19),
-       (16, 17),
-       (17, 9),
-       (18, 7),
-       (19, 11),
-       (20, 13),
-       (21, 19),
-       (22, 19),
-       (23, 19),
-       (24, 19),
-       (25, 19),
-       (26, 19),
-       (27, 19),
-       (28, 19),
-       (29, 19),
-       (30, 19),
-       (31, 19),
-       (32, 19),
-       (33, 19),
-       (34, 19),
-       (35, 19),
-       (36, 19),
-       (37, 19),
-       (38, 19),
-       (39, 19),
-       (40, 19),
-       (41, 26),
-       (42, 12),
-       (43, 8),
-       (44, 6),
-       (45, 6),
-       (46, 16),
-       (47, 18),
-       (48, 20),
-       (49, 27);
+VALUES (399437700, 17),
+       (889993771, 1),
+       (779332036, 26),
+       (245007722, 26),
+       (645399011, 23),
+       (445761402, 2),
+       (616004712, 19),
+       (223680290, 12),
+       (453920929, 24),
+       (146344051, 10),
+       (157682678, 3),
+       (448602365, 26),
+       (309348312, 4),
+       (635775881, 21),
+       (563383616, 15),
+       (891468783, 19),
+       (610091459, 9),
+       (108906305, 7),
+       (667004396, 11),
+       (752713919, 13),
+       (882108144, 19),
+       (809493224, 19),
+       (814392875, 19),
+       (426299656, 19),
+       (357320964, 19),
+       (881132104, 19),
+       (508203017, 19),
+       (907806961, 19),
+       (656597000, 19),
+       (477176451, 19),
+       (964663021, 19),
+       (249691790, 19),
+       (665452486, 19),
+       (481996433, 19),
+       (786482339, 19),
+       (927819640, 19),
+       (867304329, 19),
+       (195238750, 19),
+       (934347739, 19),
+       (246771994, 19),
+       (403876313, 26),
+       (683192608, 12),
+       (635804780, 8),
+       (177921799, 6),
+       (965277745, 6),
+       (406932598, 16),
+       (204794691, 18),
+       (293904265, 20),
+       (373307205, 27),
+       (295600928, 27);
 
 
 INSERT INTO TAPosition
-VALUES (1, 'TA', 35, 21),
-       (2, 'marker', 65, 23),
-       (3, 'Lab Instructor', 50, 21),
-       (4, 'TA', 25, 26),
-       (5, 'TA', 25, 7),
-       (6, 'marker', 65, 23),
-       (7, 'TA', 50, 7),
-       (8, 'TA', 25, 26),
-       (9, 'TA', 25, 31),
-       (10, 'marker', 65, 39),
-       (11, 'TA', 50, 39),
-       (12, 'TA', 35, 35),
-       (13, 'TA', 35, 22),
-       (14, 'marker', 90, 37),
-       (15, 'TA', 25, 31),
-       (16, 'TA', 25, 30),
-       (17, 'marker', 90, 28),
-       (18, 'TA', 25, 22),
-       (19, 'TA', 25, 30),
-       (20, 'marker', 90, 35),
-       (21, 'TA', 30, 37),
-       (22, 'TA', 30, 24),
-       (23, 'marker', 70, 24),
-       (24, 'TA', 25, 25),
-       (25, 'TA', 25, 28),
-       (26, 'marker', 80, 27),
-       (27, 'TA', 30, 25),
-       (28, 'TA', 30, 29),
-       (29, 'marker', 75, 29),
-       (30, 'TA', 25, 48),
-       (31, 'TA', 25, 28),
-       (32, 'Lab Instructor', 45, 48),
-       (33, 'marker', 80, 27),
-       (34, 'TA', 30, 12),
-       (35, 'TA', 30, 4),
-       (36, 'marker', 30, 12),
-       (37, 'TA', 25, 4),
-       (38, 'marker', 80, 41),
-       (39, 'lab Instructor', 50, 46),
-       (40, 'marker', 100, 46),
-       (41, 'marker', 110, 42),
-       (42, 'marker', 110, 42),
-       (43, 'marker', 110, 6),
-       (44, 'marker', 110, 6),
-       (45, 'marker', 120, 13),
-       (46, 'marker', 120, 13),
-       (47, 'marker', 120, 47),
-       (48, 'marker', 90, 43),
-       (49, 'marker', 90, 43),
-       (50, 'marker', 80, 10),
-       (51, 'TA', 30, 44),
-       (52, 'marker', 90, 45),
-       (53, 'TA', 30, 12),
-       (54, 'marker', 65, 32),
-       (55, 'TA', 30, 32),
-       (56, 'marker', 30, 33),
-       (57, 'TA', 30, 33),
-       (58, 'Lab Instructor', 50, 34),
-       (59, 'TA', 25, 36),
-       (60, 'marker', 90, 36);
+VALUES (1, 'TA', 35, 882108144, 1000),
+       (2, 'marker', 65, 814392875, 1000),
+       (3, 'Lab Instructor', 50, 882108144, 1000),
+       (4, 'TA', 25, 881132104, 800),
+       (5, 'TA', 25, 616004712, 1000),
+       (6, 'marker', 65, 814392875, 1000),
+       (7, 'TA', 50, 616004712, 1000),
+       (8, 'TA', 25, 881132104, 1000),
+       (9, 'TA', 25, 964663021, 1000),
+       (10, 'marker', 65, 934347739, 1000),
+       (11, 'TA', 50, 934347739, 1000),
+       (12, 'TA', 35, 786482339, 1000),
+       (13, 'TA', 35, 809493224, 1000),
+       (14, 'marker', 90, 867304329, 2000),
+       (15, 'TA', 25, 964663021, 1200),
+       (16, 'TA', 25, 477176451, 1000),
+       (17, 'marker', 90, 907806961, 1000),
+       (18, 'TA', 25, 809493224, 1000),
+       (19, 'TA', 25, 477176451, 100),
+       (20, 'marker', 90, 786482339, 1300),
+       (21, 'TA', 30, 867304329, 1000),
+       (22, 'TA', 30, 426299656, 1000),
+       (23, 'marker', 70, 426299656, 1000),
+       (24, 'TA', 25, 357320964, 1000),
+       (25, 'TA', 25, 907806961, 1000),
+       (26, 'marker', 80, 508203017, 1000),
+       (27, 'TA', 30, 357320964, 1000),
+       (28, 'TA', 30, 656597000, 1000),
+       (29, 'marker', 75, 656597000, 1000),
+       (30, 'TA', 25, 293904265, 1000),
+       (31, 'TA', 25, 907806961, 1000),
+       (32, 'Lab Instructor', 45, 293904265, 1000),
+       (33, 'marker', 80, 508203017, 1000),
+       (34, 'TA', 30, 448602365, 1000),
+       (35, 'TA', 30, 245007722, 1000),
+       (36, 'marker', 30, 448602365, 1000),
+       (37, 'TA', 25, 245007722, 1000),
+       (38, 'marker', 80, 403876313, 1050),
+       (39, 'lab Instructor', 50, 406932598, 1000),
+       (40, 'marker', 100, 406932598, 1000),
+       (41, 'marker', 110, 683192608, 1000),
+       (42, 'marker', 110, 683192608, 1000),
+       (43, 'marker', 110, 445761402, 1000),
+       (44, 'marker', 110, 445761402, 1000),
+       (45, 'marker', 120, 309348312, 1000),
+       (46, 'marker', 120, 309348312, 1000),
+       (47, 'marker', 120, 204794691, 1000),
+       (48, 'marker', 90, 635804780, 1000),
+       (49, 'marker', 90, 635804780, 1000),
+       (50, 'marker', 80, 146344051, 1000),
+       (51, 'TA', 30, 177921799, 1000),
+       (52, 'marker', 90, 965277745, 1000),
+       (53, 'TA', 30, 448602365, 1000),
+       (54, 'marker', 65, 249691790, 1000),
+       (55, 'TA', 30, 249691790, 1100),
+       (56, 'marker', 30, 665452486, 1000),
+       (57, 'TA', 30, 665452486, 1000),
+       (58, 'Lab Instructor', 50, 481996433, 1000),
+       (59, 'TA', 25, 927819640, 1000),
+       (60, 'marker', 90, 927819640, 1000);
 
-INSERT INTO Class
-VALUES ('H535', 120),
-       ('H520', 135),
-       ('H435', 120),
-       ('H420', 135),
-       ('H405', 60),
-       ('H408', 40),
-       ('H409', 50),
-       ('H503', 40),
-       ('H504', 55),
-       ('H505', 60),
-       ('H903', 135),
-       ('H907', 135),
-       ('FGC80', 80),
-       ('H625', 90),
-       ('H603', 60),
-       ('H609', 60),
-       ('FGB90', 100),
-       ('JMB325', 40),
-       ('JMB321', 60),
-       ('JMB202', 130);
 
 INSERT INTO TermToNumber
 VALUES ('winter', 0),
@@ -488,66 +507,66 @@ VALUES ('winter', 0),
        ('fall/winter', 3);
 
 INSERT INTO Section
-VALUES (1, 'AAA', 'COMP353', 'lecture', 'M, W', '14:45:00', '17:30:00', 'summer', '2018', 23, 1, 'H535'),
-       (2, 'BBB', 'COMP353', 'lecture', 'Tu, Th', '13:45:00', '15:00:00', 'fall', '2018', 23, 1, 'H420'),
-       (3, 'CCC', 'COMP353', 'lecture', 'M, F', '9:45:00', '11:00:00', 'winter', '2018', 39, 2, 'H520'),
-       (4, 'AAT', 'COMP353', 'tutorial', 'M, W', '13:15:00', '14:05:00', 'summer', '2018', 21, 1, 'H503'),
-       (5, 'BBTY', 'COMP353', 'tutorial', 'Tu', '9:15:00', '10:05:00', 'fall', '2018', 25, 1, 'H520'),
-       (6, 'BBTX', 'COMP353', 'tutorial', 'Th', '9:15:00', '10:05:00', 'fall', '2018', 7, 1, 'H603'),
-       (7, 'CCTX', 'COMP353', 'tutorial', 'M', '11:15:00', '13:05:00', 'winter', '2018', 26, 2, 'H505'),
-       (8, 'CCTY', 'COMP353', 'tutorial', 'F', '11:15:00', '13:05:00', 'winter', '2018', 31, 2, 'H505'),
-       (9, 'AAL', 'COMP353', 'lab', 'M, W', '8:45:00', '10:30:00', 'summer', '2018', 21, 1, 'H903'),
-       (10, 'BBL', 'COMP353', 'lab', 'Th', '15:45:00', '17:30:00', 'fall', '2018', 7, 1, 'H907'),
-       (11, 'CCL', 'COMP353', 'lab', 'F', '14:45:00', '17:30:00', 'winter', '2018', 39, 2, 'H903'),
-       (12, 'AAA', 'COMP352', 'lecture', 'W, F', '14:45:00', '17:30:00', 'summer', '2018', 39, 2, 'H520'),
-       (13, 'BBB', 'COMP352', 'lecture', 'M, W', '13:00:00', '14:15:00', 'fall', '2018', 37, 1, 'H535'),
-       (14, 'CCC', 'COMP352', 'lecture', 'M, W', '9:45:00', '11:00:00', 'fall/winter', '2018', 28, 1, 'H435'),
-       (15, 'AATX', 'COMP352', 'tutorial', 'W, F', '8:45:00', '9:30:00', 'summer', '2018', 31, 2, 'H409'),
-       (16, 'AATY', 'COMP352', 'tutorial', 'W, F', '8:45:00', '9:30:00', 'summer', '2018', 39, 2, 'H504'),
-       (17, 'BBTX', 'COMP352', 'tutorial', 'Tu', '8:45:00', '9:30:00', 'fall', '2018', 35, 1, 'H609'),
-       (18, 'BBTY', 'COMP352', 'tutorial', 'W', '15:45:00', '17:30:00', 'fall', '2018', 22, 1, 'H503'),
-       (19, 'CCTX', 'COMP352', 'tutorial', 'W', '15:45:00', '17:30:00', 'fall/winter', '2018', 31, 1, 'JMB321'),
-       (20, 'CCTY', 'COMP352', 'tutorial', 'Th', '11:45:00', '13:30:00', 'fall/winter', '2018', 30, 1, 'H504'),
-       (21, 'AAA', 'SOEN341', 'lecture', 'W, F', '8:45:00', '10:00:00', 'winter', '2018', 35, 7, 'FGC80'),
-       (22, 'AATX', 'SOEN341', 'tutorial', 'F', '12:00:00', '12:50:00', 'winter', '2018', 30, 7, 'JMB321'),
-       (23, 'AATY', 'SOEN341', 'tutorial', 'F', '10:00:00', '10:50:00', 'winter', '2018', 22, 7, 'JMB325'),
-       (24, 'AAA', 'SOEN342', 'lecture', 'Tu, Th', '10:00:00', '12:15:00', 'fall', '2018', 25, 7, 'H435'),
-       (25, 'AATX', 'SOEN342', 'tutorial', 'Th', '9:00:00', '9:45:00', 'fall', '2018', 24, 7, 'H504'),
-       (26, 'AATY', 'SOEN342', 'tutorial', 'Tu', '12:30:00', '13:20:00', 'fall', '2018', 37, 7, 'H603'),
-       (27, 'AAA', 'SOEN343', 'lecture', 'M, W', '10:45:00', '12:00:00', 'fall', '2018', 25, 7, 'H520'),
-       (28, 'AATX', 'SOEN343', 'tutorial', 'M, W', '12:15:00', '13:05:00', 'fall', '2018', 27, 7, 'H408'),
-       (29, 'AATY', 'SOEN343', 'tutorial', 'M, W', '13:15:00', '14:05:00', 'fall', '2018', 28, 7, 'H408'),
-       (30, 'AAA', 'COEN345', 'lecture', 'Tu, Th', '13:15:00', '14:30:00', 'winter', '2018', 27, 4, 'H520'),
-       (31, 'AATX', 'COEN345', 'tutorial', 'Tu', '14:30:00', '15:20:00', 'winter', '2018', 29, 4, 'H609'),
-       (32, 'AATY', 'COEN345', 'tutorial', 'Th', '14:30:00', '15:20:00', 'winter', '2018', 31, 4, 'H409'),
-       (33, 'AAL', 'COEN345', 'lab', 'F', '8:45:00', '10:15:00', 'winter', '2018', 48, 4, 'H907'),
-       (34, 'AAA', 'ELEC331', 'lecture', 'M, W', '13:15:00', '14:30:00', 'winter', '2018', 12, 8, 'FGB90'),
-       (35, 'AAT', 'ELEC331', 'tutorial', 'M', '10:15:00', '12:05:00', 'winter', '2018', 12, 8, 'H405'),
-       (36, 'AAL', 'ELEC331', 'lab', 'Tu', '16:00:00', '18:30:00', 'winter', '2018', 4, 8, 'H903'),
-       (37, 'AAA', 'ELEC251', 'lecture', 'Tu, Th', '15:15:00', '17:30:00', 'fall', '2018', 41, 12, 'H420'),
-       (38, 'AAT', 'ELEC251', 'tutorial', 'Th', '17:45:00', '18:35:00', 'fall', '2018', 4, 12, 'H409'),
-       (39, 'AAA', 'CHEM325', 'lecture', 'M', '18:00:00', '20:30:00', 'winter', '2018', 46, 11, 'JMB202'),
-       (40, 'AAL', 'CHEM325', 'lab', 'W', '18:30:00', '22:30:00', 'winter', '2018', 46, 11, 'JMB202'),
-       (41, 'AAA', 'ECON221', 'lecture', 'Tu, Th', '8:45:00', '10:00:00', 'fall', '2018', 42, 3, 'H420'),
-       (42, 'BBB', 'ECON221', 'lecture', 'Tu, Th', '16:15:00', '17:30:00', 'winter', '2018', 42, 3, 'H535'),
-       (43, 'AAA', 'ECON222', 'lecture', 'Tu, Th', '16:15:00', '17:30:00', 'fall', '2018', 6, 3, 'H435'),
-       (44, 'BBB', 'ECON222', 'lecture', 'Tu, Th', '8:45:00', '10:00:00', 'winter', '2018', 6, 3, 'H420'),
-       (45, 'AAA', 'MATH209', 'lecture', 'W, F', '10:15:00', '11:30:00', 'fall', '2018', 13, 5, 'H420'),
-       (46, 'BBB', 'MATH209', 'lecture', 'Th', '19:00:00', '22:30:00', 'winter', '2018', 47, 10, 'H520'),
-       (47, 'CCC', 'MATH209', 'lecture', 'W, F', '11:45:00', '13:15:00', 'summer', '2018', 13, 12, 'H435'),
-       (48, 'AAA', 'ENGL233', 'lecture', 'Tu, Th', '8:45:00', '10:00:00', 'winter', '2018', 43, 13, 'H520'),
-       (49, 'BBB', 'ENGL233', 'lecture', 'W, F', '13:45:00', '15:00:00', 'fall', '2018', 43, 13, 'H435'),
-       (50, 'AAA', 'PSYC255', 'lecture', 'M, W', '14:00:00', '16:30:00', 'summer', '2018', 10, 6, 'H420'),
-       (51, 'AAA', 'PHYS334', 'lecture', 'W, F', '12:45:00', '14:00:00', 'winter', '2018', 45, 9, 'H520'),
-       (52, 'AAT', 'PHYS334', 'tutorial', 'W', '10:00:00', '10:50:00', 'winter', '2018', 44, 9, 'H505'),
-       (53, 'AAL', 'PHYS393', 'lab', 'Th', '14:30', '17:30:00', 'winter', '2018', 44, 9, 'H907'),
-       (54, 'QQQ', 'COMP352', 'lecture', 'W, F', '14:45:00', '17:30:00', 'summer', '2017', 32, 2, 'H520'),
-       (55, 'QQTX', 'COMP352', 'tutorial', 'Tu', '8:45:00', '9:30:00', 'fall', '2017', 32, 2, 'H609'),
-       (56, 'QQQ', 'ELEC331', 'lecture', 'M, W', '13:15:00', '14:30:00', 'winter', '2017', 33, 8, 'FGB90'),
-       (57, 'QQT', 'ELEC331', 'tutorial', 'M', '10:15:00', '12:05:00', 'winter', '2017', 33, 8, 'H405'),
-       (58, 'QQL', 'ELEC331', 'lab', 'Tu', '16:00:00', '18:30:00', 'winter', '2017', 4, 8, 'H903'),
-       (59, 'QQQ', 'SOEN341', 'lecture', 'W, F', '8:45:00', '10:00:00', 'winter', '2017', 36, 7, 'FGC80'),
-       (60, 'QQTX', 'SOEN341', 'tutorial', 'F', '12:00:00', '12:50:00', 'winter', '2017', 36, 7, 'JMB321');
+VALUES (1, 'AAA', 'COMP353', 'lecture', 'M, W', '14:45:00', '17:30:00', 'summer', '2018', 814392875, 254156867, 'H', 5, 535),
+       (2, 'BBB', 'COMP353', 'lecture', 'Tu, Th', '13:45:00', '15:00:00', 'fall', '2018', 814392875, 254156867, 'H',4,420),
+       (3, 'CCC', 'COMP353', 'lecture', 'M, F', '9:45:00', '11:00:00', 'winter', '2018', 934347739, 803179891, 'H',5,520),
+       (4, 'AAT', 'COMP353', 'tutorial', 'M, W', '13:15:00', '14:05:00', 'summer', '2018', 882108144, 254156867, 'H',5,503),
+       (5, 'BBTY', 'COMP353', 'tutorial', 'Tu', '9:15:00', '10:05:00', 'fall', '2018', 357320964, 254156867, 'H',5,520),
+       (6, 'BBTX', 'COMP353', 'tutorial', 'Th', '9:15:00', '10:05:00', 'fall', '2018', 616004712, 254156867, 'H',6,603),
+       (7, 'CCTX', 'COMP353', 'tutorial', 'M', '11:15:00', '13:05:00', 'winter', '2018', 881132104, 803179891, 'H',5,505),
+       (8, 'CCTY', 'COMP353', 'tutorial', 'F', '11:15:00', '13:05:00', 'winter', '2018', 964663021, 803179891, 'H',5,505),
+       (9, 'AAL', 'COMP353', 'lab', 'M, W', '8:45:00', '10:30:00', 'summer', '2018', 882108144, 254156867, 'H',9,903),
+       (10, 'BBL', 'COMP353', 'lab', 'Th', '15:45:00', '17:30:00', 'fall', '2018', 616004712, 254156867, 'H',9,907),
+       (11, 'CCL', 'COMP353', 'lab', 'F', '14:45:00', '17:30:00', 'winter', '2018', 934347739, 803179891, 'H',9,903),
+       (12, 'AAA', 'COMP352', 'lecture', 'W, F', '14:45:00', '17:30:00', 'summer', '2018', 934347739, 803179891, 'H',5,520),
+       (13, 'BBB', 'COMP352', 'lecture', 'M, W', '13:00:00', '14:15:00', 'fall', '2018', 867304329, 254156867, 'H',5,535),
+       (14, 'CCC', 'COMP352', 'lecture', 'M, W', '9:45:00', '11:00:00', 'fall/winter', '2018', 907806961, 254156867, 'H',4,435),
+       (15, 'AATX', 'COMP352', 'tutorial', 'W, F', '8:45:00', '9:30:00', 'summer', '2018', 964663021, 803179891, 'H',4,409),
+       (16, 'AATY', 'COMP352', 'tutorial', 'W, F', '8:45:00', '9:30:00', 'summer', '2018', 934347739, 803179891, 'H',5,504),
+       (17, 'BBTX', 'COMP352', 'tutorial', 'Tu', '8:45:00', '9:30:00', 'fall', '2018', 786482339, 254156867, 'H',6,609),
+       (18, 'BBTY', 'COMP352', 'tutorial', 'W', '15:45:00', '17:30:00', 'fall', '2018', 809493224, 254156867, 'H',5,503),
+       (19, 'CCTX', 'COMP352', 'tutorial', 'W', '15:45:00', '17:30:00', 'fall/winter', '2018', 964663021, 254156867, 'MB',3,321),
+       (20, 'CCTY', 'COMP352', 'tutorial', 'Th', '11:45:00', '13:30:00', 'fall/winter', '2018', 477176451, 254156867, 'H',5,504),
+       (21, 'AAA', 'SOEN341', 'lecture', 'W, F', '8:45:00', '10:00:00', 'winter', '2018', 786482339, 842440083, 'FG', -3, 80),
+       (22, 'AATX', 'SOEN341', 'tutorial', 'F', '12:00:00', '12:50:00', 'winter', '2018', 477176451, 842440083, 'MB', 3, 321),
+       (23, 'AATY', 'SOEN341', 'tutorial', 'F', '10:00:00', '10:50:00', 'winter', '2018', 809493224, 842440083, 'MB', 3, 325),
+       (24, 'AAA', 'SOEN342', 'lecture', 'Tu, Th', '10:00:00', '12:15:00', 'fall', '2018', 357320964, 842440083, 'H',4,435),
+       (25, 'AATX', 'SOEN342', 'tutorial', 'Th', '9:00:00', '9:45:00', 'fall', '2018', 426299656, 842440083, 'H',5,504),
+       (26, 'AATY', 'SOEN342', 'tutorial', 'Tu', '12:30:00', '13:20:00', 'fall', '2018', 867304329, 842440083, 'H',6,603),
+       (27, 'AAA', 'SOEN343', 'lecture', 'M, W', '10:45:00', '12:00:00', 'fall', '2018', 357320964, 842440083, 'H',5,520),
+       (28, 'AATX', 'SOEN343', 'tutorial', 'M, W', '12:15:00', '13:05:00', 'fall', '2018', 508203017, 842440083, 'H',4,408),
+       (29, 'AATY', 'SOEN343', 'tutorial', 'M, W', '13:15:00', '14:05:00', 'fall', '2018', 907806961, 842440083, 'H',4,408),
+       (30, 'AAA', 'COEN345', 'lecture', 'Tu, Th', '13:15:00', '14:30:00', 'winter', '2018', 508203017, 226130537, 'H',5,520),
+       (31, 'AATX', 'COEN345', 'tutorial', 'Tu', '14:30:00', '15:20:00', 'winter', '2018', 656597000, 226130537, 'H',6,609),
+       (32, 'AATY', 'COEN345', 'tutorial', 'Th', '14:30:00', '15:20:00', 'winter', '2018', 964663021, 226130537, 'H',4,409),
+       (33, 'AAL', 'COEN345', 'lab', 'F', '8:45:00', '10:15:00', 'winter', '2018', 293904265, 226130537, 'H',9,907),
+       (34, 'AAA', 'ELEC331', 'lecture', 'M, W', '13:15:00', '14:30:00', 'winter', '2018', 448602365, 747652718, 'FG',-2,90),
+       (35, 'AAT', 'ELEC331', 'tutorial', 'M', '10:15:00', '12:05:00', 'winter', '2018', 448602365, 747652718, 'H',4,405),
+       (36, 'AAL', 'ELEC331', 'lab', 'Tu', '16:00:00', '18:30:00', 'winter', '2018', 245007722, 747652718, 'H',9,903),
+       (37, 'AAA', 'ELEC251', 'lecture', 'Tu, Th', '15:15:00', '17:30:00', 'fall', '2018', 403876313, 817794537, 'H',4,420),
+       (38, 'AAT', 'ELEC251', 'tutorial', 'Th', '17:45:00', '18:35:00', 'fall', '2018', 245007722, 817794537, 'H',4,409),
+       (39, 'AAA', 'CHEM325', 'lecture', 'M', '18:00:00', '20:30:00', 'winter', '2018', 406932598, 330264593, 'MB',2,202),
+       (40, 'AAL', 'CHEM325', 'lab', 'W', '18:30:00', '22:30:00', 'winter', '2018', 406932598, 330264593, 'MB', 2,202),
+       (41, 'AAA', 'ECON221', 'lecture', 'Tu, Th', '8:45:00', '10:00:00', 'fall', '2018', 683192608, 394025466, 'H',4,420),
+       (42, 'BBB', 'ECON221', 'lecture', 'Tu, Th', '16:15:00', '17:30:00', 'winter', '2018', 683192608, 394025466, 'H',5,535),
+       (43, 'AAA', 'ECON222', 'lecture', 'Tu, Th', '16:15:00', '17:30:00', 'fall', '2018', 445761402, 394025466, 'H',4,435),
+       (44, 'BBB', 'ECON222', 'lecture', 'Tu, Th', '8:45:00', '10:00:00', 'winter', '2018', 445761402, 394025466, 'H',4,420),
+       (45, 'AAA', 'MATH209', 'lecture', 'W, F', '10:15:00', '11:30:00', 'fall', '2018', 309348312, 206289429, 'H',4,420),
+       (46, 'BBB', 'MATH209', 'lecture', 'Th', '19:00:00', '22:30:00', 'winter', '2018', 204794691, 415879768, 'H',5,520),
+       (47, 'CCC', 'MATH209', 'lecture', 'W, F', '11:45:00', '13:15:00', 'summer', '2018', 309348312, 817794537, 'H',4,435),
+       (48, 'AAA', 'ENGL233', 'lecture', 'Tu, Th', '8:45:00', '10:00:00', 'winter', '2018', 635804780, 477887758, 'H',5,520),
+       (49, 'BBB', 'ENGL233', 'lecture', 'W, F', '13:45:00', '15:00:00', 'fall', '2018', 635804780, 477887758, 'H',4,435),
+       (50, 'AAA', 'PSYC255', 'lecture', 'M, W', '14:00:00', '16:30:00', 'summer', '2018', 146344051, 472665242, 'H',4,420),
+       (51, 'AAA', 'PHYS334', 'lecture', 'W, F', '12:45:00', '14:00:00', 'winter', '2018', 965277745, 575933767, 'H',5,520),
+       (52, 'AAT', 'PHYS334', 'tutorial', 'W', '10:00:00', '10:50:00', 'winter', '2018', 177921799, 575933767, 'H',5,505),
+       (53, 'AAL', 'PHYS393', 'lab', 'Th', '14:30', '17:30:00', 'winter', '2018', 177921799, 575933767, 'H',9,907),
+       (54, 'QQQ', 'COMP352', 'lecture', 'W, F', '14:45:00', '17:30:00', 'summer', '2017', 249691790, 803179891, 'H',5,520),
+       (55, 'QQTX', 'COMP352', 'tutorial', 'Tu', '8:45:00', '9:30:00', 'fall', '2017', 249691790, 803179891, 'H',6,609),
+       (56, 'QQQ', 'ELEC331', 'lecture', 'M, W', '13:15:00', '14:30:00', 'winter', '2017', 665452486, 747652718, 'FG',-2, 90),
+       (57, 'QQT', 'ELEC331', 'tutorial', 'M', '10:15:00', '12:05:00', 'winter', '2017', 665452486, 747652718, 'H',4,405),
+       (58, 'QQL', 'ELEC331', 'lab', 'Tu', '16:00:00', '18:30:00', 'winter', '2017', 245007722, 747652718, 'H',9,903),
+       (59, 'QQQ', 'SOEN341', 'lecture', 'W, F', '8:45:00', '10:00:00', 'winter', '2017', 927819640, 842440083, 'FG',-3,80),
+       (60, 'QQTX', 'SOEN341', 'tutorial', 'F', '12:00:00', '12:50:00', 'winter', '2017', 927819640, 842440083, 'MB', 3,321);
 
 
 INSERT INTO Requisites
@@ -562,246 +581,246 @@ VALUES ('COMP353', 'COMP352', 'prerequisite'),
        ('PHYS393', 'PHYS334', 'corequisite');
 
 
-INSERT INTO SectionEnrollment VALUE (41, 2, 'C+');
-INSERT INTO SectionEnrollment VALUE (45, 2, 'A-');
-INSERT INTO SectionEnrollment VALUE (48, 2, 'B');
-INSERT INTO SectionEnrollment VALUE (12, 1, 'B+');
-INSERT INTO SectionEnrollment VALUE (15, 1, 'B+');
-INSERT INTO SectionEnrollment VALUE (2, 1, 'FNS');
-INSERT INTO SectionEnrollment VALUE (5, 1, 'FNS');
-INSERT INTO SectionEnrollment VALUE (10, 1, 'FNS');
-INSERT INTO SectionEnrollment VALUE (3, 1, 'B');
-INSERT INTO SectionEnrollment VALUE (7, 1, 'B');
-INSERT INTO SectionEnrollment VALUE (11, 1, 'B');
-INSERT INTO SectionEnrollment VALUE (34, 3, 'C-');
-INSERT INTO SectionEnrollment VALUE (35, 3, 'C-');
-INSERT INTO SectionEnrollment VALUE (36, 3, 'C-');
-INSERT INTO SectionEnrollment VALUE (54, 4, 'B+');
-INSERT INTO SectionEnrollment VALUE (55, 4, 'B+');
-INSERT INTO SectionEnrollment VALUE (56, 4, 'B');
-INSERT INTO SectionEnrollment VALUE (57, 4, 'B');
-INSERT INTO SectionEnrollment VALUE (58, 4, 'B');
-INSERT INTO SectionEnrollment VALUE (59, 4, 'B+');
-INSERT INTO SectionEnrollment VALUE (60, 4, 'B+');
-INSERT INTO SectionEnrollment VALUE (30, 4, 'A');
-INSERT INTO SectionEnrollment VALUE (31, 4, 'A');
-INSERT INTO SectionEnrollment VALUE (33, 4, 'A');
-INSERT INTO SectionEnrollment VALUE (54, 5, 'C+');
-INSERT INTO SectionEnrollment VALUE (55, 5, 'C+');
-INSERT INTO SectionEnrollment VALUE (21, 5, 'B+');
-INSERT INTO SectionEnrollment VALUE (22, 5, 'B+');
-INSERT INTO SectionEnrollment VALUE (24, 5, 'A');
-INSERT INTO SectionEnrollment VALUE (25, 5, 'A');
-INSERT INTO SectionEnrollment VALUE (27, 5, 'A-');
-INSERT INTO SectionEnrollment VALUE (28, 5, 'A-');
-INSERT INTO SectionEnrollment VALUE (13, 6, 'B');
-INSERT INTO SectionEnrollment VALUE (17, 6, 'B');
-INSERT INTO SectionEnrollment VALUE (3, 6, 'B-');
-INSERT INTO SectionEnrollment VALUE (7, 6, 'B-');
-INSERT INTO SectionEnrollment VALUE (11, 6, 'B-');
-INSERT INTO SectionEnrollment VALUE (14, 7, 'A+');
-INSERT INTO SectionEnrollment VALUE (20, 7, 'A+');
-INSERT INTO SectionEnrollment VALUE (41, 8, 'A-');
-INSERT INTO SectionEnrollment VALUE (44, 8, 'A-');
-INSERT INTO SectionEnrollment VALUE (54, 9, 'B-');
-INSERT INTO SectionEnrollment VALUE (55, 9, 'B-');
-INSERT INTO SectionEnrollment VALUE (2, 9, 'B+');
-INSERT INTO SectionEnrollment VALUE (5, 9, 'B+');
-INSERT INTO SectionEnrollment VALUE (10, 9, 'B+');
-INSERT INTO SectionEnrollment VALUE (21, 9, 'A');
-INSERT INTO SectionEnrollment VALUE (23, 9, 'A');
-INSERT INTO SectionEnrollment VALUE (45, 10, 'A-');
-INSERT INTO SectionEnrollment VALUE (45, 11, 'A');
-INSERT INTO SectionEnrollment VALUE (51, 11, 'A+');
-INSERT INTO SectionEnrollment VALUE (52, 11, 'A+');
-INSERT INTO SectionEnrollment VALUE (53, 11, 'A+');
-INSERT INTO SectionEnrollment VALUE (54, 12, 'B-');
-INSERT INTO SectionEnrollment VALUE (55, 12, 'B-');
-INSERT INTO SectionEnrollment VALUE (56, 12, 'A');
-INSERT INTO SectionEnrollment VALUE (57, 12, 'A');
-INSERT INTO SectionEnrollment VALUE (58, 12, 'A');
-INSERT INTO SectionEnrollment VALUE (59, 12, 'B');
-INSERT INTO SectionEnrollment VALUE (60, 12, 'B');
-INSERT INTO SectionEnrollment VALUE (51, 13, 'C+');
-INSERT INTO SectionEnrollment VALUE (52, 13, 'C+');
-INSERT INTO SectionEnrollment VALUE (54, 14, 'C');
-INSERT INTO SectionEnrollment VALUE (55, 14, 'C');
-INSERT INTO SectionEnrollment VALUE (56, 14, 'C');
-INSERT INTO SectionEnrollment VALUE (57, 14, 'C');
-INSERT INTO SectionEnrollment VALUE (58, 14, 'C');
-INSERT INTO SectionEnrollment VALUE (59, 14, 'A');
-INSERT INTO SectionEnrollment VALUE (60, 14, 'A');
-INSERT INTO SectionEnrollment VALUE (30, 14, 'B+');
-INSERT INTO SectionEnrollment VALUE (31, 14, 'B+');
-INSERT INTO SectionEnrollment VALUE (33, 14, 'B+');
-INSERT INTO SectionEnrollment VALUE (39, 15, 'B');
-INSERT INTO SectionEnrollment VALUE (40, 15, 'B');
-INSERT INTO SectionEnrollment VALUE (12, 16, 'A+');
-INSERT INTO SectionEnrollment VALUE (15, 16, 'A+');
-INSERT INTO SectionEnrollment VALUE (3, 16, 'B');
-INSERT INTO SectionEnrollment VALUE (8, 16, 'B');
-INSERT INTO SectionEnrollment VALUE (11, 16, 'B');
-INSERT INTO SectionEnrollment VALUE (50, 17, 'C');
-INSERT INTO SectionEnrollment VALUE (42, 18, 'B+');
-INSERT INTO SectionEnrollment VALUE (48, 18, 'B');
-INSERT INTO SectionEnrollment VALUE (46, 19, 'B+');
-INSERT INTO SectionEnrollment VALUE (39, 20, 'A');
-INSERT INTO SectionEnrollment VALUE (40, 20, 'A');
-INSERT INTO SectionEnrollment VALUE (54, 21, 'A-');
-INSERT INTO SectionEnrollment VALUE (55, 21, 'A-');
-INSERT INTO SectionEnrollment VALUE (21, 21, 'B');
-INSERT INTO SectionEnrollment VALUE (22, 21, 'B');
-INSERT INTO SectionEnrollment VALUE (24, 21, 'A-');
-INSERT INTO SectionEnrollment VALUE (25, 21, 'A-');
-INSERT INTO SectionEnrollment VALUE (27, 21, 'A-');
-INSERT INTO SectionEnrollment VALUE (28, 21, 'A-');
-INSERT INTO SectionEnrollment VALUE (54, 22, 'B-');
-INSERT INTO SectionEnrollment VALUE (55, 22, 'B-');
-INSERT INTO SectionEnrollment VALUE (2, 22, 'B');
-INSERT INTO SectionEnrollment VALUE (6, 22, 'B');
-INSERT INTO SectionEnrollment VALUE (10, 22, 'B');
-INSERT INTO SectionEnrollment VALUE (45, 23, 'A+');
-INSERT INTO SectionEnrollment VALUE (12, 24, 'A');
-INSERT INTO SectionEnrollment VALUE (15, 24, 'A');
-INSERT INTO SectionEnrollment VALUE (2, 24, 'C+');
-INSERT INTO SectionEnrollment VALUE (5, 24, 'C+');
-INSERT INTO SectionEnrollment VALUE (10, 24, 'C+');
-INSERT INTO SectionEnrollment VALUE (12, 25, 'B');
-INSERT INTO SectionEnrollment VALUE (15, 25, 'B');
-INSERT INTO SectionEnrollment VALUE (3, 25, 'B+');
-INSERT INTO SectionEnrollment VALUE (8, 25, 'B+');
-INSERT INTO SectionEnrollment VALUE (11, 25, 'B+');
-INSERT INTO SectionEnrollment VALUE (54, 26, 'C+');
-INSERT INTO SectionEnrollment VALUE (55, 26, 'C+');
-INSERT INTO SectionEnrollment VALUE (21, 26, 'A');
-INSERT INTO SectionEnrollment VALUE (22, 26, 'A');
-INSERT INTO SectionEnrollment VALUE (24, 26, 'A-');
-INSERT INTO SectionEnrollment VALUE (25, 26, 'A-');
-INSERT INTO SectionEnrollment VALUE (27, 26, 'A');
-INSERT INTO SectionEnrollment VALUE (28, 26, 'A');
-INSERT INTO SectionEnrollment VALUE (34, 27, 'B+');
-INSERT INTO SectionEnrollment VALUE (35, 27, 'B+');
-INSERT INTO SectionEnrollment VALUE (36, 27, 'B+');
-INSERT INTO SectionEnrollment VALUE (54, 28, 'A');
-INSERT INTO SectionEnrollment VALUE (55, 28, 'A');
-INSERT INTO SectionEnrollment VALUE (1, 28, 'A-');
-INSERT INTO SectionEnrollment VALUE (4, 28, 'A-');
-INSERT INTO SectionEnrollment VALUE (9, 28, 'A-');
-INSERT INTO SectionEnrollment VALUE (12, 29, 'A+');
-INSERT INTO SectionEnrollment VALUE (15, 29, 'A+');
-INSERT INTO SectionEnrollment VALUE (3, 29, 'C');
-INSERT INTO SectionEnrollment VALUE (7, 29, 'C');
-INSERT INTO SectionEnrollment VALUE (11, 29, 'C');
-INSERT INTO SectionEnrollment VALUE (48, 30, 'B+');
-INSERT INTO SectionEnrollment VALUE (54, 31, 'B');
-INSERT INTO SectionEnrollment VALUE (55, 31, 'B');
-INSERT INTO SectionEnrollment VALUE (1, 31, 'A');
-INSERT INTO SectionEnrollment VALUE (4, 31, 'A');
-INSERT INTO SectionEnrollment VALUE (9, 31, 'A');
-INSERT INTO SectionEnrollment VALUE (54, 32, 'B+');
-INSERT INTO SectionEnrollment VALUE (55, 32, 'B+');
-INSERT INTO SectionEnrollment VALUE (1, 32, 'B+');
-INSERT INTO SectionEnrollment VALUE (4, 32, 'B+');
-INSERT INTO SectionEnrollment VALUE (9, 32, 'B+');
-INSERT INTO SectionEnrollment VALUE (12, 33, 'B+');
-INSERT INTO SectionEnrollment VALUE (15, 33, 'B+');
-INSERT INTO SectionEnrollment VALUE (2, 33, 'C-');
-INSERT INTO SectionEnrollment VALUE (5, 33, 'C-');
-INSERT INTO SectionEnrollment VALUE (10, 33, 'C-');
-INSERT INTO SectionEnrollment VALUE (54, 34, 'A');
-INSERT INTO SectionEnrollment VALUE (55, 34, 'A');
-INSERT INTO SectionEnrollment VALUE (56, 34, 'A-');
-INSERT INTO SectionEnrollment VALUE (57, 34, 'A-');
-INSERT INTO SectionEnrollment VALUE (58, 34, 'A-');
-INSERT INTO SectionEnrollment VALUE (59, 34, 'B');
-INSERT INTO SectionEnrollment VALUE (60, 34, 'B');
-INSERT INTO SectionEnrollment VALUE (30, 34, 'B');
-INSERT INTO SectionEnrollment VALUE (32, 34, 'B');
-INSERT INTO SectionEnrollment VALUE (33, 34, 'B');
-INSERT INTO SectionEnrollment VALUE (54, 35, 'A-');
-INSERT INTO SectionEnrollment VALUE (55, 35, 'A-');
-INSERT INTO SectionEnrollment VALUE (56, 35, 'C-');
-INSERT INTO SectionEnrollment VALUE (57, 35, 'C-');
-INSERT INTO SectionEnrollment VALUE (58, 35, 'C-');
-INSERT INTO SectionEnrollment VALUE (59, 35, 'B+');
-INSERT INTO SectionEnrollment VALUE (60, 35, 'B+');
-INSERT INTO SectionEnrollment VALUE (30, 35, 'C+');
-INSERT INTO SectionEnrollment VALUE (31, 35, 'C+');
-INSERT INTO SectionEnrollment VALUE (33, 35, 'C+');
-INSERT INTO SectionEnrollment VALUE (54, 36, 'A-');
-INSERT INTO SectionEnrollment VALUE (55, 36, 'A-');
-INSERT INTO SectionEnrollment VALUE (21, 36, 'C');
-INSERT INTO SectionEnrollment VALUE (22, 36, 'C');
-INSERT INTO SectionEnrollment VALUE (24, 36, 'B');
-INSERT INTO SectionEnrollment VALUE (25, 36, 'B');
-INSERT INTO SectionEnrollment VALUE (27, 36, 'B');
-INSERT INTO SectionEnrollment VALUE (28, 36, 'B');
-INSERT INTO SectionEnrollment VALUE (54, 37, 'B-');
-INSERT INTO SectionEnrollment VALUE (55, 37, 'B-');
-INSERT INTO SectionEnrollment VALUE (2, 37, 'A+');
-INSERT INTO SectionEnrollment VALUE (6, 37, 'A+');
-INSERT INTO SectionEnrollment VALUE (10, 37, 'A+');
-INSERT INTO SectionEnrollment VALUE (54, 38, 'A+');
-INSERT INTO SectionEnrollment VALUE (55, 38, 'A+');
-INSERT INTO SectionEnrollment VALUE (2, 38, 'A-');
-INSERT INTO SectionEnrollment VALUE (7, 38, 'A-');
-INSERT INTO SectionEnrollment VALUE (10, 38, 'A-');
-INSERT INTO SectionEnrollment VALUE (54, 39, 'B');
-INSERT INTO SectionEnrollment VALUE (55, 39, 'B');
-INSERT INTO SectionEnrollment VALUE (56, 39, 'A');
-INSERT INTO SectionEnrollment VALUE (57, 39, 'A');
-INSERT INTO SectionEnrollment VALUE (58, 39, 'A');
-INSERT INTO SectionEnrollment VALUE (59, 39, 'C+');
-INSERT INTO SectionEnrollment VALUE (60, 39, 'C+');
-INSERT INTO SectionEnrollment VALUE (30, 39, 'B+');
-INSERT INTO SectionEnrollment VALUE (31, 39, 'B+');
-INSERT INTO SectionEnrollment VALUE (33, 39, 'B+');
-INSERT INTO SectionEnrollment VALUE (54, 40, 'B');
-INSERT INTO SectionEnrollment VALUE (55, 40, 'B');
-INSERT INTO SectionEnrollment VALUE (1, 40, 'B-');
-INSERT INTO SectionEnrollment VALUE (4, 40, 'B-');
-INSERT INTO SectionEnrollment VALUE (9, 40, 'B-');
-INSERT INTO SectionEnrollment VALUE (34, 41, 'B');
-INSERT INTO SectionEnrollment VALUE (35, 41, 'B');
-INSERT INTO SectionEnrollment VALUE (36, 41, 'B');
-INSERT INTO SectionEnrollment VALUE (41, 42, 'B+');
-INSERT INTO SectionEnrollment VALUE (44, 42, 'A-');
-INSERT INTO SectionEnrollment VALUE (50, 43, 'B');
-INSERT INTO SectionEnrollment VALUE (39, 44, 'A-');
-INSERT INTO SectionEnrollment VALUE (40, 44, 'A-');
-INSERT INTO SectionEnrollment VALUE (54, 45, 'B');
-INSERT INTO SectionEnrollment VALUE (55, 45, 'B');
-INSERT INTO SectionEnrollment VALUE (56, 45, 'C+');
-INSERT INTO SectionEnrollment VALUE (57, 45, 'C+');
-INSERT INTO SectionEnrollment VALUE (58, 45, 'C+');
-INSERT INTO SectionEnrollment VALUE (59, 45, 'B');
-INSERT INTO SectionEnrollment VALUE (60, 45, 'B');
-INSERT INTO SectionEnrollment VALUE (30, 45, 'C');
-INSERT INTO SectionEnrollment VALUE (32, 45, 'C');
-INSERT INTO SectionEnrollment VALUE (33, 45, 'C');
-INSERT INTO SectionEnrollment VALUE (51, 46, 'A');
-INSERT INTO SectionEnrollment VALUE (52, 46, 'A');
-INSERT INTO SectionEnrollment VALUE (53, 46, 'B-');
-INSERT INTO SectionEnrollment VALUE (54, 47, 'B-');
-INSERT INTO SectionEnrollment VALUE (55, 47, 'B-');
-INSERT INTO SectionEnrollment VALUE (2, 47, 'A-');
-INSERT INTO SectionEnrollment VALUE (7, 47, 'A-');
-INSERT INTO SectionEnrollment VALUE (10, 47, 'A-');
-INSERT INTO SectionEnrollment VALUE (12, 48, 'A-');
-INSERT INTO SectionEnrollment VALUE (15, 48, 'A-');
-INSERT INTO SectionEnrollment VALUE (2, 48, 'B');
-INSERT INTO SectionEnrollment VALUE (5, 48, 'B');
-INSERT INTO SectionEnrollment VALUE (10, 48, 'B');
-INSERT INTO SectionEnrollment VALUE (54, 49, 'B+');
-INSERT INTO SectionEnrollment VALUE (55, 49, 'B+');
-INSERT INTO SectionEnrollment VALUE (56, 49, 'A');
-INSERT INTO SectionEnrollment VALUE (57, 49, 'A');
-INSERT INTO SectionEnrollment VALUE (58, 49, 'A');
-INSERT INTO SectionEnrollment VALUE (59, 49, 'B');
-INSERT INTO SectionEnrollment VALUE (60, 49, 'B');
-INSERT INTO SectionEnrollment VALUE (30, 49, 'B+');
-INSERT INTO SectionEnrollment VALUE (32, 49, 'B+');
-INSERT INTO SectionEnrollment VALUE (33, 49, 'B+');
+INSERT INTO SectionEnrollment VALUE (41, 889993771, 'C+');
+INSERT INTO SectionEnrollment VALUE (45, 889993771, 'A-');
+INSERT INTO SectionEnrollment VALUE (48, 889993771, 'B');
+INSERT INTO SectionEnrollment VALUE (12, 399437700, 'B+');
+INSERT INTO SectionEnrollment VALUE (15, 399437700, 'B+');
+INSERT INTO SectionEnrollment VALUE (2, 399437700, 'FNS');
+INSERT INTO SectionEnrollment VALUE (5, 399437700, 'FNS');
+INSERT INTO SectionEnrollment VALUE (10, 399437700, 'FNS');
+INSERT INTO SectionEnrollment VALUE (3, 399437700, 'B');
+INSERT INTO SectionEnrollment VALUE (7, 399437700, 'B');
+INSERT INTO SectionEnrollment VALUE (11, 399437700, 'B');
+INSERT INTO SectionEnrollment VALUE (34, 779332036, 'C-');
+INSERT INTO SectionEnrollment VALUE (35, 779332036, 'C-');
+INSERT INTO SectionEnrollment VALUE (36, 779332036, 'C-');
+INSERT INTO SectionEnrollment VALUE (54, 245007722, 'B+');
+INSERT INTO SectionEnrollment VALUE (55, 245007722, 'B+');
+INSERT INTO SectionEnrollment VALUE (56, 245007722, 'B');
+INSERT INTO SectionEnrollment VALUE (57, 245007722, 'B');
+INSERT INTO SectionEnrollment VALUE (58, 245007722, 'B');
+INSERT INTO SectionEnrollment VALUE (59, 245007722, 'B+');
+INSERT INTO SectionEnrollment VALUE (60, 245007722, 'B+');
+INSERT INTO SectionEnrollment VALUE (30, 245007722, 'A');
+INSERT INTO SectionEnrollment VALUE (31, 245007722, 'A');
+INSERT INTO SectionEnrollment VALUE (33, 245007722, 'A');
+INSERT INTO SectionEnrollment VALUE (54, 645399011, 'C+');
+INSERT INTO SectionEnrollment VALUE (55, 645399011, 'C+');
+INSERT INTO SectionEnrollment VALUE (21, 645399011, 'B+');
+INSERT INTO SectionEnrollment VALUE (22, 645399011, 'B+');
+INSERT INTO SectionEnrollment VALUE (24, 645399011, 'A');
+INSERT INTO SectionEnrollment VALUE (25, 645399011, 'A');
+INSERT INTO SectionEnrollment VALUE (27, 645399011, 'A-');
+INSERT INTO SectionEnrollment VALUE (28, 645399011, 'A-');
+INSERT INTO SectionEnrollment VALUE (13, 445761402, 'B');
+INSERT INTO SectionEnrollment VALUE (17, 445761402, 'B');
+INSERT INTO SectionEnrollment VALUE (3, 445761402, 'B-');
+INSERT INTO SectionEnrollment VALUE (7, 445761402, 'B-');
+INSERT INTO SectionEnrollment VALUE (11, 445761402, 'B-');
+INSERT INTO SectionEnrollment VALUE (14, 616004712, 'A+');
+INSERT INTO SectionEnrollment VALUE (20, 616004712, 'A+');
+INSERT INTO SectionEnrollment VALUE (41, 223680290, 'A-');
+INSERT INTO SectionEnrollment VALUE (44, 223680290, 'A-');
+INSERT INTO SectionEnrollment VALUE (54, 453920929, 'B-');
+INSERT INTO SectionEnrollment VALUE (55, 453920929, 'B-');
+INSERT INTO SectionEnrollment VALUE (2, 453920929, 'B+');
+INSERT INTO SectionEnrollment VALUE (5, 453920929, 'B+');
+INSERT INTO SectionEnrollment VALUE (10, 453920929, 'B+');
+INSERT INTO SectionEnrollment VALUE (21, 453920929, 'A');
+INSERT INTO SectionEnrollment VALUE (23, 453920929, 'A');
+INSERT INTO SectionEnrollment VALUE (45, 146344051, 'A-');
+INSERT INTO SectionEnrollment VALUE (45, 157682678, 'A');
+INSERT INTO SectionEnrollment VALUE (51, 157682678, 'A+');
+INSERT INTO SectionEnrollment VALUE (52, 157682678, 'A+');
+INSERT INTO SectionEnrollment VALUE (53, 157682678, 'A+');
+INSERT INTO SectionEnrollment VALUE (54, 448602365, 'B-');
+INSERT INTO SectionEnrollment VALUE (55, 448602365, 'B-');
+INSERT INTO SectionEnrollment VALUE (56, 448602365, 'A');
+INSERT INTO SectionEnrollment VALUE (57, 448602365, 'A');
+INSERT INTO SectionEnrollment VALUE (58, 448602365, 'A');
+INSERT INTO SectionEnrollment VALUE (59, 448602365, 'B');
+INSERT INTO SectionEnrollment VALUE (60, 448602365, 'B');
+INSERT INTO SectionEnrollment VALUE (51, 309348312, 'C+');
+INSERT INTO SectionEnrollment VALUE (52, 309348312, 'C+');
+INSERT INTO SectionEnrollment VALUE (54, 635775881, 'C');
+INSERT INTO SectionEnrollment VALUE (55, 635775881, 'C');
+INSERT INTO SectionEnrollment VALUE (56, 635775881, 'C');
+INSERT INTO SectionEnrollment VALUE (57, 635775881, 'C');
+INSERT INTO SectionEnrollment VALUE (58, 635775881, 'C');
+INSERT INTO SectionEnrollment VALUE (59, 635775881, 'A');
+INSERT INTO SectionEnrollment VALUE (60, 635775881, 'A');
+INSERT INTO SectionEnrollment VALUE (30, 635775881, 'B+');
+INSERT INTO SectionEnrollment VALUE (31, 635775881, 'B+');
+INSERT INTO SectionEnrollment VALUE (33, 635775881, 'B+');
+INSERT INTO SectionEnrollment VALUE (39, 563383616, 'B');
+INSERT INTO SectionEnrollment VALUE (40, 563383616, 'B');
+INSERT INTO SectionEnrollment VALUE (12, 891468783, 'A+');
+INSERT INTO SectionEnrollment VALUE (15, 891468783, 'A+');
+INSERT INTO SectionEnrollment VALUE (3, 891468783, 'B');
+INSERT INTO SectionEnrollment VALUE (8, 891468783, 'B');
+INSERT INTO SectionEnrollment VALUE (11, 891468783, 'B');
+INSERT INTO SectionEnrollment VALUE (50, 610091459, 'C');
+INSERT INTO SectionEnrollment VALUE (42, 108906305, 'B+');
+INSERT INTO SectionEnrollment VALUE (48, 108906305, 'B');
+INSERT INTO SectionEnrollment VALUE (46, 667004396, 'B+');
+INSERT INTO SectionEnrollment VALUE (39, 752713919, 'A');
+INSERT INTO SectionEnrollment VALUE (40, 752713919, 'A');
+INSERT INTO SectionEnrollment VALUE (54, 882108144, 'A-');
+INSERT INTO SectionEnrollment VALUE (55, 882108144, 'A-');
+INSERT INTO SectionEnrollment VALUE (21, 882108144, 'B');
+INSERT INTO SectionEnrollment VALUE (22, 882108144, 'B');
+INSERT INTO SectionEnrollment VALUE (24, 882108144, 'A-');
+INSERT INTO SectionEnrollment VALUE (25, 882108144, 'A-');
+INSERT INTO SectionEnrollment VALUE (27, 882108144, 'A-');
+INSERT INTO SectionEnrollment VALUE (28, 882108144, 'A-');
+INSERT INTO SectionEnrollment VALUE (54, 809493224, 'B-');
+INSERT INTO SectionEnrollment VALUE (55, 809493224, 'B-');
+INSERT INTO SectionEnrollment VALUE (2, 809493224, 'B');
+INSERT INTO SectionEnrollment VALUE (6, 809493224, 'B');
+INSERT INTO SectionEnrollment VALUE (10, 809493224, 'B');
+INSERT INTO SectionEnrollment VALUE (45, 814392875, 'A+');
+INSERT INTO SectionEnrollment VALUE (12, 426299656, 'A');
+INSERT INTO SectionEnrollment VALUE (15, 426299656, 'A');
+INSERT INTO SectionEnrollment VALUE (2, 426299656, 'C+');
+INSERT INTO SectionEnrollment VALUE (5, 426299656, 'C+');
+INSERT INTO SectionEnrollment VALUE (10, 426299656, 'C+');
+INSERT INTO SectionEnrollment VALUE (12, 357320964, 'B');
+INSERT INTO SectionEnrollment VALUE (15, 357320964, 'B');
+INSERT INTO SectionEnrollment VALUE (3, 357320964, 'B+');
+INSERT INTO SectionEnrollment VALUE (8, 357320964, 'B+');
+INSERT INTO SectionEnrollment VALUE (11, 357320964, 'B+');
+INSERT INTO SectionEnrollment VALUE (54, 881132104, 'C+');
+INSERT INTO SectionEnrollment VALUE (55, 881132104, 'C+');
+INSERT INTO SectionEnrollment VALUE (21, 881132104, 'A');
+INSERT INTO SectionEnrollment VALUE (22, 881132104, 'A');
+INSERT INTO SectionEnrollment VALUE (24, 881132104, 'A-');
+INSERT INTO SectionEnrollment VALUE (25, 881132104, 'A-');
+INSERT INTO SectionEnrollment VALUE (27, 881132104, 'A');
+INSERT INTO SectionEnrollment VALUE (28, 881132104, 'A');
+INSERT INTO SectionEnrollment VALUE (34, 508203017, 'B+');
+INSERT INTO SectionEnrollment VALUE (35, 508203017, 'B+');
+INSERT INTO SectionEnrollment VALUE (36, 508203017, 'B+');
+INSERT INTO SectionEnrollment VALUE (54, 907806961, 'A');
+INSERT INTO SectionEnrollment VALUE (55, 907806961, 'A');
+INSERT INTO SectionEnrollment VALUE (1, 907806961, 'A-');
+INSERT INTO SectionEnrollment VALUE (4, 907806961, 'A-');
+INSERT INTO SectionEnrollment VALUE (9, 907806961, 'A-');
+INSERT INTO SectionEnrollment VALUE (12, 656597000, 'A+');
+INSERT INTO SectionEnrollment VALUE (15, 656597000, 'A+');
+INSERT INTO SectionEnrollment VALUE (3, 656597000, 'C');
+INSERT INTO SectionEnrollment VALUE (7, 656597000, 'C');
+INSERT INTO SectionEnrollment VALUE (11, 656597000, 'C');
+INSERT INTO SectionEnrollment VALUE (48, 477176451, 'B+');
+INSERT INTO SectionEnrollment VALUE (54, 964663021, 'B');
+INSERT INTO SectionEnrollment VALUE (55, 964663021, 'B');
+INSERT INTO SectionEnrollment VALUE (1, 964663021, 'A');
+INSERT INTO SectionEnrollment VALUE (4, 964663021, 'A');
+INSERT INTO SectionEnrollment VALUE (9, 964663021, 'A');
+INSERT INTO SectionEnrollment VALUE (54, 249691790, 'B+');
+INSERT INTO SectionEnrollment VALUE (55, 249691790, 'B+');
+INSERT INTO SectionEnrollment VALUE (1, 249691790, 'B+');
+INSERT INTO SectionEnrollment VALUE (4, 249691790, 'B+');
+INSERT INTO SectionEnrollment VALUE (9, 249691790, 'B+');
+INSERT INTO SectionEnrollment VALUE (12, 665452486, 'B+');
+INSERT INTO SectionEnrollment VALUE (15, 665452486, 'B+');
+INSERT INTO SectionEnrollment VALUE (2, 665452486, 'C-');
+INSERT INTO SectionEnrollment VALUE (5, 665452486, 'C-');
+INSERT INTO SectionEnrollment VALUE (10, 665452486, 'C-');
+INSERT INTO SectionEnrollment VALUE (54, 481996433, 'A');
+INSERT INTO SectionEnrollment VALUE (55, 481996433, 'A');
+INSERT INTO SectionEnrollment VALUE (56, 481996433, 'A-');
+INSERT INTO SectionEnrollment VALUE (57, 481996433, 'A-');
+INSERT INTO SectionEnrollment VALUE (58, 481996433, 'A-');
+INSERT INTO SectionEnrollment VALUE (59, 481996433, 'B');
+INSERT INTO SectionEnrollment VALUE (60, 481996433, 'B');
+INSERT INTO SectionEnrollment VALUE (30, 481996433, 'B');
+INSERT INTO SectionEnrollment VALUE (32, 481996433, 'B');
+INSERT INTO SectionEnrollment VALUE (33, 481996433, 'B');
+INSERT INTO SectionEnrollment VALUE (54, 786482339, 'A-');
+INSERT INTO SectionEnrollment VALUE (55, 786482339, 'A-');
+INSERT INTO SectionEnrollment VALUE (56, 786482339, 'C-');
+INSERT INTO SectionEnrollment VALUE (57, 786482339, 'C-');
+INSERT INTO SectionEnrollment VALUE (58, 786482339, 'C-');
+INSERT INTO SectionEnrollment VALUE (59, 786482339, 'B+');
+INSERT INTO SectionEnrollment VALUE (60, 786482339, 'B+');
+INSERT INTO SectionEnrollment VALUE (30, 786482339, 'C+');
+INSERT INTO SectionEnrollment VALUE (31, 786482339, 'C+');
+INSERT INTO SectionEnrollment VALUE (33, 786482339, 'C+');
+INSERT INTO SectionEnrollment VALUE (54, 927819640, 'A-');
+INSERT INTO SectionEnrollment VALUE (55, 927819640, 'A-');
+INSERT INTO SectionEnrollment VALUE (21, 927819640, 'C');
+INSERT INTO SectionEnrollment VALUE (22, 927819640, 'C');
+INSERT INTO SectionEnrollment VALUE (24, 927819640, 'B');
+INSERT INTO SectionEnrollment VALUE (25, 927819640, 'B');
+INSERT INTO SectionEnrollment VALUE (27, 927819640, 'B');
+INSERT INTO SectionEnrollment VALUE (28, 927819640, 'B');
+INSERT INTO SectionEnrollment VALUE (54, 867304329, 'B-');
+INSERT INTO SectionEnrollment VALUE (55, 867304329, 'B-');
+INSERT INTO SectionEnrollment VALUE (2, 867304329, 'A+');
+INSERT INTO SectionEnrollment VALUE (6, 867304329, 'A+');
+INSERT INTO SectionEnrollment VALUE (10, 867304329, 'A+');
+INSERT INTO SectionEnrollment VALUE (54, 195238750, 'A+');
+INSERT INTO SectionEnrollment VALUE (55, 195238750, 'A+');
+INSERT INTO SectionEnrollment VALUE (2, 195238750, 'A-');
+INSERT INTO SectionEnrollment VALUE (7, 195238750, 'A-');
+INSERT INTO SectionEnrollment VALUE (10, 195238750, 'A-');
+INSERT INTO SectionEnrollment VALUE (54, 934347739, 'B');
+INSERT INTO SectionEnrollment VALUE (55, 934347739, 'B');
+INSERT INTO SectionEnrollment VALUE (56, 934347739, 'A');
+INSERT INTO SectionEnrollment VALUE (57, 934347739, 'A');
+INSERT INTO SectionEnrollment VALUE (58, 934347739, 'A');
+INSERT INTO SectionEnrollment VALUE (59, 934347739, 'C+');
+INSERT INTO SectionEnrollment VALUE (60, 934347739, 'C+');
+INSERT INTO SectionEnrollment VALUE (30, 934347739, 'B+');
+INSERT INTO SectionEnrollment VALUE (31, 934347739, 'B+');
+INSERT INTO SectionEnrollment VALUE (33, 934347739, 'B+');
+INSERT INTO SectionEnrollment VALUE (54, 246771994, 'B');
+INSERT INTO SectionEnrollment VALUE (55, 246771994, 'B');
+INSERT INTO SectionEnrollment VALUE (1, 246771994, 'B-');
+INSERT INTO SectionEnrollment VALUE (4, 246771994, 'B-');
+INSERT INTO SectionEnrollment VALUE (9, 246771994, 'B-');
+INSERT INTO SectionEnrollment VALUE (34, 403876313, 'B');
+INSERT INTO SectionEnrollment VALUE (35, 403876313, 'B');
+INSERT INTO SectionEnrollment VALUE (36, 403876313, 'B');
+INSERT INTO SectionEnrollment VALUE (41, 683192608, 'B+');
+INSERT INTO SectionEnrollment VALUE (44, 683192608, 'A-');
+INSERT INTO SectionEnrollment VALUE (50, 635804780, 'B');
+INSERT INTO SectionEnrollment VALUE (39, 177921799, 'A-');
+INSERT INTO SectionEnrollment VALUE (40, 177921799, 'A-');
+INSERT INTO SectionEnrollment VALUE (54, 965277745, 'B');
+INSERT INTO SectionEnrollment VALUE (55, 965277745, 'B');
+INSERT INTO SectionEnrollment VALUE (56, 965277745, 'C+');
+INSERT INTO SectionEnrollment VALUE (57, 965277745, 'C+');
+INSERT INTO SectionEnrollment VALUE (58, 965277745, 'C+');
+INSERT INTO SectionEnrollment VALUE (59, 965277745, 'B');
+INSERT INTO SectionEnrollment VALUE (60, 965277745, 'B');
+INSERT INTO SectionEnrollment VALUE (30, 965277745, 'C');
+INSERT INTO SectionEnrollment VALUE (32, 965277745, 'C');
+INSERT INTO SectionEnrollment VALUE (33, 965277745, 'C');
+INSERT INTO SectionEnrollment VALUE (51, 406932598, 'A');
+INSERT INTO SectionEnrollment VALUE (52, 406932598, 'A');
+INSERT INTO SectionEnrollment VALUE (53, 406932598, 'B-');
+INSERT INTO SectionEnrollment VALUE (54, 204794691, 'B-');
+INSERT INTO SectionEnrollment VALUE (55, 204794691, 'B-');
+INSERT INTO SectionEnrollment VALUE (2, 204794691, 'A-');
+INSERT INTO SectionEnrollment VALUE (7, 204794691, 'A-');
+INSERT INTO SectionEnrollment VALUE (10, 204794691, 'A-');
+INSERT INTO SectionEnrollment VALUE (12, 293904265, 'A-');
+INSERT INTO SectionEnrollment VALUE (15, 293904265, 'A-');
+INSERT INTO SectionEnrollment VALUE (2, 293904265, 'B');
+INSERT INTO SectionEnrollment VALUE (5, 293904265, 'B');
+INSERT INTO SectionEnrollment VALUE (10, 293904265, 'B');
+INSERT INTO SectionEnrollment VALUE (54, 373307205, 'B+');
+INSERT INTO SectionEnrollment VALUE (55, 373307205, 'B+');
+INSERT INTO SectionEnrollment VALUE (56, 373307205, 'A');
+INSERT INTO SectionEnrollment VALUE (57, 373307205, 'A');
+INSERT INTO SectionEnrollment VALUE (58, 373307205, 'A');
+INSERT INTO SectionEnrollment VALUE (59, 373307205, 'B');
+INSERT INTO SectionEnrollment VALUE (60, 373307205, 'B');
+INSERT INTO SectionEnrollment VALUE (30, 373307205, 'B+');
+INSERT INTO SectionEnrollment VALUE (32, 373307205, 'B+');
+INSERT INTO SectionEnrollment VALUE (33, 373307205, 'B+');
 
 INSERT INTO Campus VALUES('LOY','Loyola'),
 ('SGW','Sir George Williams');
