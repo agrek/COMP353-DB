@@ -688,36 +688,36 @@ DELIMITER ;
 
 DROP TRIGGER IF EXISTS TaTrig;
 
-# DELIMITER //
-# CREATE TRIGGER TaTrig
-#     BEFORE INSERT
-#     ON TAPosition
-#     FOR EACH ROW
-# BEGIN
-#
-#     DROP TRIGGER IF EXISTS TaTrig;
-#     /******************* TA Total Hours Check *******************/
-#     SELECT year INTO @posYear FROM Section WHERE NEW.section_id = Section.id;
-#     SELECT SUM(hours)
-#     INTO @totalHours
-#     FROM (SELECT DISTINCT (TAPosition.id), hours
-#           FROM TAPosition
-#                    INNER JOIN Section ON TAPosition.section_id = Section.id
-#           WHERE assignee_ssn = NEW.assignee_ssn
-#             AND year = @posYear) t;
-#
-#     IF (@totalHours > 260) THEN
-#         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The TA exceeds the max hours permitted in a year of 260 hours';
-#     END IF;
-#
-#     /******************* TA GPA Check *******************/
-#
-#     SELECT gpa INTO @applicantGpa FROM Student WHERE ssn = NEW.assignee_ssn;
-#     IF @applicantGpa < 3.2 THEN
-#         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
-#                 'The student does not meet the minimum GPA required for a TA which is 3.2';
-#     END IF;
-# END;
+ DELIMITER //
+ CREATE TRIGGER TaTrig
+     BEFORE INSERT
+     ON TAPosition
+     FOR EACH ROW
+ BEGIN
+
+     /******************* TA Total Hours Check *******************/
+     SELECT year INTO @posYear FROM Section WHERE NEW.section_id = Section.id;
+     SELECT SUM(hours)
+     INTO @totalHours
+     FROM (SELECT DISTINCT (TAPosition.id), hours
+           FROM TAPosition
+                    INNER JOIN Section ON TAPosition.section_id = Section.id
+           WHERE assignee_ssn = NEW.assignee_ssn
+             AND year = @posYear) t;
+
+     IF (@totalHours > 260) THEN
+         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The TA exceeds the max hours permitted in a year of 260 hours';
+     END IF;
+
+     /******************* TA GPA Check *******************/
+
+     SELECT gpa INTO @applicantGpa FROM Student WHERE ssn = NEW.assignee_ssn;
+     IF @applicantGpa < 3.2 THEN
+         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                 'The student does not meet the minimum GPA required for a TA which is 3.2';
+     END IF;
+END; //
+DELIMITER ;
 
 DELIMITER //
 CREATE TRIGGER secTrig
@@ -859,22 +859,3 @@ END;
 //
 DELIMITER ;
 
-DROP TRIGGER IF EXISTS taPositionTrigger;
-DELIMITER //
-CREATE TRIGGER taPositionTrigger
-
-    BEFORE INSERT
-    ON TAPosition
-    FOR EACH ROW
-
-BEGIN
-
-    SELECT gpa INTO @applicantGpa FROM Student WHERE id = NEW.assignee_ssn;
-    IF @applicantGpa < 3.2 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
-                'The student does not meet the minimum GPA required for a TA position which is 3.2';
-    END IF;
-
-END;
-//
-DELIMITER ;
