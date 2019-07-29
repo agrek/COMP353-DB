@@ -17,17 +17,17 @@ VALUES ('A+', 4.30),
        ('NR', 0.00);
 
 INSERT INTO Department
-VALUES (1, 'Computer Engineering', ),
-       (2, 'Physics'),
-       (3, 'Computer Science'),
-       (4, 'Software Engineering'),
-       (5, 'Chemistry'),
-       (6, 'English'),
-       (7, 'Electrical Engineering'),
-       (8, 'Mathematics'),
-       (9, 'Economics'),
-       (10, 'Psychology'),
-       (11, 'General Engineering');
+VALUES (1, 'Computer Engineering', 226130537),
+       (2, 'Physics', 575933767),
+       (3, 'Computer Science', 254156867),
+       (4, 'Software Engineering', 842440083),
+       (5, 'Chemistry', 330264593),
+       (6, 'English', 477887758),
+       (7, 'Electrical Engineering', 817794537),
+       (8, 'Mathematics', 415879768),
+       (9, 'Economics', 394025466),
+       (10, 'Psychology', 472665242),
+       (11, 'General Engineering', NULL);
 
 
 
@@ -262,17 +262,6 @@ INSERT INTO Advisor(ssn) VALUES
 ,(269828604)
 ,(195310678); /* 10 - 73 */
 
-INSERT INTO Advisor
-VALUES (DEFAULT, ,44), 1 - 64
-       (DEFAULT, 'Tobias', 'Farmer', 'Physics Building',12), 2
-       (DEFAULT, 'Paige', 'Cannon', 'Chemistry Building',14), 3
-       (DEFAULT, 'Leo', 'Salinas', 'Engineering Building',74),4
-       (DEFAULT, 'Rosie', 'Cobb', 'Math Building',587),5
-       (DEFAULT, 'Dominic', 'Jensen', 'Engineering Building',729),6
-       (DEFAULT, 'Scarlett', 'Bishop', 'English Building',534),7
-       (DEFAULT, 'Steve', 'Schultz', 'Psychology Building',36),8
-       (DEFAULT, 'Lucas', 'Wang', 'Computer Science Building',21),9
-       (DEFAULT, 'Lillian', 'Frazier', 'Business Building',511);10
 
 INSERT INTO GradStudents
 VALUES (3, 'thesis', 9),
