@@ -232,7 +232,7 @@ CREATE TABLE Publications
     ssn       INT                            NOT NULL,
     type      ENUM ('conference', 'journal') NULL,
     date      DATE                           NOT NULL,
-    title     VARCHAR(45)                    NOT NULL,
+    title     VARCHAR(90)                    NOT NULL,
     publisher VARCHAR(45)                    NOT NULL,
     CONSTRAINT Publications_pk
         PRIMARY KEY (ssn, date, title, publisher),
@@ -420,7 +420,7 @@ CREATE TABLE SectionEnrollment
 (
     section_id  INT                                      NOT NULL,
     student_ssn INT                                      NULL,
-    grade       ENUM ('A+', 'D-', 'F', 'FNS', 'R', 'NR') NULL,
+    grade       ENUM ('A+', 'A', 'A-','B+','B','B-','C+','C','C-','D+','D','D-', 'F', 'FNS', 'R', 'NR') NULL,
     CONSTRAINT SectionEnrollment_pk
         PRIMARY KEY (section_id, student_ssn),
     CONSTRAINT SectionEnrollment_LetterToGpa_letter_fk
