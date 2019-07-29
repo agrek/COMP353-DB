@@ -802,10 +802,10 @@ INSERT INTO SectionEnrollment VALUE (30, 49, 'B+');
 INSERT INTO SectionEnrollment VALUE (32, 49, 'B+');
 INSERT INTO SectionEnrollment VALUE (33, 49, 'B+');
 
-INSERT INTO Campus('LOY','Loyola'),
+INSERT INTO Campus VALUES('LOY','Loyola'),
 ('SGW','Sir George Williams');
 
-INSERT INTO Building VALUE('H','Henry F. Hall Building',200,100,12,'SGW'),
+INSERT INTO Building VALUES('H','Henry F. Hall Building',200,100,12,'SGW'),
 ('EV','Engineering, Computer Science and Visual Arts Integrated Complex',300,50,15,'SGW'),
 ('VA','Visual Arts Building',25,0,5,'SGW'),
 ('B','B Annex',30,10,3,'SGW'),
@@ -834,7 +834,7 @@ INSERT INTO Building VALUE('H','Henry F. Hall Building',200,100,12,'SGW'),
 ('HC','Hingston Hall, Wing HC',45,4,4,'LOY'),
 ('FC','F.C. Smith Building',34,4,4,'LOY');
 
-INSERT INTO Room('H','lab',20,900),
+INSERT INTO Room VALUES ('H','lab',20,900),
 ('H','lab',20,900),
 ('H','lab',20,901),
 ('H','lab',20,903),
