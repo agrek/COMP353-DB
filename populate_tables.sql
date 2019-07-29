@@ -233,6 +233,7 @@ INSERT INTO Room(building_abbreviation,type,capacity,room_floor,room_number) VAL
 ('MB','class',90,2,280),
 ('MB','class',30,2,290),
 ('MB','class',60,2,298),
+('MB','class',40,3,325),
 ('MB','class',40,3,330),
 ('MB','class',40,3,321),
 ('MB','class',55,3,340),
@@ -243,6 +244,7 @@ INSERT INTO Room(building_abbreviation,type,capacity,room_floor,room_number) VAL
 ('MB','class',100,3,390),
 ('MB','class',90,3,398),
 ('FG','class',100,-3,80),
+('FG','class',100,-2,90),
 ('MB','office',1,9,920),
 ('MB','office',1,9,925),
 ('MB','office',1,9,930),
@@ -788,8 +790,8 @@ VALUES (1, 'AAA', 'COMP353', 'lecture', 'M, W', '14:45:00', '17:30:00', 'summer'
        INSERT INTO Section VALUES (36, 'AAL', 'ELEC331', 'lab', 'Tu', '16:00:00', '18:30:00', 'winter', '2018', 245007722, 747652718, 'H',9,903);
        INSERT INTO Section VALUES (37, 'AAA', 'ELEC251', 'lecture', 'Tu, Th', '15:15:00', '17:30:00', 'fall', '2018', 403876313, 817794537, 'H',4,420);
        INSERT INTO Section VALUES (38, 'AAT', 'ELEC251', 'tutorial', 'Th', '17:45:00', '18:35:00', 'fall', '2018', 245007722, 817794537, 'H',4,409);
-       INSERT INTO Section VALUES (39, 'AAA', 'CHEM325', 'lecture', 'M', '18:00:00', '20:30:00', 'winter', '2018', 406932598, 330264593, 'MB',2,202);
-       INSERT INTO Section VALUES (40, 'AAL', 'CHEM325', 'lab', 'W', '18:30:00', '22:30:00', 'winter', '2018', 406932598, 330264593, 'MB', 2,202);
+       INSERT INTO Section VALUES (39, 'AAA', 'CHEM325', 'lecture', 'M', '18:00:00', '20:30:00', 'winter', '2018', 406932598, 330264593, 'MB',2,230);
+       INSERT INTO Section VALUES (40, 'AAL', 'CHEM325', 'lab', 'W', '18:30:00', '22:30:00', 'winter', '2018', 406932598, 330264593, 'H', 9,900);
        INSERT INTO Section VALUES (41, 'AAA', 'ECON221', 'lecture', 'Tu, Th', '8:45:00', '10:00:00', 'fall', '2018', 683192608, 394025466, 'H',4,420);
        INSERT INTO Section VALUES (42, 'BBB', 'ECON221', 'lecture', 'Tu, Th', '16:15:00', '17:30:00', 'winter', '2018', 683192608, 394025466, 'H',5,535);
        INSERT INTO Section VALUES (43, 'AAA', 'ECON222', 'lecture', 'Tu, Th', '16:15:00', '17:30:00', 'fall', '2018', 445761402, 394025466, 'H',4,435);
