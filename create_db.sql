@@ -81,8 +81,9 @@ CREATE TABLE Room
     type                  ENUM ('lab', 'class', 'office') NOT NULL,
     capacity              INT                             NOT NULL,
     room_number           INT                             NOT NULL,
+    room_floor            INT(2)                          NOT NULL,
     CONSTRAINT Room_pk
-        PRIMARY KEY (building_abbreviation, room_number),
+        PRIMARY KEY (building_abbreviation, room_floor, room_number),
     CONSTRAINT Room_Building_abbreviation_fk
         FOREIGN KEY (building_abbreviation) REFERENCES Building (abbreviation)
 );
@@ -100,15 +101,16 @@ CREATE TABLE RoomOverhead
 CREATE TABLE RoomNeeds
 (
     building_abbreviation VARCHAR(45)   NOT NULL,
-    room_number           INT           NOT NULL,
+    room_floor            INT(2)        NOT NULL,
+    room_number           INT(3)        NOT NULL,
     quantity              INT DEFAULT 0 NOT NULL,
     room_overhead_id      INT           NOT NULL,
     CONSTRAINT RoomNeeds_pk
-        PRIMARY KEY (building_abbreviation, room_number, room_overhead_id),
+        PRIMARY KEY (building_abbreviation, room_floor, room_number, room_overhead_id),
     CONSTRAINT RoomNeeds_RoomOverhead_id_fk
         FOREIGN KEY (room_overhead_id) REFERENCES RoomOverhead (id),
     CONSTRAINT RoomNeeds_Room_building_abbreviation_room_number_fk
-        FOREIGN KEY (building_abbreviation, room_number) REFERENCES Room (building_abbreviation, room_number)
+        FOREIGN KEY (building_abbreviation, room_floor, room_number) REFERENCES Room (building_abbreviation, room_floor, room_number)
 );
 
 CREATE TABLE Person
@@ -133,13 +135,14 @@ CREATE TABLE Employee
     ssn                          INT                NOT NULL,
     retired                      BOOL DEFAULT FALSE NOT NULL,
     office_building_abbreviation VARCHAR(45)        NULL,
-    office_room_number           INT                NULL,
+    office_room_floor            INT(2)             NULL,
+    office_room_number           INT(3)             NULL,
     CONSTRAINT Employee_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Employee_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn),
     CONSTRAINT Employee_Building_abbreviation_fk
-        FOREIGN KEY (office_building_abbreviation, office_room_number) REFERENCES Room (building_abbreviation, room_number)
+        FOREIGN KEY (office_building_abbreviation, office_room_floor, office_room_number) REFERENCES Room (building_abbreviation, room_floor, room_number)
 
 );
 
@@ -373,13 +376,14 @@ CREATE TABLE Section
     ta_ssn                INT         NULL,
     instructor_ssn        INT         NULL,
     building_abbreviation VARCHAR(45) NULL,
-    room_number           INT         NOT NULL,
+    room_floor            INT(2)      NULL,
+    room_number           INT(3)      NOT NULL,
     CONSTRAINT Section_pk
         PRIMARY KEY (id),
     CONSTRAINT Section_uq
         UNIQUE (course_code, name),
     CONSTRAINT Section_Building_abbreviation_num_rooms_fk
-        FOREIGN KEY (building_abbreviation, room_number) REFERENCES Room (building_abbreviation, room_number),
+        FOREIGN KEY (building_abbreviation, room_floor, room_number) REFERENCES Room (building_abbreviation, room_floor, room_number),
     CONSTRAINT Section_Course_code_fk
         FOREIGN KEY (course_code) REFERENCES Course (code),
     CONSTRAINT Section_Instructor_id_fk
