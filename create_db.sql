@@ -352,13 +352,13 @@ CREATE TABLE TermToNumber
 
 CREATE TABLE TAPosition
 (
-    ssn          INT AUTO_INCREMENT,
+    id           INT AUTO_INCREMENT,
     position     VARCHAR(45) NOT NULL,
     hours        INT(3)      NOT NULL,
     assignee_ssn INT         NULL,
     salary       INT         NOT NULL,
     CONSTRAINT TA_pk
-        PRIMARY KEY (ssn),
+        PRIMARY KEY (id),
     CONSTRAINT TA_GradStudents_id_fk
         FOREIGN KEY (assignee_ssn) REFERENCES GradStudents (ssn)
 );
@@ -696,7 +696,7 @@ BEGIN
     /******************* TA Total Hours Check *******************/
     SELECT SUM(hours)
     INTO @totalHours
-    FROM (SELECT DISTINCT (TAPosition.ssn), hours
+    FROM (SELECT DISTINCT (TAPosition.id), hours
           FROM TAPosition
                    INNER JOIN Section ON assignee_ssn = ta_ssn
           WHERE ta_ssn = NEW.ta_ssn
@@ -912,7 +912,7 @@ CREATE TRIGGER taPositionTrigger
 
 BEGIN
 
-    SELECT gpa INTO @applicantGpa FROM Student WHERE ssn = NEW.assignee_ssn;
+    SELECT gpa INTO @applicantGpa FROM Student WHERE id = NEW.assignee_ssn;
     IF @applicantGpa < 3.2 THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
                 'The student does not meet the minimum GPA required for a TA position which is 3.2';
