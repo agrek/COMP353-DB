@@ -67,6 +67,7 @@ CREATE TABLE Building
     name         VARCHAR(45) NOT NULL,
     num_rooms    INT         NULL,
     num_labs     INT         NOT NULL,
+    num_floors   INT         NOT NULL,
     campus       VARCHAR(45) NOT NULL,
     CONSTRAINT Building_pk
         PRIMARY KEY (abbreviation),
@@ -117,22 +118,29 @@ CREATE TABLE Person
     first_name VARCHAR(45) NOT NULL,
     last_name  VARCHAR(45) NOT NULL,
     email      VARCHAR(45) NOT NULL,
+    address    INT         NOT NULL,
+    phone      INT(10)     NULL,
     CONSTRAINT Person_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Person_uq
         UNIQUE (id, email),
     CONSTRAINT Person_Address_id_fk
-        FOREIGN KEY (id) REFERENCES Address (id)
+        FOREIGN KEY (address) REFERENCES Address (id)
 );
 
 CREATE TABLE Employee
 (
-    ssn     INT                NOT NULL,
-    retired BOOL DEFAULT FALSE NOT NULL,
+    ssn                          INT                NOT NULL,
+    retired                      BOOL DEFAULT FALSE NOT NULL,
+    office_building_abbreviation VARCHAR(45)        NULL,
+    office_room_number           INT                NULL,
     CONSTRAINT Employee_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Employee_Person_ssn_fk
-        FOREIGN KEY (ssn) REFERENCES Person (ssn)
+        FOREIGN KEY (ssn) REFERENCES Person (ssn),
+    CONSTRAINT Advisor_Building_abbreviation_fk
+        FOREIGN KEY (office_building_abbreviation, office_room_number) REFERENCES Room (building_abbreviation, room_number)
+
 );
 
 CREATE TABLE Contract
@@ -278,15 +286,11 @@ CREATE TABLE LetterToGpa
 
 CREATE TABLE Advisor
 (
-    ssn                          INT         NOT NULL,
-    office_building_abbreviation VARCHAR(45) NULL,
-    office_room_number           INT         NULL,
+    ssn INT NOT NULL,
     CONSTRAINT Advisor_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Advisor_Employee_ssn_fk
-        FOREIGN KEY (ssn) REFERENCES Employee (ssn),
-    CONSTRAINT Advisor_Building_abbreviation_fk
-        FOREIGN KEY (office_building_abbreviation, office_room_number) REFERENCES Room (building_abbreviation, room_number)
+        FOREIGN KEY (ssn) REFERENCES Employee (ssn)
 );
 
 CREATE TABLE Program
