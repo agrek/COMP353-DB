@@ -29,17 +29,7 @@ VALUES (1, 'Computer Engineering', ),
        (10, 'Psychology'),
        (11, 'General Engineering');
 
-INSERT INTO Advisor
-VALUES (DEFAULT, 'Ellen', 'Kirk', 'Engineering Building',44),
-       (DEFAULT, 'Tobias', 'Farmer', 'Physics Building',12),
-       (DEFAULT, 'Paige', 'Cannon', 'Chemistry Building',14),
-       (DEFAULT, 'Leo', 'Salinas', 'Engineering Building',74),
-       (DEFAULT, 'Rosie', 'Cobb', 'Math Building',587),
-       (DEFAULT, 'Dominic', 'Jensen', 'Engineering Building',729),
-       (DEFAULT, 'Scarlett', 'Bishop', 'English Building',534),
-       (DEFAULT, 'Steve', 'Schultz', 'Psychology Building',36),
-       (DEFAULT, 'Lucas', 'Wang', 'Computer Science Building',21),
-       (DEFAULT, 'Lillian', 'Frazier', 'Business Building',511);
+
 
 INSERT INTO Program
 VALUES (1, 'Actuarial Mathematics Undergraduate', 'undergraduate', 90, 8, 5),
@@ -115,8 +105,9 @@ INSERT INTO ProgramRequirements(program_id, course_code) VALUE
     (25, 'ELEC331'),
     (25, 'ELEC251');
 
+/* 1-50 are students, 51-63 are instructors, 64-73 are advisors*/
 INSERT INTO Person(ssn,id,first_name,last_name,email) VALUES
- (1,1,'Lisa','Wood','mddallara@outlook.com')
+ (399437700,1,'Lisa','Wood','mddallara@outlook.com')
 ,(889993771,2,'Amber','Cooper','dinther@verizon.net')
 ,(779332036,3,'Oscar','Howell','jlbaumga@verizon.net')
 ,(245007722,4,'Irvin','Collins','bflong@gmail.com')
@@ -165,73 +156,111 @@ INSERT INTO Person(ssn,id,first_name,last_name,email) VALUES
 ,(204794691,47,'Bradley','Carr','ryanshaw@mac.com')
 ,(293904265,48,'Herbert','Paul','novanet@comcast.net')
 ,(373307205,49,'Katherine','Nichols','ehood@icloud.com')
-,(295600928,50,'Nelson','Gregory','dieman@verizon.net');
+,(295600928,50,'Nelson','Gregory','dieman@verizon.net')
+,(254156867,51,'Mildred','Austin','tubesteak@msn.com')
+,(803179891,52,'Raymond','Moreno','floxy@gmail.com')
+,(394025466,53,'Phillip','Chapman','bjoern@sbcglobal.net')
+,(226130537,54,'Sam','Ruiz','dkeeler@outlook.com')
+,(206289429,55,'Alison','Hicks','eurohack@yahoo.com')
+,(472665242,56,'Ivan','Shelton','khris@msn.com')
+,(842440083,57,'Muriel','Fleming','rfisher@msn.com')
+,(747652718,58,'Nadine','Wade','kosact@aol.com')
+,(575933767,59,'Michael','Clarke','mavilar@sbcglobal.net')
+,(415879768,60,'Bobby','Clayton','janusfury@mac.com')
+,(330264593,61,'Greg','Horton','kourai@gmail.com')
+,(817794537,62,'Simon','Gonzalez','simone@optonline.net')
+,(477887758,63,'Lynn','Griffin','msloan@yahoo.ca')
+,(772846507,64,'Cheryl','Wilson','milton@gmail.com')
+,(332012250,65,'Erica','Ferguson','monkeydo@me.com')
+,(502405693,66,'Hugh','Vaughn','arebenti@outlook.com')
+,(813718676,67,'Geneva','Morgan','benanov@yahoo.ca')
+,(565829795,68,'Eric','Mckenzie','anicolao@yahoo.ca')
+,(904560284,69,'Shawna','Zimmerman','gozer@icloud.com')
+,(430977343,70,'Annette','Ramirez','maratb@hotmail.com')
+,(195731807,71,'Irving','Goodman','rtanter@yahoo.ca')
+,(269828604,72,'Mathew','Glover','wiseb@outlook.com')
+,(195310678,73,'Johnny','Bryant','skajan@gmail.com');;
 
-INSERT INTO Student
-VALUES (DEFAULT, 'Isabelle', 'Ramirez', '552 Broadway Street', NULL), 1
-       (DEFAULT, 'Benjamin', 'Moore', '76 Chestnut Grove', NULL), 2
-       (DEFAULT, 'Hannah', 'Hayes', '223 Abby Lane', NULL), 3
-       (DEFAULT, 'Amber', 'Baker', '57 Mendip Close', NULL), 4
-       (DEFAULT, 'David', 'Williams', '6398 Beverley Road', NULL), 5
-       (DEFAULT, 'Mildred', 'Jackson', '764 Saint Mary Street', NULL), 6
-       (DEFAULT, 'Josh', 'Murray', '7321 Church Street', NULL), 7
-       (DEFAULT, 'Phoebe', 'Mitchell', '88 Elm Avenue', NULL), 8
-       (DEFAULT, 'Imogen', 'Hughes', '1154 Charles Street', NULL), 9
-       (DEFAULT, 'Luke', 'Washington', '62 Castle Street', NULL), 10
-       (DEFAULT, 'Ella', 'Wright', '18 Norman Road', NULL), 11
-       (DEFAULT, 'Harrison', 'Shaw', '709 Saint Andrews Road', NULL), 12
-       (DEFAULT, 'Mohammed', 'Nguyen', '482 West Street', NULL), 13
-       (DEFAULT, 'Alice', 'Ford', '4 Chapel Lane', NULL), 14
-       (DEFAULT, 'James', 'West', '7622 Common Road', NULL), 15
-       (DEFAULT, 'Harry', 'Cooke', '562 Coronation Street', NULL), 16
-       (DEFAULT, 'Liam', 'Shaw', '709 Saint Andrews Road', NULL), 17
-       (DEFAULT, 'Megan', 'Murray', '612 Chatsworth Road', NULL), 18
-       (DEFAULT, 'Oliver', 'Gonzalez', '835 Maple Street', NULL), 19
-       (DEFAULT, 'Allie', 'Hamilton', '9662 Brunswick Street', NULL), 20
-       (DEFAULT, 'Brandon', 'Cassidy', '35 Hyacynth Drive', NULL), 21
-       (DEFAULT, 'Justin', 'Santiago', '329 Pennant Road', NULL),22
-       (DEFAULT, 'Leonard', 'Li', '71 Drake Avenue', NULL), 23
-       (DEFAULT, 'Jess', 'Singh', '732 Terrace Gardens', NULL), 24
-       (DEFAULT, 'Declan', 'Simmons', '5 Balmoral Crescent', NULL),
-       (DEFAULT, 'Maja', 'Little', '7 Barberry Avenue', NULL),
-       (DEFAULT, 'Hugo', 'Harrison', '222 Mill hill Road', NULL),
-       (DEFAULT, 'Christian', 'Gilbert', '41 Whitegates Road', NULL),
-       (DEFAULT, 'Monica', 'Owen', '68 Blossom Road', NULL),
-       (DEFAULT, 'Brian', 'Crawford', '90 Argosy Road', NULL),
-       (DEFAULT, 'Gina', 'Wilkes', '72 Hamerton Road', NULL),
-       (DEFAULT, 'Lloyd', 'Greene', '33 Danburry Road', NULL),
-       (DEFAULT, 'Ewan', 'Ortega', '198 King George Road', NULL),
-       (DEFAULT, 'Declan', 'Manning', '2 Easdale Street', NULL),
-       (DEFAULT, 'Caitlin', 'Gill', '69 Douglas Way', NULL),
-       (DEFAULT, 'Sara', 'Cole', '83 Salmon Street', NULL),
-       (DEFAULT, 'Annie', 'Huang', '710 Howie Road', NULL),
-       (DEFAULT, 'Jen', 'Carr', '944 Onslow Street', NULL),
-       (DEFAULT, 'Aisha', 'Flores', '23 Liddel Street', NULL),
-       (DEFAULT, 'Matilda', 'Beckett', '15 Columba Street', NULL),
-       (DEFAULT, 'Francis', 'Smith', '536 Walter Street', NULL),
-       (DEFAULT, 'Ella', 'Martin', '12 Barry Lane', NULL),
-       (DEFAULT, 'Andrew', 'McDonald', '29 James Crescent', NULL),
-       (DEFAULT, 'Scott', 'Griffiths', '68 Weller Road', NULL),
-       (DEFAULT, 'Alexandria', 'Allen', '99 Copper Street', NULL),
-       (DEFAULT, 'Ivan', 'Walters', '876 Main Street', NULL),
-       (DEFAULT, 'Melanie', 'Armstrong', '98 Main Street', NULL),
-       (DEFAULT, 'Justin', 'Taylor', '8 School Street', NULL),
-       (49, 'Michael', 'Zadeh', '100 Wright Avenue', NULL);
+INSERT INTO Student(ssn) VALUES
+ (399437700) 1
+,(889993771) 2
+,(779332036) 3
+,(245007722) 4
+,(645399011) 5
+,(445761402) 6
+,(616004712) 7
+,(223680290) 8
+,(453920929) 9
+,(146344051) 10
+,(157682678) 11
+,(448602365) 12
+,(309348312) 13
+,(635775881) 14
+,(563383616) 15
+,(891468783) 16
+,(610091459)17
+,(108906305)18
+,(667004396)19
+,(752713919)20
+,(882108144)21
+,(809493224)22
+,(814392875)23
+,(426299656)24
+,(357320964)25
+,(881132104)26
+,(508203017)27
+,(907806961)28
+,(656597000)29
+,(477176451)30
+,(964663021)31
+,(249691790)32
+,(665452486)33
+,(481996433)34
+,(786482339)35
+,(927819640)36
+,(867304329)37
+,(195238750)38
+,(934347739)39
+,(246771994)40
+,(403876313)41
+,(683192608)42
+,(635804780)43
+,(177921799)44
+,(965277745)45
+,(406932598)46
+,(204794691)47
+,(293904265)48
+,(373307205)49
+,(295600928); 50
+
+
 
 INSERT INTO Instructor
-VALUES (DEFAULT, 'Sophie', 'Morton', 3),
-       (DEFAULT, 'Jacob', 'Hutchinson', 3),
-       (DEFAULT, 'Chloe', 'Booth', 9),
-       (DEFAULT, 'Ibrahim', 'Pham', 1),
-       (DEFAULT, 'Aaron', 'Rice', 8),
-       (DEFAULT, 'Elizabeth', 'Aguilar', 10),
-       (DEFAULT, 'Rebecca', 'Ross', 4),
-       (DEFAULT, 'Sebastien', 'Arnold', 7),
-       (DEFAULT, 'Reuben', 'Pratt', 2),
-       (DEFAULT, 'Travis', 'Cummings', 8),
-       (DEFAULT, 'Molly', 'Byrne', 5),
-       (DEFAULT, 'Charles', 'Mccoy', 7),
-       (DEFAULT, 'Elizabeth', 'Ingram', 6);
+VALUES (254156867 ,3, 1), 1 - 51
+       (803179891 ,3, 1), 2 - 52
+       (394025466 ,9, 1), 3 - 53
+       (226130537, 1, 0), 4 - 54
+       (206289429, 8, 1), 5 - 55
+       (472665242, 10, 1), 6 - 56
+       (842440083, 4, 1), 7 - 57
+       (747652718, 7, 0), 8 - 58
+       (575933767, 2, 0), 9 - 59
+       (415879768, 8, 1), 10 - 60
+       (330264593, 5, 1), 11 - 61
+       (817794537, 7, 1), 12 - 62
+       (477887758, 6, 1); 13 - 63
+
+INSERT INTO Advisor
+VALUES (DEFAULT, ,44), 1
+       (DEFAULT, 'Tobias', 'Farmer', 'Physics Building',12), 2
+       (DEFAULT, 'Paige', 'Cannon', 'Chemistry Building',14), 3
+       (DEFAULT, 'Leo', 'Salinas', 'Engineering Building',74),4
+       (DEFAULT, 'Rosie', 'Cobb', 'Math Building',587),5
+       (DEFAULT, 'Dominic', 'Jensen', 'Engineering Building',729),6
+       (DEFAULT, 'Scarlett', 'Bishop', 'English Building',534),7
+       (DEFAULT, 'Steve', 'Schultz', 'Psychology Building',36),8
+       (DEFAULT, 'Lucas', 'Wang', 'Computer Science Building',21),9
+       (DEFAULT, 'Lillian', 'Frazier', 'Business Building',511);10
 
 INSERT INTO GradStudents
 VALUES (3, 'thesis', 9),
