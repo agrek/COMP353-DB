@@ -513,7 +513,7 @@ BEGIN
     /******************* Multiple Sections of Same Course Check *******************/
 
     DROP TEMPORARY TABLE IF EXISTS secInfo;
-    CREATE TEMPORARY TABLE secInfo AS (SELECT course_code, type, term, year FROM Section WHERE id = NEW.section_id);
+    CREATE TEMPORARY TABLE secInfo AS (SELECT id, course_code, type, term, year, room_number, room_floor, building_abbreviation FROM Section WHERE id = NEW.section_id);
     SELECT COUNT(*)
     INTO @multipleSecs
     FROM (SELECT Section.id
@@ -529,6 +529,25 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
                 'A student cannot register to two different sections of same type,term, and year';
 
+    END IF;
+
+    /******************* Student Enrollment to room capacity Check *******************/
+
+    SELECT capacity
+    INTO @roomcap
+    FROM Room
+             INNER JOIN secInfo ON secInfo.room_number = Room.room_number AND
+                                   secInfo.room_floor = Room.room_floor AND
+                                   secInfo.building_abbreviation = Room.building_abbreviation;
+
+    SELECT COUNT(*)
+    INTO @totalStudentSec
+    FROM SectionEnrollment SE
+             INNER JOIN secInfo ON SE.section_id = secInfo.id;
+
+    IF (@totalStudentSec >= @roomcap) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                'ERROR: Student enrollment for this section has reached/exceeded room capacity. Please try a different section or contact the administrator.';
     END IF;
 
     /******************* Prerequisites Check *******************/
