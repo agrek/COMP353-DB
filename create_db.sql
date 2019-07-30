@@ -64,7 +64,7 @@ CREATE TABLE Campus
 CREATE TABLE Building
 (
     abbreviation VARCHAR(45) NOT NULL,
-    name         VARCHAR(45) NOT NULL,
+    name         VARCHAR(90) NOT NULL,
     num_rooms    INT         NULL,
     num_labs     INT         NOT NULL,
     num_floors   INT         NOT NULL,
@@ -119,9 +119,9 @@ CREATE TABLE Person
     id         INT AUTO_INCREMENT,
     first_name VARCHAR(45) NOT NULL,
     last_name  VARCHAR(45) NOT NULL,
-    email      VARCHAR(45) NOT NULL,
-    address    INT         NOT NULL,
-    phone      INT(10)     NULL,
+    email      VARCHAR(45) NULL,
+    address    INT         NULL,
+    phone      VARCHAR(14) NULL,
     CONSTRAINT Person_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Person_uq
@@ -141,9 +141,8 @@ CREATE TABLE Employee
         PRIMARY KEY (ssn),
     CONSTRAINT Employee_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn),
-    CONSTRAINT Advisor_Building_abbreviation_fk
+    CONSTRAINT Employee_Building_abbreviation_fk
         FOREIGN KEY (office_building_abbreviation, office_room_floor, office_room_number) REFERENCES Room (building_abbreviation, room_floor, room_number)
-
 );
 
 CREATE TABLE Contract
@@ -169,9 +168,8 @@ CREATE TABLE Student
 
 CREATE TABLE Department
 (
-    id           INT AUTO_INCREMENT,
-    name         VARCHAR(45) NOT NULL,
-    chairman_ssn INT         NULL,
+    id   INT AUTO_INCREMENT,
+    name VARCHAR(45) NOT NULL,
     CONSTRAINT Department_pk
         PRIMARY KEY (id),
     CONSTRAINT Department_uq
@@ -180,9 +178,10 @@ CREATE TABLE Department
 
 CREATE TABLE Instructor
 (
-    ssn               INT  NOT NULL,
-    dept_id           INT  NOT NULL,
-    funding_available BOOL NOT NULL,
+    ssn               INT NOT NULL,
+    dept_id           INT NOT NULL,
+    funding_available BOOL DEFAULT FALSE,
+    is_chairman       BOOL DEFAULT FALSE,
     CONSTRAINT Instructor_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Instructor_Department_id_fk
@@ -190,10 +189,6 @@ CREATE TABLE Instructor
     CONSTRAINT Instructor_Employee_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Employee (ssn)
 );
-
-ALTER TABLE Department
-    ADD CONSTRAINT Department_Instructor_ssn_fk
-        FOREIGN KEY (chairman_ssn) REFERENCES Instructor (ssn);
 
 CREATE TABLE UGradStudents
 (
@@ -208,7 +203,7 @@ CREATE TABLE GradStudents
 (
     ssn            INT                       NULL,
     type           ENUM ('thesis', 'course') NOT NULL,
-    supervisor_ssn INT                       NOT NULL,
+    supervisor_ssn INT                       NULL,
     CONSTRAINT GradStudents_pk
         PRIMARY KEY (ssn),
     CONSTRAINT GradStudents_Instructor_ssn_fk
@@ -235,7 +230,7 @@ CREATE TABLE Publications
     ssn       INT                            NOT NULL,
     type      ENUM ('conference', 'journal') NULL,
     date      DATE                           NOT NULL,
-    title     VARCHAR(45)                    NOT NULL,
+    title     VARCHAR(90)                    NOT NULL,
     publisher VARCHAR(45)                    NOT NULL,
     CONSTRAINT Publications_pk
         PRIMARY KEY (ssn, date, title, publisher),
@@ -372,8 +367,6 @@ CREATE TABLE Section
         FOREIGN KEY (building_abbreviation, room_floor, room_number) REFERENCES Room (building_abbreviation, room_floor, room_number),
     CONSTRAINT Section_Course_code_fk
         FOREIGN KEY (course_code) REFERENCES Course (code),
-    CONSTRAINT Section_Instructor_id_fk
-        FOREIGN KEY (instructor_ssn) REFERENCES Instructor (ssn),
     CONSTRAINT Section_Instructor_ssn_fk
         FOREIGN KEY (instructor_ssn) REFERENCES Instructor (ssn),
     CONSTRAINT term_name_fk
@@ -799,13 +792,13 @@ BEGIN
     -- Created because of need to operate on the NEW data in the form of a table
     CREATE TEMPORARY TABLE newRow
     (
-        id            INT(8),
-        start_time    TIME,
-        end_time      TIME,
-        day           VARCHAR(45),
-        term          VARCHAR(45),
-        year          INT(8),
-        instructor_id INT(8)
+        id             INT(8),
+        start_time     TIME,
+        end_time       TIME,
+        day            VARCHAR(45),
+        term           VARCHAR(45),
+        year           INT(8),
+        instructor_ssn INT(9)
     );
     INSERT INTO newRow
     VALUES (NEW.id, NEW.start_time, NEW.end_time, NEW.day, NEW.term, NEW.year, NEW.instructor_ssn);
@@ -827,8 +820,7 @@ BEGIN
                                                end_time,
                                                term,
                                                year,
-
-                                               instructor_id
+                                               instructor_ssn
                                         FROM newRow
                                                  INNER JOIN separatedNew ON separatedNew.id = newRow.id);
 
