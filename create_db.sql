@@ -356,9 +356,9 @@ CREATE TABLE Section
     term                  VARCHAR(45) NOT NULL,
     year                  INT(4)      NOT NULL,
     instructor_ssn        INT(9)      NOT NULL,
+    building_abbreviation VARCHAR(45) NULL,
     room_floor            INT(2)      NULL,
     room_number           INT(3)      NOT NULL,
-    building_abbreviation VARCHAR(45) NULL,
     CONSTRAINT Section_pk
         PRIMARY KEY (id),
     CONSTRAINT Section_uq
