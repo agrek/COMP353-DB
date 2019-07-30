@@ -241,8 +241,8 @@ CREATE TABLE Publications
 CREATE TABLE Awards
 (
     ssn  INT         NOT NULL,
-    name VARCHAR(45) NOT NULL,
     date DATE        NOT NULL,
+    name VARCHAR(90) NOT NULL,
     CONSTRAINT Awards_pk
         PRIMARY KEY (ssn, date, name),
     CONSTRAINT Awards_Person_ssn_fk
@@ -251,7 +251,7 @@ CREATE TABLE Awards
 
 CREATE TABLE Degree
 (
-    institution VARCHAR(45) NOT NULL,
+    institution VARCHAR(90) NOT NULL,
     name        VARCHAR(45) NOT NULL,
     id          INT AUTO_INCREMENT,
     CONSTRAINT Degree_pk
@@ -270,8 +270,8 @@ CREATE TABLE HasDegree
         PRIMARY KEY (ssn, degree_id),
     CONSTRAINT HasDegree_Degree_id_fk
         FOREIGN KEY (degree_id) REFERENCES Degree (id),
-    CONSTRAINT HasDegree_Student_ssn_fk
-        FOREIGN KEY (ssn) REFERENCES Student (ssn)
+    CONSTRAINT HasDegree_Person_ssn_fk
+        FOREIGN KEY (ssn) REFERENCES Person (ssn)
 );
 
 CREATE TABLE LetterToGpa
