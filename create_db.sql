@@ -506,7 +506,16 @@ BEGIN
     /******************* Multiple Sections of Same Course Check *******************/
 
     DROP TEMPORARY TABLE IF EXISTS secInfo;
-    CREATE TEMPORARY TABLE secInfo AS (SELECT id, course_code, type, term, year, room_number, room_floor, building_abbreviation FROM Section WHERE id = NEW.section_id);
+    CREATE TEMPORARY TABLE secInfo AS (SELECT id,
+                                              course_code,
+                                              type,
+                                              term,
+                                              year,
+                                              room_number,
+                                              room_floor,
+                                              building_abbreviation
+                                       FROM Section
+                                       WHERE id = NEW.section_id);
     SELECT COUNT(*)
     INTO @multipleSecs
     FROM (SELECT Section.id
