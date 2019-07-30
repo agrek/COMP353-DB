@@ -405,6 +405,8 @@ CREATE TABLE ResearchFundingApplications
     status           ENUM ('Applied', 'Granted', 'Denied') NOT NULL,
     student_ssn      INT                                   NULL,
     research_fund_id INT                                   NOT NULL,
+    year             INT(4)                                   NOT NULL,
+    term             VARCHAR(45) NOT NULL,
     CONSTRAINT ResearchFundingApplications_pk
         PRIMARY KEY (id),
     CONSTRAINT ResearchFundingApplications_GradStudents_ssn_fk

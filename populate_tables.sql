@@ -547,8 +547,8 @@ VALUES (1, 'Actuarial Mathematics Undergraduate', 'undergraduate', 90, 8, 565829
        (15, 'Biochemistry Undergraduate', 'undergraduate', 90, 5, 502405693),
        (16, 'Biochemistry Graduate', 'graduate', 44, 5, 502405693),
        (17, 'Computer Systems Undergraduate', 'undergraduate', 90, 3, 269828604),
-       (18, 'Computer Systems Graduate', 'graduate', 44, 3, 269828604),
-       (19, 'Computer Science Undergraduate', 'undergraduate', 90, 3, 269828604),
+       (18, 'Computer Systems Graduate', 'graduate', 44, 3, 772846507),
+       (19, 'Computer Science Undergraduate', 'undergraduate', 90, 3, 813718676),
        (20, 'Computer Science Graduate', 'graduate', 44, 3, 269828604),
        (21, 'Computer Engineering Undergraduate', 'undergraduate', 90, 1, 772846507),
        (22, 'Computer Engineering Graduate', 'graduate', 44, 1, 772846507),
@@ -558,7 +558,7 @@ VALUES (1, 'Actuarial Mathematics Undergraduate', 'undergraduate', 90, 8, 565829
        (26, 'Electrical Engineering Graduate', 'graduate', 44, 7, 904560284),
        (27, 'General Engineering Undergraduate', 'undergraduate', 90, 11, NULL),
        (28, 'General Engineering Graduate', 'graduate', 44, 11, NULL),
-       (29, 'Applied Computer Science Graduate', 'graduate', 50, 3, 269828604);
+       (29, 'Applied Computer Science Graduate', 'graduate', 50, 3, 904560284);
 
 
 INSERT INTO ProgramRequirements(program_id, course_code) VALUE
@@ -600,7 +600,7 @@ VALUES (779332036, 'thesis', 575933767),
        (616004712, 'thesis', 803179891),
        (309348312, 'thesis', 206289429),
        (882108144, 'thesis', 803179891),
-       (809493224, 'thesis', 803179891),
+       (809493224, 'thesis', 254156867),
        (814392875, 'thesis', 111111111),
        (426299656, 'thesis', 803179891),
        (357320964, 'thesis', 803179891),
@@ -643,31 +643,31 @@ VALUES (1, 'Research Grant in Computer Science 2', 800),
        (10, 'Graduate Fubding for Liberal Arts', 12500);
 
 INSERT INTO ResearchFundingApplications
-VALUES (1, 'granted', 814392875, 1),
-       (2, 'granted', 964663021, 2),
-       (3, 'granted', 881132104, 3),
-       (4, 'granted', 656597000, 4),
-       (5, 'denied', 195238750, 2),
-       (6, 'denied', 964663021, 4),
-       (7, 'denied', 477176451, 1),
-       (8, 'denied', 477176451, 2),
-       (9, 'denied', 477176451, 3),
-       (10, 'denied', 477176451, 4),
-       (11, 'denied', 426299656, 3),
-       (12, 'granted', 177921799, 7),
-       (13, 'granted', 245007722, 6),
-       (14, 'applied', 965277745, 5),
-       (15, 'applied', 453920929, 5),
-       (16, 'denied', 146344051, 6),
-       (17, 'denied', 907806961, 6),
-       (18, 'denied', 882108144, 6),
-       (19, 'applied', 448602365, 8),
-       (20, 'applied', 779332036, 8),
-       (21, 'applied', 445761402, 8),
-       (22, 'applied', 453920929, 8),
-       (23, 'granted', 814392875, 9),
-       (24, 'denied', 406932598, 9),
-       (25, 'denied', 635804780, 10);
+VALUES (1, 'granted', 814392875, 1,2018,'fall'),
+       (2, 'granted', 964663021, 2,2018,'fall'),
+       (3, 'granted', 881132104, 3,2018,'fall'),
+       (4, 'granted', 656597000, 4,2018,'fall'),
+       (5, 'denied', 195238750, 2,2018,'winter'),
+       (6, 'denied', 964663021, 4,2018,'fall'),
+       (7, 'denied', 477176451, 1,2018,'fall'),
+       (8, 'denied', 477176451, 2,2019,'winter'),
+       (9, 'denied', 477176451, 3,2017,'fall'),
+       (10, 'denied', 477176451, 4,2018,'summer'),
+       (11, 'denied', 426299656, 3,2018,'fall'),
+       (12, 'granted', 177921799, 7,2018,'fall'),
+       (13, 'granted', 245007722, 6,2018,'fall'),
+       (14, 'applied', 965277745, 5,2018,'summer'),
+       (15, 'applied', 453920929, 5,2018,'fall'),
+       (16, 'denied', 146344051, 6,2018,'winter'),
+       (17, 'denied', 907806961, 6,2018,'fall'),
+       (18, 'denied', 882108144, 6,2018,'fall'),
+       (19, 'applied', 448602365, 8,2018,'fall'),
+       (20, 'applied', 779332036, 8,2018,'fall'),
+       (21, 'applied', 445761402, 8,2018,'winter'),
+       (22, 'applied', 453920929, 8,2018,'fall'),
+       (23, 'granted', 814392875, 9,2018,'summer'),
+       (24, 'denied', 406932598, 9,2018,'fall'),
+       (25, 'denied', 635804780, 10,2018,'summer');
 
 
 INSERT INTO Studies
@@ -844,7 +844,13 @@ VALUES (1, 'AAA', 'COMP353', 'lecture', 'M, W', '14:45:00', '17:30:00', 'summer'
      , (61, 'RQW', 'COMP352', 'lecture', 'F', '14:00:00', '15:00:00', 'summer', '2018', 333333333, 'H', 5,
         520)
      , (62, 'RQA', 'COMP352', 'lecture', 'W', '14:00:00', '15:00:00', 'summer', '2017', 333333333, 'H', 5,
-        520);
+        520)
+     , (63, 'CBB', 'COMP352', 'lecture', 'M, W', '9:45:00', '11:00:00', 'winter', '2018', 111111111, 'H', 4,
+        435)
+     , (64, 'CBA', 'COMP352', 'lecture', 'M, W', '9:45:00', '11:00:00', 'fall', '2018', 111111111, 'H', 4,
+        435)
+     , (65, 'BCL', 'COMP353', 'lab', 'Th', '12:45:00', '14:30:00', 'fall', '2018', 254156867, 'H', 9, 907)
+        ;
 
 INSERT INTO TAPosition
 VALUES (4, 'TA', 35, 882108144, 1000),
@@ -905,7 +911,8 @@ VALUES (4, 'TA', 35, 882108144, 1000),
        (56, 'marker', 30, 665452486, 1000),
        (57, 'TA', 30, 665452486, 1000),
        (59, 'marker', 90, 927819640, 1000),
-       (60, 'TA', 25, 927819640, 1000);
+       (60, 'TA', 25, 927819640, 1000),
+       (65, 'Lab Instructor', 40,293904265, 2000);
 
 INSERT INTO Requisites
 VALUES ('COMP353', 'COMP352', 'prerequisite'),
@@ -1306,126 +1313,67 @@ VALUES ('Concordia University', 'Bachelor Electrical Engineering', 1)
      , ('Tennessee State University', 'PHD Finance', 72)
      , ('Universidad Autonoma de Nuevo Leon', 'Master Degree Software Eng', 73);
 
-INSERT INTO HasDegree
-VALUES (779332036, '2003-08-11', 1, 4.28);
-INSERT INTO HasDegree
-VALUES (445761402, '2004-03-08', 2, 3.48);
-INSERT INTO HasDegree
-VALUES (448602365, '2004-03-26', 3, 4.12);
-INSERT INTO HasDegree
-VALUES (453920929, '2006-08-01', 4, 3.24);
-INSERT INTO HasDegree
-VALUES (223680290, '2006-09-26', 5, 3.11);
-INSERT INTO HasDegree
-VALUES (245007722, '2006-10-02', 6, 4.18);
-INSERT INTO HasDegree
-VALUES (146344051, '2008-07-30', 7, 3.82);
-INSERT INTO HasDegree
-VALUES (891468783, '2009-01-07', 8, 4.28);
-INSERT INTO HasDegree
-VALUES (616004712, '2009-06-24', 9, 3.88);
-INSERT INTO HasDegree
-VALUES (309348312, '2010-08-04', 10, 3.36);
-INSERT INTO HasDegree
-VALUES (882108144, '2011-10-24', 11, 4.05);
-INSERT INTO HasDegree
-VALUES (809493224, '2012-01-30', 12, 3.33);
-INSERT INTO HasDegree
-VALUES (814392875, '2012-03-16', 13, 4.25);
-INSERT INTO HasDegree
-VALUES (426299656, '2012-07-02', 14, 3.12);
-INSERT INTO HasDegree
-VALUES (357320964, '2012-12-24', 15, 3.53);
-INSERT INTO HasDegree
-VALUES (881132104, '2013-11-22', 16, 2.74);
-INSERT INTO HasDegree
-VALUES (508203017, '2014-07-11', 17, 3.25);
-INSERT INTO HasDegree
-VALUES (907806961, '2015-05-05', 18, 4.12);
-INSERT INTO HasDegree
-VALUES (656597000, '2015-07-16', 19, 4.12);
-INSERT INTO HasDegree
-VALUES (477176451, '2016-03-29', 20, 3.90);
-INSERT INTO HasDegree
-VALUES (964663021, '2016-10-10', 21, 2.91);
-INSERT INTO HasDegree
-VALUES (249691790, '2017-10-23', 22, 2.56);
-INSERT INTO HasDegree
-VALUES (665452486, '2017-12-14', 23, 3.86);
-INSERT INTO HasDegree
-VALUES (481996433, '2018-06-26', 24, 3.41);
-INSERT INTO HasDegree
-VALUES (786482339, '2018-07-11', 25, 3.20);
-INSERT INTO HasDegree
-VALUES (927819640, '2012-06-20', 26, 2.92);
-INSERT INTO HasDegree
-VALUES (867304329, '2013-04-02', 27, 4.17);
-INSERT INTO HasDegree
-VALUES (195238750, '2013-09-19', 28, 3.11);
-INSERT INTO HasDegree
-VALUES (934347739, '2013-09-23', 29, 3.09);
-INSERT INTO HasDegree
-VALUES (246771994, '2013-10-02', 30, 4.16);
-INSERT INTO HasDegree
-VALUES (403876313, '2015-01-23', 31, 3.23);
-INSERT INTO HasDegree
-VALUES (683192608, '2016-12-22', 32, 3.67);
-INSERT INTO HasDegree
-VALUES (635804780, '2017-06-08', 33, 3.99);
-INSERT INTO HasDegree
-VALUES (177921799, '2017-07-05', 34, 3.79);
-INSERT INTO HasDegree
-VALUES (965277745, '2017-11-08', 35, 3.33);
-INSERT INTO HasDegree
-VALUES (406932598, '2018-04-18', 36, 2.07);
-INSERT INTO HasDegree
-VALUES (204794691, '2018-08-09', 37, 2.64);
-INSERT INTO HasDegree
-VALUES (293904265, '2010-07-16', 38, 4.16);
-INSERT INTO HasDegree
-VALUES (803179891, '2013-09-25', 40, 2.07);
-INSERT INTO HasDegree
-VALUES (394025466, '2015-04-18', 41, 2.24);
-INSERT INTO HasDegree
-VALUES (226130537, '2016-11-04', 42, 2.64);
-INSERT INTO HasDegree
-VALUES (206289429, '2016-11-13', 43, 3.96);
-INSERT INTO HasDegree
-VALUES (472665242, '2016-06-22', 44, 3.00);
-INSERT INTO HasDegree
-VALUES (842440083, '2019-02-07', 45, 4.07);
-INSERT INTO HasDegree
-VALUES (747652718, '2018-02-14', 46, 2.11);
-INSERT INTO HasDegree
-VALUES (575933767, '2016-09-25', 47, 3.89);
-INSERT INTO HasDegree
-VALUES (415879768, '2016-02-13', 48, 3.01);
-INSERT INTO HasDegree
-VALUES (330264593, '2018-03-16', 49, 2.36);
-INSERT INTO HasDegree
-VALUES (817794537, '2017-04-09', 50, 3.14);
-INSERT INTO HasDegree
-VALUES (477887758, '2014-10-02', 51, 3.11);
-INSERT INTO HasDegree
-VALUES (772846507, '2014-01-29', 52, 3.04);
-INSERT INTO HasDegree
-VALUES (332012250, '2017-05-23', 53, 4.04);
-INSERT INTO HasDegree
-VALUES (502405693, '2012-11-14', 54, 3.52);
-INSERT INTO HasDegree
-VALUES (813718676, '2019-04-24', 55, 2.70);
-INSERT INTO HasDegree
-VALUES (565829795, '2016-09-13', 56, 2.01);
-INSERT INTO HasDegree
-VALUES (904560284, '2016-11-24', 57, 4.13);
-INSERT INTO HasDegree
-VALUES (430977343, '2013-12-10', 58, 2.80);
-INSERT INTO HasDegree
-VALUES (195731807, '2017-05-31', 59, 3.73);
-INSERT INTO HasDegree
-VALUES (269828604, '2012-09-18', 60, 3.47);
-INSERT INTO HasDegree
-VALUES (195310678, '2012-10-28', 61, 2.75);;
+INSERT INTO HasDegree VALUES
+(779332036, '2003-08-11', 1, 4.28)
+,(445761402, '2004-03-08', 2, 3.48)
+,(448602365, '2004-03-26', 3, 4.12)
+,(453920929, '2006-08-01', 4, 3.24)
+,(223680290, '2006-09-26', 5, 3.11)
+,(245007722, '2006-10-02', 6, 4.18)
+,(146344051, '2008-07-30', 7, 3.82)
+,(891468783, '2009-01-07', 8, 4.28)
+,(616004712, '2009-06-24', 9, 3.88)
+,(309348312, '2010-08-04', 10, 3.36)
+,(882108144, '2011-10-24', 11, 4.05)
+,(809493224, '2012-01-30', 12, 3.33)
+,(814392875, '2012-03-16', 13, 4.25)
+,(426299656, '2012-07-02', 14, 3.12)
+,(357320964, '2012-12-24', 15, 3.53)
+,(881132104, '2013-11-22', 16, 2.74)
+,(508203017, '2014-07-11', 17, 3.25)
+,(907806961, '2015-05-05', 18, 4.12)
+,(656597000, '2015-07-16', 19, 4.12)
+,(477176451, '2016-03-29', 20, 3.90)
+,(964663021, '2016-10-10', 21, 2.91)
+,(249691790, '2017-10-23', 22, 2.56)
+,(665452486, '2017-12-14', 23, 3.86)
+,(481996433, '2018-06-26', 24, 3.41)
+,(786482339, '2018-07-11', 25, 3.20)
+,(927819640, '2012-06-20', 26, 2.92)
+,(867304329, '2013-04-02', 27, 4.17)
+,(195238750, '2013-09-19', 28, 3.11)
+,(934347739, '2013-09-23', 29, 3.09)
+,(246771994, '2013-10-02', 30, 4.16)
+,(403876313, '2015-01-23', 31, 3.23)
+,(683192608, '2016-12-22', 32, 3.67)
+,(635804780, '2017-06-08', 33, 3.99)
+,(177921799, '2017-07-05', 34, 3.79)
+,(965277745, '2017-11-08', 35, 3.33)
+,(406932598, '2018-04-18', 36, 2.07)
+,(204794691, '2018-08-09', 37, 2.64)
+,(293904265, '2010-07-16', 38, 4.16)
+,(803179891, '2013-09-25', 40, 2.07)
+,(394025466, '2015-04-18', 41, 2.24)
+,(226130537, '2016-11-04', 42, 2.64)
+,(206289429, '2016-11-13', 43, 3.96)
+,(472665242, '2016-06-22', 44, 3.00)
+,(842440083, '2019-02-07', 45, 4.07)
+,(747652718, '2018-02-14', 46, 2.11)
+,(575933767, '2016-09-25', 47, 3.89)
+,(415879768, '2016-02-13', 48, 3.01)
+,(330264593, '2018-03-16', 49, 2.36)
+,(817794537, '2017-04-09', 50, 3.14)
+,(477887758, '2014-10-02', 51, 3.11)
+,(772846507, '2014-01-29', 52, 3.04)
+,(332012250, '2017-05-23', 53, 4.04)
+,(502405693, '2012-11-14', 54, 3.52)
+,(813718676, '2019-04-24', 55, 2.70)
+,(565829795, '2016-09-13', 56, 2.01)
+,(904560284, '2016-11-24', 57, 4.13)
+,(430977343, '2013-12-10', 58, 2.80)
+,(195731807, '2017-05-31', 59, 3.73)
+,(269828604, '2012-09-18', 60, 3.47)
+,(195310678, '2012-10-28', 61, 2.75);
 
 INSERT INTO Contract
 VALUES (803179891, 'full-time', 85687.09, '2005-06-02', '2019-07-25')
