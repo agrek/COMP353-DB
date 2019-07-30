@@ -120,7 +120,7 @@ CREATE TABLE Person
     id         INT AUTO_INCREMENT,
     first_name VARCHAR(45) NOT NULL,
     last_name  VARCHAR(45) NOT NULL,
-    email      VARCHAR(45) NOT NULL,
+    email      VARCHAR(45) NULL,
     address    INT         NULL,
     phone      VARCHAR(14) NULL,
     CONSTRAINT Person_pk

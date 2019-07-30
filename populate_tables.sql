@@ -124,7 +124,10 @@ INSERT INTO Address(id,street,city,province,postal_code,apt,civic_number) VALUES
 ,(73,'Main Street','Montreal','Québec','H8K1M9',875,932);
 
 INSERT INTO Campus VALUES('LOY','Loyola'),
-('SGW','Sir George Williams');
+('SGW','Sir George Williams'),
+('CAS1','Campus1'),
+('CAS2','Campus2'),
+('CAS3','Campus3');
 
 INSERT INTO Building VALUES('H','Henry F. Hall Building',200,100,12,'SGW'),
 ('EV','Engineering, Computer Science and Visual Arts Integrated Complex',300,50,15,'SGW'),
@@ -279,7 +282,7 @@ INSERT INTO Room(building_abbreviation,type,capacity,room_floor,room_number) VAL
 ('EV','office',3,4,435),
 ('EV','office',1,5,521),
 ('EV','office',1,5,522),
-('EV','office',1,5,523),
+('EV','office',2,5,523),
 ('EV','office',1,5,524),
 ('EV','office',1,5,525),
 ('EV','office',1,5,529),
@@ -384,7 +387,11 @@ VALUES (399437700,1,'Lisa','Wood','mddallara@outlook.com',1,'(403) 514-9924')
 ,(430977343,70,'Annette','Ramirez','maratb@hotmail.com',70,'(745) 677-9130')
 ,(195731807,71,'Irving','Goodman','rtanter@yahoo.ca',71,'(880) 839-1310')
 ,(269828604,72,'Mathew','Glover','wiseb@outlook.com',72,'(489) 434-5259')
-,(195310678,73,'Johnny','Bryant','skajan@gmail.com',73,'(774) 739-3054');
+,(195310678,73,'Johnny','Bryant','skajan@gmail.com',73,'(774) 739-3054')
+,(000000000,74,'Dummy','Person', NULL,NULL, NULL)
+,(111111111,75,'Mohammad','Qalam','mqalam@hotmail.com',73,'(111) 222-1213')
+,(222222222,76,'Myckael','Walther','mycka@outlook.com', 71, '(222) 222-1213')
+,(333333333,77,'Gwen','Legate','glega@outlook.com', 70, '(333) 222-1213');
 
 
 
@@ -438,7 +445,7 @@ INSERT INTO Student(ssn) VALUES
 ,(204794691)
 ,(293904265)
 ,(373307205)
-,(295600928); -- 50
+,(295600928);-- 50
 
 INSERT INTO Employee(ssn,retired,office_building_abbreviation,office_room_floor,office_room_number) VALUES
  (254156867,0,'EV',3,321)
@@ -463,7 +470,12 @@ INSERT INTO Employee(ssn,retired,office_building_abbreviation,office_room_floor,
 ,(430977343,0,'EV',5,524)
 ,(195731807,0,'EV',5,525)
 ,(269828604,0,'EV',5,529)
-,(195310678,0,'EV',5,530);
+,(195310678,0,'EV',5,530)
+,(000000000,0, NULL,NULL,NULL)
+,(111111111,0,'EV',5,535)
+,(222222222,0,'EV',5,523)
+,(333333333,0,'EV',5,535);
+                                                                                                           ;
 
 
 INSERT INTO UGradStudents VALUES
@@ -494,7 +506,11 @@ VALUES (254156867 ,3, 1, TRUE), /* 1 - 51 */
        (415879768, 8, 1, TRUE), /* 10 - 60 */
        (330264593, 5, 1, TRUE), /* 11 - 61 */
        (817794537, 7, 1, TRUE), /* 12 - 62 */
-       (477887758, 6, 1, TRUE); /* 13 - 63 */
+       (477887758, 6, 1, TRUE), /* 13 - 63 */
+       (000000000, 1, FALSE, FALSE),
+       (111111111,3,0,FALSE),
+       (222222222,3,0,FALSE),
+       (333333333,3,1,FALSE);
 
 INSERT INTO Advisor(ssn) VALUES
  (772846507) /* 1 - 64 */
@@ -536,7 +552,9 @@ VALUES (1, 'Actuarial Mathematics Undergraduate', 'undergraduate', 90, 8, 565829
        (25, 'Electrical Engineering Undergraduate', 'undergraduate', 90, 7, 904560284),
        (26, 'Electrical Engineering Graduate', 'graduate', 44, 7, 904560284),
        (27, 'General Engineering Undergraduate', 'undergraduate', 90, 11, NULL),
-       (28, 'General Engineering Graduate', 'graduate', 44, 11, NULL);
+       (28, 'General Engineering Graduate', 'graduate', 44, 11, NULL),
+       (29, 'Applied Computer Science Graduate', 'graduate', 50, 3, 269828604);
+
 
 INSERT INTO ProgramRequirements(program_id, course_code) VALUE
     (1, 'MATH209'),
@@ -560,6 +578,7 @@ INSERT INTO ProgramRequirements(program_id, course_code) VALUE
     (23, 'SOEN341'),
     (23, 'SOEN342'),
     (23, 'SOEN343'),
+    (23, 'COMP353'),
     (25, 'COMP352'),
     (25, 'ELEC331'),
     (25, 'ELEC251');
@@ -780,17 +799,17 @@ INSERT INTO Section VALUES (1, 'AAA', 'COMP353', 'lecture', 'M, W', '14:45:00', 
 ,(10, 'BBL', 'COMP353', 'lab', 'Th', '15:45:00', '17:30:00', 'fall', '2018', 616004712, 254156867, 'H',9,907)
 ,(11, 'CCL', 'COMP353', 'lab', 'F', '14:45:00', '17:30:00', 'winter', '2018', 934347739, 803179891, 'H',9,903)
 ,(12, 'AAA', 'COMP352', 'lecture', 'W, F', '14:45:00', '17:30:00', 'summer', '2018', 934347739, 803179891, 'H',5,520)
-,(13, 'BBB', 'COMP352', 'lecture', 'M, W', '13:00:00', '14:15:00', 'fall', '2018', 867304329, 254156867, 'H',5,535)
-,(14, 'CCC', 'COMP352', 'lecture', 'M, W', '9:45:00', '11:00:00', 'fall/winter', '2018', 907806961, 254156867, 'H',4,435)
+,(13, 'BBB', 'COMP352', 'lecture', 'M, W', '13:00:00', '14:15:00', 'summer', '2018', 867304329, 254156867, 'H',5,535)
+,(14, 'CCC', 'COMP352', 'lecture', 'M, W', '9:45:00', '11:00:00', 'summer', '2018', 907806961, 111111111, 'H',4,435)
 ,(15, 'AATX', 'COMP352', 'tutorial', 'W, F', '8:45:00', '9:30:00', 'summer', '2018', 964663021, 803179891, 'H',4,409)
 ,(16, 'AATY', 'COMP352', 'tutorial', 'W, F', '8:45:00', '9:30:00', 'summer', '2018', 934347739, 803179891, 'H',5,504)
 ,(17, 'BBTX', 'COMP352', 'tutorial', 'Tu', '8:45:00', '9:30:00', 'fall', '2018', 786482339, 254156867, 'H',6,609)
 ,(18, 'BBTY', 'COMP352', 'tutorial', 'W', '15:45:00', '17:30:00', 'fall', '2018', 809493224, 254156867, 'H',5,503)
 ,(19, 'CCTX', 'COMP352', 'tutorial', 'W', '15:45:00', '17:30:00', 'fall/winter', '2018', 964663021, 254156867, 'MB',3,321)
 ,(20, 'CCTY', 'COMP352', 'tutorial', 'Th', '11:45:00', '13:30:00', 'fall/winter', '2018', 477176451, 254156867, 'H',5,504)
-,(21, 'AAA', 'SOEN341', 'lecture', 'W, F', '8:45:00', '10:00:00', 'winter', '2018', 786482339, 842440083, 'FG', -3, 80)
-,(22, 'AATX', 'SOEN341', 'tutorial', 'F', '12:00:00', '12:50:00', 'winter', '2018', 477176451, 842440083, 'MB', 3, 321)
-,(23, 'AATY', 'SOEN341', 'tutorial', 'F', '10:00:00', '10:50:00', 'winter', '2018', 809493224, 842440083, 'MB', 3, 325)
+,(21, 'AAA', 'SOEN341', 'lecture', 'W, F', '8:45:00', '10:00:00', 'fall', '2018', 786482339, 842440083, 'FG', -3, 80)
+,(22, 'AATX', 'SOEN341', 'tutorial', 'F', '12:00:00', '12:50:00', 'fall', '2018', 477176451, 842440083, 'MB', 3, 321)
+,(23, 'AATY', 'SOEN341', 'tutorial', 'F', '10:00:00', '10:50:00', 'fall', '2018', 809493224, 842440083, 'MB', 3, 325)
 ,(24, 'AAA', 'SOEN342', 'lecture', 'Tu, Th', '10:00:00', '12:15:00', 'fall', '2018', 357320964, 842440083, 'H',4,435)
 ,(25, 'AATX', 'SOEN342', 'tutorial', 'Th', '9:00:00', '9:45:00', 'fall', '2018', 426299656, 842440083, 'H',5,504)
 ,(26, 'AATY', 'SOEN342', 'tutorial', 'Tu', '12:30:00', '13:20:00', 'fall', '2018', 867304329, 842440083, 'H',6,603)
@@ -821,13 +840,15 @@ INSERT INTO Section VALUES (1, 'AAA', 'COMP353', 'lecture', 'M, W', '14:45:00', 
 ,(51, 'AAA', 'PHYS334', 'lecture', 'W, F', '12:45:00', '14:00:00', 'winter', '2018', 965277745, 575933767, 'H',5,520)
 ,(52, 'AAT', 'PHYS334', 'tutorial', 'W', '10:00:00', '10:50:00', 'winter', '2018', 177921799, 575933767, 'H',5,505)
 ,(53, 'AAL', 'PHYS393', 'lab', 'Th', '14:30', '17:30:00', 'winter', '2018', 177921799, 575933767, 'H',9,907)
-,(54, 'QQQ', 'COMP352', 'lecture', 'W, F', '14:45:00', '17:30:00', 'summer', '2017', 249691790, 803179891, 'H',5,520)
+,(54, 'QQQ', 'COMP352', 'lecture', 'W, F', '14:45:00', '17:30:00', 'summer', '2018', 249691790, 222222222, 'H',5,520)
 ,(55, 'QQTX', 'COMP352', 'tutorial', 'Tu', '8:45:00', '9:30:00', 'fall', '2017', 249691790, 803179891, 'H',6,609)
 ,(56, 'QQQ', 'ELEC331', 'lecture', 'M, W', '13:15:00', '14:30:00', 'winter', '2017', 665452486, 747652718, 'FG',-2, 90)
 ,(57, 'QQT', 'ELEC331', 'tutorial', 'M', '10:15:00', '12:05:00', 'winter', '2017', 665452486, 747652718, 'H',4,405)
 ,(58, 'QQL', 'ELEC331', 'lab', 'Tu', '16:00:00', '18:30:00', 'winter', '2017', 245007722, 747652718, 'H',9,903)
 ,(59, 'QQQ', 'SOEN341', 'lecture', 'W, F', '8:45:00', '10:00:00', 'winter', '2017', 927819640, 842440083, 'FG',-3,80)
 ,(60, 'QQTX', 'SOEN341', 'tutorial', 'F', '12:00:00', '12:50:00', 'winter', '2017', 927819640, 842440083, 'MB', 3,321)
+,(61, 'RQW', 'COMP352', 'lecture', 'F', '14:00:00', '15:00:00', 'summer', '2018', 249691790, 333333333, 'H',5,520)
+;
 
 
 INSERT INTO Requisites
@@ -1083,8 +1104,8 @@ INSERT INTO SectionEnrollment VALUE (41, 889993771, 'C+')
 ,(32, 373307205, 'B+')
 ,(33, 373307205, 'B+');
 
-INSERT INTO HasDegree VALUES
-(779332036,'2003-08-11',1,428)
+/*INSERT INTO HasDegree VALUES
+(779332036,'2003-08-11',1,4.28)
 ,(445761402,'2004-03-08',2,3.48)
 ,(448602365,'2004-03-26',3,4.12)
 ,(453920929,'2006-08-01',4,3.24)
@@ -1143,7 +1164,7 @@ INSERT INTO HasDegree VALUES
 ,(430977343,'2013-12-10',58,2.80)
 ,(195731807,'2017-05-31',59,3.73)
 ,(269828604,'2012-09-18',60,3.47)
-,(195310678,'2012-10-28',61,2.75);
+,(195310678,'2012-10-28',61,2.75);*/
 
 
 INSERT INTO Experience VALUES
