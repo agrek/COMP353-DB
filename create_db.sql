@@ -373,6 +373,21 @@ CREATE TABLE Section
         FOREIGN KEY (term) REFERENCES TermToNumber (term)
 );
 
+CREATE TABLE TAPosition
+(
+    section_id   INT         NOT NULL,
+    position     VARCHAR(45) NOT NULL,
+    hours        INT(3)      NOT NULL,
+    assignee_ssn INT         NULL,
+    salary       INT         NOT NULL,
+    CONSTRAINT TAPosition_pk
+        PRIMARY KEY (section_id),
+    CONSTRAINT TAPosition_Section_id_fk
+        FOREIGN KEY (section_id) REFERENCES Section (id),
+    CONSTRAINT TA_GradStudents_id_fk
+        FOREIGN KEY (assignee_ssn) REFERENCES GradStudents (ssn)
+);
+
 CREATE TABLE ResearchFunds
 (
     id     INT AUTO_INCREMENT,
@@ -777,12 +792,12 @@ BEGIN
     -- Created because of need to operate on the NEW data in the form of a table
     CREATE TEMPORARY TABLE newRow
     (
-        id            INT(8),
-        start_time    TIME,
-        end_time      TIME,
-        day           VARCHAR(45),
-        term          VARCHAR(45),
-        year          INT(8),
+        id             INT(8),
+        start_time     TIME,
+        end_time       TIME,
+        day            VARCHAR(45),
+        term           VARCHAR(45),
+        year           INT(8),
         instructor_ssn INT(9)
     );
     INSERT INTO newRow
