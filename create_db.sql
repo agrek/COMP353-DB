@@ -797,16 +797,16 @@ BEGIN
              SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The TA has a time conflict with another section he teaches';
          END IF;
          
-	/****************TA Number of Sections TA'd Per Term Check**********************/
+	/****************TA Number of Sections Per Term Check**********************/
     
 	SELECT term INTO @sectionTerm FROM Section WHERE NEW.section_id = Section.id;
-		SELECT year INTO @sectionYear FROM Section WHERE NEW.section_id = Section.id;
+	SELECT year INTO @sectionYear FROM Section WHERE NEW.section_id = Section.id;
 	
-		SELECT COUNT(*) INTO @currentNum FROM Section 
-			INNER JOIN TAPosition ON TAPosition.section_id = Section.id 
-		WHERE term = @sectionTerm AND year = @sectionYear AND assignee_ssn = NEW.assignee_ssn;
+	SELECT COUNT(*) INTO @currentNum FROM Section 
+		INNER JOIN TAPosition ON TAPosition.section_id = Section.id 
+	WHERE term = @sectionTerm AND year = @sectionYear AND assignee_ssn = NEW.assignee_ssn;
 	
-	IF (@currentNum >= 2) THEN
+	IF (@currentNum > 1) THEN
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Student already TAs 2 sections this term and cannot take on more';
 	END IF;
 
