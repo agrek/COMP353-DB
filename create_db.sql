@@ -794,7 +794,7 @@ BEGIN
              SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The TA has a time conflict with another section he teaches';
          END IF;
          
-         /****************TA Number of Sections TA'd Per Term Check**********************/
+	/****************TA Number of Sections TA'd Per Term Check**********************/
     
 	SELECT term INTO @sectionTerm FROM Section WHERE NEW.section_id = Section.id;
 		SELECT year INTO @sectionYear FROM Section WHERE NEW.section_id = Section.id;
