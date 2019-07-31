@@ -723,6 +723,9 @@ BEGIN
     DROP TEMPORARY TABLE IF EXISTS oldSecs;
     DROP TEMPORARY TABLE IF EXISTS conflictSecs;
     DROP TEMPORARY TABLE IF EXISTS numbers;
+    DROP TEMPORARY TABLE IF EXISTS newEntry;
+    DROP TEMPORARY TABLE IF EXISTS newRow;
+    DROP TEMPORARY TABLE IF EXISTS separatedNew;
     SELECT year INTO @posYear FROM Section WHERE NEW.section_id = Section.id;
     # TODO: Verify use of section_id
     SELECT SUM(hours)
@@ -753,6 +756,26 @@ BEGIN
         n INT PRIMARY KEY
     );
     INSERT INTO numbers VALUES (1), (2);
+    /*******section info from section_id*********/
+    CREATE TEMPORARY TABLE newRow AS (SELECT day, id, start_time, end_time FROM Section WHERE id = NEW.section_id);
+    -- Separating the inserted row into two if there was two days in it
+    CREATE TEMPORARY TABLE separatedNew AS (SELECT newRow.id,
+                                                   SUBSTRING_INDEX(SUBSTRING_INDEX(newRow.day, ', ', numbers.n), ', ',
+                                                                   -1) day
+                                            FROM numbers
+                                                     INNER JOIN newRow
+                                                                ON CHAR_LENGTH(newRow.day)
+                                                                       - CHAR_LENGTH(REPLACE(newRow.day, ', ', '')) >=
+                                                                   numbers.n - 1
+                                            ORDER BY id, n);
+
+    CREATE TEMPORARY TABLE newEntry AS (SELECT newRow.id,
+                                               separatedNew.day,
+                                               start_time,
+                                               end_time
+                                        FROM newRow
+                                                 INNER JOIN separatedNew ON separatedNew.id = newRow.id);
+
 
          /* Fetching all tutorial and lab sections taught by the TA in same year, and term*/
 		SELECT year INTO @taPosYear FROM Section WHERE NEW.section_id = Section.id;
