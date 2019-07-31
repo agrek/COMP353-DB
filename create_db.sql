@@ -722,6 +722,7 @@ BEGIN
 	DROP TEMPORARY TABLE IF EXISTS separatedOld;
     DROP TEMPORARY TABLE IF EXISTS oldSecs;
     DROP TEMPORARY TABLE IF EXISTS conflictSecs;
+    DROP TEMPORARY TABLE IF EXISTS numbers;
     SELECT year INTO @posYear FROM Section WHERE NEW.section_id = Section.id;
     # TODO: Verify use of section_id
     SELECT SUM(hours)
@@ -746,6 +747,13 @@ BEGIN
 
 
     /******************* TA Time Conflict Check *******************/
+    -- numbers table is used for how many possible days can there be
+    CREATE TEMPORARY TABLE numbers
+    (
+        n INT PRIMARY KEY
+    );
+    INSERT INTO numbers VALUES (1), (2);
+
          /* Fetching all tutorial and lab sections taught by the TA in same year, and term*/
 		SELECT year INTO @taPosYear FROM Section WHERE NEW.section_id = Section.id;
 		SELECT term INTO @taPosTerm FROM Section WHERE NEW.section_id = Section.id;
