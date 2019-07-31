@@ -16,7 +16,7 @@ VALUES ('A+', 4.30),
        ('R', 0.00),
        ('NR', 0.00);
 
-INSERT INTO Department
+INSERT INTO Department (id, name)
 VALUES (1, 'Computer Engineering'),
        (2, 'Physics'),
        (3, 'Computer Science'),
@@ -499,23 +499,34 @@ VALUES (399437700)
 
 
 INSERT INTO Instructor
-VALUES (254156867, 3, 1, TRUE), /* 1 - 51 */
-       (803179891, 3, 1, FALSE), /* 2 - 52 */
-       (394025466, 9, 1, TRUE), /* 3 - 53 */
-       (226130537, 1, 0, TRUE), /* 4 - 54 */
-       (206289429, 8, 1, FALSE), /* 5 - 55 */
-       (472665242, 10, 1, TRUE), /* 6 - 56 */
-       (842440083, 4, 1, TRUE), /* 7 - 57 */
-       (747652718, 7, 0, FALSE), /* 8 - 58 */
-       (575933767, 2, 0, TRUE), /* 9 - 59 */
-       (415879768, 8, 1, TRUE), /* 10 - 60 */
-       (330264593, 5, 1, TRUE), /* 11 - 61 */
-       (817794537, 7, 1, TRUE), /* 12 - 62 */
-       (477887758, 6, 1, TRUE), /* 13 - 63 */
-       (000000000, 1, FALSE, FALSE),
-       (111111111, 3, 0, FALSE),
-       (222222222, 3, 0, FALSE),
-       (333333333, 3, 1, FALSE);
+VALUES (254156867, 3, TRUE), /* 1 - 51 */
+       (803179891, 3, TRUE), /* 2 - 52 */
+       (394025466, 9, TRUE), /* 3 - 53 */
+       (226130537, 1, FALSE), /* 4 - 54 */
+       (206289429, 8, TRUE), /* 5 - 55 */
+       (472665242, 10, TRUE), /* 6 - 56 */
+       (842440083, 4, TRUE), /* 7 - 57 */
+       (747652718, 7, FALSE), /* 8 - 58 */
+       (575933767, 2, FALSE), /* 9 - 59 */
+       (415879768, 8, TRUE), /* 10 - 60 */
+       (330264593, 5, TRUE), /* 11 - 61 */
+       (817794537, 7, TRUE), /* 12 - 62 */
+       (477887758, 6, TRUE), /* 13 - 63 */
+       (000000000, 1, FALSE),
+       (111111111, 3, FALSE),
+       (222222222, 3, FALSE),
+       (333333333, 3, TRUE);
+
+UPDATE Department SET chairman_ssn = 254156867 WHERE id = 3;
+UPDATE Department SET chairman_ssn = 394025466 WHERE id = 9;
+UPDATE Department SET chairman_ssn = 226130537 WHERE id = 1;
+UPDATE Department SET chairman_ssn = 206289429 WHERE id = 8;
+UPDATE Department SET chairman_ssn = 472665242 WHERE id = 10;
+UPDATE Department SET chairman_ssn = 842440083 WHERE id = 4;
+UPDATE Department SET chairman_ssn = 330264593 WHERE id = 5;
+UPDATE Department SET chairman_ssn = 747652718 WHERE id = 7;
+UPDATE Department SET chairman_ssn = 477887758 WHERE id = 6;
+
 
 INSERT INTO Advisor(ssn)
 VALUES (772846507) /* 1 - 64 */

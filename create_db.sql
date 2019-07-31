@@ -170,10 +170,13 @@ CREATE TABLE Department
 (
     id   INT AUTO_INCREMENT,
     name VARCHAR(45) NOT NULL,
+    chairman_ssn    INT NULL,
     CONSTRAINT Department_pk
         PRIMARY KEY (id),
     CONSTRAINT Department_uq
-        UNIQUE (name)
+        UNIQUE (name),
+    CONSTRAINT Department_Chairman_ssn_fk
+        FOREIGN KEY (chairman_ssn) REFERENCES Instructor (ssn)
 );
 
 CREATE TABLE Instructor
@@ -181,7 +184,6 @@ CREATE TABLE Instructor
     ssn               INT NOT NULL,
     dept_id           INT NOT NULL,
     funding_available BOOL DEFAULT FALSE,
-    is_chairman       BOOL DEFAULT FALSE,
     CONSTRAINT Instructor_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Instructor_Department_id_fk
