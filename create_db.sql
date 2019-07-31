@@ -932,3 +932,106 @@ BEGIN
 END;
 //
 DELIMITER ;
+
+DROP TRIGGER IF EXISTS preDeleteInstructorTrigger;
+DELIMITER //
+CREATE TRIGGER preDeleteInstructorTrigger
+BEFORE DELETE
+ON Instructor
+FOR EACH ROW
+
+BEGIN	
+	UPDATE Section 
+	SET instructor_ssn = 90
+	WHERE instructor_ssn = OLD.ssn;
+	
+	DELETE FROM Awards 
+	WHERE ssn = OLD.ssn;
+	
+	DELETE FROM Publications 
+	WHERE ssn = OLD.ssn;
+	
+	DELETE FROM Experience
+	WHERE ssn = OLD.ssn;
+	
+	UPDATE GradStudents
+	SET supervisor_ssn = 90
+	WHERE supervisor_ssn = OLD.ssn;
+	
+	DELETE FROM Contract
+	WHERE ssn = OLD.ssn;
+
+END//
+DELIMITER;
+
+DROP TRIGGER IF EXISTS postDeleteInstructorTrigger;
+DELIMITER //
+CREATE TRIGGER postDeleteInstructorTrigger
+AFTER DELETE
+ON Instructor
+FOR EACH ROW
+
+BEGIN	
+	DELETE FROM Employee
+	WHERE ssn = OLD.ssn;
+	
+	DELETE FROM Person
+	WHERE ssn = OLD.ssn;
+
+END//
+DELIMITER;
+
+DROP TRIGGER IF EXISTS preDeleteStudentTrigger;
+DELIMITER //
+CREATE TRIGGER preDeleteStudentTrigger
+BEFORE DELETE
+ON Student
+FOR EACH ROW
+
+BEGIN
+	DELETE FROM SectionEnrollment
+	WHERE student_ssn = OLD.ssn;
+	
+	DELETE FROM ReasearchFundingApplications
+	WHERE student_ssn = OLD.ssn;
+	
+	UPDATE TAPosition
+	SET assignee_ssn = NULL
+	WHERE assignee_id = OLD.ssn;
+	
+	DELETE FROM Studies
+	WHERE student_ssn = OLD.ssn;
+	
+	DELETE FROM HasDegree
+	WHERE ssn = OLD.ssn;
+	
+	DELETE FROM Awards
+	WHERE ssn = OLD.ssn;
+	
+	DELETE FROM Publications
+	WHERE ssn = OLD.ssn;
+	
+	DELETE FROM Experience
+	WHERE ssn = OLD.ssn;
+	
+	DELETE from GradStudents
+	WHERE ssn = OLD.ssn;
+	
+	DELETE FROM UGradStudents
+	WHERE ssn = OLD.ssn;
+END//
+DELIMITER;
+
+DROP TRIGGER IF EXISTS postDeleteStudentTrigger;
+DELIMITER //
+CREATE TRIGGER postDeleteStudentTrigger
+AFTER DELETE
+ON Student
+FOR EACH ROW
+
+BEGIN
+	DELETE FROM Person
+	WHERE student_ssn = OLD.ssn;
+END//
+DELIMITER ;
+
