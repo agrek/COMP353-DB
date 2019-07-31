@@ -721,7 +721,6 @@ BEGIN
 
     /******************* TA Total Hours Check *******************/
     SELECT year INTO @posYear FROM Section WHERE NEW.section_id = Section.id;
-    # TODO: Verify use of section_id
     SELECT SUM(hours)
     INTO @totalHours
     FROM (SELECT DISTINCT (TAPosition.section_id), hours
