@@ -64,7 +64,7 @@ CREATE TABLE Campus
 CREATE TABLE Building
 (
     abbreviation VARCHAR(45) NOT NULL,
-    name         VARCHAR(45) NOT NULL,
+    name         VARCHAR(90) NOT NULL,
     num_rooms    INT         NULL,
     num_labs     INT         NOT NULL,
     num_floors   INT         NOT NULL,
@@ -119,9 +119,9 @@ CREATE TABLE Person
     id         INT AUTO_INCREMENT,
     first_name VARCHAR(45) NOT NULL,
     last_name  VARCHAR(45) NOT NULL,
-    email      VARCHAR(45) NOT NULL,
-    address    INT         NOT NULL,
-    phone      INT(10)     NULL,
+    email      VARCHAR(45) NULL,
+    address    INT         NULL,
+    phone      VARCHAR(14) NULL,
     CONSTRAINT Person_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Person_uq
@@ -141,9 +141,8 @@ CREATE TABLE Employee
         PRIMARY KEY (ssn),
     CONSTRAINT Employee_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn),
-    CONSTRAINT Advisor_Building_abbreviation_fk
+    CONSTRAINT Employee_Building_abbreviation_fk
         FOREIGN KEY (office_building_abbreviation, office_room_floor, office_room_number) REFERENCES Room (building_abbreviation, room_floor, room_number)
-
 );
 
 CREATE TABLE Contract
@@ -169,9 +168,8 @@ CREATE TABLE Student
 
 CREATE TABLE Department
 (
-    id           INT AUTO_INCREMENT,
-    name         VARCHAR(45) NOT NULL,
-    chairman_ssn INT         NULL,
+    id   INT AUTO_INCREMENT,
+    name VARCHAR(45) NOT NULL,
     CONSTRAINT Department_pk
         PRIMARY KEY (id),
     CONSTRAINT Department_uq
@@ -180,9 +178,10 @@ CREATE TABLE Department
 
 CREATE TABLE Instructor
 (
-    ssn               INT  NOT NULL,
-    dept_id           INT  NOT NULL,
-    funding_available BOOL NOT NULL,
+    ssn               INT NOT NULL,
+    dept_id           INT NOT NULL,
+    funding_available BOOL DEFAULT FALSE,
+    is_chairman       BOOL DEFAULT FALSE,
     CONSTRAINT Instructor_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Instructor_Department_id_fk
@@ -190,10 +189,6 @@ CREATE TABLE Instructor
     CONSTRAINT Instructor_Employee_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Employee (ssn)
 );
-
-ALTER TABLE Department
-    ADD CONSTRAINT Department_Instructor_ssn_fk
-        FOREIGN KEY (chairman_ssn) REFERENCES Instructor (ssn);
 
 CREATE TABLE UGradStudents
 (
@@ -208,7 +203,7 @@ CREATE TABLE GradStudents
 (
     ssn            INT                       NULL,
     type           ENUM ('thesis', 'course') NOT NULL,
-    supervisor_ssn INT                       NOT NULL,
+    supervisor_ssn INT                       NULL,
     CONSTRAINT GradStudents_pk
         PRIMARY KEY (ssn),
     CONSTRAINT GradStudents_Instructor_ssn_fk
@@ -235,7 +230,7 @@ CREATE TABLE Publications
     ssn       INT                            NOT NULL,
     type      ENUM ('conference', 'journal') NULL,
     date      DATE                           NOT NULL,
-    title     VARCHAR(45)                    NOT NULL,
+    title     VARCHAR(90)                    NOT NULL,
     publisher VARCHAR(45)                    NOT NULL,
     CONSTRAINT Publications_pk
         PRIMARY KEY (ssn, date, title, publisher),
@@ -246,8 +241,8 @@ CREATE TABLE Publications
 CREATE TABLE Awards
 (
     ssn  INT         NOT NULL,
-    name VARCHAR(45) NOT NULL,
     date DATE        NOT NULL,
+    name VARCHAR(90) NOT NULL,
     CONSTRAINT Awards_pk
         PRIMARY KEY (ssn, date, name),
     CONSTRAINT Awards_Person_ssn_fk
@@ -256,7 +251,7 @@ CREATE TABLE Awards
 
 CREATE TABLE Degree
 (
-    institution VARCHAR(45) NOT NULL,
+    institution VARCHAR(90) NOT NULL,
     name        VARCHAR(45) NOT NULL,
     id          INT AUTO_INCREMENT,
     CONSTRAINT Degree_pk
@@ -275,8 +270,8 @@ CREATE TABLE HasDegree
         PRIMARY KEY (ssn, degree_id),
     CONSTRAINT HasDegree_Degree_id_fk
         FOREIGN KEY (degree_id) REFERENCES Degree (id),
-    CONSTRAINT HasDegree_Student_ssn_fk
-        FOREIGN KEY (ssn) REFERENCES Student (ssn)
+    CONSTRAINT HasDegree_Person_ssn_fk
+        FOREIGN KEY (ssn) REFERENCES Person (ssn)
 );
 
 CREATE TABLE LetterToGpa
@@ -361,9 +356,9 @@ CREATE TABLE Section
     term                  VARCHAR(45) NOT NULL,
     year                  INT(4)      NOT NULL,
     instructor_ssn        INT(9)      NOT NULL,
+    building_abbreviation VARCHAR(45) NULL,
     room_floor            INT(2)      NULL,
     room_number           INT(3)      NOT NULL,
-    building_abbreviation VARCHAR(45) NULL,
     CONSTRAINT Section_pk
         PRIMARY KEY (id),
     CONSTRAINT Section_uq
@@ -372,8 +367,6 @@ CREATE TABLE Section
         FOREIGN KEY (building_abbreviation, room_floor, room_number) REFERENCES Room (building_abbreviation, room_floor, room_number),
     CONSTRAINT Section_Course_code_fk
         FOREIGN KEY (course_code) REFERENCES Course (code),
-    CONSTRAINT Section_Instructor_id_fk
-        FOREIGN KEY (instructor_ssn) REFERENCES Instructor (ssn),
     CONSTRAINT Section_Instructor_ssn_fk
         FOREIGN KEY (instructor_ssn) REFERENCES Instructor (ssn),
     CONSTRAINT term_name_fk
@@ -412,6 +405,8 @@ CREATE TABLE ResearchFundingApplications
     status           ENUM ('Applied', 'Granted', 'Denied') NOT NULL,
     student_ssn      INT                                   NULL,
     research_fund_id INT                                   NOT NULL,
+    year             INT(4)                                NOT NULL,
+    term             VARCHAR(45)                           NOT NULL,
     CONSTRAINT ResearchFundingApplications_pk
         PRIMARY KEY (id),
     CONSTRAINT ResearchFundingApplications_GradStudents_ssn_fk
@@ -513,7 +508,16 @@ BEGIN
     /******************* Multiple Sections of Same Course Check *******************/
 
     DROP TEMPORARY TABLE IF EXISTS secInfo;
-    CREATE TEMPORARY TABLE secInfo AS (SELECT course_code, type, term, year FROM Section WHERE id = NEW.section_id);
+    CREATE TEMPORARY TABLE secInfo AS (SELECT id,
+                                              course_code,
+                                              type,
+                                              term,
+                                              year,
+                                              room_number,
+                                              room_floor,
+                                              building_abbreviation
+                                       FROM Section
+                                       WHERE id = NEW.section_id);
     SELECT COUNT(*)
     INTO @multipleSecs
     FROM (SELECT Section.id
@@ -529,6 +533,25 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
                 'A student cannot register to two different sections of same type,term, and year';
 
+    END IF;
+
+    /******************* Student Enrollment to room capacity Check *******************/
+
+    SELECT capacity
+    INTO @roomcap
+    FROM Room
+             INNER JOIN secInfo ON secInfo.room_number = Room.room_number AND
+                                   secInfo.room_floor = Room.room_floor AND
+                                   secInfo.building_abbreviation = Room.building_abbreviation;
+
+    SELECT COUNT(*)
+    INTO @totalStudentSec
+    FROM SectionEnrollment SE
+             INNER JOIN secInfo ON SE.section_id = secInfo.id;
+
+    IF (@totalStudentSec >= @roomcap) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                'ERROR: Student enrollment for this section has reached/exceeded room capacity. Please try a different section or contact the administrator.';
     END IF;
 
     /******************* Prerequisites Check *******************/
@@ -779,7 +802,8 @@ CREATE TRIGGER secTrig
     ON Section
     FOR EACH ROW
 BEGIN
-    /******************* Instructor Time Conflict Check *******************/
+
+    /******************* Time Conflicts Check *******************/
     DROP TEMPORARY TABLE IF EXISTS numbers;
     DROP TEMPORARY TABLE IF EXISTS newRow;
     DROP TEMPORARY TABLE IF EXISTS separatedNew;
@@ -788,6 +812,7 @@ BEGIN
     DROP TEMPORARY TABLE IF EXISTS separatedOld;
     DROP TEMPORARY TABLE IF EXISTS oldSecs;
     DROP TEMPORARY TABLE IF EXISTS conflictSecs;
+    DROP TEMPORARY TABLE IF EXISTS oldRoomSec;
 
     -- numbers table is used for how many possible days can there be
     CREATE TEMPORARY TABLE numbers
@@ -799,13 +824,13 @@ BEGIN
     -- Created because of need to operate on the NEW data in the form of a table
     CREATE TEMPORARY TABLE newRow
     (
-        id            INT(8),
-        start_time    TIME,
-        end_time      TIME,
-        day           VARCHAR(45),
-        term          VARCHAR(45),
-        year          INT(8),
-        instructor_id INT(8)
+        id             INT(8),
+        start_time     TIME,
+        end_time       TIME,
+        day            VARCHAR(45),
+        term           VARCHAR(45),
+        year           INT(8),
+        instructor_ssn INT(9)
     );
     INSERT INTO newRow
     VALUES (NEW.id, NEW.start_time, NEW.end_time, NEW.day, NEW.term, NEW.year, NEW.instructor_ssn);
@@ -827,12 +852,68 @@ BEGIN
                                                end_time,
                                                term,
                                                year,
-
-                                               instructor_id
+                                               instructor_ssn
                                         FROM newRow
                                                  INNER JOIN separatedNew ON separatedNew.id = newRow.id);
 
+    /******************* Room Time Conflict Check *******************/
+    /* Fetching all sections taught in same building, room_number, year, and term*/
+    CREATE TEMPORARY TABLE oldRoomSec AS (SELECT Section.id, day, start_time, end_time, term, year, room_number
+                                          FROM Section
+                                          WHERE building_abbreviation = NEW.building_abbreviation
+                                            AND room_number = NEW.room_number
+                                            AND year = NEW.year
+                                            AND term = NEW.term);
+
+    CREATE TEMPORARY TABLE separatedOld AS (SELECT oldRoomSec.id,
+                                                   SUBSTRING_INDEX(SUBSTRING_INDEX(oldRoomSec.day, ', ', numbers.n),
+                                                                   ', ', -1) day
+                                            FROM numbers
+                                                     INNER JOIN oldRoomSec
+                                                                ON CHAR_LENGTH(oldRoomSec.day)
+                                                                       -
+                                                                   CHAR_LENGTH(REPLACE(oldRoomSec.day, ', ', '')) >=
+                                                                   numbers.n - 1
+                                            ORDER BY id, n);
+
+    CREATE TEMPORARY TABLE oldSecs AS (SELECT Section.id,
+                                              separatedOld.day,
+                                              start_time,
+                                              end_time,
+                                              term,
+                                              year,
+                                              building_abbreviation,
+                                              room_number
+                                       FROM Section
+                                                INNER JOIN separatedOld ON separatedOld.id = Section.id);
+
+    CREATE TEMPORARY TABLE conflictSecs AS (SELECT oldSecs.day         d1,
+                                                   newEntry.day        d2,
+                                                   oldSecs.start_time  s1,
+                                                   newEntry.start_time s2,
+                                                   oldSecs.end_time    e1,
+                                                   newEntry.end_time   e2
+                                            FROM oldSecs
+                                                     INNER JOIN newEntry ON oldSecs.day = newEntry.day
+                                            WHERE ((oldSecs.start_time >= newEntry.start_time) AND
+                                                   (oldSecs.start_time < newEntry.end_time))
+                                               OR ((newEntry.start_time >= oldSecs.start_time) AND
+                                                   (newEntry.start_time < oldSecs.end_time))
+    );
+
+    SELECT count(*) INTO @confCount FROM conflictSecs;
+
+    IF (@confCount > 0) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                'The room is already reserved for another section at this time';
+    END IF;
+
+    /******************* Instructor Time Conflict Check *******************/
     IF NEW.type = 'lecture' THEN
+
+        DROP TEMPORARY TABLE IF EXISTS separatedOld;
+        DROP TEMPORARY TABLE IF EXISTS oldSecs;
+        DROP TEMPORARY TABLE IF EXISTS conflictSecs;
 
         /* Fetching all sections taught by the instructor in same year, and term*/
         CREATE TEMPORARY TABLE oldInstSec AS (SELECT Section.id, day, start_time, end_time, term, year, instructor_ssn
