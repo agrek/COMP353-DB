@@ -65,14 +65,16 @@ CREATE TABLE Building
 (
     abbreviation VARCHAR(45) NOT NULL,
     name         VARCHAR(90) NOT NULL,
-    num_rooms    INT         NULL,
-    num_labs     INT         NOT NULL,
-    num_floors   INT         NOT NULL,
+    num_rooms    INT         DEFAULT 0,
+    num_floors   INT         DEFAULT 0,
     campus       VARCHAR(45) NOT NULL,
+    address      INT        NOT NULL,
     CONSTRAINT Building_pk
         PRIMARY KEY (abbreviation),
     CONSTRAINT Building_Campus_abbreviation_fk
-        FOREIGN KEY (campus) REFERENCES Campus (abbreviation)
+        FOREIGN KEY (campus) REFERENCES Campus (abbreviation),
+    CONSTRAINT Building_Address_id_fk
+        FOREIGN KEY (address) REFERENCES Address (id)
 );
 
 CREATE TABLE Room
