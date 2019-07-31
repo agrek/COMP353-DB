@@ -719,6 +719,9 @@ BEGIN
 
     /******************* TA Total Hours Check *******************/
     DROP TEMPORARY TABLE IF EXISTS oldTASec;
+	DROP TEMPORARY TABLE IF EXISTS separatedOld;
+    DROP TEMPORARY TABLE IF EXISTS oldSecs;
+    DROP TEMPORARY TABLE IF EXISTS conflictSecs;
     SELECT year INTO @posYear FROM Section WHERE NEW.section_id = Section.id;
     # TODO: Verify use of section_id
     SELECT SUM(hours)
