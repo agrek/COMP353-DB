@@ -8,7 +8,7 @@ FROM Campus;
 	Give a list of all buildings on a given campus.
 */
 SELECT CONCAT(C.name, ' (', C.abbreviation, ')') AS Campus,
-       GROUP_CONCAT(B.name, ' (', B.abbreviation, ')'SEPARATOR ', \n') AS Buildings,
+       GROUP_CONCAT(B.name, ' (', B.abbreviation, ')' SEPARATOR ', <br>') AS Buildings,
        COUNT(*) AS numOfBuildings
 FROM Building B
 INNER JOIN Campus C on B.campus = C.abbreviation
