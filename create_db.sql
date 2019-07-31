@@ -742,12 +742,12 @@ BEGIN
 
 			/******************* TA Time Conflict Check *******************/
          /* Fetching all tutorial and lab sections taught by the TA in same year, and term*/
-         SELECT year INTO @taPosYear WHERE NEW.section_id = Section.id;
-         SELECT term INTO @taPosTerm WHERE NEW.section_id = Section.id;
+		SELECT year INTO @taPosYear FROM Section WHERE NEW.section_id = Section.id;
+		SELECT term INTO @taPosTerm FROM Section WHERE NEW.section_id = Section.id;
          CREATE TEMPORARY TABLE oldTASec AS (SELECT Section.id, day, start_time, end_time, term, year
                                              FROM Section 
 						INNER JOIN TAPosition ON section_id = Section.id
-                                             WHERE NEW.assignee_id = assignee_id
+                                             WHERE NEW.assignee_ssn = assignee_ssn
 						AND (type = 'tutorial' OR type = 'lab')
 						AND year = @taPosYear
 						AND term = @taPosTerm);
