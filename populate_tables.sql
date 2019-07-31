@@ -140,10 +140,10 @@ VALUES (1, 'Golden Leaf', 'Thetford-Mines', 'Québec', 'G6G1M8', 638, 321)
      , (89,'De Maisonneuve','Montreal','Québec','H3G1M8',0,1400)
      , (90,'Mackay','Montreal','Québec','H3G1M8',0,2135)
      , (91,'Guy','Montreal','Québec','H3G1M8',0,1450)
-     , (92,'Sherbrooke W.','Montreal','Québec','H4B 2A7',0,7141)
-     , (93,'Belmore','Montreal','Québec','H4B 2A7',0,3502)
-     , (94,'Sherbrooke St. W.','Montreal','Québec','H4B 2A7',0,7200)
-     , (95,'Terrebonne','Montreal','Québec','H4B 2A7',0,7079);
+     , (92,'Sherbrooke W.','Montreal','Québec','H4B2A7',0,7141)
+     , (93,'Belmore','Montreal','Québec','H4B2A7',0,3502)
+     , (94,'Sherbrooke St. W.','Montreal','Québec','H4B2A7',0,7200)
+     , (95,'Terrebonne','Montreal','Québec','H4B2A7',0,7079);
 
 
 INSERT INTO Campus
@@ -387,7 +387,7 @@ VALUES (399437700, 1, 'Lisa', 'Wood', 'mddallara@outlook.com', 1, '(403) 514-992
      , (683192608, 42, 'Emilio', 'Ryan', 'adillon@live.com', 42, '(234) 301-6725')
      , (635804780, 43, 'Percy', 'Garcia', 'nighthawk@optonline.net', 43, '(782) 573-6533')
      , (177921799, 44, 'William', 'Silva', 'amimojo@verizon.net', 44, '(794) 346-7807')
-     , (965277745, 45, 'Alfredo', 'Tyler', 'haddawy@yahoo.com', 45, '(776) 644-3167')
+     , (965277745, 45, 'Alfredo', 'Tyler', 'hadawy@yahoo.com', 45, '(776) 644-3167')
      , (406932598, 46, 'Jill', 'Quinn', 'sisyphus@outlook.com', 46, '(657) 531-3968')
      , (204794691, 47, 'Bradley', 'Carr', 'ryanshaw@mac.com', 47, '(919) 326-5447')
      , (293904265, 48, 'Herbert', 'Paul', 'novanet@comcast.net', 48, '(245) 652-5496')
