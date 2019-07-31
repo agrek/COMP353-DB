@@ -122,28 +122,28 @@ VALUES (1, 'Golden Leaf', 'Thetford-Mines', 'Québec', 'G6G1M8', 638, 321)
      , (71, 'Vermont', 'Lachute', 'Québec', 'J8H75E', 888, 257)
      , (72, 'Carberry', 'Kirkland', 'Québec', 'H9JH9H', 641, 370)
      , (73, 'Main Street', 'Montreal', 'Québec', 'H8K1M9', 875, 932)
-     , (74,'De Maisonneuve Blvd. W','Montreal','Québec','H3G1M8',0,1455)
-     , (75,'St.Catherine','Montreal','Québec','H3G1M8',0,1515)
-     , (76,'Rene Levesque W','Montreal','Québec','H3G1M8',0,1395)
-     , (77,'Bishop','Montreal','Québec','H3G1M8',0,2160)
-     , (78,'Mackay','Montreal','Québec','H3G1M8',0,2149)
-     , (79,'St.Catherine','Montreal','Québec','H3G1M8',0,1665)
-     , (80,'Bishop','Montreal','Québec','H3G1M8',0,2140)
-     , (81,'Mackay','Montreal','Québec','H3G1M8',0,2070)
-     , (82,'Mackay','Montreal','Québec','H3G1M8',0,2060)
-     , (83,'Guy','Montreal','Québec','H3G1M8',0,1250)
-     , (84,'St.Catherine','Montreal','Québec','H3G1M8',0,1610)
-     , (85,'St Mathieu','Montreal','Québec','H3G1M8',0,1211)
-     , (86,'De Maisonneuve','Montreal','Québec','H3G1M8',0,1550)
-     , (87,'Guy','Montreal','Québec','H3G1M8',0,1190)
-     , (88,'Bishop','Montreal','Québec','H3G1M8',0,2150)
-     , (89,'De Maisonneuve','Montreal','Québec','H3G1M8',0,1400)
-     , (90,'Mackay','Montreal','Québec','H3G1M8',0,2135)
-     , (91,'Guy','Montreal','Québec','H3G1M8',0,1450)
-     , (92,'Sherbrooke W.','Montreal','Québec','H4B2A7',0,7141)
-     , (93,'Belmore','Montreal','Québec','H4B2A7',0,3502)
-     , (94,'Sherbrooke St. W.','Montreal','Québec','H4B2A7',0,7200)
-     , (95,'Terrebonne','Montreal','Québec','H4B2A7',0,7079);
+     , (74, 'De Maisonneuve Blvd. W', 'Montreal', 'Québec', 'H3G1M8', 0, 1455)
+     , (75, 'St.Catherine', 'Montreal', 'Québec', 'H3G1M8', 0, 1515)
+     , (76, 'Rene Levesque W', 'Montreal', 'Québec', 'H3G1M8', 0, 1395)
+     , (77, 'Bishop', 'Montreal', 'Québec', 'H3G1M8', 0, 2160)
+     , (78, 'Mackay', 'Montreal', 'Québec', 'H3G1M8', 0, 2149)
+     , (79, 'St.Catherine', 'Montreal', 'Québec', 'H3G1M8', 0, 1665)
+     , (80, 'Bishop', 'Montreal', 'Québec', 'H3G1M8', 0, 2140)
+     , (81, 'Mackay', 'Montreal', 'Québec', 'H3G1M8', 0, 2070)
+     , (82, 'Mackay', 'Montreal', 'Québec', 'H3G1M8', 0, 2060)
+     , (83, 'Guy', 'Montreal', 'Québec', 'H3G1M8', 0, 1250)
+     , (84, 'St.Catherine', 'Montreal', 'Québec', 'H3G1M8', 0, 1610)
+     , (85, 'St Mathieu', 'Montreal', 'Québec', 'H3G1M8', 0, 1211)
+     , (86, 'De Maisonneuve', 'Montreal', 'Québec', 'H3G1M8', 0, 1550)
+     , (87, 'Guy', 'Montreal', 'Québec', 'H3G1M8', 0, 1190)
+     , (88, 'Bishop', 'Montreal', 'Québec', 'H3G1M8', 0, 2150)
+     , (89, 'De Maisonneuve', 'Montreal', 'Québec', 'H3G1M8', 0, 1400)
+     , (90, 'Mackay', 'Montreal', 'Québec', 'H3G1M8', 0, 2135)
+     , (91, 'Guy', 'Montreal', 'Québec', 'H3G1M8', 0, 1450)
+     , (92, 'Sherbrooke W.', 'Montreal', 'Québec', 'H4B2A7', 0, 7141)
+     , (93, 'Belmore', 'Montreal', 'Québec', 'H4B2A7', 0, 3502)
+     , (94, 'Sherbrooke St. W.', 'Montreal', 'Québec', 'H4B2A7', 0, 7200)
+     , (95, 'Terrebonne', 'Montreal', 'Québec', 'H4B2A7', 0, 7079);
 
 
 INSERT INTO Campus
@@ -154,34 +154,34 @@ VALUES ('LOY', 'Loyola'),
        ('CAS3', 'Campus3');
 
 INSERT INTO Building
-VALUES ('H', 'Henry F. Hall Building', 200, 12,'SGW',74),
-       ('EV', 'Engineering, Computer Science and Visual Arts Integrated Complex', 300,15,'SGW',75),
-       ('VA', 'Visual Arts Building', 25, 5, 'SGW',76),
-       ('B', 'B Annex', 30, 3, 'SGW',77),
-       ('CI', 'CI Annex', 19, 3, 'SGW',78),
-       ('CL', 'CL Annex', 49, 3, 'SGW',79),
-       ('D', 'D Annex', 10,1, 'SGW',80),
-       ('EN', 'EN Annex', 56, 6, 'SGW',81),
-       ('FA', 'FA Annex', 10, 3, 'SGW',82),
-       ('FB', 'Faubourg Building', 50, 6, 'SGW',83),
-       ('FG', 'Faubourg Ste-Catherine Building', 35, 5, 'SGW',84),
-       ('GA', 'Grey Nuns Annex', 10, 4, 'SGW',85),
-       ('GM', 'Guy De Maisonneuve Building', 16, 8, 'SGW',86),
-       ('GN', 'Grey Nuns Building', 30, 4,'SGW',87),
-       ('K', 'K Annex', 10, 4, 'SGW',88),
-       ('LB', 'J.W. McConnell Building', 10, 3, 'SGW',89),
-       ('M', 'M Annex', 10, 3, 'SGW',90),
-       ('MB', 'John Molson Building', 100, 15, 'SGW',91),
-       ('AD', 'Administration Building', 10, 5, 'LOY',92),
-       ('BB', 'BB Annex', 10,5, 'LOY',93),
-       ('HA', 'Hingston Hall, Wing HA', 46, 5, 'LOY',92),
-       ('SH', 'Solar House', 7,5, 'LOY',92),
-       ('PC', 'Performing Centre', 1, 2, 'LOY',94),
-       ('CC', 'Central Building', 133, 3, 'LOY',92),
-       ('TA', 'Terrebonne Building', 44, 4, 'LOY',95),
-       ('RA', 'Recreational and Complex Building', 34, 3, 'LOY',94),
-       ('HC', 'Hingston Hall, Wing HC', 45, 4, 'LOY',92),
-       ('FC', 'F.C. Smith Building', 34, 4, 'LOY',92);
+VALUES ('H', 'Henry F. Hall Building', 200, 12, 'SGW', 74),
+       ('EV', 'Engineering, Computer Science and Visual Arts Integrated Complex', 300, 15, 'SGW', 75),
+       ('VA', 'Visual Arts Building', 25, 5, 'SGW', 76),
+       ('B', 'B Annex', 30, 3, 'SGW', 77),
+       ('CI', 'CI Annex', 19, 3, 'SGW', 78),
+       ('CL', 'CL Annex', 49, 3, 'SGW', 79),
+       ('D', 'D Annex', 10, 1, 'SGW', 80),
+       ('EN', 'EN Annex', 56, 6, 'SGW', 81),
+       ('FA', 'FA Annex', 10, 3, 'SGW', 82),
+       ('FB', 'Faubourg Building', 50, 6, 'SGW', 83),
+       ('FG', 'Faubourg Ste-Catherine Building', 35, 5, 'SGW', 84),
+       ('GA', 'Grey Nuns Annex', 10, 4, 'SGW', 85),
+       ('GM', 'Guy De Maisonneuve Building', 16, 8, 'SGW', 86),
+       ('GN', 'Grey Nuns Building', 30, 4, 'SGW', 87),
+       ('K', 'K Annex', 10, 4, 'SGW', 88),
+       ('LB', 'J.W. McConnell Building', 10, 3, 'SGW', 89),
+       ('M', 'M Annex', 10, 3, 'SGW', 90),
+       ('MB', 'John Molson Building', 100, 15, 'SGW', 91),
+       ('AD', 'Administration Building', 10, 5, 'LOY', 92),
+       ('BB', 'BB Annex', 10, 5, 'LOY', 93),
+       ('HA', 'Hingston Hall, Wing HA', 46, 5, 'LOY', 92),
+       ('SH', 'Solar House', 7, 5, 'LOY', 92),
+       ('PC', 'Performing Centre', 1, 2, 'LOY', 94),
+       ('CC', 'Central Building', 133, 3, 'LOY', 92),
+       ('TA', 'Terrebonne Building', 44, 4, 'LOY', 95),
+       ('RA', 'Recreational and Complex Building', 34, 3, 'LOY', 94),
+       ('HC', 'Hingston Hall, Wing HC', 45, 4, 'LOY', 92),
+       ('FC', 'F.C. Smith Building', 34, 4, 'LOY', 92);
 
 INSERT INTO Room(building_abbreviation, type, capacity, room_floor, room_number)
 VALUES ('H', 'lab', 20, 900, 906),

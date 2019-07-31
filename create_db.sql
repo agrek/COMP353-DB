@@ -65,10 +65,10 @@ CREATE TABLE Building
 (
     abbreviation VARCHAR(45) NOT NULL,
     name         VARCHAR(90) NOT NULL,
-    num_rooms    INT         DEFAULT 0,
-    num_floors   INT         DEFAULT 0,
+    num_rooms    INT DEFAULT 0,
+    num_floors   INT DEFAULT 0,
     campus       VARCHAR(45) NOT NULL,
-    address      INT        NOT NULL,
+    address      INT         NOT NULL,
     CONSTRAINT Building_pk
         PRIMARY KEY (abbreviation),
     CONSTRAINT Building_Campus_abbreviation_fk
