@@ -802,7 +802,8 @@ CREATE TRIGGER secTrig
     ON Section
     FOR EACH ROW
 BEGIN
-    /******************* Instructor Time Conflict Check *******************/
+
+    /******************* Time Conflicts Check *******************/
     DROP TEMPORARY TABLE IF EXISTS numbers;
     DROP TEMPORARY TABLE IF EXISTS newRow;
     DROP TEMPORARY TABLE IF EXISTS separatedNew;
@@ -811,6 +812,7 @@ BEGIN
     DROP TEMPORARY TABLE IF EXISTS separatedOld;
     DROP TEMPORARY TABLE IF EXISTS oldSecs;
     DROP TEMPORARY TABLE IF EXISTS conflictSecs;
+    DROP TEMPORARY TABLE IF EXISTS oldRoomSec;
 
     -- numbers table is used for how many possible days can there be
     CREATE TEMPORARY TABLE numbers
@@ -854,7 +856,64 @@ BEGIN
                                         FROM newRow
                                                  INNER JOIN separatedNew ON separatedNew.id = newRow.id);
 
+    /******************* Room Time Conflict Check *******************/
+        /* Fetching all sections taught in same building, room_number, year, and term*/
+        CREATE TEMPORARY TABLE oldRoomSec AS (SELECT Section.id, day, start_time, end_time, term, year, room_number
+                                              FROM Section
+                                              WHERE building_abbreviation = NEW.building_abbreviation
+                                                AND room_number = NEW.room_number
+                                                AND year = NEW.year
+                                                AND term = NEW.term);
+
+        CREATE TEMPORARY TABLE separatedOld AS (SELECT oldRoomSec.id,
+                                                       SUBSTRING_INDEX(SUBSTRING_INDEX(oldRoomSec.day, ', ', numbers.n),
+                                                                       ', ', -1) day
+                                                FROM numbers
+                                                         INNER JOIN oldRoomSec
+                                                                    ON CHAR_LENGTH(oldRoomSec.day)
+                                                                           -
+                                                                       CHAR_LENGTH(REPLACE(oldRoomSec.day, ', ', '')) >=
+                                                                       numbers.n - 1
+                                                ORDER BY id, n);
+
+        CREATE TEMPORARY TABLE oldSecs AS (SELECT Section.id,
+                                                  separatedOld.day,
+                                                  start_time,
+                                                  end_time,
+                                                  term,
+                                                  year,
+                                                  building_abbreviation,
+                                                  room_number
+                                           FROM Section
+                                                    INNER JOIN separatedOld ON separatedOld.id = Section.id);
+
+        CREATE TEMPORARY TABLE conflictSecs AS (SELECT oldSecs.day         d1,
+                                                       newEntry.day        d2,
+                                                       oldSecs.start_time  s1,
+                                                       newEntry.start_time s2,
+                                                       oldSecs.end_time    e1,
+                                                       newEntry.end_time   e2
+                                                FROM oldSecs
+                                                         INNER JOIN newEntry ON oldSecs.day = newEntry.day
+                                                WHERE ((oldSecs.start_time >= newEntry.start_time) AND
+                                                       (oldSecs.start_time < newEntry.end_time))
+                                                   OR ((newEntry.start_time >= oldSecs.start_time) AND
+                                                       (newEntry.start_time < oldSecs.end_time))
+        );
+
+        SELECT count(*) INTO @confCount FROM conflictSecs;
+
+        IF (@confCount > 0) THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                    'The room is already reserved for another section at this time';
+        END IF;
+
+    /******************* Instructor Time Conflict Check *******************/
     IF NEW.type = 'lecture' THEN
+
+        DROP TEMPORARY TABLE IF EXISTS separatedOld;
+        DROP TEMPORARY TABLE IF EXISTS oldSecs;
+        DROP TEMPORARY TABLE IF EXISTS conflictSecs;
 
         /* Fetching all sections taught by the instructor in same year, and term*/
         CREATE TEMPORARY TABLE oldInstSec AS (SELECT Section.id, day, start_time, end_time, term, year, instructor_ssn
