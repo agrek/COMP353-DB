@@ -82,8 +82,8 @@ CREATE TABLE Room
     building_abbreviation VARCHAR(45)                     NOT NULL,
     type                  ENUM ('lab', 'class', 'office') NOT NULL,
     capacity              INT                             NOT NULL,
-    room_number           INT                             NOT NULL,
     room_floor            INT(2)                          NOT NULL,
+    room_number           INT                             NOT NULL,
     CONSTRAINT Room_pk
         PRIMARY KEY (building_abbreviation, room_floor, room_number),
     CONSTRAINT Room_Building_abbreviation_fk
@@ -557,7 +557,7 @@ BEGIN
 
     IF (@totalStudentSec >= @roomcap) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
-                'ERROR: Student enrollment for this section has reached/exceeded room capacity. Please try a different section or contact the administrator.';
+                'ERROR: Student enrollment for this section has reached/exceeded room capacity.';
     END IF;
 
     /******************* Prerequisites Check *******************/
@@ -742,7 +742,7 @@ BEGIN
           WHERE assignee_ssn = NEW.assignee_ssn
             AND year = @posYear) t;
 
-    IF (@totalHours > 260) THEN
+    IF (@totalHours + NEW.hours > 260) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The TA exceeds the max hours permitted in a year of 260 hours';
     END IF;
 
@@ -1040,6 +1040,7 @@ CREATE TRIGGER researchTrigger
 
 BEGIN
 
+    # START of Checking the GPA of the applicant
     SELECT gpa INTO @applicantGpa FROM Student WHERE ssn = NEW.student_ssn;
     SELECT type
     INTO @stuType
@@ -1051,6 +1052,19 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
                 'The student does not meet the minimum GPA required for research funding which is 3';
     END IF;
+    # END of Checking the GPA of the applicant
+
+    # START of Checking availability of funding
+
+    SELECT supervisor_ssn INTO @applicantSuper FROM GradStudents WHERE ssn = NEW.student_ssn;
+    SELECT funding_available INTO @fundsAvailable FROM Instructor WHERE ssn = @applicantSuper;
+
+    IF NOT @fundsAvailable THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                'Funding not available under the student''s instructor';
+    END IF;
+
+    # END of Checking availability of funding
 
 END;
 //
