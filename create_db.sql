@@ -1040,6 +1040,7 @@ CREATE TRIGGER researchTrigger
 
 BEGIN
 
+    # START of Checking the GPA of the applicant
     SELECT gpa INTO @applicantGpa FROM Student WHERE ssn = NEW.student_ssn;
     SELECT type
     INTO @stuType
@@ -1051,6 +1052,19 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
                 'The student does not meet the minimum GPA required for research funding which is 3';
     END IF;
+    # END of Checking the GPA of the applicant
+
+    # START of Checking availability of funding
+
+    SELECT supervisor_ssn INTO @applicantSuper FROM GradStudents WHERE ssn = NEW.student_ssn;
+    SELECT funding_available INTO @fundsAvailable FROM Instructor WHERE ssn = @applicantSuper;
+
+    IF NOT @fundsAvailable THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                'Funding not available under the student''s instructor';
+    END IF;
+
+    # END of Checking availability of funding
 
 END;
 //
