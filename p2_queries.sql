@@ -1,3 +1,11 @@
+/*
+ I
+ Create/Delete/Edit/Display a faculty member.
+ */
+
+#  Create a faculty member
+# INSERT INTO arc353_1.Instructor VALUE ('123456789', '1');
+
 /*	IV
 	Give a list of all campuses.
 */
@@ -13,4 +21,3 @@ SELECT CONCAT(C.name, ' (', C.abbreviation, ')')                          AS Cam
 FROM Building B
          INNER JOIN Campus C ON B.campus = C.abbreviation
 GROUP BY C.name;
-
