@@ -1087,6 +1087,10 @@ BEGIN
     
     DELETE FROM HasDegree
     WHERE ssn = OLD.ssn;
+    
+    UPDATE Department
+    SET chairman_ssn = NULL
+    WHERE chairman_ssn = OLD.ssn;
 
 END//
 DELIMITER;
