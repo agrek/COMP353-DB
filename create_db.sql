@@ -65,14 +65,16 @@ CREATE TABLE Building
 (
     abbreviation VARCHAR(45) NOT NULL,
     name         VARCHAR(90) NOT NULL,
-    num_rooms    INT         NULL,
-    num_labs     INT         NOT NULL,
-    num_floors   INT         NOT NULL,
+    num_rooms    INT DEFAULT 0,
+    num_floors   INT DEFAULT 0,
     campus       VARCHAR(45) NOT NULL,
+    address      INT         NOT NULL,
     CONSTRAINT Building_pk
         PRIMARY KEY (abbreviation),
     CONSTRAINT Building_Campus_abbreviation_fk
-        FOREIGN KEY (campus) REFERENCES Campus (abbreviation)
+        FOREIGN KEY (campus) REFERENCES Campus (abbreviation),
+    CONSTRAINT Building_Address_id_fk
+        FOREIGN KEY (address) REFERENCES Address (id)
 );
 
 CREATE TABLE Room
@@ -168,8 +170,9 @@ CREATE TABLE Student
 
 CREATE TABLE Department
 (
-    id   INT AUTO_INCREMENT,
-    name VARCHAR(45) NOT NULL,
+    id           INT AUTO_INCREMENT,
+    name         VARCHAR(45) NOT NULL,
+    chairman_ssn INT         NULL,
     CONSTRAINT Department_pk
         PRIMARY KEY (id),
     CONSTRAINT Department_uq
@@ -181,7 +184,6 @@ CREATE TABLE Instructor
     ssn               INT NOT NULL,
     dept_id           INT NOT NULL,
     funding_available BOOL DEFAULT FALSE,
-    is_chairman       BOOL DEFAULT FALSE,
     CONSTRAINT Instructor_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Instructor_Department_id_fk
@@ -189,6 +191,10 @@ CREATE TABLE Instructor
     CONSTRAINT Instructor_Employee_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Employee (ssn)
 );
+
+ALTER TABLE Department
+    ADD CONSTRAINT Department_Chairman_ssn_fk
+        FOREIGN KEY (chairman_ssn) REFERENCES Instructor (ssn);
 
 CREATE TABLE UGradStudents
 (
@@ -241,8 +247,8 @@ CREATE TABLE Publications
 CREATE TABLE Awards
 (
     ssn  INT         NOT NULL,
-    name VARCHAR(45) NOT NULL,
     date DATE        NOT NULL,
+    name VARCHAR(90) NOT NULL,
     CONSTRAINT Awards_pk
         PRIMARY KEY (ssn, date, name),
     CONSTRAINT Awards_Person_ssn_fk
@@ -251,7 +257,7 @@ CREATE TABLE Awards
 
 CREATE TABLE Degree
 (
-    institution VARCHAR(45) NOT NULL,
+    institution VARCHAR(90) NOT NULL,
     name        VARCHAR(45) NOT NULL,
     id          INT AUTO_INCREMENT,
     CONSTRAINT Degree_pk
@@ -270,8 +276,8 @@ CREATE TABLE HasDegree
         PRIMARY KEY (ssn, degree_id),
     CONSTRAINT HasDegree_Degree_id_fk
         FOREIGN KEY (degree_id) REFERENCES Degree (id),
-    CONSTRAINT HasDegree_Student_ssn_fk
-        FOREIGN KEY (ssn) REFERENCES Student (ssn)
+    CONSTRAINT HasDegree_Person_ssn_fk
+        FOREIGN KEY (ssn) REFERENCES Person (ssn)
 );
 
 CREATE TABLE LetterToGpa
@@ -356,9 +362,9 @@ CREATE TABLE Section
     term                  VARCHAR(45) NOT NULL,
     year                  INT(4)      NOT NULL,
     instructor_ssn        INT(9)      NOT NULL,
+    building_abbreviation VARCHAR(45) NULL,
     room_floor            INT(2)      NULL,
     room_number           INT(3)      NOT NULL,
-    building_abbreviation VARCHAR(45) NULL,
     CONSTRAINT Section_pk
         PRIMARY KEY (id),
     CONSTRAINT Section_uq
@@ -405,6 +411,8 @@ CREATE TABLE ResearchFundingApplications
     status           ENUM ('Applied', 'Granted', 'Denied') NOT NULL,
     student_ssn      INT                                   NULL,
     research_fund_id INT                                   NOT NULL,
+    year             INT(4)                                NOT NULL,
+    term             VARCHAR(45)                           NOT NULL,
     CONSTRAINT ResearchFundingApplications_pk
         PRIMARY KEY (id),
     CONSTRAINT ResearchFundingApplications_GradStudents_ssn_fk
@@ -716,6 +724,14 @@ CREATE TRIGGER TaTrig
 BEGIN
 
     /******************* TA Total Hours Check *******************/
+    DROP TEMPORARY TABLE IF EXISTS oldTASec;
+    DROP TEMPORARY TABLE IF EXISTS separatedOld;
+    DROP TEMPORARY TABLE IF EXISTS oldSecs;
+    DROP TEMPORARY TABLE IF EXISTS conflictSecs;
+    DROP TEMPORARY TABLE IF EXISTS numbers;
+    DROP TEMPORARY TABLE IF EXISTS newEntry;
+    DROP TEMPORARY TABLE IF EXISTS newRow;
+    DROP TEMPORARY TABLE IF EXISTS separatedNew;
     SELECT year INTO @posYear FROM Section WHERE NEW.section_id = Section.id;
     # TODO: Verify use of section_id
     SELECT SUM(hours)
@@ -739,56 +755,105 @@ BEGIN
     END IF;
 
 
-    #         /******************* TA Time Conflict Check *******************/
-#     ELSEIF NEW.type = 'tutorial' OR NEW.type = 'lab' THEN
-#         /* Fetching all tutorial and lab sections taught by the TA in same year, and term*/
-#         CREATE TEMPORARY TABLE oldTASec AS (SELECT Section.id, day, start_time, end_time, term, year, ta_ssn
-#                                             FROM Section
-#                                             WHERE (type = 'tutorial' OR type = 'lab')
-#                                               AND ta_ssn = NEW.ta_ssn
-#                                               AND year = NEW.year
-#                                               AND term = NEW.term);
-#
-#         CREATE TEMPORARY TABLE separatedOld AS (SELECT oldTASec.id,
-#                                                        SUBSTRING_INDEX(SUBSTRING_INDEX(oldTASec.day, ', ', numbers.n),
-#                                                                        ', ', -1) day
-#                                                 FROM numbers
-#                                                          INNER JOIN oldTASec
-#                                                                     ON CHAR_LENGTH(oldTASec.day)
-#                                                                            -
-#                                                                        CHAR_LENGTH(REPLACE(oldTASec.day, ', ', '')) >=
-#                                                                        numbers.n - 1
-#                                                 ORDER BY id, n);
-#
-#         CREATE TEMPORARY TABLE oldSecs AS (SELECT Section.id,
-#                                                   separatedOld.day,
-#                                                   start_time,
-#                                                   end_time,
-#                                                   term,
-#                                                   year,
-#                                                   ta_ssn
-#                                            FROM Section
-#                                                     INNER JOIN separatedOld ON separatedOld.id = Section.id);
-#
-#         CREATE TEMPORARY TABLE conflictSecs AS (SELECT oldSecs.day         d1,
-#                                                        newEntry.day        d2,
-#                                                        oldSecs.start_time  s1,
-#                                                        newEntry.start_time s2,
-#                                                        oldSecs.end_time    e1,
-#                                                        newEntry.end_time   e2
-#                                                 FROM oldSecs
-#                                                          INNER JOIN newEntry ON oldSecs.day = newEntry.day
-#                                                 WHERE ((oldSecs.start_time >= newEntry.start_time) AND
-#                                                        (oldSecs.start_time < newEntry.end_time))
-#                                                    OR ((newEntry.start_time >= oldSecs.start_time) AND
-#                                                        (newEntry.start_time < oldSecs.end_time))
-#         );
-#
-#         SELECT count(*) INTO @confCount FROM conflictSecs;
-#
-#         IF (@confCount > 0) THEN
-#             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The TA has a time conflict with another section he teaches';
-#         END IF;
+    /******************* TA Time Conflict Check *******************/
+    IF (NEW.position <> 'marker') THEN
+
+        -- numbers table is used for how many possible days can there be
+        CREATE TEMPORARY TABLE numbers
+        (
+            n INT PRIMARY KEY
+        );
+        INSERT INTO numbers VALUES (1), (2);
+        /*******section info from section_id*********/
+        CREATE TEMPORARY TABLE newRow AS (SELECT day, id, start_time, end_time FROM Section WHERE id = NEW.section_id);
+        -- Separating the inserted row into two if there was two days in it
+        CREATE TEMPORARY TABLE separatedNew AS (SELECT newRow.id,
+                                                       SUBSTRING_INDEX(SUBSTRING_INDEX(newRow.day, ', ', numbers.n),
+                                                                       ', ',
+                                                                       -1) day
+                                                FROM numbers
+                                                         INNER JOIN newRow
+                                                                    ON CHAR_LENGTH(newRow.day)
+                                                                           -
+                                                                       CHAR_LENGTH(REPLACE(newRow.day, ', ', '')) >=
+                                                                       numbers.n - 1
+                                                ORDER BY id, n);
+
+        CREATE TEMPORARY TABLE newEntry AS (SELECT newRow.id,
+                                                   separatedNew.day,
+                                                   start_time,
+                                                   end_time
+                                            FROM newRow
+                                                     INNER JOIN separatedNew ON separatedNew.id = newRow.id);
+
+
+        /* Fetching all tutorial and lab sections taught by the TA in same year, and term*/
+        SELECT year INTO @taPosYear FROM Section WHERE NEW.section_id = Section.id;
+        SELECT term INTO @taPosTerm FROM Section WHERE NEW.section_id = Section.id;
+        CREATE TEMPORARY TABLE oldTASec AS (SELECT Section.id, day, start_time, end_time, term, year
+                                            FROM Section
+                                                     INNER JOIN TAPosition ON section_id = Section.id
+                                            WHERE NEW.assignee_ssn = assignee_ssn
+                                              AND (type = 'tutorial' OR type = 'lab')
+                                              AND year = @taPosYear
+                                              AND term = @taPosTerm);
+
+        CREATE TEMPORARY TABLE separatedOld AS (SELECT oldTASec.id,
+                                                       SUBSTRING_INDEX(SUBSTRING_INDEX(oldTASec.day, ', ', numbers.n),
+                                                                       ', ', -1) day
+                                                FROM numbers
+                                                         INNER JOIN oldTASec
+                                                                    ON CHAR_LENGTH(oldTASec.day)
+                                                                           -
+                                                                       CHAR_LENGTH(REPLACE(oldTASec.day, ', ', '')) >=
+                                                                       numbers.n - 1
+                                                ORDER BY id, n);
+
+        CREATE TEMPORARY TABLE oldSecs AS (SELECT Section.id,
+                                                  separatedOld.day,
+                                                  start_time,
+                                                  end_time,
+                                                  term,
+                                                  year
+                                           FROM Section
+                                                    INNER JOIN separatedOld ON separatedOld.id = Section.id);
+
+        CREATE TEMPORARY TABLE conflictSecs AS (SELECT oldSecs.day         d1,
+                                                       newEntry.day        d2,
+                                                       oldSecs.start_time  s1,
+                                                       newEntry.start_time s2,
+                                                       oldSecs.end_time    e1,
+                                                       newEntry.end_time   e2
+                                                FROM oldSecs
+                                                         INNER JOIN newEntry ON oldSecs.day = newEntry.day
+                                                WHERE ((oldSecs.start_time >= newEntry.start_time) AND
+                                                       (oldSecs.start_time < newEntry.end_time))
+                                                   OR ((newEntry.start_time >= oldSecs.start_time) AND
+                                                       (newEntry.start_time < oldSecs.end_time))
+        );
+
+        SELECT count(*) INTO @confCount FROM conflictSecs;
+
+        IF (@confCount > 0) THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The TA has a time conflict with another section he teaches';
+        END IF;
+    END IF;
+    /****************TA Number of Sections Per Term Check**********************/
+
+    SELECT term INTO @sectionTerm FROM Section WHERE NEW.section_id = Section.id;
+    SELECT year INTO @sectionYear FROM Section WHERE NEW.section_id = Section.id;
+
+    SELECT COUNT(*)
+    INTO @currentNum
+    FROM Section
+             INNER JOIN TAPosition ON TAPosition.section_id = Section.id
+    WHERE term = @sectionTerm
+      AND year = @sectionYear
+      AND assignee_ssn = NEW.assignee_ssn;
+
+    IF (@currentNum > 1) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Student already TAs 2 sections this term and cannot take on more';
+    END IF;
 
 END;
 //
@@ -800,7 +865,8 @@ CREATE TRIGGER secTrig
     ON Section
     FOR EACH ROW
 BEGIN
-    /******************* Instructor Time Conflict Check *******************/
+
+    /******************* Time Conflicts Check *******************/
     DROP TEMPORARY TABLE IF EXISTS numbers;
     DROP TEMPORARY TABLE IF EXISTS newRow;
     DROP TEMPORARY TABLE IF EXISTS separatedNew;
@@ -809,6 +875,7 @@ BEGIN
     DROP TEMPORARY TABLE IF EXISTS separatedOld;
     DROP TEMPORARY TABLE IF EXISTS oldSecs;
     DROP TEMPORARY TABLE IF EXISTS conflictSecs;
+    DROP TEMPORARY TABLE IF EXISTS oldRoomSec;
 
     -- numbers table is used for how many possible days can there be
     CREATE TEMPORARY TABLE numbers
@@ -852,7 +919,64 @@ BEGIN
                                         FROM newRow
                                                  INNER JOIN separatedNew ON separatedNew.id = newRow.id);
 
+    /******************* Room Time Conflict Check *******************/
+    /* Fetching all sections taught in same building, room_number, year, and term*/
+    CREATE TEMPORARY TABLE oldRoomSec AS (SELECT Section.id, day, start_time, end_time, term, year, room_number
+                                          FROM Section
+                                          WHERE building_abbreviation = NEW.building_abbreviation
+                                            AND room_number = NEW.room_number
+                                            AND year = NEW.year
+                                            AND term = NEW.term);
+
+    CREATE TEMPORARY TABLE separatedOld AS (SELECT oldRoomSec.id,
+                                                   SUBSTRING_INDEX(SUBSTRING_INDEX(oldRoomSec.day, ', ', numbers.n),
+                                                                   ', ', -1) day
+                                            FROM numbers
+                                                     INNER JOIN oldRoomSec
+                                                                ON CHAR_LENGTH(oldRoomSec.day)
+                                                                       -
+                                                                   CHAR_LENGTH(REPLACE(oldRoomSec.day, ', ', '')) >=
+                                                                   numbers.n - 1
+                                            ORDER BY id, n);
+
+    CREATE TEMPORARY TABLE oldSecs AS (SELECT Section.id,
+                                              separatedOld.day,
+                                              start_time,
+                                              end_time,
+                                              term,
+                                              year,
+                                              building_abbreviation,
+                                              room_number
+                                       FROM Section
+                                                INNER JOIN separatedOld ON separatedOld.id = Section.id);
+
+    CREATE TEMPORARY TABLE conflictSecs AS (SELECT oldSecs.day         d1,
+                                                   newEntry.day        d2,
+                                                   oldSecs.start_time  s1,
+                                                   newEntry.start_time s2,
+                                                   oldSecs.end_time    e1,
+                                                   newEntry.end_time   e2
+                                            FROM oldSecs
+                                                     INNER JOIN newEntry ON oldSecs.day = newEntry.day
+                                            WHERE ((oldSecs.start_time >= newEntry.start_time) AND
+                                                   (oldSecs.start_time < newEntry.end_time))
+                                               OR ((newEntry.start_time >= oldSecs.start_time) AND
+                                                   (newEntry.start_time < oldSecs.end_time))
+    );
+
+    SELECT count(*) INTO @confCount FROM conflictSecs;
+
+    IF (@confCount > 0) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                'The room is already reserved for another section at this time';
+    END IF;
+
+    /******************* Instructor Time Conflict Check *******************/
     IF NEW.type = 'lecture' THEN
+
+        DROP TEMPORARY TABLE IF EXISTS separatedOld;
+        DROP TEMPORARY TABLE IF EXISTS oldSecs;
+        DROP TEMPORARY TABLE IF EXISTS conflictSecs;
 
         /* Fetching all sections taught by the instructor in same year, and term*/
         CREATE TEMPORARY TABLE oldInstSec AS (SELECT Section.id, day, start_time, end_time, term, year, instructor_ssn
