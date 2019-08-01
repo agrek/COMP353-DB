@@ -82,8 +82,8 @@ CREATE TABLE Room
     building_abbreviation VARCHAR(45)                     NOT NULL,
     type                  ENUM ('lab', 'class', 'office') NOT NULL,
     capacity              INT                             NOT NULL,
-    room_number           INT                             NOT NULL,
     room_floor            INT(2)                          NOT NULL,
+    room_number           INT                             NOT NULL,
     CONSTRAINT Room_pk
         PRIMARY KEY (building_abbreviation, room_floor, room_number),
     CONSTRAINT Room_Building_abbreviation_fk
@@ -741,7 +741,7 @@ BEGIN
           WHERE assignee_ssn = NEW.assignee_ssn
             AND year = @posYear) t;
 
-    IF (@totalHours > 260) THEN
+    IF (@totalHours + NEW.hours > 260) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The TA exceeds the max hours permitted in a year of 260 hours';
     END IF;
 
