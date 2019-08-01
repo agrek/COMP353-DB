@@ -1098,7 +1098,7 @@ BEGIN
     WHERE chairman_ssn = OLD.ssn;
 
 END//
-DELIMITER;
+DELIMITER ;
 
 DROP TRIGGER IF EXISTS postDeleteInstructorTrigger;
 DELIMITER //
@@ -1117,7 +1117,7 @@ BEGIN
     WHERE ssn = OLD.ssn;
 
 END//
-DELIMITER;
+DELIMITER ;
 
 DROP TRIGGER IF EXISTS preDeleteStudentTrigger;
 DELIMITER //
@@ -1167,7 +1167,7 @@ BEGIN
     FROM UGradStudents
     WHERE ssn = OLD.ssn;
 END//
-DELIMITER;
+DELIMITER ;
 
 DROP TRIGGER IF EXISTS postDeleteStudentTrigger;
 DELIMITER //
@@ -1182,4 +1182,3 @@ BEGIN
     WHERE ssn = OLD.ssn;
 END//
 DELIMITER ;
-
