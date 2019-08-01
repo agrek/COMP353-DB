@@ -4,7 +4,7 @@
  */
 
 #  Create a faculty member
-INSERT INTO arc353_1.Instructor VALUE ('123456789', '1');
+# INSERT INTO arc353_1.Instructor VALUE ('123456789', '1');
 
 /*	IV
 	Give a list of all campuses.
