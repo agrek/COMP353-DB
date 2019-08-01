@@ -1255,3 +1255,56 @@ BEGIN
     WHERE ssn = OLD.ssn;
 END//
 DELIMITER ;
+
+DROP TRIGGER IF EXISTS preDeleteAdvisorTrigger;
+DELIMITER //
+CREATE TRIGGER preDeleteAdvisorTrigger
+	BEFORE DELETE
+    ON Advisor
+    FOR EACH ROW
+    
+BEGIN
+	UPDATE Department
+    SET advisor_ssn = NULL
+    WHERE advisor_ssn - OLD.ssn;
+    
+	DELETE
+    FROM HasDegree
+    WHERE ssn = OLD.ssn;
+
+    DELETE
+    FROM Awards
+    WHERE ssn = OLD.ssn;
+
+    DELETE
+    FROM Publications
+    WHERE ssn = OLD.ssn;
+
+    DELETE
+    FROM Experience
+    WHERE ssn = OLD.ssn;
+    
+    DELETE
+    FROM Contract
+    WHERE ssn = OLD.ssn;
+END//
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS postDeleteAdvisorTrigger;
+DELIMITER //
+CREATE TRIGGER postDeleteAdvisorTrigger
+    AFTER DELETE
+    ON Instructor
+    FOR EACH ROW
+
+BEGIN
+    DELETE
+    FROM Employee
+    WHERE ssn = OLD.ssn;
+
+    DELETE
+    FROM Person
+    WHERE ssn = OLD.ssn;
+
+END//
+DELIMITER ;
