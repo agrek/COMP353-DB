@@ -754,7 +754,6 @@ BEGIN
                 'The student does not meet the minimum GPA required for a TA which is 3.2';
     END IF;
 
-
     /******************* TA Time Conflict Check *******************/
     IF (NEW.position <> 'marker') THEN
 
@@ -785,7 +784,6 @@ BEGIN
                                                    end_time
                                             FROM newRow
                                                      INNER JOIN separatedNew ON separatedNew.id = newRow.id);
-
 
         /* Fetching all tutorial and lab sections taught by the TA in same year, and term*/
         SELECT year INTO @taPosYear FROM Section WHERE NEW.section_id = Section.id;
