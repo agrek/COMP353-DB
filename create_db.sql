@@ -1066,7 +1066,7 @@ FOR EACH ROW
 
 BEGIN	
 	UPDATE Section 
-	SET instructor_ssn = 90
+	SET instructor_ssn = 000000000
 	WHERE instructor_ssn = OLD.ssn;
 	
 	DELETE FROM Awards 
@@ -1079,7 +1079,7 @@ BEGIN
 	WHERE ssn = OLD.ssn;
 	
 	UPDATE GradStudents
-	SET supervisor_ssn = 90
+	SET supervisor_ssn = 000000000
 	WHERE supervisor_ssn = OLD.ssn;
 	
 	DELETE FROM Contract
