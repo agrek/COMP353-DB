@@ -29,7 +29,6 @@ VALUES (1, 'Computer Engineering'),
        (10, 'Psychology'),
        (11, 'General Engineering');
 
-
 INSERT INTO Course
 VALUES ('COMP353', 'Databases', 3, '4.0'),
        ('COMP352', 'Data structures and algorithms', 3, '3.0'),
@@ -512,17 +511,36 @@ VALUES (254156867, 3, TRUE), /* 1 - 51 */
        (222222222, 3, FALSE),
        (333333333, 3, TRUE);
 
-UPDATE Department SET chairman_ssn = 254156867 WHERE id = 3;
-UPDATE Department SET chairman_ssn = 394025466 WHERE id = 9;
-UPDATE Department SET chairman_ssn = 226130537 WHERE id = 1;
-UPDATE Department SET chairman_ssn = 206289429 WHERE id = 8;
-UPDATE Department SET chairman_ssn = 472665242 WHERE id = 10;
-UPDATE Department SET chairman_ssn = 842440083 WHERE id = 4;
-UPDATE Department SET chairman_ssn = 330264593 WHERE id = 5;
-UPDATE Department SET chairman_ssn = 575933767 WHERE id = 2;
-UPDATE Department SET chairman_ssn = 747652718 WHERE id = 7;
-UPDATE Department SET chairman_ssn = 477887758 WHERE id = 6;
-
+UPDATE Department
+SET chairman_ssn = 254156867
+WHERE id = 3;
+UPDATE Department
+SET chairman_ssn = 394025466
+WHERE id = 9;
+UPDATE Department
+SET chairman_ssn = 226130537
+WHERE id = 1;
+UPDATE Department
+SET chairman_ssn = 206289429
+WHERE id = 8;
+UPDATE Department
+SET chairman_ssn = 472665242
+WHERE id = 10;
+UPDATE Department
+SET chairman_ssn = 842440083
+WHERE id = 4;
+UPDATE Department
+SET chairman_ssn = 330264593
+WHERE id = 5;
+UPDATE Department
+SET chairman_ssn = 575933767
+WHERE id = 2;
+UPDATE Department
+SET chairman_ssn = 747652718
+WHERE id = 7;
+UPDATE Department
+SET chairman_ssn = 477887758
+WHERE id = 6;
 
 INSERT INTO Advisor(ssn)
 VALUES (772846507) /* 1 - 64 */,
@@ -1042,66 +1060,67 @@ VALUES (41, 889993771, 'C+'),
        (32, 373307205, 'B+'),
        (33, 373307205, 'B+');
 
-INSERT INTO TAPosition VALUES (4, 'TA', 35, 882108144, 1000)
-                            ,(9, 'Lab Instructor', 90, 882108144, 1000)
-                            ,(1, 'marker', 65, 814392875, 1000)
-                            ,(2, 'marker', 65, 814392875, 1000)
-                            ,(7, 'TA', 25, 881132104, 1000)
-                            ,(6, 'TA', 25, 616004712, 1000)
-                            ,(10, 'Lab Instructor', 50, 616004712, 1000)
-                            ,(8, 'TA', 25, 445761402, 1000)
-                            ,(15, 'TA', 25, 964663021, 1200)
-                            ,(19, 'TA', 25, 964663021, 1200)
-                            ,(32, 'TA', 25, 964663021, 1200)
-                            ,(12, 'marker', 65, 934347739, 1000)
-                            ,(16, 'TA', 50, 934347739, 1000)
-                            ,(17, 'TA', 35, 786482339, 1000)
-                            ,(21, 'marker', 90, 786482339, 1300)
-                            ,(18, 'TA', 35, 809493224, 1000)
-                            ,(23, 'TA', 25, 809493224, 1000)
-                            ,(13, 'marker', 90, 867304329, 2000)
-                            ,(26, 'TA', 30, 867304329, 1000)
-                            ,(20, 'TA', 25, 477176451, 1000)
-                            ,(22, 'TA', 25, 477176451, 100)
-                            ,(14, 'marker', 90, 907806961, 1000)
-                            ,(29, 'TA', 25, 907806961, 1000)
-                            ,(25, 'TA', 30, 426299656, 1000)
-                            ,(5, 'TA', 25, 357320964, 1000)
-                            ,(24, 'marker', 30, 357320964, 1000)
-                            ,(27, 'marker', 30, '814392875', 1000)
-                            ,(28, 'TA', 80, 508203017, 1000)
-                            ,(30, 'marker', 80, 508203017, 1000)
-                            ,(31, 'TA', 30, 656597000, 1000)
-                            ,(33, 'Lab Instructor', 45, 293904265, 1000)
-                            ,(34, 'marker', 30, 448602365, 1000)
-                            ,(35, 'TA', 30, 448602365, 1000)
-                            ,(36, 'Lab Instructor', 30, 245007722, 1000)
-                            ,(38, 'TA', 25, 245007722, 1000)
-                            ,(58, 'Lab Instructor', 25, 245007722, 1000)
-                            ,(37, 'marker', 80, 403876313, 1050)
-                            ,(39, 'marker', 100, 406932598, 1000)
-                            ,(40, 'Lab Instructor', 100, 406932598, 1000)
-                            ,(41, 'marker', 110, 683192608, 1000)
-                            ,(42, 'marker', 110, 683192608, 1000)
-                            ,(43, 'marker', 110, 445761402, 1000)
-                            ,(44, 'marker', 110, 445761402, 1000)
-                            ,(45, 'marker', 120, 309348312, 1000)
-                            ,(46, 'marker', 120, 204794691, 1000)
-                            ,(47, 'marker', 120, 309348312, 1000)
-                            ,(48, 'marker', 90, 635804780, 1000)
-                            ,(49, 'marker', 90, 635804780, 1000)
-                            ,(50, 'marker', 80, 146344051, 1000)
-                            ,(52, 'TA', 30, 177921799, 1000)
-                            ,(53, 'Lab Instructor', 30, 177921799, 900)
-                            ,(51, 'marker', 90, 965277745, 1000)
-                            ,(54, 'marker', 65, 249691790, 1000)
-                            ,(55, 'TA', 30, 249691790, 1100)
-                            ,(61, 'marker', 65, 249691790, 1000)
-                            ,(56, 'marker', 30, 665452486, 1000)
-                            ,(57, 'TA', 30, 665452486, 1000)
-                            ,(59, 'marker', 90, 927819640, 1000)
-                            ,(60, 'TA', 25, 927819640, 1000)
-                            ,(65, 'Lab Instructor', 40, 293904265, 2000);
+INSERT INTO TAPosition
+VALUES (4, 'TA', 35, 882108144, 1000),
+       (9, 'Lab Instructor', 90, 882108144, 1000),
+       (1, 'marker', 65, 814392875, 1000),
+       (2, 'marker', 65, 814392875, 1000),
+       (7, 'TA', 25, 881132104, 1000),
+       (6, 'TA', 25, 616004712, 1000),
+       (10, 'Lab Instructor', 50, 616004712, 1000),
+       (8, 'TA', 25, 445761402, 1000),
+       (15, 'TA', 25, 964663021, 1200),
+       (19, 'TA', 25, 964663021, 1200),
+       (32, 'TA', 25, 964663021, 1200),
+       (12, 'marker', 65, 934347739, 1000),
+       (16, 'TA', 50, 934347739, 1000),
+       (17, 'TA', 35, 786482339, 1000),
+       (21, 'marker', 90, 786482339, 1300),
+       (18, 'TA', 35, 809493224, 1000),
+       (23, 'TA', 25, 809493224, 1000),
+       (13, 'marker', 90, 867304329, 2000),
+       (26, 'TA', 30, 867304329, 1000),
+       (20, 'TA', 25, 477176451, 1000),
+       (22, 'TA', 25, 477176451, 100),
+       (14, 'marker', 90, 907806961, 1000),
+       (29, 'TA', 25, 907806961, 1000),
+       (25, 'TA', 30, 426299656, 1000),
+       (5, 'TA', 25, 357320964, 1000),
+       (24, 'marker', 30, 357320964, 1000),
+       (27, 'marker', 30, '814392875', 1000),
+       (28, 'TA', 80, 508203017, 1000),
+       (30, 'marker', 80, 508203017, 1000),
+       (31, 'TA', 30, 656597000, 1000),
+       (33, 'Lab Instructor', 45, 293904265, 1000),
+       (34, 'marker', 30, 448602365, 1000),
+       (35, 'TA', 30, 448602365, 1000),
+       (36, 'Lab Instructor', 30, 245007722, 1000),
+       (38, 'TA', 25, 245007722, 1000),
+       (58, 'Lab Instructor', 25, 245007722, 1000),
+       (37, 'marker', 80, 403876313, 1050),
+       (39, 'marker', 100, 406932598, 1000),
+       (40, 'Lab Instructor', 100, 406932598, 1000),
+       (41, 'marker', 110, 683192608, 1000),
+       (42, 'marker', 110, 683192608, 1000),
+       (43, 'marker', 110, 445761402, 1000),
+       (44, 'marker', 110, 445761402, 1000),
+       (45, 'marker', 120, 309348312, 1000),
+       (46, 'marker', 120, 204794691, 1000),
+       (47, 'marker', 120, 309348312, 1000),
+       (48, 'marker', 90, 635804780, 1000),
+       (49, 'marker', 90, 635804780, 1000),
+       (50, 'marker', 80, 146344051, 1000),
+       (52, 'TA', 30, 177921799, 1000),
+       (53, 'Lab Instructor', 30, 177921799, 900),
+       (51, 'marker', 90, 965277745, 1000),
+       (54, 'marker', 65, 249691790, 1000),
+       (55, 'TA', 30, 249691790, 1100),
+       (61, 'marker', 65, 249691790, 1000),
+       (56, 'marker', 30, 665452486, 1000),
+       (57, 'TA', 30, 665452486, 1000),
+       (59, 'marker', 90, 927819640, 1000),
+       (60, 'TA', 25, 927819640, 1000),
+       (65, 'Lab Instructor', 40, 293904265, 2000);
 
 INSERT INTO Experience
 VALUES (254156867, 'Electrical Technician', 'Concordia University', '2011-09-22', '2015-09-04'),
