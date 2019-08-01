@@ -1266,7 +1266,7 @@ CREATE TRIGGER preDeleteAdvisorTrigger
 BEGIN
 	UPDATE Program
     SET advisor_ssn = NULL
-    WHERE advisor_ssn - OLD.ssn;
+    WHERE advisor_ssn = OLD.ssn;
     
 	DELETE
     FROM HasDegree
