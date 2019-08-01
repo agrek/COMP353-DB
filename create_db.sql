@@ -1084,6 +1084,9 @@ BEGIN
 	
 	DELETE FROM Contract
 	WHERE ssn = OLD.ssn;
+    
+    DELETE FROM HasDegree
+    WHERE ssn = OLD.ssn;
 
 END//
 DELIMITER;
@@ -1116,15 +1119,15 @@ BEGIN
 	DELETE FROM SectionEnrollment
 	WHERE student_ssn = OLD.ssn;
 	
-	DELETE FROM ReasearchFundingApplications
+	DELETE FROM ResearchFundingApplications
 	WHERE student_ssn = OLD.ssn;
 	
 	UPDATE TAPosition
 	SET assignee_ssn = NULL
-	WHERE assignee_id = OLD.ssn;
+	WHERE assignee_ssn = OLD.ssn;
 	
-	DELETE FROM Studies
-	WHERE student_ssn = OLD.ssn;
+	DELETE FROM Studies 
+    WHERE student_ssn = OLD.ssn;
 	
 	DELETE FROM HasDegree
 	WHERE ssn = OLD.ssn;
@@ -1155,7 +1158,7 @@ FOR EACH ROW
 
 BEGIN
 	DELETE FROM Person
-	WHERE student_ssn = OLD.ssn;
+	WHERE ssn = OLD.ssn;
 END//
 DELIMITER ;
 
