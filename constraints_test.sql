@@ -114,4 +114,10 @@ UPDATE Room SET building_abbreviation = 'EV' WHERE building_abbreviation = 'H'
                                                AND room_floor =9 AND room_number = 906;
 SELECT * FROM Building WHERE abbreviation = 'EV';
 
+/*
+    13) Number of enrolled students in a section cannot exceed the capacity of a room
+ */
 
+SELECT COUNT(*) FROM SectionEnrollment WHERE section_id = 48;
+UPDATE Room SET capacity = 3 WHERE building_abbreviation = 'H' AND room_floor=5 AND room_number = 520;
+INSERT INTO SectionEnrollment VALUES (48, 399437700, 'A');

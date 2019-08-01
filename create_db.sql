@@ -557,7 +557,7 @@ BEGIN
 
     IF (@totalStudentSec >= @roomcap) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
-                'ERROR: Student enrollment for this section has reached/exceeded room capacity. Please try a different section or contact the administrator.';
+                'ERROR: Student enrollment for this section has reached/exceeded room capacity.';
     END IF;
 
     /******************* Prerequisites Check *******************/
