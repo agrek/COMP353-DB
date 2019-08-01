@@ -1294,7 +1294,7 @@ DROP TRIGGER IF EXISTS postDeleteAdvisorTrigger;
 DELIMITER //
 CREATE TRIGGER postDeleteAdvisorTrigger
     AFTER DELETE
-    ON Instructor
+    ON Advisor
     FOR EACH ROW
 
 BEGIN
