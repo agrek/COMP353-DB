@@ -1057,7 +1057,7 @@ END;
 //
 DELIMITER ;
 
-            /**** BEGINNING OF BUILDING TABLE CONSISTENCY CHECK ****/
+/**** BEGINNING OF BUILDING TABLE CONSISTENCY CHECK ****/
 DROP TRIGGER IF EXISTS ins_buildingConsistencyTrigger;
 DELIMITER //
 CREATE TRIGGER ins_buildingConsistencyTrigger
@@ -1122,9 +1122,11 @@ BEGIN
     FROM Room
     WHERE Room.building_abbreviation = t_row_id;
 
-    UPDATE Building SET num_rooms = @numOfRooms, num_floors = @numOfFloors
+    UPDATE Building
+    SET num_rooms  = @numOfRooms,
+        num_floors = @numOfFloors
     WHERE Building.abbreviation = t_row_id;
 END;
 //
 DELIMITER ;
-            /**** END OF BUILDING TABLE CONSISTENCY CHECK ****/
+/**** END OF BUILDING TABLE CONSISTENCY CHECK ****/
