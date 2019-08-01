@@ -65,14 +65,16 @@ CREATE TABLE Building
 (
     abbreviation VARCHAR(45) NOT NULL,
     name         VARCHAR(90) NOT NULL,
-    num_rooms    INT         NULL,
-    num_labs     INT         NOT NULL,
-    num_floors   INT         NOT NULL,
+    num_rooms    INT DEFAULT 0,
+    num_floors   INT DEFAULT 0,
     campus       VARCHAR(45) NOT NULL,
+    address      INT         NOT NULL,
     CONSTRAINT Building_pk
         PRIMARY KEY (abbreviation),
     CONSTRAINT Building_Campus_abbreviation_fk
-        FOREIGN KEY (campus) REFERENCES Campus (abbreviation)
+        FOREIGN KEY (campus) REFERENCES Campus (abbreviation),
+    CONSTRAINT Building_Address_id_fk
+        FOREIGN KEY (address) REFERENCES Address (id)
 );
 
 CREATE TABLE Room
@@ -168,8 +170,9 @@ CREATE TABLE Student
 
 CREATE TABLE Department
 (
-    id   INT AUTO_INCREMENT,
-    name VARCHAR(45) NOT NULL,
+    id           INT AUTO_INCREMENT,
+    name         VARCHAR(45) NOT NULL,
+    chairman_ssn INT         NULL,
     CONSTRAINT Department_pk
         PRIMARY KEY (id),
     CONSTRAINT Department_uq
@@ -181,7 +184,6 @@ CREATE TABLE Instructor
     ssn               INT NOT NULL,
     dept_id           INT NOT NULL,
     funding_available BOOL DEFAULT FALSE,
-    is_chairman       BOOL DEFAULT FALSE,
     CONSTRAINT Instructor_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Instructor_Department_id_fk
@@ -189,6 +191,10 @@ CREATE TABLE Instructor
     CONSTRAINT Instructor_Employee_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Employee (ssn)
 );
+
+ALTER TABLE Department
+    ADD CONSTRAINT Department_Chairman_ssn_fk
+        FOREIGN KEY (chairman_ssn) REFERENCES Instructor (ssn);
 
 CREATE TABLE UGradStudents
 (
@@ -718,6 +724,14 @@ CREATE TRIGGER TaTrig
 BEGIN
 
     /******************* TA Total Hours Check *******************/
+    DROP TEMPORARY TABLE IF EXISTS oldTASec;
+    DROP TEMPORARY TABLE IF EXISTS separatedOld;
+    DROP TEMPORARY TABLE IF EXISTS oldSecs;
+    DROP TEMPORARY TABLE IF EXISTS conflictSecs;
+    DROP TEMPORARY TABLE IF EXISTS numbers;
+    DROP TEMPORARY TABLE IF EXISTS newEntry;
+    DROP TEMPORARY TABLE IF EXISTS newRow;
+    DROP TEMPORARY TABLE IF EXISTS separatedNew;
     SELECT year INTO @posYear FROM Section WHERE NEW.section_id = Section.id;
     # TODO: Verify use of section_id
     SELECT SUM(hours)
@@ -740,57 +754,104 @@ BEGIN
                 'The student does not meet the minimum GPA required for a TA which is 3.2';
     END IF;
 
+    /******************* TA Time Conflict Check *******************/
+    IF (NEW.position <> 'marker') THEN
 
-    #         /******************* TA Time Conflict Check *******************/
-#     ELSEIF NEW.type = 'tutorial' OR NEW.type = 'lab' THEN
-#         /* Fetching all tutorial and lab sections taught by the TA in same year, and term*/
-#         CREATE TEMPORARY TABLE oldTASec AS (SELECT Section.id, day, start_time, end_time, term, year, ta_ssn
-#                                             FROM Section
-#                                             WHERE (type = 'tutorial' OR type = 'lab')
-#                                               AND ta_ssn = NEW.ta_ssn
-#                                               AND year = NEW.year
-#                                               AND term = NEW.term);
-#
-#         CREATE TEMPORARY TABLE separatedOld AS (SELECT oldTASec.id,
-#                                                        SUBSTRING_INDEX(SUBSTRING_INDEX(oldTASec.day, ', ', numbers.n),
-#                                                                        ', ', -1) day
-#                                                 FROM numbers
-#                                                          INNER JOIN oldTASec
-#                                                                     ON CHAR_LENGTH(oldTASec.day)
-#                                                                            -
-#                                                                        CHAR_LENGTH(REPLACE(oldTASec.day, ', ', '')) >=
-#                                                                        numbers.n - 1
-#                                                 ORDER BY id, n);
-#
-#         CREATE TEMPORARY TABLE oldSecs AS (SELECT Section.id,
-#                                                   separatedOld.day,
-#                                                   start_time,
-#                                                   end_time,
-#                                                   term,
-#                                                   year,
-#                                                   ta_ssn
-#                                            FROM Section
-#                                                     INNER JOIN separatedOld ON separatedOld.id = Section.id);
-#
-#         CREATE TEMPORARY TABLE conflictSecs AS (SELECT oldSecs.day         d1,
-#                                                        newEntry.day        d2,
-#                                                        oldSecs.start_time  s1,
-#                                                        newEntry.start_time s2,
-#                                                        oldSecs.end_time    e1,
-#                                                        newEntry.end_time   e2
-#                                                 FROM oldSecs
-#                                                          INNER JOIN newEntry ON oldSecs.day = newEntry.day
-#                                                 WHERE ((oldSecs.start_time >= newEntry.start_time) AND
-#                                                        (oldSecs.start_time < newEntry.end_time))
-#                                                    OR ((newEntry.start_time >= oldSecs.start_time) AND
-#                                                        (newEntry.start_time < oldSecs.end_time))
-#         );
-#
-#         SELECT count(*) INTO @confCount FROM conflictSecs;
-#
-#         IF (@confCount > 0) THEN
-#             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The TA has a time conflict with another section he teaches';
-#         END IF;
+        -- numbers table is used for how many possible days can there be
+        CREATE TEMPORARY TABLE numbers
+        (
+            n INT PRIMARY KEY
+        );
+        INSERT INTO numbers VALUES (1), (2);
+        /*******section info from section_id*********/
+        CREATE TEMPORARY TABLE newRow AS (SELECT day, id, start_time, end_time FROM Section WHERE id = NEW.section_id);
+        -- Separating the inserted row into two if there was two days in it
+        CREATE TEMPORARY TABLE separatedNew AS (SELECT newRow.id,
+                                                       SUBSTRING_INDEX(SUBSTRING_INDEX(newRow.day, ', ', numbers.n),
+                                                                       ', ',
+                                                                       -1) day
+                                                FROM numbers
+                                                         INNER JOIN newRow
+                                                                    ON CHAR_LENGTH(newRow.day)
+                                                                           -
+                                                                       CHAR_LENGTH(REPLACE(newRow.day, ', ', '')) >=
+                                                                       numbers.n - 1
+                                                ORDER BY id, n);
+
+        CREATE TEMPORARY TABLE newEntry AS (SELECT newRow.id,
+                                                   separatedNew.day,
+                                                   start_time,
+                                                   end_time
+                                            FROM newRow
+                                                     INNER JOIN separatedNew ON separatedNew.id = newRow.id);
+
+        /* Fetching all tutorial and lab sections taught by the TA in same year, and term*/
+        SELECT year INTO @taPosYear FROM Section WHERE NEW.section_id = Section.id;
+        SELECT term INTO @taPosTerm FROM Section WHERE NEW.section_id = Section.id;
+        CREATE TEMPORARY TABLE oldTASec AS (SELECT Section.id, day, start_time, end_time, term, year
+                                            FROM Section
+                                                     INNER JOIN TAPosition ON section_id = Section.id
+                                            WHERE NEW.assignee_ssn = assignee_ssn
+                                              AND (type = 'tutorial' OR type = 'lab')
+                                              AND year = @taPosYear
+                                              AND term = @taPosTerm);
+
+        CREATE TEMPORARY TABLE separatedOld AS (SELECT oldTASec.id,
+                                                       SUBSTRING_INDEX(SUBSTRING_INDEX(oldTASec.day, ', ', numbers.n),
+                                                                       ', ', -1) day
+                                                FROM numbers
+                                                         INNER JOIN oldTASec
+                                                                    ON CHAR_LENGTH(oldTASec.day)
+                                                                           -
+                                                                       CHAR_LENGTH(REPLACE(oldTASec.day, ', ', '')) >=
+                                                                       numbers.n - 1
+                                                ORDER BY id, n);
+
+        CREATE TEMPORARY TABLE oldSecs AS (SELECT Section.id,
+                                                  separatedOld.day,
+                                                  start_time,
+                                                  end_time,
+                                                  term,
+                                                  year
+                                           FROM Section
+                                                    INNER JOIN separatedOld ON separatedOld.id = Section.id);
+
+        CREATE TEMPORARY TABLE conflictSecs AS (SELECT oldSecs.day         d1,
+                                                       newEntry.day        d2,
+                                                       oldSecs.start_time  s1,
+                                                       newEntry.start_time s2,
+                                                       oldSecs.end_time    e1,
+                                                       newEntry.end_time   e2
+                                                FROM oldSecs
+                                                         INNER JOIN newEntry ON oldSecs.day = newEntry.day
+                                                WHERE ((oldSecs.start_time >= newEntry.start_time) AND
+                                                       (oldSecs.start_time < newEntry.end_time))
+                                                   OR ((newEntry.start_time >= oldSecs.start_time) AND
+                                                       (newEntry.start_time < oldSecs.end_time))
+        );
+
+        SELECT count(*) INTO @confCount FROM conflictSecs;
+
+        IF (@confCount > 0) THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The TA has a time conflict with another section he teaches';
+        END IF;
+    END IF;
+    /****************TA Number of Sections Per Term Check**********************/
+
+    SELECT term INTO @sectionTerm FROM Section WHERE NEW.section_id = Section.id;
+    SELECT year INTO @sectionYear FROM Section WHERE NEW.section_id = Section.id;
+
+    SELECT COUNT(*)
+    INTO @currentNum
+    FROM Section
+             INNER JOIN TAPosition ON TAPosition.section_id = Section.id
+    WHERE term = @sectionTerm
+      AND year = @sectionYear
+      AND assignee_ssn = NEW.assignee_ssn;
+
+    IF (@currentNum > 1) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Student already TAs 2 sections this term and cannot take on more';
+    END IF;
 
 END;
 //
@@ -965,7 +1026,8 @@ BEGIN
                     'The instructor has a time conflict with another section he teaches';
         END IF;
     END IF;
-END //
+END
+//
 DELIMITER ;
 
 DROP TRIGGER IF EXISTS researchTrigger;
@@ -992,4 +1054,204 @@ BEGIN
 
 END;
 //
+DELIMITER ;
+
+/**** BEGINNING OF BUILDING TABLE CONSISTENCY CHECK ****/
+DROP TRIGGER IF EXISTS ins_buildingConsistencyTrigger;
+DELIMITER //
+CREATE TRIGGER ins_buildingConsistencyTrigger
+
+    AFTER INSERT
+    ON Room
+    FOR EACH ROW
+
+BEGIN
+    -- Call the common procedure ran if there is an INSERT, UPDATE or DELETE on `table`
+    CALL common_portion_for_ins_upd_del_buildingConsistency(NEW.building_abbreviation);
+END;
+//
+DELIMITER ;
+-- -------------------------------------------------------------------------
+DROP TRIGGER IF EXISTS upd_buildingConsistencyTrigger;
+DELIMITER //
+CREATE TRIGGER upd_buildingConsistencyTrigger
+
+    AFTER UPDATE
+    ON Room
+    FOR EACH ROW
+
+BEGIN
+    -- Call the common procedure ran if there is an INSERT, UPDATE or DELETE on `table`
+    CALL common_portion_for_ins_upd_del_buildingConsistency(OLD.building_abbreviation);
+    CALL common_portion_for_ins_upd_del_buildingConsistency(NEW.building_abbreviation);
+END;
+//
+DELIMITER ;
+-- -------------------------------------------------------------------------
+DROP TRIGGER IF EXISTS del_buildingConsistencyTrigger;
+DELIMITER //
+CREATE TRIGGER del_buildingConsistencyTrigger
+
+    AFTER DELETE
+    ON Room
+    FOR EACH ROW
+
+BEGIN
+    -- Call the common procedure ran if there is an INSERT, UPDATE or DELETE on `table`
+    CALL common_portion_for_ins_upd_del_buildingConsistency(OLD.building_abbreviation);
+END;
+//
+DELIMITER ;
+-- -------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS common_portion_for_ins_upd_del_buildingConsistency;
+DELIMITER //
+CREATE PROCEDURE common_portion_for_ins_upd_del_buildingConsistency(IN t_row_id VARCHAR(45))
+
+    READS SQL DATA
+
+BEGIN
+    /******************* Update the number of floors and number of rooms *******************/
+    SELECT COUNT(*)
+    INTO @numOfRooms
+    FROM Room
+    WHERE Room.building_abbreviation = t_row_id;
+
+    SELECT COUNT(DISTINCT room_floor)
+    INTO @numOfFloors
+    FROM Room
+    WHERE Room.building_abbreviation = t_row_id;
+
+    UPDATE Building
+    SET num_rooms  = @numOfRooms,
+        num_floors = @numOfFloors
+    WHERE Building.abbreviation = t_row_id;
+END;
+//
+DELIMITER ;
+/**** END OF BUILDING TABLE CONSISTENCY CHECK ****/
+
+DROP TRIGGER IF EXISTS preDeleteInstructorTrigger;
+DELIMITER //
+CREATE TRIGGER preDeleteInstructorTrigger
+    BEFORE DELETE
+    ON Instructor
+    FOR EACH ROW
+
+BEGIN
+    UPDATE Section
+    SET instructor_ssn = 000000000
+    WHERE instructor_ssn = OLD.ssn;
+
+    DELETE
+    FROM Awards
+    WHERE ssn = OLD.ssn;
+
+    DELETE
+    FROM Publications
+    WHERE ssn = OLD.ssn;
+
+    DELETE
+    FROM Experience
+    WHERE ssn = OLD.ssn;
+
+    UPDATE GradStudents
+    SET supervisor_ssn = 000000000
+    WHERE supervisor_ssn = OLD.ssn;
+
+    DELETE
+    FROM Contract
+    WHERE ssn = OLD.ssn;
+
+    DELETE
+    FROM HasDegree
+    WHERE ssn = OLD.ssn;
+
+    UPDATE Department
+    SET chairman_ssn = NULL
+    WHERE chairman_ssn = OLD.ssn;
+
+END//
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS postDeleteInstructorTrigger;
+DELIMITER //
+CREATE TRIGGER postDeleteInstructorTrigger
+    AFTER DELETE
+    ON Instructor
+    FOR EACH ROW
+
+BEGIN
+    DELETE
+    FROM Employee
+    WHERE ssn = OLD.ssn;
+
+    DELETE
+    FROM Person
+    WHERE ssn = OLD.ssn;
+
+END//
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS preDeleteStudentTrigger;
+DELIMITER //
+CREATE TRIGGER preDeleteStudentTrigger
+    BEFORE DELETE
+    ON Student
+    FOR EACH ROW
+
+BEGIN
+    DELETE
+    FROM SectionEnrollment
+    WHERE student_ssn = OLD.ssn;
+
+    DELETE
+    FROM ResearchFundingApplications
+    WHERE student_ssn = OLD.ssn;
+
+    UPDATE TAPosition
+    SET assignee_ssn = NULL
+    WHERE assignee_ssn = OLD.ssn;
+
+    DELETE
+    FROM Studies
+    WHERE student_ssn = OLD.ssn;
+
+    DELETE
+    FROM HasDegree
+    WHERE ssn = OLD.ssn;
+
+    DELETE
+    FROM Awards
+    WHERE ssn = OLD.ssn;
+
+    DELETE
+    FROM Publications
+    WHERE ssn = OLD.ssn;
+
+    DELETE
+    FROM Experience
+    WHERE ssn = OLD.ssn;
+
+    DELETE
+    FROM GradStudents
+    WHERE ssn = OLD.ssn;
+
+    DELETE
+    FROM UGradStudents
+    WHERE ssn = OLD.ssn;
+END//
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS postDeleteStudentTrigger;
+DELIMITER //
+CREATE TRIGGER postDeleteStudentTrigger
+    AFTER DELETE
+    ON Student
+    FOR EACH ROW
+
+BEGIN
+    DELETE
+    FROM Person
+    WHERE ssn = OLD.ssn;
+END//
 DELIMITER ;
