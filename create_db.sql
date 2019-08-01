@@ -741,7 +741,6 @@ BEGIN
                 'The student does not meet the minimum GPA required for a TA which is 3.2';
     END IF;
 
-
     #         /******************* TA Time Conflict Check *******************/
 #     ELSEIF NEW.type = 'tutorial' OR NEW.type = 'lab' THEN
 #         /* Fetching all tutorial and lab sections taught by the TA in same year, and term*/
