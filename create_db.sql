@@ -1264,7 +1264,7 @@ CREATE TRIGGER preDeleteAdvisorTrigger
     FOR EACH ROW
     
 BEGIN
-	UPDATE Department
+	UPDATE Program
     SET advisor_ssn = NULL
     WHERE advisor_ssn - OLD.ssn;
     
