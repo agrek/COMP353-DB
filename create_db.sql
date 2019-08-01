@@ -1028,7 +1028,8 @@ BEGIN
                     'The instructor has a time conflict with another section he teaches';
         END IF;
     END IF;
-END //
+END
+//
 DELIMITER ;
 
 DROP TRIGGER IF EXISTS researchTrigger;
@@ -1056,6 +1057,80 @@ BEGIN
 END;
 //
 DELIMITER ;
+
+/**** BEGINNING OF BUILDING TABLE CONSISTENCY CHECK ****/
+DROP TRIGGER IF EXISTS ins_buildingConsistencyTrigger;
+DELIMITER //
+CREATE TRIGGER ins_buildingConsistencyTrigger
+
+    AFTER INSERT
+    ON Room
+    FOR EACH ROW
+
+BEGIN
+    -- Call the common procedure ran if there is an INSERT, UPDATE or DELETE on `table`
+    CALL common_portion_for_ins_upd_del_buildingConsistency(NEW.building_abbreviation);
+END;
+//
+DELIMITER ;
+-- -------------------------------------------------------------------------
+DROP TRIGGER IF EXISTS upd_buildingConsistencyTrigger;
+DELIMITER //
+CREATE TRIGGER upd_buildingConsistencyTrigger
+
+    AFTER UPDATE
+    ON Room
+    FOR EACH ROW
+
+BEGIN
+    -- Call the common procedure ran if there is an INSERT, UPDATE or DELETE on `table`
+    CALL common_portion_for_ins_upd_del_buildingConsistency(OLD.building_abbreviation);
+    CALL common_portion_for_ins_upd_del_buildingConsistency(NEW.building_abbreviation);
+END;
+//
+DELIMITER ;
+-- -------------------------------------------------------------------------
+DROP TRIGGER IF EXISTS del_buildingConsistencyTrigger;
+DELIMITER //
+CREATE TRIGGER del_buildingConsistencyTrigger
+
+    AFTER DELETE
+    ON Room
+    FOR EACH ROW
+
+BEGIN
+    -- Call the common procedure ran if there is an INSERT, UPDATE or DELETE on `table`
+    CALL common_portion_for_ins_upd_del_buildingConsistency(OLD.building_abbreviation);
+END;
+//
+DELIMITER ;
+-- -------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS common_portion_for_ins_upd_del_buildingConsistency;
+DELIMITER //
+CREATE PROCEDURE common_portion_for_ins_upd_del_buildingConsistency(IN t_row_id VARCHAR(45))
+
+    READS SQL DATA
+
+BEGIN
+    /******************* Update the number of floors and number of rooms *******************/
+    SELECT COUNT(*)
+    INTO @numOfRooms
+    FROM Room
+    WHERE Room.building_abbreviation = t_row_id;
+
+    SELECT COUNT(DISTINCT room_floor)
+    INTO @numOfFloors
+    FROM Room
+    WHERE Room.building_abbreviation = t_row_id;
+
+    UPDATE Building
+    SET num_rooms  = @numOfRooms,
+        num_floors = @numOfFloors
+    WHERE Building.abbreviation = t_row_id;
+END;
+//
+DELIMITER ;
+/**** END OF BUILDING TABLE CONSISTENCY CHECK ****/
 
 DROP TRIGGER IF EXISTS preDeleteInstructorTrigger;
 DELIMITER //
