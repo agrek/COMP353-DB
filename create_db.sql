@@ -715,7 +715,6 @@ END;
 DELIMITER ;
 
 DROP TRIGGER IF EXISTS TaTrig;
-
 DELIMITER //
 CREATE TRIGGER TaTrig
     BEFORE INSERT
@@ -1028,7 +1027,8 @@ BEGIN
                     'The instructor has a time conflict with another section he teaches';
         END IF;
     END IF;
-END //
+END
+//
 DELIMITER ;
 
 DROP TRIGGER IF EXISTS researchTrigger;
@@ -1053,6 +1053,32 @@ BEGIN
                 'The student does not meet the minimum GPA required for research funding which is 3';
     END IF;
 
+END;
+//
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS buildingConsistencyTrigger;
+DELIMITER //
+CREATE TRIGGER buildingConsistencyTrigger
+
+    AFTER INSERT
+    ON Room
+    FOR EACH ROW
+
+BEGIN
+    /******************* Update the number of floors and number of rooms *******************/
+    SELECT COUNT(*)
+    INTO @numOfRooms
+    FROM Room
+    WHERE Room.building_abbreviation = NEW.building_abbreviation;
+
+    SELECT COUNT(DISTINCT room_floor)
+    INTO @numOfFloors
+    FROM Room
+    WHERE Room.building_abbreviation = NEW.building_abbreviation;
+
+    UPDATE Building SET num_rooms = @numOfRooms, num_floors = @numOfFloors
+    WHERE Building.abbreviation = NEW.building_abbreviation;
 END;
 //
 DELIMITER ;
