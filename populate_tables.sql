@@ -685,32 +685,22 @@ VALUES (1, 'Research Grant in Computer Science 2', 800),
        (9, 'Pure Applied Science Graduate Funding', 18500),
        (10, 'Graduate Fubding for Liberal Arts', 12500);
 
-INSERT INTO ResearchFundingApplications
-VALUES (1, 'granted', 814392875, 1, 2018, 'fall'),
-       (2, 'granted', 964663021, 2, 2018, 'fall'),
-       (3, 'granted', 881132104, 3, 2018, 'fall'),
-       (4, 'granted', 656597000, 4, 2018, 'fall'),
-       (5, 'denied', 195238750, 2, 2018, 'winter'),
-       (6, 'denied', 964663021, 4, 2018, 'fall'),
-       (7, 'denied', 477176451, 1, 2018, 'fall'),
-       (8, 'denied', 477176451, 2, 2019, 'winter'),
-       (9, 'denied', 477176451, 3, 2017, 'fall'),
-       (10, 'denied', 477176451, 4, 2018, 'summer'),
-       (11, 'denied', 426299656, 3, 2018, 'fall'),
-       (12, 'granted', 177921799, 7, 2018, 'fall'),
-       (13, 'granted', 245007722, 6, 2018, 'fall'),
-       (14, 'applied', 965277745, 5, 2018, 'summer'),
-       (15, 'applied', 453920929, 5, 2018, 'fall'),
-       (16, 'denied', 146344051, 6, 2018, 'winter'),
-       (17, 'denied', 907806961, 6, 2018, 'fall'),
-       (18, 'denied', 882108144, 6, 2018, 'fall'),
-       (19, 'applied', 448602365, 8, 2018, 'fall'),
-       (20, 'applied', 779332036, 8, 2018, 'fall'),
-       (21, 'applied', 445761402, 8, 2018, 'winter'),
-       (22, 'applied', 453920929, 8, 2018, 'fall'),
-       (23, 'granted', 814392875, 9, 2018, 'summer'),
-       (24, 'denied', 406932598, 9, 2018, 'fall'),
-       (25, 'denied', 635804780, 10, 2018, 'summer');
+INSERT INTO ResearchFundingApplications VALUE (1, 'granted', 309348312, 1, 2018, 'fall');
+INSERT INTO ResearchFundingApplications VALUE (2, 'granted', 964663021, 2, 2018, 'fall');
+INSERT INTO ResearchFundingApplications VALUE (4, 'granted', 656597000, 4, 2018, 'fall');
+INSERT INTO ResearchFundingApplications VALUE (5, 'denied', 195238750, 2, 2018, 'winter');
+INSERT INTO ResearchFundingApplications VALUE (6, 'denied', 964663021, 4, 2018, 'fall');
+INSERT INTO ResearchFundingApplications VALUE (7, 'denied', 477176451, 1, 2018, 'fall');
+INSERT INTO ResearchFundingApplications VALUE (8, 'denied', 477176451, 2, 2019, 'winter');
+INSERT INTO ResearchFundingApplications VALUE (9, 'denied', 477176451, 3, 2017, 'fall');
+INSERT INTO ResearchFundingApplications VALUE (10, 'denied', 477176451, 4, 2018, 'summer');
+INSERT INTO ResearchFundingApplications VALUE (11, 'denied', 426299656, 3, 2018, 'fall');
+INSERT INTO ResearchFundingApplications VALUE (15, 'applied', 453920929, 5, 2018, 'fall');
+INSERT INTO ResearchFundingApplications VALUE (16, 'denied', 146344051, 6, 2018, 'winter');
+INSERT INTO ResearchFundingApplications VALUE (17, 'denied', 907806961, 6, 2018, 'fall');
+INSERT INTO ResearchFundingApplications VALUE (18, 'denied', 882108144, 6, 2018, 'fall');
+INSERT INTO ResearchFundingApplications VALUE (24, 'denied', 406932598, 9, 2018, 'fall');
+INSERT INTO ResearchFundingApplications VALUE (25, 'denied', 635804780, 10, 2018, 'summer');
 
 INSERT INTO Studies
 VALUES (399437700, 17),
