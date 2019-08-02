@@ -282,8 +282,8 @@ CREATE TABLE HasDegree
 
 CREATE TABLE LetterToGpa
 (
-    letter ENUM ('A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F', 'FNS', 'R', 'NR') DEFAULT 'NR' NOT NULL,
-    gpa    DECIMAL(3, 2)                                                                                                 NOT NULL,
+    letter ENUM ('A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F', 'FNS', 'R', 'NR') NOT NULL,
+    gpa    DECIMAL(3, 2)                                                                                    NOT NULL,
     CONSTRAINT LetterToGpa_pk
         PRIMARY KEY (letter)
 );
@@ -340,6 +340,23 @@ CREATE TABLE Course
         UNIQUE (name),
     CONSTRAINT Course_Department_id_fk
         FOREIGN KEY (department_id) REFERENCES Department (id)
+);
+
+CREATE TABLE CourseCompleted
+(
+    student_ssn INT                                                                                                           NOT NULL,
+    course_code VARCHAR(16)                                                                                                   NOT NULL,
+    year        INT(4)                                                                                                        NOT NULL,
+    term        VARCHAR(45)                                                                                                   NOT NULL,
+    grade       ENUM ('A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F', 'FNS', 'R', 'NR') DEFAULT NULL NULL,
+    CONSTRAINT CourseCompleted_pk
+        PRIMARY KEY (student_ssn, course_code, year, term),
+    CONSTRAINT CourseCompleted_Course_code_fk
+        FOREIGN KEY (course_code) REFERENCES Course (code),
+    CONSTRAINT CourseCompleted_LetterToGpa_letter_fk
+        FOREIGN KEY (grade) REFERENCES LetterToGpa (letter),
+    CONSTRAINT CourseCompleted_Student_ssn_fk
+        FOREIGN KEY (student_ssn) REFERENCES Student (ssn)
 );
 
 CREATE TABLE TermToNumber
@@ -423,13 +440,10 @@ CREATE TABLE ResearchFundingApplications
 
 CREATE TABLE SectionEnrollment
 (
-    section_id  INT                                                                                              NOT NULL,
-    student_ssn INT                                                                                              NULL,
-    grade       ENUM ('A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F', 'FNS', 'R', 'NR') NULL,
+    section_id  INT NOT NULL,
+    student_ssn INT NULL,
     CONSTRAINT SectionEnrollment_pk
         PRIMARY KEY (section_id, student_ssn),
-    CONSTRAINT SectionEnrollment_LetterToGpa_letter_fk
-        FOREIGN KEY (grade) REFERENCES LetterToGpa (letter),
     CONSTRAINT SectionEnrollment_Section_id_fk
         FOREIGN KEY (section_id) REFERENCES Section (id),
     CONSTRAINT SectionEnrollment_Student_ssn_fk
@@ -479,7 +493,7 @@ BEGIN
     CREATE TEMPORARY TABLE allGrades AS (SELECT grade, credits, gpa, credits * gpa mult
                                          FROM Course,
                                               Section,
-                                              SectionEnrollment
+                                              CourseCompleted
 
                                                   INNER JOIN LetterToGpa ON grade = letter
 
@@ -583,6 +597,7 @@ BEGIN
         SELECT Section.course_code, grade
         FROM Section,
              SectionEnrollment,
+             CourseCompleted,
              req_table,
              req_secs
         WHERE Section.id = SectionEnrollment.section_id
@@ -600,6 +615,7 @@ BEGIN
     FROM (SELECT Section.course_code, grade
           FROM Section,
                SectionEnrollment,
+               CourseCompleted,
                req_table
           WHERE Section.id = SectionEnrollment.section_id
             AND req_table.req_code = Section.course_code
