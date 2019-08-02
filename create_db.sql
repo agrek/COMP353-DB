@@ -1273,16 +1273,16 @@ DELIMITER ;
 DROP TRIGGER IF EXISTS preDeleteAdvisorTrigger;
 DELIMITER //
 CREATE TRIGGER preDeleteAdvisorTrigger
-	BEFORE DELETE
+    BEFORE DELETE
     ON Advisor
     FOR EACH ROW
-    
+
 BEGIN
-	UPDATE Program
+    UPDATE Program
     SET advisor_ssn = NULL
     WHERE advisor_ssn = OLD.ssn;
-    
-	DELETE
+
+    DELETE
     FROM HasDegree
     WHERE ssn = OLD.ssn;
 
@@ -1297,7 +1297,7 @@ BEGIN
     DELETE
     FROM Experience
     WHERE ssn = OLD.ssn;
-    
+
     DELETE
     FROM Contract
     WHERE ssn = OLD.ssn;
