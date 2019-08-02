@@ -494,6 +494,7 @@ BEGIN
     CREATE TEMPORARY TABLE allGrades AS (SELECT grade, credits, gpa, credits * gpa mult
                                          FROM Course,
                                               Section,
+                                              SectionEnrollment,
                                               CourseCompleted
 
                                                   INNER JOIN LetterToGpa ON grade = letter

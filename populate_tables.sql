@@ -839,237 +839,454 @@ VALUES ('COMP353', 'COMP352', 'prerequisite'),
        ('PHYS393', 'PHYS334', 'corequisite');
 
 INSERT INTO SectionEnrollment
-VALUES (41, 889993771, 'C+'),
-       (45, 889993771, 'A-'),
-       (48, 889993771, 'B'),
-       (12, 399437700, 'B+'),
-       (15, 399437700, 'B+'),
-       (2, 399437700, 'FNS'),
-       (5, 399437700, 'FNS'),
-       (10, 399437700, 'FNS'),
-       (3, 399437700, 'B'),
-       (7, 399437700, 'B'),
-       (11, 399437700, 'B'),
-       (34, 779332036, 'C-'),
-       (35, 779332036, 'C-'),
-       (36, 779332036, 'C-'),
-       (54, 245007722, 'B+'),
-       (55, 245007722, 'B+'),
-       (56, 245007722, 'B'),
-       (57, 245007722, 'B'),
-       (58, 245007722, 'B'),
-       (59, 245007722, 'B+'),
-       (60, 245007722, 'B+'),
-       (30, 245007722, 'A'),
-       (31, 245007722, 'A'),
-       (33, 245007722, 'A'),
-       (54, 645399011, 'C+'),
-       (55, 645399011, 'C+'),
-       (21, 645399011, 'B+'),
-       (22, 645399011, 'B+'),
-       (24, 645399011, 'A'),
-       (25, 645399011, 'A'),
-       (27, 645399011, 'A-'),
-       (28, 645399011, 'A-'),
-       (13, 445761402, 'A'),
-       (17, 445761402, 'A'),
-       (3, 445761402, 'A-'),
-       (7, 445761402, 'A-'),
-       (11, 445761402, 'A-'),
-       (14, 616004712, 'A+'),
-       (20, 616004712, 'A+'),
-       (41, 223680290, 'A-'),
-       (44, 223680290, 'A-'),
-       (54, 453920929, 'B-'),
-       (55, 453920929, 'B-'),
-       (2, 453920929, 'B+'),
-       (5, 453920929, 'B+'),
-       (10, 453920929, 'B+'),
-       (21, 453920929, 'A'),
-       (23, 453920929, 'A'),
-       (45, 146344051, 'A-'),
-       (45, 157682678, 'A'),
-       (51, 157682678, 'A+'),
-       (52, 157682678, 'A+'),
-       (53, 157682678, 'A+'),
-       (54, 448602365, 'B-'),
-       (55, 448602365, 'B-'),
-       (56, 448602365, 'A'),
-       (57, 448602365, 'A'),
-       (58, 448602365, 'A'),
-       (59, 448602365, 'B'),
-       (60, 448602365, 'B'),
-       (51, 309348312, 'A+'),
-       (52, 309348312, 'A+'),
-       (54, 635775881, 'C'),
-       (55, 635775881, 'C'),
-       (56, 635775881, 'C'),
-       (57, 635775881, 'C'),
-       (58, 635775881, 'C'),
-       (59, 635775881, 'A'),
-       (60, 635775881, 'A'),
-       (30, 635775881, 'B+'),
-       (31, 635775881, 'B+'),
-       (33, 635775881, 'B+'),
-       (39, 563383616, 'B'),
-       (40, 563383616, 'B'),
-       (12, 891468783, 'A+'),
-       (15, 891468783, 'A+'),
-       (3, 891468783, 'B'),
-       (8, 891468783, 'B'),
-       (11, 891468783, 'B'),
-       (50, 610091459, 'C'),
-       (42, 108906305, 'B+'),
-       (48, 108906305, 'B'),
-       (46, 667004396, 'B+'),
-       (39, 752713919, 'A'),
-       (40, 752713919, 'A'),
-       (54, 882108144, 'A-'),
-       (55, 882108144, 'A-'),
-       (21, 882108144, 'B'),
-       (22, 882108144, 'B'),
-       (24, 882108144, 'A-'),
-       (25, 882108144, 'A-'),
-       (27, 882108144, 'A-'),
-       (28, 882108144, 'A-'),
-       (54, 809493224, 'A-'),
-       (55, 809493224, 'A-'),
-       (2, 809493224, 'A'),
-       (6, 809493224, 'A'),
-       (10, 809493224, 'A'),
-       (45, 814392875, 'A+'),
-       (12, 426299656, 'A'),
-       (15, 426299656, 'A'),
-       (2, 426299656, 'A+'),
-       (5, 426299656, 'A+'),
-       (10, 426299656, 'A+'),
-       (12, 357320964, 'A'),
-       (15, 357320964, 'A+'),
-       (3, 357320964, 'A+'),
-       (8, 357320964, 'A+'),
-       (11, 357320964, 'A+'),
-       (54, 881132104, 'C+'),
-       (55, 881132104, 'C+'),
-       (21, 881132104, 'A'),
-       (22, 881132104, 'A'),
-       (24, 881132104, 'A-'),
-       (25, 881132104, 'A-'),
-       (27, 881132104, 'A'),
-       (28, 881132104, 'A'),
-       (34, 508203017, 'B+'),
-       (35, 508203017, 'B+'),
-       (36, 508203017, 'B+'),
-       (54, 907806961, 'A'),
-       (55, 907806961, 'A'),
-       (12, 656597000, 'A+'),
-       (15, 656597000, 'A+'),
-       (3, 656597000, 'A'),
-       (7, 656597000, 'A'),
-       (11, 656597000, 'A'),
-       (48, 477176451, 'B+'),
-       (54, 964663021, 'A'),
-       (55, 964663021, 'A'),
-       (54, 249691790, 'B+'),
-       (55, 249691790, 'B+'),
-       (12, 665452486, 'A+'),
-       (15, 665452486, 'A+'),
-       (2, 665452486, 'A-'),
-       (5, 665452486, 'A-'),
-       (10, 665452486, 'A-'),
-       (54, 481996433, 'A'),
-       (55, 481996433, 'A'),
-       (56, 481996433, 'A-'),
-       (57, 481996433, 'A-'),
-       (58, 481996433, 'A-'),
-       (59, 481996433, 'B'),
-       (60, 481996433, 'B'),
-       (30, 481996433, 'B'),
-       (32, 481996433, 'B'),
-       (33, 481996433, 'B'),
-       (54, 786482339, 'A-'),
-       (55, 786482339, 'A-'),
-       (56, 786482339, 'A-'),
-       (57, 786482339, 'A-'),
-       (58, 786482339, 'A-'),
-       (59, 786482339, 'A+'),
-       (60, 786482339, 'A+'),
-       (30, 786482339, 'A+'),
-       (31, 786482339, 'A+'),
-       (33, 786482339, 'A+'),
-       (54, 927819640, 'A-'),
-       (55, 927819640, 'A-'),
-       (21, 927819640, 'A'),
-       (22, 927819640, 'A'),
-       (24, 927819640, 'A'),
-       (25, 927819640, 'A'),
-       (27, 927819640, 'A'),
-       (28, 927819640, 'A'),
-       (54, 867304329, 'B-'),
-       (55, 867304329, 'B-'),
-       (2, 867304329, 'A+'),
-       (6, 867304329, 'A+'),
-       (10, 867304329, 'A+'),
-       (54, 195238750, 'A+'),
-       (55, 195238750, 'A+'),
-       (2, 195238750, 'A-'),
-       (7, 195238750, 'A-'),
-       (10, 195238750, 'A-'),
-       (54, 934347739, 'A'),
-       (55, 934347739, 'A'),
-       (34, 934347739, 'A'),
-       (35, 934347739, 'A'),
-       (36, 934347739, 'A'),
-       (59, 934347739, 'A+'),
-       (60, 934347739, 'A+'),
-       (30, 934347739, 'A+'),
-       (31, 934347739, 'A+'),
-       (33, 934347739, 'A+'),
-       (46, 934347739, 'A'),
-       (51, 934347739, 'A+'),
-       (42, 934347739, 'A'),
-       (54, 246771994, 'B'),
-       (55, 246771994, 'B'),
-       (34, 403876313, 'A+'),
-       (35, 403876313, 'A'),
-       (36, 403876313, 'A+'),
-       (41, 683192608, 'B+'),
-       (44, 683192608, 'A-'),
-       (50, 635804780, 'A'),
-       (39, 177921799, 'A-'),
-       (40, 177921799, 'A-'),
-       (54, 965277745, 'A'),
-       (55, 965277745, 'A'),
-       (56, 965277745, 'A+'),
-       (57, 965277745, 'A+'),
-       (58, 965277745, 'A+'),
-       (59, 965277745, 'A'),
-       (60, 965277745, 'A'),
-       (30, 965277745, 'A'),
-       (32, 965277745, 'A'),
-       (33, 965277745, 'A'),
-       (51, 406932598, 'A'),
-       (52, 406932598, 'A'),
-       (53, 406932598, 'B-'),
-       (54, 204794691, 'B-'),
-       (55, 204794691, 'B-'),
-       (2, 204794691, 'A-'),
-       (7, 204794691, 'A-'),
-       (10, 204794691, 'A-'),
-       (12, 293904265, 'A-'),
-       (15, 293904265, 'A-'),
-       (2, 293904265, 'B'),
-       (5, 293904265, 'B'),
-       (10, 293904265, 'B'),
-       (54, 373307205, 'B+'),
-       (55, 373307205, 'B+'),
-       (56, 373307205, 'A'),
-       (57, 373307205, 'A'),
-       (58, 373307205, 'A'),
-       (59, 373307205, 'B'),
-       (60, 373307205, 'B'),
-       (30, 373307205, 'B+'),
-       (32, 373307205, 'B+'),
-       (33, 373307205, 'B+');
+VALUES (41, 889993771),
+       (45, 889993771),
+       (48, 889993771),
+       (12, 399437700),
+       (15, 399437700),
+       (2, 399437700),
+       (5, 399437700),
+       (10, 399437700),
+       (3, 399437700),
+       (7, 399437700),
+       (11, 399437700),
+       (34, 779332036),
+       (35, 779332036),
+       (36, 779332036),
+       (54, 245007722),
+       (55, 245007722),
+       (56, 245007722),
+       (57, 245007722),
+       (58, 245007722),
+       (59, 245007722),
+       (60, 245007722),
+       (30, 245007722),
+       (31, 245007722),
+       (33, 245007722),
+       (54, 645399011),
+       (55, 645399011),
+       (21, 645399011),
+       (22, 645399011),
+       (24, 645399011),
+       (25, 645399011),
+       (27, 645399011),
+       (28, 645399011),
+       (13, 445761402),
+       (17, 445761402),
+       (3, 445761402),
+       (7, 445761402),
+       (11, 445761402),
+       (14, 616004712),
+       (20, 616004712),
+       (41, 223680290),
+       (44, 223680290),
+       (54, 453920929),
+       (55, 453920929),
+       (2, 453920929),
+       (5, 453920929),
+       (10, 453920929),
+       (21, 453920929),
+       (23, 453920929),
+       (45, 146344051),
+       (45, 157682678),
+       (51, 157682678),
+       (52, 157682678),
+       (53, 157682678),
+       (54, 448602365),
+       (55, 448602365),
+       (56, 448602365),
+       (57, 448602365),
+       (58, 448602365),
+       (59, 448602365),
+       (60, 448602365),
+       (51, 309348312),
+       (52, 309348312),
+       (54, 635775881),
+       (55, 635775881),
+       (56, 635775881),
+       (57, 635775881),
+       (58, 635775881),
+       (59, 635775881),
+       (60, 635775881),
+       (30, 635775881),
+       (31, 635775881),
+       (33, 635775881),
+       (39, 563383616),
+       (40, 563383616),
+       (12, 891468783),
+       (15, 891468783),
+       (3, 891468783),
+       (8, 891468783),
+       (11, 891468783),
+       (50, 610091459),
+       (42, 108906305),
+       (48, 108906305),
+       (46, 667004396),
+       (39, 752713919),
+       (40, 752713919),
+       (54, 882108144),
+       (55, 882108144),
+       (21, 882108144),
+       (22, 882108144),
+       (24, 882108144),
+       (25, 882108144),
+       (27, 882108144),
+       (28, 882108144),
+       (54, 809493224),
+       (55, 809493224),
+       (2, 809493224),
+       (6, 809493224),
+       (10, 809493224),
+       (45, 814392875),
+       (12, 426299656),
+       (15, 426299656),
+       (2, 426299656),
+       (5, 426299656),
+       (10, 426299656),
+       (12, 357320964),
+       (15, 357320964),
+       (3, 357320964),
+       (8, 357320964),
+       (11, 357320964),
+       (54, 881132104),
+       (55, 881132104),
+       (21, 881132104),
+       (22, 881132104),
+       (24, 881132104),
+       (25, 881132104),
+       (27, 881132104),
+       (28, 881132104),
+       (34, 508203017),
+       (35, 508203017),
+       (36, 508203017),
+       (54, 907806961),
+       (55, 907806961),
+       (12, 656597000),
+       (15, 656597000),
+       (3, 656597000),
+       (7, 656597000),
+       (11, 656597000),
+       (48, 477176451),
+       (54, 964663021),
+       (55, 964663021),
+       (54, 249691790),
+       (55, 249691790),
+       (12, 665452486),
+       (15, 665452486),
+       (2, 665452486),
+       (5, 665452486),
+       (10, 665452486),
+       (54, 481996433),
+       (55, 481996433),
+       (56, 481996433),
+       (57, 481996433),
+       (58, 481996433),
+       (59, 481996433),
+       (60, 481996433),
+       (30, 481996433),
+       (32, 481996433),
+       (33, 481996433),
+       (54, 786482339),
+       (55, 786482339),
+       (56, 786482339),
+       (57, 786482339),
+       (58, 786482339),
+       (59, 786482339),
+       (60, 786482339),
+       (30, 786482339),
+       (31, 786482339),
+       (33, 786482339),
+       (54, 927819640),
+       (55, 927819640),
+       (21, 927819640),
+       (22, 927819640),
+       (24, 927819640),
+       (25, 927819640),
+       (27, 927819640),
+       (28, 927819640),
+       (54, 867304329),
+       (55, 867304329),
+       (2, 867304329),
+       (6, 867304329),
+       (10, 867304329),
+       (54, 195238750),
+       (55, 195238750),
+       (2, 195238750),
+       (7, 195238750),
+       (10, 195238750),
+       (54, 934347739),
+       (55, 934347739),
+       (34, 934347739),
+       (35, 934347739),
+       (36, 934347739),
+       (59, 934347739),
+       (60, 934347739),
+       (30, 934347739),
+       (31, 934347739),
+       (33, 934347739),
+       (46, 934347739),
+       (51, 934347739),
+       (42, 934347739),
+       (54, 246771994),
+       (55, 246771994),
+       (34, 403876313),
+       (35, 403876313),
+       (36, 403876313),
+       (41, 683192608),
+       (44, 683192608),
+       (50, 635804780),
+       (39, 177921799),
+       (40, 177921799),
+       (54, 965277745),
+       (55, 965277745),
+       (56, 965277745),
+       (57, 965277745),
+       (58, 965277745),
+       (59, 965277745),
+       (60, 965277745),
+       (30, 965277745),
+       (32, 965277745),
+       (33, 965277745),
+       (51, 406932598),
+       (52, 406932598),
+       (53, 406932598),
+       (54, 204794691),
+       (55, 204794691),
+       (2, 204794691),
+       (7, 204794691),
+       (10, 204794691),
+       (12, 293904265),
+       (15, 293904265),
+       (2, 293904265),
+       (5, 293904265),
+       (10, 293904265),
+       (54, 373307205),
+       (55, 373307205),
+       (56, 373307205),
+       (57, 373307205),
+       (58, 373307205),
+       (59, 373307205),
+       (60, 373307205),
+       (30, 373307205),
+       (32, 373307205),
+       (33, 373307205);
+
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (426299656, 'COMP353', 'fall', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (867304329, 'COMP353', 'fall', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (357320964, 'COMP353', 'winter', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (656597000, 'COMP352', 'summer', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (665452486, 'COMP352', 'summer', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (891468783, 'COMP352', 'summer', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (616004712, 'COMP352', 'summer', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (786482339, 'COEN345', 'winter', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (934347739, 'COEN345', 'winter', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (403876313, 'ELEC331', 'winter', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (814392875, 'MATH209', 'fall', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (157682678, 'PHYS334', 'winter', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (309348312, 'PHYS334', 'winter', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (934347739, 'PHYS334', 'winter', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (195238750, 'COMP352', 'summer', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (965277745, 'ELEC331', 'winter', 2017, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (786482339, 'SOEN341', 'winter', 2017, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (934347739, 'SOEN341', 'winter', 2017, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (809493224, 'COMP353', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (656597000, 'COMP353', 'winter', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (357320964, 'COMP352', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (426299656, 'COMP352', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (445761402, 'COMP352', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (453920929, 'SOEN341', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (881132104, 'SOEN341', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (927819640, 'SOEN341', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (645399011, 'SOEN342', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (927819640, 'SOEN342', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (881132104, 'SOEN343', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (927819640, 'SOEN343', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (245007722, 'COEN345', 'winter', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (965277745, 'COEN345', 'winter', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (934347739, 'ELEC331', 'winter', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (752713919, 'CHEM325', 'winter', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (934347739, 'ECON221', 'winter', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (157682678, 'MATH209', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (934347739, 'MATH209', 'winter', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (635804780, 'PSYC255', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (406932598, 'PHYS334', 'winter', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (481996433, 'COMP352', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (907806961, 'COMP352', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (934347739, 'COMP352', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (964663021, 'COMP352', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (965277745, 'COMP352', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (373307205, 'ELEC331', 'winter', 2017, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (448602365, 'ELEC331', 'winter', 2017, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (635775881, 'SOEN341', 'winter', 2017, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (965277745, 'SOEN341', 'winter', 2017, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (195238750, 'COMP353', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (204794691, 'COMP353', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (665452486, 'COMP353', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (445761402, 'COMP353', 'winter', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (293904265, 'COMP352', 'summer', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (881132104, 'SOEN342', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (882108144, 'SOEN342', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (645399011, 'SOEN343', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (882108144, 'SOEN343', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (177921799, 'CHEM325', 'winter', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (223680290, 'ECON221', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (223680290, 'ECON222', 'winter', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (683192608, 'ECON222', 'winter', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (146344051, 'MATH209', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (889993771, 'MATH209', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (786482339, 'COMP352', 'summer', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (809493224, 'COMP352', 'summer', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (882108144, 'COMP352', 'summer', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (927819640, 'COMP352', 'summer', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (481996433, 'ELEC331', 'winter', 2017, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (786482339, 'ELEC331', 'winter', 2017, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (453920929, 'COMP353', 'fall', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (399437700, 'COMP352', 'summer', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (645399011, 'SOEN341', 'fall', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (373307205, 'COEN345', 'winter', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (635775881, 'COEN345', 'winter', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (508203017, 'ELEC331', 'winter', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (683192608, 'ECON221', 'fall', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (108906305, 'ECON221', 'winter', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (667004396, 'MATH209', 'winter', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (477176451, 'ENGL233', 'winter', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (245007722, 'COMP352', 'summer', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (249691790, 'COMP352', 'summer', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (373307205, 'COMP352', 'summer', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (245007722, 'SOEN341', 'winter', 2017, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (293904265, 'COMP353', 'fall', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (399437700, 'COMP353', 'winter', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (891468783, 'COMP353', 'winter', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (882108144, 'SOEN341', 'fall', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (481996433, 'COEN345', 'winter', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (563383616, 'CHEM325', 'winter', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (108906305, 'ENGL233', 'winter', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (889993771, 'ENGL233', 'winter', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (246771994, 'COMP352', 'summer', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (245007722, 'ELEC331', 'winter', 2017, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (373307205, 'SOEN341', 'winter', 2017, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (448602365, 'SOEN341', 'winter', 2017, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (481996433, 'SOEN341', 'winter', 2017, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (204794691, 'COMP352', 'summer', 2018, 'B-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (448602365, 'COMP352', 'summer', 2018, 'B-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (453920929, 'COMP352', 'summer', 2018, 'B-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (867304329, 'COMP352', 'summer', 2018, 'B-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (889993771, 'ECON221', 'fall', 2018, 'C+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (645399011, 'COMP352', 'summer', 2018, 'C+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (881132104, 'COMP352', 'summer', 2018, 'C+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (610091459, 'PSYC255', 'summer', 2018, 'C');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (635775881, 'COMP352', 'summer', 2018, 'C');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (635775881, 'ELEC331', 'winter', 2017, 'C');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (779332036, 'ELEC331', 'winter', 2018, 'C-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (399437700, 'COMP353', 'fall', 2018, 'FNS');
 
 INSERT INTO TAPosition
 VALUES (4, 'TA', 35, 882108144, 1000),
