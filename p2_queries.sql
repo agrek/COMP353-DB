@@ -1,14 +1,93 @@
 # i. Create/Delete/Edit/Display a faculty member.
+# a) Create
+INSERT INTO Instructor (ssn, dept_id, funding_available)
+values (666666666, 3, FALSE);
+
+# b) Delete
+DELETE
+FROM Instructor
+WHERE ssn = 666666666;
+
+# c) Edit
+UPDATE Instructor
+SET dept_id = 7
+WHERE ssn = 666666666;
+
+# d) Display
+SELECT concat(first_name, ' ', last_name)                       AS Professor,
+       concat(office_building_abbreviation, office_room_number) AS office,
+       phone,
+       email,
+       postal_code,
+       city
+FROM Person
+         INNER JOIN Employee ON Person.ssn = Employee.ssn
+         INNER JOIN Address ON Person.address = Address.id
+WHERE Person.ssn = 666666666;
 
 # ii. Create/Delete/Edit/Display a Student.
+# a) Create
+INSERT INTO Student(ssn)
+values (777777777);
+
+# b) Delete
+DELETE
+FROM Student
+WHERE ssn = 777777777;
+
+# c) Edit
+UPDATE Person -- bypassing Student table (!)
+SET last_name = 'Untermyer'
+WHERE ssn = 777777777;
+
+# d) Display
+SELECT concat(first_name, ' ', last_name) AS name,
+       phone,
+       email,
+       postal_code,
+       city
+FROM Person
+         INNER JOIN Address ON Person.address = Address.id
+WHERE Person.ssn = 777777777;
 
 # iii. Create/Delete/Edit/Display a Teaching Assistant.
+# a) Create
+INSERT INTO TAPosition
+values (64, 'Lab Instructor', 50, 965277745, 1000);
+
+# b) Delete
+DELETE
+FROM TAPosition
+WHERE assignee_ssn = 965277745;
+
+# c) Edit
+UPDATE TAPosition
+SET salary = 1200
+WHERE assignee_ssn = 965277745;
+
+# d) Display
+SELECT concat(first_name, ' ', last_name) AS name,
+       phone,
+       email,
+       postal_code,
+       city,
+       section_id,
+       position,
+       term,
+       year,
+       salary
+FROM Person
+         INNER JOIN Address ON Person.address = Address.id
+         INNER JOIN TAPosition ON assignee_ssn = Person.ssn
+         INNER JOIN Section ON TAPosition.section_id = Section.id
+WHERE Person.ssn = 965277745;
 
 # iv. Give a list of all campuses.
 SELECT *
 FROM Campus;
 
 # v. Give a list of buildings on a given campus.
+
 SELECT name, abbreviation
 FROM Building
 WHERE campus IN (
@@ -22,6 +101,40 @@ WHERE campus IN (
 # such as room type, capacity of the room and existing facilities in the room
 # if it is a classroom or a lab.
 
+-- subquery group_concat the equipment; main query group_concat the rooms
+SELECT name,
+       street,
+       city,
+       postal_code,
+       num_floors,
+       total_number_rooms,
+       room_floor,
+       count(room_number)                                                               AS room_per_floor,
+       group_concat(room_number, ' (', type, ')', ' [', equipment, ']' SEPARATOR ' | ') AS rooms
+FROM (
+         SELECT name,
+                A.street,
+                A.city,
+                A.postal_code,
+                num_floors,
+                Building.num_rooms                                                             AS total_number_rooms,
+                R.room_number,
+                R.type,
+                R.room_floor,
+                group_concat(ifnull(quantity, ''), ' ', ifnull(equipment, '') SEPARATOR ' & ') AS equipment
+
+         FROM Building
+                  LEFT JOIN Address A ON Building.address = A.id
+                  LEFT JOIN Room R ON Building.abbreviation = R.building_abbreviation
+                  LEFT JOIN RoomNeeds RN
+                            ON R.building_abbreviation = RN.building_abbreviation AND R.room_floor = RN.room_floor AND
+                               R.room_number = RN.room_number
+                  LEFT JOIN RoomOverhead RO ON RN.room_overhead_id = RO.id
+         WHERE Building.abbreviation = 'H'
+         GROUP BY R.room_number
+     ) temp
+GROUP BY room_floor;
+
 # vii. Get a list of all programs available in a specific department along with the
 # number of credits required for completion in each program.
 
@@ -31,6 +144,7 @@ FROM Program
 WHERE Department.name = 'Computer Science';
 
 # viii. Get a list of all courses offered in a given term by a specific program.
+
 SELECT code, Course.name AS course_name
 FROM Course
          INNER JOIN Section ON Course.code = Section.course_code
@@ -108,7 +222,6 @@ WHERE ssn IN (
 );
 
 # xii. Give a list of all supervisors in a given department.
-
 SELECT DISTINCT concat(first_name, ' ', last_name) AS supervisior
 FROM GradStudents
          INNER JOIN Person ON supervisor_ssn = Person.ssn;
@@ -208,8 +321,47 @@ WHERE year = 2018
 
 # xx. Register a student in a specific course.
 
+-- this i did on 2 steps in order to choose the section; subquerying the section would return multiple records (!)
+SELECT id
+FROM Section
+WHERE course_code = 'CHEM325';
+
+INSERT INTO SectionEnrollment
+values (39, 777777777, 'C');
+
 # xxi. Drop a course for a specific student.
+
+DELETE
+FROM SectionEnrollment
+WHERE SectionEnrollment.student_ssn = 777777777
+  AND SectionEnrollment.section_id IN (
+    SELECT *
+    FROM (SELECT S.id
+          FROM Section S
+                   RIGHT JOIN SectionEnrollment ON S.id = SectionEnrollment.section_id
+          WHERE course_code = 'CHEM325') temp);
 
 # xxii. Give a detailed report for a specific student (This include personal data,
 # academic history, courses taken and grades received for each course,
 # GPA, etc.)
+
+-- some folks have more than 4 degrees... (!)
+SELECT concat(Person.first_name, ' ', Person.last_name)                                          AS name,
+       email,
+       Person.id,
+       Person.ssn,
+       Student.gpa,
+       group_concat(Experience.company SEPARATOR ', ')                                           AS experience,
+       group_concat(Degree.name SEPARATOR ', ')                                                  AS degrees,
+       group_concat(Awards.name SEPARATOR ', ')                                                  AS awards,
+       group_concat(Section.course_code, '= \'', SectionEnrollment.grade, '\'' SEPARATOR '\r\n') AS grades
+FROM Person
+         INNER JOIN Student ON Person.ssn = Student.ssn
+         LEFT JOIN Experience ON Person.ssn = Experience.ssn
+         LEFT JOIN HasDegree ON Person.ssn = HasDegree.ssn
+         LEFT JOIN Degree ON degree_id = Degree.id
+         LEFT JOIN Awards ON Awards.ssn = Student.ssn
+         LEFT JOIN SectionEnrollment ON Student.ssn = SectionEnrollment.student_ssn
+         LEFT JOIN Section ON SectionEnrollment.section_id = Section.id
+WHERE Student_ssn = 448602365
+GROUP BY Person.ssn;
