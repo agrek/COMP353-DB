@@ -100,6 +100,18 @@ INSERT INTO SectionEnrollment
 VALUES (50, 399437700);
 
 /*
+    6) Students enrolled in a Thesis based program can apply for research funding
+    if available under their supervisor.
+ */
+SELECT GradStudents.ssn, supervisor_ssn, funding_available
+FROM GradStudents
+INNER JOIN Instructor I on GradStudents.supervisor_ssn = I.ssn
+WHERE funding_available = FALSE AND GradStudents.ssn = 881132104;
+
+INSERT INTO ResearchFundingApplications
+    VALUES (26, 'granted', 881132104, 1, 2018, 'fall');
+
+/*
     7) Only graduate students with GPA 3.0 and above are eligible to apply for
     research funding.
  */
