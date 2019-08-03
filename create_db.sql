@@ -477,41 +477,29 @@ CREATE TABLE ProgramRequirements
 );
 
 
-DROP TRIGGER IF EXISTS gpaTrigger;
+DROP TRIGGER IF EXISTS courseCompletedTrigger;
 DELIMITER //
-CREATE TRIGGER gpaTrigger
+CREATE TRIGGER courseCompletedTrigger
 
     AFTER INSERT
-    ON SectionEnrollment
+    ON CourseCompleted
     FOR EACH ROW
 
 BEGIN
     /******************* Update GPA *******************/
-
     DROP TEMPORARY TABLE IF EXISTS tempResult;
     DROP TEMPORARY TABLE IF EXISTS allGrades;
 
     CREATE TEMPORARY TABLE allGrades AS (SELECT grade, credits, gpa, credits * gpa mult
                                          FROM Course,
-                                              Section,
-                                              SectionEnrollment,
                                               CourseCompleted
-
                                                   INNER JOIN LetterToGpa ON grade = letter
-
-                                         WHERE section_id = Section.id
-                                           AND Section.course_code = Course.code
-                                           AND type = 'lecture'
+                                         WHERE CourseCompleted.course_code = Course.code
                                            AND student_ssn = NEW.student_ssn);
 
     SELECT SUM(credits) INTO @sumCredits FROM allGrades;
     SELECT SUM(mult) INTO @sumMult FROM allGrades;
-    CREATE TEMPORARY TABLE tempResult
-    (
-        resultGPA FLOAT(8)
-    );
 
-    INSERT INTO tempResult VALUES (@sumMult / @sumCredits);
     UPDATE Student SET gpa=(@sumMult / @sumCredits) WHERE ssn = NEW.student_ssn;
 
 END;
@@ -589,23 +577,13 @@ BEGIN
                                          FROM Requisites
                                                   INNER JOIN Course_Code ON Requisites.course_code = Course_Code.course_code
                                          WHERE type = 'prerequisite');
-    -- req_secs has all sections given for the prereqs classes
-    CREATE TEMPORARY TABLE req_secs AS (SELECT id, Section.course_code
-                                        FROM Section
-                                                 INNER JOIN req_table ON Section.course_code = req_table.req_code);
-    CREATE TEMPORARY TABLE req_secs2 AS (SELECT * FROM req_secs);
+
 
     CREATE TEMPORARY TABLE fail_grade AS (
-        SELECT Section.course_code, grade
-        FROM Section,
-             SectionEnrollment,
-             CourseCompleted,
-             req_table,
-             req_secs
-        WHERE Section.id = SectionEnrollment.section_id
-          AND req_table.req_code = Section.course_code
-          AND SectionEnrollment.student_ssn = NEW.student_ssn
-          AND req_secs.course_code = req_table.req_code
+        SELECT course_code, grade
+        FROM CourseCompleted
+        INNER JOIN req_table ON CourseCompleted.course_code = req_table.req_code
+        WHERE CourseCompleted.student_ssn = NEW.student_ssn
           AND (grade = 'F' OR grade = 'FNS' OR grade = 'R' OR grade = 'NR')
     );
 
@@ -614,14 +592,10 @@ BEGIN
 
     SELECT count(*)
     INTO @notTaken
-    FROM (SELECT Section.course_code, grade
-          FROM Section,
-               SectionEnrollment,
-               CourseCompleted,
-               req_table
-          WHERE Section.id = SectionEnrollment.section_id
-            AND req_table.req_code = Section.course_code
-            AND SectionEnrollment.student_ssn = NEW.student_ssn) t;
+    FROM (SELECT course_code, grade
+          FROM CourseCompleted
+          INNER JOIN req_table ON CourseCompleted.course_code = req_table.req_code
+          WHERE CourseCompleted.student_ssn = NEW.student_ssn) t;
     IF (@numFail > 0 OR ((@notTaken = 0) AND (@num_Pre > 0))) THEN
         /*DELETE FROM SectionEnrollment WHERE student_ssn=NEW.student_ssn;*/
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =

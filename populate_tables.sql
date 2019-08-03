@@ -685,22 +685,22 @@ VALUES (1, 'Research Grant in Computer Science 2', 800),
        (9, 'Pure Applied Science Graduate Funding', 18500),
        (10, 'Graduate Fubding for Liberal Arts', 12500);
 
-INSERT INTO ResearchFundingApplications VALUE (1, 'granted', 309348312, 1, 2018, 'fall');
-INSERT INTO ResearchFundingApplications VALUE (2, 'granted', 964663021, 2, 2018, 'fall');
-INSERT INTO ResearchFundingApplications VALUE (4, 'granted', 656597000, 4, 2018, 'fall');
-INSERT INTO ResearchFundingApplications VALUE (5, 'denied', 195238750, 2, 2018, 'winter');
-INSERT INTO ResearchFundingApplications VALUE (6, 'denied', 964663021, 4, 2018, 'fall');
-INSERT INTO ResearchFundingApplications VALUE (7, 'denied', 477176451, 1, 2018, 'fall');
-INSERT INTO ResearchFundingApplications VALUE (8, 'denied', 477176451, 2, 2019, 'winter');
-INSERT INTO ResearchFundingApplications VALUE (9, 'denied', 477176451, 3, 2017, 'fall');
-INSERT INTO ResearchFundingApplications VALUE (10, 'denied', 477176451, 4, 2018, 'summer');
-INSERT INTO ResearchFundingApplications VALUE (11, 'denied', 426299656, 3, 2018, 'fall');
-INSERT INTO ResearchFundingApplications VALUE (15, 'applied', 453920929, 5, 2018, 'fall');
-INSERT INTO ResearchFundingApplications VALUE (16, 'denied', 146344051, 6, 2018, 'winter');
-INSERT INTO ResearchFundingApplications VALUE (17, 'denied', 907806961, 6, 2018, 'fall');
-INSERT INTO ResearchFundingApplications VALUE (18, 'denied', 882108144, 6, 2018, 'fall');
-INSERT INTO ResearchFundingApplications VALUE (24, 'denied', 406932598, 9, 2018, 'fall');
-INSERT INTO ResearchFundingApplications VALUE (25, 'denied', 635804780, 10, 2018, 'summer');
+INSERT INTO ResearchFundingApplications VALUES (1, 'granted', 309348312, 1, 2018, 'fall')
+, (2, 'granted', 964663021, 2, 2018, 'fall')
+, (4, 'granted', 656597000, 4, 2018, 'fall')
+, (5, 'denied', 195238750, 2, 2018, 'winter')
+, (6, 'denied', 964663021, 4, 2018, 'fall')
+, (7, 'denied', 477176451, 1, 2018, 'fall')
+, (8, 'denied', 477176451, 2, 2019, 'winter')
+, (9, 'denied', 477176451, 3, 2017, 'fall')
+, (10, 'denied', 477176451, 4, 2018, 'summer')
+, (11, 'denied', 426299656, 3, 2018, 'fall')
+, (15, 'applied', 453920929, 5, 2018, 'fall')
+, (16, 'denied', 146344051, 6, 2018, 'winter')
+, (17, 'denied', 907806961, 6, 2018, 'fall')
+, (18, 'denied', 882108144, 6, 2018, 'fall')
+, (24, 'denied', 406932598, 9, 2018, 'fall')
+, (25, 'denied', 635804780, 10, 2018, 'summer');
 
 INSERT INTO Studies
 VALUES (399437700, 17),
@@ -837,6 +837,224 @@ VALUES ('COMP353', 'COMP352', 'prerequisite'),
        ('COEN345', 'ELEC331', 'prerequisite'),
        ('ECON222', 'ECON221', 'prerequisite'),
        ('PHYS393', 'PHYS334', 'corequisite');
+
+
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (426299656, 'COMP353', 'fall', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (867304329, 'COMP353', 'fall', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (357320964, 'COMP353', 'winter', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (656597000, 'COMP352', 'summer', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (665452486, 'COMP352', 'summer', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (891468783, 'COMP352', 'summer', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (616004712, 'COMP352', 'summer', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (786482339, 'COEN345', 'winter', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (934347739, 'COEN345', 'winter', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (403876313, 'ELEC331', 'winter', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (814392875, 'MATH209', 'fall', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (157682678, 'PHYS334', 'winter', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (309348312, 'PHYS334', 'winter', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (934347739, 'PHYS334', 'winter', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (195238750, 'COMP352', 'summer', 2018, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (965277745, 'ELEC331', 'winter', 2017, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (786482339, 'SOEN341', 'winter', 2017, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (934347739, 'SOEN341', 'winter', 2017, 'A+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (809493224, 'COMP353', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (656597000, 'COMP353', 'winter', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (357320964, 'COMP352', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (426299656, 'COMP352', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (445761402, 'COMP352', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (453920929, 'SOEN341', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (881132104, 'SOEN341', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (927819640, 'SOEN341', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (645399011, 'SOEN342', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (927819640, 'SOEN342', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (881132104, 'SOEN343', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (927819640, 'SOEN343', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (245007722, 'COEN345', 'winter', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (965277745, 'COEN345', 'winter', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (934347739, 'ELEC331', 'winter', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (752713919, 'CHEM325', 'winter', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (934347739, 'ECON221', 'winter', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (157682678, 'MATH209', 'fall', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (934347739, 'MATH209', 'winter', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (635804780, 'PSYC255', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (406932598, 'PHYS334', 'winter', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (481996433, 'COMP352', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (907806961, 'COMP352', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (934347739, 'COMP352', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (964663021, 'COMP352', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (965277745, 'COMP352', 'summer', 2018, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (373307205, 'ELEC331', 'winter', 2017, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (448602365, 'ELEC331', 'winter', 2017, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (635775881, 'SOEN341', 'winter', 2017, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (965277745, 'SOEN341', 'winter', 2017, 'A');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (195238750, 'COMP353', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (204794691, 'COMP353', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (665452486, 'COMP353', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (445761402, 'COMP353', 'winter', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (293904265, 'COMP352', 'summer', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (881132104, 'SOEN342', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (882108144, 'SOEN342', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (645399011, 'SOEN343', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (882108144, 'SOEN343', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (177921799, 'CHEM325', 'winter', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (223680290, 'ECON221', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (223680290, 'ECON222', 'winter', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (683192608, 'ECON222', 'winter', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (146344051, 'MATH209', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (889993771, 'MATH209', 'fall', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (786482339, 'COMP352', 'summer', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (809493224, 'COMP352', 'summer', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (882108144, 'COMP352', 'summer', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (927819640, 'COMP352', 'summer', 2018, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (481996433, 'ELEC331', 'winter', 2017, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (786482339, 'ELEC331', 'winter', 2017, 'A-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (453920929, 'COMP353', 'fall', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (399437700, 'COMP352', 'summer', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (645399011, 'SOEN341', 'fall', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (373307205, 'COEN345', 'winter', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (635775881, 'COEN345', 'winter', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (508203017, 'ELEC331', 'winter', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (683192608, 'ECON221', 'fall', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (108906305, 'ECON221', 'winter', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (667004396, 'MATH209', 'winter', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (477176451, 'ENGL233', 'winter', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (245007722, 'COMP352', 'summer', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (249691790, 'COMP352', 'summer', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (373307205, 'COMP352', 'summer', 2018, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (245007722, 'SOEN341', 'winter', 2017, 'B+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (293904265, 'COMP353', 'fall', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (399437700, 'COMP353', 'winter', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (891468783, 'COMP353', 'winter', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (882108144, 'SOEN341', 'fall', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (481996433, 'COEN345', 'winter', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (563383616, 'CHEM325', 'winter', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (108906305, 'ENGL233', 'winter', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (889993771, 'ENGL233', 'winter', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (246771994, 'COMP352', 'summer', 2018, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (245007722, 'ELEC331', 'winter', 2017, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (373307205, 'SOEN341', 'winter', 2017, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (448602365, 'SOEN341', 'winter', 2017, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (481996433, 'SOEN341', 'winter', 2017, 'B');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (204794691, 'COMP352', 'summer', 2018, 'B-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (448602365, 'COMP352', 'summer', 2018, 'B-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (453920929, 'COMP352', 'summer', 2018, 'B-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (867304329, 'COMP352', 'summer', 2018, 'B-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (889993771, 'ECON221', 'fall', 2018, 'C+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (645399011, 'COMP352', 'summer', 2018, 'C+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (881132104, 'COMP352', 'summer', 2018, 'C+');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (610091459, 'PSYC255', 'summer', 2018, 'C');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (635775881, 'COMP352', 'summer', 2018, 'C');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (635775881, 'ELEC331', 'winter', 2017, 'C');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (779332036, 'ELEC331', 'winter', 2018, 'C-');
+INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
+VALUES (399437700, 'COMP353', 'fall', 2018, 'FNS');
 
 INSERT INTO SectionEnrollment
 VALUES (41, 889993771),
@@ -1071,222 +1289,6 @@ VALUES (41, 889993771),
        (32, 373307205),
        (33, 373307205);
 
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (426299656, 'COMP353', 'fall', 2018, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (867304329, 'COMP353', 'fall', 2018, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (357320964, 'COMP353', 'winter', 2018, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (656597000, 'COMP352', 'summer', 2018, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (665452486, 'COMP352', 'summer', 2018, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (891468783, 'COMP352', 'summer', 2018, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (616004712, 'COMP352', 'summer', 2018, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (786482339, 'COEN345', 'winter', 2018, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (934347739, 'COEN345', 'winter', 2018, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (403876313, 'ELEC331', 'winter', 2018, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (814392875, 'MATH209', 'fall', 2018, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (157682678, 'PHYS334', 'winter', 2018, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (309348312, 'PHYS334', 'winter', 2018, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (934347739, 'PHYS334', 'winter', 2018, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (195238750, 'COMP352', 'summer', 2018, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (965277745, 'ELEC331', 'winter', 2017, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (786482339, 'SOEN341', 'winter', 2017, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (934347739, 'SOEN341', 'winter', 2017, 'A+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (809493224, 'COMP353', 'fall', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (656597000, 'COMP353', 'winter', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (357320964, 'COMP352', 'summer', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (426299656, 'COMP352', 'summer', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (445761402, 'COMP352', 'summer', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (453920929, 'SOEN341', 'fall', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (881132104, 'SOEN341', 'fall', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (927819640, 'SOEN341', 'fall', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (645399011, 'SOEN342', 'fall', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (927819640, 'SOEN342', 'fall', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (881132104, 'SOEN343', 'fall', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (927819640, 'SOEN343', 'fall', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (245007722, 'COEN345', 'winter', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (965277745, 'COEN345', 'winter', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (934347739, 'ELEC331', 'winter', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (752713919, 'CHEM325', 'winter', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (934347739, 'ECON221', 'winter', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (157682678, 'MATH209', 'fall', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (934347739, 'MATH209', 'winter', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (635804780, 'PSYC255', 'summer', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (406932598, 'PHYS334', 'winter', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (481996433, 'COMP352', 'summer', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (907806961, 'COMP352', 'summer', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (934347739, 'COMP352', 'summer', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (964663021, 'COMP352', 'summer', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (965277745, 'COMP352', 'summer', 2018, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (373307205, 'ELEC331', 'winter', 2017, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (448602365, 'ELEC331', 'winter', 2017, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (635775881, 'SOEN341', 'winter', 2017, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (965277745, 'SOEN341', 'winter', 2017, 'A');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (195238750, 'COMP353', 'fall', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (204794691, 'COMP353', 'fall', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (665452486, 'COMP353', 'fall', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (445761402, 'COMP353', 'winter', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (293904265, 'COMP352', 'summer', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (881132104, 'SOEN342', 'fall', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (882108144, 'SOEN342', 'fall', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (645399011, 'SOEN343', 'fall', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (882108144, 'SOEN343', 'fall', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (177921799, 'CHEM325', 'winter', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (223680290, 'ECON221', 'fall', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (223680290, 'ECON222', 'winter', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (683192608, 'ECON222', 'winter', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (146344051, 'MATH209', 'fall', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (889993771, 'MATH209', 'fall', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (786482339, 'COMP352', 'summer', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (809493224, 'COMP352', 'summer', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (882108144, 'COMP352', 'summer', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (927819640, 'COMP352', 'summer', 2018, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (481996433, 'ELEC331', 'winter', 2017, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (786482339, 'ELEC331', 'winter', 2017, 'A-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (453920929, 'COMP353', 'fall', 2018, 'B+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (399437700, 'COMP352', 'summer', 2018, 'B+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (645399011, 'SOEN341', 'fall', 2018, 'B+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (373307205, 'COEN345', 'winter', 2018, 'B+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (635775881, 'COEN345', 'winter', 2018, 'B+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (508203017, 'ELEC331', 'winter', 2018, 'B+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (683192608, 'ECON221', 'fall', 2018, 'B+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (108906305, 'ECON221', 'winter', 2018, 'B+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (667004396, 'MATH209', 'winter', 2018, 'B+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (477176451, 'ENGL233', 'winter', 2018, 'B+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (245007722, 'COMP352', 'summer', 2018, 'B+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (249691790, 'COMP352', 'summer', 2018, 'B+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (373307205, 'COMP352', 'summer', 2018, 'B+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (245007722, 'SOEN341', 'winter', 2017, 'B+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (293904265, 'COMP353', 'fall', 2018, 'B');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (399437700, 'COMP353', 'winter', 2018, 'B');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (891468783, 'COMP353', 'winter', 2018, 'B');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (882108144, 'SOEN341', 'fall', 2018, 'B');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (481996433, 'COEN345', 'winter', 2018, 'B');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (563383616, 'CHEM325', 'winter', 2018, 'B');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (108906305, 'ENGL233', 'winter', 2018, 'B');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (889993771, 'ENGL233', 'winter', 2018, 'B');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (246771994, 'COMP352', 'summer', 2018, 'B');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (245007722, 'ELEC331', 'winter', 2017, 'B');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (373307205, 'SOEN341', 'winter', 2017, 'B');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (448602365, 'SOEN341', 'winter', 2017, 'B');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (481996433, 'SOEN341', 'winter', 2017, 'B');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (204794691, 'COMP352', 'summer', 2018, 'B-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (448602365, 'COMP352', 'summer', 2018, 'B-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (453920929, 'COMP352', 'summer', 2018, 'B-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (867304329, 'COMP352', 'summer', 2018, 'B-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (889993771, 'ECON221', 'fall', 2018, 'C+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (645399011, 'COMP352', 'summer', 2018, 'C+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (881132104, 'COMP352', 'summer', 2018, 'C+');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (610091459, 'PSYC255', 'summer', 2018, 'C');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (635775881, 'COMP352', 'summer', 2018, 'C');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (635775881, 'ELEC331', 'winter', 2017, 'C');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (779332036, 'ELEC331', 'winter', 2018, 'C-');
-INSERT INTO CourseCompleted(student_ssn, course_code, term, year, grade)
-VALUES (399437700, 'COMP353', 'fall', 2018, 'FNS');
 
 INSERT INTO TAPosition
 VALUES (4, 'TA', 35, 882108144, 1000),
