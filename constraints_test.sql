@@ -47,7 +47,7 @@ FROM Section
 WHERE id = 1;
 
 INSERT INTO Section
-VALUES (1, 'A23', 'RoomViolation', 'lecture', 'M, W', '14:45:00', '17:00:00', 'summer', '2018', 254156867, 'H', 5, 535);
+VALUES (100, 'A23', 'RoomViolation', 'lecture', 'M, W', '14:45:00', '17:00:00', 'summer', '2018', 254156867, 'H', 5, 535);
 
 /*
     4) One instructor cannot be assigned to two sections in a conflicting time-slots.
@@ -66,7 +66,7 @@ FROM Section
 WHERE id = 1;
 
 INSERT INTO Section
-VALUES (1, 'A24', 'InstViolation', 'lecture', 'M, W', '15:00:00', '17:00:00', 'summer', '2018', 254156867, 'H', 9, 903);
+VALUES (101, 'A24', 'InstViolation', 'lecture', 'M, W', '15:00:00', '17:00:00', 'summer', '2018', 254156867, 'H', 9, 903);
 
 /*
     5) One student cannot take two different classes in a conflicting time-slots.
@@ -222,3 +222,11 @@ WHERE building_abbreviation = 'H'
 
 INSERT INTO SectionEnrollment
 VALUES (48, 399437700);
+
+/*
+    14) End_time should be after start_time in Section
+ */
+
+INSERT INTO Section
+VALUES (102, 'A24', 'COMP353', 'lecture', 'M, W', '15:00:00', '13:00:00', 'summer', '2018', 000000000, 'H', 9, 903);
+

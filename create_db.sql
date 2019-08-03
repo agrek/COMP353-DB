@@ -856,6 +856,12 @@ CREATE TRIGGER secTrig
     FOR EACH ROW
 BEGIN
 
+    /******************* Valid Start and End Times *******************/
+    IF (NEW.end_time < NEW.start_time) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The end time occurs before start time which is invalid';
+    END IF;
+
+
     /******************* Time Conflicts Check *******************/
     DROP TEMPORARY TABLE IF EXISTS numbers;
     DROP TEMPORARY TABLE IF EXISTS newRow;
