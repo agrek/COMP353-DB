@@ -364,7 +364,7 @@ FROM Person
          LEFT JOIN HasDegree ON Person.ssn = HasDegree.ssn
          LEFT JOIN Degree ON degree_id = Degree.id
          LEFT JOIN Awards ON Awards.ssn = Person.ssn
-         LEFT JOIN Publications Pub on Person.ssn = Pub.ssn
-         LEFT JOIN CourseCompleted CC on Person.ssn = CC.student_ssn
+         LEFT JOIN Publications Pub ON Person.ssn = Pub.ssn
+         LEFT JOIN CourseCompleted CC ON Person.ssn = CC.student_ssn
 WHERE Student_ssn = 934347739
 GROUP BY Person.ssn;
