@@ -578,11 +578,10 @@ BEGIN
                                                   INNER JOIN Course_Code ON Requisites.course_code = Course_Code.course_code
                                          WHERE type = 'prerequisite');
 
-
     CREATE TEMPORARY TABLE fail_grade AS (
         SELECT course_code, grade
         FROM CourseCompleted
-        INNER JOIN req_table ON CourseCompleted.course_code = req_table.req_code
+                 INNER JOIN req_table ON CourseCompleted.course_code = req_table.req_code
         WHERE CourseCompleted.student_ssn = NEW.student_ssn
           AND (grade = 'F' OR grade = 'FNS' OR grade = 'R' OR grade = 'NR')
     );
@@ -594,7 +593,7 @@ BEGIN
     INTO @notTaken
     FROM (SELECT course_code, grade
           FROM CourseCompleted
-          INNER JOIN req_table ON CourseCompleted.course_code = req_table.req_code
+                   INNER JOIN req_table ON CourseCompleted.course_code = req_table.req_code
           WHERE CourseCompleted.student_ssn = NEW.student_ssn) t;
     IF (@numFail > 0 OR ((@notTaken = 0) AND (@num_Pre > 0))) THEN
         /*DELETE FROM SectionEnrollment WHERE student_ssn=NEW.student_ssn;*/
@@ -860,7 +859,6 @@ BEGIN
     IF (NEW.end_time < NEW.start_time) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The end time occurs before start time which is invalid';
     END IF;
-
 
     /******************* Time Conflicts Check *******************/
     DROP TEMPORARY TABLE IF EXISTS numbers;

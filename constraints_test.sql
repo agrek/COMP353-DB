@@ -7,7 +7,9 @@ SELECT DISTINCT course_code
 FROM CourseCompleted
 WHERE student_ssn = 889993771;
 
-SELECT * FROM Section WHERE id = 2;
+SELECT *
+FROM Section
+WHERE id = 2;
 
 INSERT INTO SectionEnrollment
 VALUES (2, 889993771);
@@ -23,7 +25,9 @@ FROM SectionEnrollment
 WHERE student_ssn = 399437700
   AND id = 5;
 
-SELECT id, course_code, type, year, term FROM Section WHERE id = 6;
+SELECT id, course_code, type, year, term
+FROM Section
+WHERE id = 6;
 
 INSERT INTO SectionEnrollment
 VALUES (6, 399437700);
@@ -47,7 +51,8 @@ FROM Section
 WHERE id = 1;
 
 INSERT INTO Section
-VALUES (100, 'A23', 'RoomViolation', 'lecture', 'M, W', '14:45:00', '17:00:00', 'summer', '2018', 254156867, 'H', 5, 535);
+VALUES (100, 'A23', 'RoomViolation', 'lecture', 'M, W', '14:45:00', '17:00:00', 'summer', '2018', 254156867, 'H', 5,
+        535);
 
 /*
     4) One instructor cannot be assigned to two sections in a conflicting time-slots.
@@ -66,7 +71,8 @@ FROM Section
 WHERE id = 1;
 
 INSERT INTO Section
-VALUES (101, 'A24', 'InstViolation', 'lecture', 'M, W', '15:00:00', '17:00:00', 'summer', '2018', 254156867, 'H', 9, 903);
+VALUES (101, 'A24', 'InstViolation', 'lecture', 'M, W', '15:00:00', '17:00:00', 'summer', '2018', 254156867, 'H', 9,
+        903);
 
 /*
     5) One student cannot take two different classes in a conflicting time-slots.
@@ -105,11 +111,12 @@ VALUES (50, 399437700);
  */
 SELECT GradStudents.ssn, supervisor_ssn, funding_available
 FROM GradStudents
-INNER JOIN Instructor I on GradStudents.supervisor_ssn = I.ssn
-WHERE funding_available = FALSE AND GradStudents.ssn = 881132104;
+         INNER JOIN Instructor I ON GradStudents.supervisor_ssn = I.ssn
+WHERE funding_available = FALSE
+  AND GradStudents.ssn = 881132104;
 
 INSERT INTO ResearchFundingApplications
-    VALUES (26, 'granted', 881132104, 1, 2018, 'fall');
+VALUES (26, 'granted', 881132104, 1, 2018, 'fall');
 
 /*
     7) Only graduate students with GPA 3.0 and above are eligible to apply for
@@ -147,7 +154,9 @@ FROM TAPosition
          INNER JOIN Section ON section_id = id
 WHERE assignee_ssn = 177921799;
 
-SELECT id, year, term FROM Section WHERE id = 3;
+SELECT id, year, term
+FROM Section
+WHERE id = 3;
 
 INSERT INTO TAPosition
 VALUES (3, 'marker', 20, 177921799, 750);
@@ -157,7 +166,7 @@ VALUES (3, 'marker', 20, 177921799, 750);
     of 260 hours per academic year.
  */
 
-SELECT section_id, hours,year, term
+SELECT section_id, hours, year, term
 FROM TAPosition
          INNER JOIN Section ON section_id = id
 WHERE assignee_ssn = 309348312
@@ -165,7 +174,6 @@ WHERE assignee_ssn = 309348312
 
 INSERT INTO TAPosition
 VALUES (3, 'marker', 30, 309348312, 750);
-
 
 /*
     11) Update the gpa of a student automatically upon the student completion of a course
@@ -221,10 +229,13 @@ WHERE abbreviation = 'EV';
     13) Number of enrolled students in a section cannot exceed the capacity of a room
  */
 
-SELECT COUNT(*) FROM SectionEnrollment WHERE section_id = 48;
+SELECT COUNT(*)
+FROM SectionEnrollment
+WHERE section_id = 48;
 
 SELECT building_abbreviation, room_floor, room_number
-FROM Section WHERE id = 48;
+FROM Section
+WHERE id = 48;
 
 UPDATE Room
 SET capacity = 3
@@ -241,4 +252,3 @@ VALUES (48, 399437700);
 
 INSERT INTO Section
 VALUES (102, 'A24', 'COMP353', 'lecture', 'M, W', '15:00:00', '13:00:00', 'summer', '2018', 000000000, 'H', 9, 903);
-
