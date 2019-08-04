@@ -483,8 +483,7 @@ VALUES (399437700), -- 1
        (204794691),
        (293904265),
        (373307205),
-       (295600928), -- 50
-       (777777777);
+       (295600928); -- 50
 
 INSERT INTO Employee(ssn, retired, office_building_abbreviation, office_room_floor, office_room_number)
 VALUES (254156867, 0, 'EV', 3, 321),
