@@ -83,6 +83,7 @@ FROM Person
 WHERE Person.ssn = 965277745;
 
 # iv. Give a list of all campuses.
+
 SELECT *
 FROM Campus;
 
@@ -222,6 +223,7 @@ WHERE ssn IN (
 );
 
 # xii. Give a list of all supervisors in a given department.
+
 SELECT DISTINCT concat(first_name, ' ', last_name) AS supervisior
 FROM GradStudents
          INNER JOIN Person ON supervisor_ssn = Person.ssn;
@@ -327,7 +329,7 @@ FROM Section
 WHERE course_code = 'CHEM325';
 
 INSERT INTO SectionEnrollment
-VALUES (39, 777777777, 'C');
+VALUES (39, 777777777);
 
 # xxi. Drop a course for a specific student.
 
@@ -345,23 +347,24 @@ WHERE SectionEnrollment.student_ssn = 777777777
 # academic history, courses taken and grades received for each course,
 # GPA, etc.)
 
--- some folks have more than 4 degrees... (!)
-SELECT concat(Person.first_name, ' ', Person.last_name)                                          AS name,
+-- included publications, awards, experience; only 2 students have awards; 0 students have exp or publications (!)
+SELECT concat(Person.first_name, ' ', Person.last_name)                                           AS name,
        email,
        Person.id,
        Person.ssn,
        Student.gpa,
-       group_concat(Experience.company SEPARATOR ', ')                                           AS experience,
-       group_concat(Degree.name SEPARATOR ', ')                                                  AS degrees,
-       group_concat(Awards.name SEPARATOR ', ')                                                  AS awards,
-       group_concat(Section.course_code, '= \'', SectionEnrollment.grade, '\'' SEPARATOR '\r\n') AS grades
+       group_concat(DISTINCT concat_WS('-', Pub.title, Pub.type, Pub.date) SEPARATOR ' & ')       AS Publication,
+       group_concat(DISTINCT concat_WS('-', Ex.start_date, Ex.company, Ex.title) SEPARATOR ' & ') AS experience,
+       group_concat(DISTINCT concat_WS('-', Awards.name, Awards.date) SEPARATOR ' & ')            AS awards,
+       group_concat(DISTINCT Degree.name SEPARATOR ', ')                                          AS degrees,
+       group_concat(CC.course_code, '= \'', CC.grade, '\'' SEPARATOR '\r\n')                      AS grades
 FROM Person
          INNER JOIN Student ON Person.ssn = Student.ssn
-         LEFT JOIN Experience ON Person.ssn = Experience.ssn
+         LEFT JOIN Experience Ex ON Person.ssn = Ex.ssn
          LEFT JOIN HasDegree ON Person.ssn = HasDegree.ssn
          LEFT JOIN Degree ON degree_id = Degree.id
-         LEFT JOIN Awards ON Awards.ssn = Student.ssn
-         LEFT JOIN SectionEnrollment ON Student.ssn = SectionEnrollment.student_ssn
-         LEFT JOIN Section ON SectionEnrollment.section_id = Section.id
-WHERE Student_ssn = 448602365
+         LEFT JOIN Awards ON Awards.ssn = Person.ssn
+         LEFT JOIN Publications Pub on Person.ssn = Pub.ssn
+         LEFT JOIN CourseCompleted CC on Person.ssn = CC.student_ssn
+WHERE Student_ssn = 934347739
 GROUP BY Person.ssn;
