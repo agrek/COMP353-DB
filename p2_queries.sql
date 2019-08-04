@@ -1,7 +1,7 @@
 # i. Create/Delete/Edit/Display a faculty member.
 # a) Create
 INSERT INTO Instructor (ssn, dept_id, funding_available)
-values (666666666, 3, FALSE);
+VALUES (666666666, 3, FALSE);
 
 # b) Delete
 DELETE
@@ -28,7 +28,7 @@ WHERE Person.ssn = 666666666;
 # ii. Create/Delete/Edit/Display a Student.
 # a) Create
 INSERT INTO Student(ssn)
-values (777777777);
+VALUES (777777777);
 
 # b) Delete
 DELETE
@@ -53,7 +53,7 @@ WHERE Person.ssn = 777777777;
 # iii. Create/Delete/Edit/Display a Teaching Assistant.
 # a) Create
 INSERT INTO TAPosition
-values (64, 'Lab Instructor', 50, 965277745, 1000);
+VALUES (64, 'Lab Instructor', 50, 965277745, 1000);
 
 # b) Delete
 DELETE
@@ -327,7 +327,7 @@ FROM Section
 WHERE course_code = 'CHEM325';
 
 INSERT INTO SectionEnrollment
-values (39, 777777777, 'C');
+VALUES (39, 777777777, 'C');
 
 # xxi. Drop a course for a specific student.
 
