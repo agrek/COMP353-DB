@@ -165,6 +165,8 @@ CREATE TABLE Student
 (
     ssn INT           NOT NULL,
     gpa DECIMAL(3, 2) NULL,
+    CONSTRAINT Student_pk
+        PRIMARY KEY (ssn),
     CONSTRAINT Student_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn)
 );

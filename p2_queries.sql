@@ -1,14 +1,124 @@
-# i. Create/Delete/Edit/Display a faculty member.
+-- i. Create/Delete/Edit/Display a faculty member.
+-- a) Create
+START TRANSACTION;
 
-# ii. Create/Delete/Edit/Display a Student.
+SET @ID = 666666666;
 
-# iii. Create/Delete/Edit/Display a Teaching Assistant.
+INSERT INTO Person(ssn, id, first_name, last_name, email, address, phone)
+VALUES (@ID, 78, 'Ray', 'Sfacelo', 'ray666@gmail.com', 51, '(514) 666-3232');
 
-# iv. Give a list of all campuses.
+INSERT INTO Employee(ssn, retired, office_building_abbreviation, office_room_floor, office_room_number)
+VALUES (@ID, 0, 'MB', 10, 1020);
+
+INSERT INTO Instructor (ssn, dept_id, funding_available)
+VALUES (@ID, 3, FALSE);
+
+COMMIT;
+
+-- b) Delete
+DELETE
+FROM Instructor
+WHERE ssn = 666666666;
+
+-- c) Edit
+UPDATE Instructor
+SET dept_id = 7
+WHERE ssn = 666666666;
+
+-- d) Display
+SELECT concat(first_name, ' ', last_name) AS Professor,
+       concat(office_building_abbreviation, office_room_number) AS office,
+       phone,
+       email,
+       postal_code,
+       city
+FROM Person
+         INNER JOIN Employee ON Person.ssn = Employee.ssn
+         INNER JOIN Address ON Person.address = Address.id
+WHERE Person.ssn = 666666666;
+
+-- ii. Create/Delete/Edit/Display a Student.
+-- a) Create
+START TRANSACTION;
+
+SET @ID = 777777777;
+
+INSERT INTO Person(ssn, id, first_name, last_name, email, address, phone)
+VALUES (@ID, 79, 'Samuel', 'Eto', 'eto@gmail.com', 30, '(450) 123-1111');
+
+INSERT INTO Student(ssn)
+VALUES (@ID);
+
+INSERT INTO UGradStudents
+VALUES (@ID);
+
+COMMIT;
+
+-- b) Delete
+DELETE
+FROM Student
+WHERE ssn = 777777777;
+
+-- c) Edit
+UPDATE UGradStudents UGS
+    INNER JOIN Person P ON P.ssn = UGS.ssn
+SET last_name = 'Untermyer'
+WHERE UGS.ssn = 777777777;
+
+-- d) Display
+SELECT concat(first_name, ' ', last_name) AS name,
+       gpa,
+       phone,
+       email,
+       postal_code,
+       city
+FROM Student
+         INNER JOIN Person P ON Student.ssn = P.ssn
+         INNER JOIN Address ON P.address = Address.id
+WHERE P.ssn = 108906305;
+
+-- iii. Create/Delete/Edit/Display a Teaching Assistant.
+-- a) Create
+INSERT INTO TAPosition
+VALUES (64, 'Lab Instructor', 50, 965277745, 1000);
+
+-- b) Delete
+DELETE
+FROM TAPosition
+WHERE assignee_ssn = 965277745;
+
+-- c) Edit
+UPDATE TAPosition
+SET salary = 1220
+WHERE assignee_ssn = 965277745
+  AND section_id = 64;
+-- in case TA gives multiple sections, we edit for a specific section (!)
+
+-- d) Display
+SELECT concat(first_name, ' ', last_name) AS name,
+       phone,
+       email,
+       postal_code,
+       city,
+       section_id,
+       position,
+       term,
+       year,
+       salary,
+       course_code
+FROM TAPosition
+         INNER JOIN Person P ON assignee_ssn = P.ssn
+         INNER JOIN Address ON P.address = Address.id
+         INNER JOIN Section ON TAPosition.section_id = Section.id
+WHERE P.ssn = 965277745;
+
+-- iv. Give a list of all campuses.
+
 SELECT *
 FROM Campus;
 
-# v. Give a list of buildings on a given campus.
+-- v. Give a list of buildings on a given campus.
+
 SELECT name, abbreviation
 FROM Building
 WHERE campus IN (
@@ -17,35 +127,75 @@ WHERE campus IN (
     WHERE name = 'Loyola'
 );
 
-# vi. Give details of a specific building (this include address of the building,
-# number of floors, number of rooms in each floor, and details of each room
-# such as room type, capacity of the room and existing facilities in the room
-# if it is a classroom or a lab.
+-- vi. Give details of a specific building (this include address of the building,
+-- number of floors, number of rooms in each floor, and details of each room
+-- such as room type, capacity of the room and existing facilities in the room
+-- if it is a classroom or a lab.
 
-# vii. Get a list of all programs available in a specific department along with the
-# number of credits required for completion in each program.
+-- subquery group_concat the equipment; main query group_concat the rooms
+SELECT name,
+       street,
+       city,
+       postal_code,
+       num_floors,
+       total_number_rooms,
+       room_floor,
+       count(room_number) AS room_per_floor,
+       group_concat(room_number, ' (', type, ')', ' [', equipment, ']' SEPARATOR '\r\n') AS rooms
+FROM (
+         SELECT name,
+                A.street,
+                A.city,
+                A.postal_code,
+                num_floors,
+                Building.num_rooms AS total_number_rooms,
+                R.room_number,
+                R.type,
+                R.room_floor,
+                group_concat(ifnull(quantity, ''), ifnull(equipment, '') ORDER BY equipment SEPARATOR ' & ') AS equipment
+
+         FROM Building
+                  LEFT JOIN Address A ON Building.address = A.id
+                  LEFT JOIN Room R ON Building.abbreviation = R.building_abbreviation
+                  LEFT JOIN RoomNeeds RN
+                            ON R.building_abbreviation = RN.building_abbreviation AND R.room_floor = RN.room_floor AND
+                               R.room_number = RN.room_number
+                  LEFT JOIN RoomOverhead RO ON RN.room_overhead_id = RO.id
+         WHERE Building.abbreviation = 'H'
+         GROUP BY R.room_number
+     ) temp
+GROUP BY room_floor;
+
+-- vii. Get a list of all programs available in a specific department along with the
+-- number of credits required for completion in each program.
 
 SELECT Program.name, credits
 FROM Program
          INNER JOIN Department ON Program.department_id = Department.id
 WHERE Department.name = 'Computer Science';
 
-# viii. Get a list of all courses offered in a given term by a specific program.
+-- viii. Get a list of all courses offered in a given term by a specific program.
+
 SELECT code, Course.name AS course_name
 FROM Course
          INNER JOIN Section ON Course.code = Section.course_code
-WHERE term = 'summer'
+WHERE term = 'winter'
   AND year = 2018
+  AND department_id IN (
+    SELECT id
+    FROM Department
+    WHERE name = 'Computer Science'
+)
 GROUP BY code;
 
-# ix. Get the details of all the courses offered by a specific department for a
-# specific term. Details include Course name, section, room location, start
-# and end time, professor teaching the course, max class capacity and
-# number of enrolled students.
+-- ix. Get the details of all the courses offered by a specific department for a
+-- specific term. Details include Course name, section, room location, start
+-- and end time, professor teaching the course, max class capacity and
+-- number of enrolled students.
 
 SELECT code,
-       Course.name                        AS course_name,
-       Section.name                       AS section,
+       Course.name AS course_name,
+       Section.name AS section,
        start_time,
        end_time,
        day,
@@ -53,7 +203,7 @@ SELECT code,
        Section.term,
        credits,
        concat(first_name, ' ', last_name) AS Professor,
-       count(student_ssn)                 AS num_students,
+       count(student_ssn) AS num_students,
        Section.building_abbreviation,
        Section.room_floor,
        Section.room_number,
@@ -76,27 +226,23 @@ WHERE term = 'summer'
 )
 GROUP BY Section.id;
 
-# x. Find ID, first name and last name of all the students who are enrolled in a
-# specific program in a given term.
+-- x. Find ID, first name and last name of all the students who are enrolled in a
+-- specific program in a given term.
 
 SELECT concat(first_name, ' ', last_name) AS name, Person.ssn
 FROM Person
 WHERE ssn IN (
-    SELECT ssn
-    FROM Student
-    WHERE ssn IN (
-        SELECT student_ssn
-        FROM Studies
-        WHERE program_id = (
-            SELECT id
-            FROM Program
-            WHERE name = 'Computer Science Undergraduate'
-        )
+    SELECT student_ssn
+    FROM Studies
+    WHERE program_id = (
+        SELECT id
+        FROM Program
+        WHERE name = 'Computer Science Undergraduate'
     )
 );
 
-# xi. Find the name of all the instructors who taught a given course on a
-# specific term.
+-- xi. Find the name of all the instructors who taught a given course on a
+-- specific term.
 
 SELECT DISTINCT concat(first_name, ' ', last_name) AS Professor
 FROM Person
@@ -107,13 +253,13 @@ WHERE ssn IN (
       AND term = 'fall'
 );
 
-# xii. Give a list of all supervisors in a given department.
+-- xii. Give a list of all supervisors in a given department.
 
 SELECT DISTINCT concat(first_name, ' ', last_name) AS supervisior
 FROM GradStudents
          INNER JOIN Person ON supervisor_ssn = Person.ssn;
 
-# xiii. Give a list of all the advisors in a given department.
+-- xiii. Give a list of all the advisors in a given department.
 
 SELECT concat(first_name, ' ', last_name) AS advisior
 FROM Advisor
@@ -121,15 +267,15 @@ FROM Advisor
 WHERE Advisor.ssn IN (
     SELECT advisor_ssn
     FROM Program
-    WHERE Program.id IN (
+    WHERE department_id IN (
         SELECT id
         FROM Department
-        WHERE name = 'Electrical Engineering'
+        WHERE name = 'Computer Science'
     )
 );
 
-# xiv. Find the name and IDs of all the graduate students who are supervised by
-# a specific Professor.
+-- xiv. Find the name and IDs of all the graduate students who are supervised by
+-- a specific Professor.
 
 SELECT DISTINCT concat(first_name, ' ', last_name) AS student_name, ssn
 FROM Person
@@ -142,15 +288,15 @@ WHERE ssn IN (
         WHERE Instructor.ssn IN (
             SELECT ssn
             FROM Person
-            WHERE first_name = 'Michael'
-              AND last_name = 'Clarke'
+            WHERE first_name = 'Raymond'
+              AND last_name = 'Moreno'
         )
     )
 );
 
-# xv. Find the ID, name and assignment mandate of all the graduate students
-# who are assigned as teaching assistants to a specific course on a given
-# term.
+-- xv. Find the ID, name and assignment mandate of all the graduate students
+-- who are assigned as teaching assistants to a specific course on a given
+-- term.
 
 SELECT assignee_ssn,
        position,
@@ -160,26 +306,30 @@ FROM Person
 WHERE section_id IN (
     SELECT Section.id
     FROM Section
-    WHERE term = 'summer'
+    WHERE term = 'fall'
       AND year = 2018
       AND course_code = 'comp353'
 );
 
-# xvi. Find the name, IDs and total amount of funds received by all the graduate
-# students who received research funds in a given term.
+-- xvi. Find the name, IDs and total amount of funds received by all the graduate
+-- students who received research funds in a given term.
 
 SELECT concat(Person.first_name, ' ', Person.last_name) AS name,
-       sum(amount)                                      AS funds
-FROM Person
+       sum(amount) AS funds
+FROM GradStudents GS
+         INNER JOIN Person ON Person.ssn = GS.ssn
          INNER JOIN ResearchFundingApplications ON student_ssn = Person.ssn
          LEFT JOIN ResearchFunds ON ResearchFundingApplications.research_fund_id = ResearchFunds.id
-GROUP BY ssn;
+WHERE term = 'fall'
+  AND year = 2018
+  AND status = 'granted'
+GROUP BY GS.ssn;
 
-# xvii. For each department, find the total number of courses offered by the
-# department and the name of its chairman.
+-- xvii. For each department, find the total number of courses offered by the
+-- department and the name of its chairman.
 
-SELECT Department.name                                  AS dep_name,
-       count(Course.code)                               AS num_courses,
+SELECT Department.name AS dep_name,
+       count(Course.code) AS num_courses,
        concat(Person.first_name, ' ', Person.last_name) AS Professor
 FROM Department
          LEFT JOIN Course ON Department.id = Course.department_id
@@ -187,29 +337,86 @@ FROM Department
          LEFT JOIN Person ON chairman_ssn = Person.ssn
 GROUP BY Department.name;
 
-# xviii. For each program, find the total number of students enrolled into the
-# program.
+-- xviii. For each program, find the total number of students enrolled into the
+-- program.
 
 SELECT Program.name, count(student_ssn) AS number_of_students
-FROM Program,
-     Studies
+FROM Program
+         INNER JOIN Studies S ON Program.id = S.program_id
 WHERE program_id = id
 GROUP BY Program.name;
 
-# xix. Give a list of courses taken by a specific student in a given term.
+-- xix. Give a list of courses taken by a specific student in a given term.
 
-SELECT count(DISTINCT course_code)                       AS count,
-       group_concat(DISTINCT course_code SEPARATOR ', ') AS courses
+SELECT course_code
 FROM Section
          INNER JOIN SectionEnrollment ON Section.id = section_id
 WHERE year = 2018
-  AND term = 'fall'
-  AND student_ssn = 645399011;
+  AND term = 'winter'
+  AND student_ssn = 934347739
+GROUP BY course_code;
 
-# xx. Register a student in a specific course.
+-- xx. Register a student in a specific course.
 
-# xxi. Drop a course for a specific student.
+-- this is done on 2 steps in order to choose the section; subquerying the section would return multiple records (!)
+SELECT id
+FROM Section
+WHERE course_code = 'MATH209';
 
-# xxii. Give a detailed report for a specific student (This include personal data,
-# academic history, courses taken and grades received for each course,
-# GPA, etc.)
+INSERT INTO SectionEnrollment
+VALUES (46, 752713919);
+
+-- xxi. Drop a course for a specific student.
+
+DELETE
+FROM SectionEnrollment
+WHERE SectionEnrollment.student_ssn = 752713919
+  AND SectionEnrollment.section_id IN (SELECT id FROM Section WHERE course_code = 'CHEM325')
+  AND SectionEnrollment.section_id NOT IN (
+    SELECT *
+    FROM (SELECT section_id
+          FROM SectionEnrollment SE
+                   INNER JOIN Section S ON SE.section_id = S.id
+                   INNER JOIN Student St ON SE.student_ssn = St.ssn
+                   INNER JOIN CourseCompleted CC ON St.ssn = CC.student_ssn AND
+                                                    S.term = CC.term AND
+                                                    S.course_code = CC.course_code AND
+                                                    S.year = CC.year
+          WHERE SE.student_ssn = 752713919
+         ) temp);
+
+-- insert it back for testing/demo
+# INSERT INTO SectionEnrollment
+# VALUES (46, 752713919);
+
+-- display enrolled courses for testing/demo
+# SELECT group_concat(DISTINCT course_code SEPARATOR '\r\n') AS enrolled
+# FROM SectionEnrollment
+#          INNER JOIN Section S ON SectionEnrollment.section_id = S.id
+# WHERE student_ssn = 752713919;
+
+-- xxii. Give a detailed report for a specific student (This include personal data,
+-- academic history, courses taken and grades received for each course,
+-- GPA, etc.)
+
+-- included publications, awards, experience; only 2 students have awards; 0 students have exp or publications (!)
+SELECT concat(Person.first_name, ' ', Person.last_name) AS name,
+       email,
+       Person.id,
+       Person.ssn,
+       Student.gpa,
+       group_concat(DISTINCT concat_WS('-', Pub.title, Pub.type, Pub.date) SEPARATOR '\r\n') AS Publication,
+       group_concat(DISTINCT concat_WS('-', Ex.start_date, Ex.company, Ex.title) SEPARATOR '\r\n') AS experience,
+       group_concat(DISTINCT concat_WS('-', Awards.name, Awards.date) SEPARATOR '\r\n') AS awards,
+       group_concat(DISTINCT Degree.name SEPARATOR ', ') AS degrees,
+       group_concat(CC.course_code, '= \'', CC.grade, '\'' SEPARATOR '\r\n') AS grades
+FROM Person
+         INNER JOIN Student ON Person.ssn = Student.ssn
+         LEFT JOIN Experience Ex ON Person.ssn = Ex.ssn
+         LEFT JOIN HasDegree ON Person.ssn = HasDegree.ssn
+         LEFT JOIN Degree ON degree_id = Degree.id
+         LEFT JOIN Awards ON Awards.ssn = Person.ssn
+         LEFT JOIN Publications Pub ON Person.ssn = Pub.ssn
+         LEFT JOIN CourseCompleted CC ON Person.ssn = CC.student_ssn
+WHERE Student_ssn = 934347739
+GROUP BY Person.ssn;
