@@ -48,10 +48,10 @@ FROM Student
 WHERE ssn = 777777777;
 
 # c) Edit
-UPDATE UGradStudents
-    INNER JOIN Person P on P.ssn = ssn
+UPDATE UGradStudents UGS
+    INNER JOIN Person P on P.ssn = UGS.ssn
 SET last_name = 'Untermyer'
-WHERE ssn = 777777777;
+WHERE UGS.ssn = 777777777;
 
 # d) Display
 SELECT concat(first_name, ' ', last_name) AS name,
@@ -63,7 +63,7 @@ SELECT concat(first_name, ' ', last_name) AS name,
 FROM Student
          INNER JOIN Person P ON Student.ssn = P.ssn
          INNER JOIN Address ON P.address = Address.id
-WHERE P.ssn = 777777777;
+WHERE P.ssn = 108906305;
 
 # iii. Create/Delete/Edit/Display a Teaching Assistant.
 # a) Create
@@ -77,8 +77,10 @@ WHERE assignee_ssn = 965277745;
 
 # c) Edit
 UPDATE TAPosition
-SET salary = 1200
-WHERE assignee_ssn = 965277745;
+SET salary = 1220
+WHERE assignee_ssn = 965277745
+  AND section_id = 64;
+-- in case TA gives multiple sections, we edit for a specific section (!)
 
 # d) Display
 SELECT concat(first_name, ' ', last_name) AS name,
@@ -90,7 +92,8 @@ SELECT concat(first_name, ' ', last_name) AS name,
        position,
        term,
        year,
-       salary
+       salary,
+       course_code
 FROM TAPosition
          INNER JOIN Person P ON assignee_ssn = P.ssn
          INNER JOIN Address ON P.address = Address.id
@@ -212,16 +215,12 @@ GROUP BY Section.id;
 SELECT concat(first_name, ' ', last_name) AS name, Person.ssn
 FROM Person
 WHERE ssn IN (
-    SELECT ssn
-    FROM Student
-    WHERE ssn IN (
-        SELECT student_ssn
-        FROM Studies
-        WHERE program_id = (
-            SELECT id
-            FROM Program
-            WHERE name = 'Computer Science Undergraduate'
-        )
+    SELECT student_ssn
+    FROM Studies
+    WHERE program_id = (
+        SELECT id
+        FROM Program
+        WHERE name = 'Computer Science Undergraduate'
     )
 );
 
@@ -251,7 +250,7 @@ FROM Advisor
 WHERE Advisor.ssn IN (
     SELECT advisor_ssn
     FROM Program
-    WHERE Program.id IN (
+    WHERE department_id IN (
         SELECT id
         FROM Department
         WHERE name = 'Electrical Engineering'
@@ -303,6 +302,8 @@ SELECT concat(Person.first_name, ' ', Person.last_name) AS name,
 FROM Person
          INNER JOIN ResearchFundingApplications ON student_ssn = Person.ssn
          LEFT JOIN ResearchFunds ON ResearchFundingApplications.research_fund_id = ResearchFunds.id
+WHERE term = 'fall'
+  AND year = 2018
 GROUP BY ssn;
 
 # xvii. For each department, find the total number of courses offered by the
@@ -321,20 +322,20 @@ GROUP BY Department.name;
 # program.
 
 SELECT Program.name, count(student_ssn) AS number_of_students
-FROM Program,
-     Studies
+FROM Program
+INNER JOIN Studies S on Program.id = S.program_id
 WHERE program_id = id
 GROUP BY Program.name;
 
 # xix. Give a list of courses taken by a specific student in a given term.
 
-SELECT count(DISTINCT course_code)                       AS count,
-       group_concat(DISTINCT course_code SEPARATOR ', ') AS courses
+SELECT course_code
 FROM Section
          INNER JOIN SectionEnrollment ON Section.id = section_id
 WHERE year = 2018
   AND term = 'fall'
-  AND student_ssn = 645399011;
+  AND student_ssn = 645399011
+GROUP BY course_code;
 
 # xx. Register a student in a specific course.
 
@@ -362,7 +363,7 @@ WHERE SectionEnrollment.student_ssn = 645399011
 -- INSERT INTO SectionEnrollment VALUES (54, 645399011);
 
 -- display enrolled courses for testing
--- SELECT group_concat(DISTINCT course_code SEPARATOR ', ')
+-- SELECT group_concat(DISTINCT course_code SEPARATOR ', ') AS enrolled
 -- FROM SectionEnrollment
 -- INNER JOIN Section S ON SectionEnrollment.section_id = S.id
 -- WHERE student_ssn = 645399011;
