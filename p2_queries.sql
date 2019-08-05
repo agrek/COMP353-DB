@@ -1,5 +1,11 @@
 # i. Create/Delete/Edit/Display a faculty member.
 # a) Create
+INSERT INTO Person(ssn, id, first_name, last_name, email, address, phone)
+VALUES (666666666, 78, 'Ray', 'Sfacelo', 'ray666@gmail.com', 51, '(514) 666-3232');
+
+INSERT INTO Employee(ssn, retired, office_building_abbreviation, office_room_floor, office_room_number)
+VALUES (666666666, 0, 'MB', 10, 1020);
+
 INSERT INTO Instructor (ssn, dept_id, funding_available)
 VALUES (666666666, 3, FALSE);
 
@@ -27,7 +33,13 @@ WHERE Person.ssn = 666666666;
 
 # ii. Create/Delete/Edit/Display a Student.
 # a) Create
+INSERT INTO Person(ssn, id, first_name, last_name, email, address, phone)
+VALUES (777777777, 79, 'Samuel', 'Eto', 'eto@gmail.com', 30, '(450) 123-1111');
+
 INSERT INTO Student(ssn)
+VALUES (777777777);
+
+INSERT INTO UGradStudents
 VALUES (777777777);
 
 # b) Delete
@@ -36,19 +48,22 @@ FROM Student
 WHERE ssn = 777777777;
 
 # c) Edit
-UPDATE Person -- bypassing Student table (!)
+UPDATE UGradStudents
+    INNER JOIN Person P on P.ssn = ssn
 SET last_name = 'Untermyer'
 WHERE ssn = 777777777;
 
 # d) Display
 SELECT concat(first_name, ' ', last_name) AS name,
+       gpa,
        phone,
        email,
        postal_code,
        city
-FROM Person
-         INNER JOIN Address ON Person.address = Address.id
-WHERE Person.ssn = 777777777;
+FROM Student
+         INNER JOIN Person P ON Student.ssn = P.ssn
+         INNER JOIN Address ON P.address = Address.id
+WHERE P.ssn = 777777777;
 
 # iii. Create/Delete/Edit/Display a Teaching Assistant.
 # a) Create
@@ -76,11 +91,11 @@ SELECT concat(first_name, ' ', last_name) AS name,
        term,
        year,
        salary
-FROM Person
-         INNER JOIN Address ON Person.address = Address.id
-         INNER JOIN TAPosition ON assignee_ssn = Person.ssn
+FROM TAPosition
+         INNER JOIN Person P ON assignee_ssn = P.ssn
+         INNER JOIN Address ON P.address = Address.id
          INNER JOIN Section ON TAPosition.section_id = Section.id
-WHERE Person.ssn = 965277745;
+WHERE P.ssn = 965277745;
 
 # iv. Give a list of all campuses.
 
@@ -323,25 +338,34 @@ WHERE year = 2018
 
 # xx. Register a student in a specific course.
 
--- this i did on 2 steps in order to choose the section; subquerying the section would return multiple records (!)
+-- this is done on 2 steps in order to choose the section; subquerying the section would return multiple records (!)
 SELECT id
 FROM Section
-WHERE course_code = 'CHEM325';
+WHERE course_code = 'MATH209';
 
 INSERT INTO SectionEnrollment
-VALUES (39, 777777777);
+VALUES (46, 752713919);
 
 # xxi. Drop a course for a specific student.
 
 DELETE
 FROM SectionEnrollment
-WHERE SectionEnrollment.student_ssn = 777777777
+WHERE SectionEnrollment.student_ssn = 645399011
   AND SectionEnrollment.section_id IN (
     SELECT *
     FROM (SELECT S.id
           FROM Section S
                    RIGHT JOIN SectionEnrollment ON S.id = SectionEnrollment.section_id
-          WHERE course_code = 'CHEM325') temp);
+          WHERE course_code = 'COMP352') temp);
+
+-- insert it back for testing
+-- INSERT INTO SectionEnrollment VALUES (54, 645399011);
+
+-- display enrolled courses for testing
+-- SELECT group_concat(DISTINCT course_code SEPARATOR ', ')
+-- FROM SectionEnrollment
+-- INNER JOIN Section S ON SectionEnrollment.section_id = S.id
+-- WHERE student_ssn = 645399011;
 
 # xxii. Give a detailed report for a specific student (This include personal data,
 # academic history, courses taken and grades received for each course,
