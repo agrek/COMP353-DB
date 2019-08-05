@@ -429,9 +429,7 @@ VALUES (399437700, 1, 'Lisa', 'Wood', 'mddallara@outlook.com', 1, '(403) 514-992
        (000000000, 74, 'Deleted', 'Person', NULL, NULL, NULL),
        (111111111, 75, 'Mohammad', 'Qalam', 'mqalam@hotmail.com', 73, '(111) 222-1213'),
        (222222222, 76, 'Myckael', 'Walther', 'mycka@outlook.com', 71, '(222) 222-1213'),
-       (333333333, 77, 'Gwen', 'Legate', 'glega@outlook.com', 70, '(333) 222-1213'),
-       (666666666, 78, 'Ray', 'Sfacelo', 'ray666@gmail.com', 51, '(514) 666-3232'),
-       (777777777, 79, 'Samuel', 'Eto', 'eto@gmail.com', 30, '(450) 123-1111');
+       (333333333, 77, 'Gwen', 'Legate', 'glega@outlook.com', 70, '(333) 222-1213');
 
 INSERT INTO Student(ssn)
 VALUES (399437700), -- 1
@@ -512,8 +510,7 @@ VALUES (254156867, 0, 'EV', 3, 321),
        (000000000, 0, NULL, NULL, NULL),
        (111111111, 0, 'EV', 5, 535),
        (222222222, 0, 'EV', 5, 523),
-       (333333333, 0, 'EV', 5, 535),
-       (666666666, 0, 'MB', 10, 1020);
+       (333333333, 0, 'EV', 5, 535);
 
 INSERT INTO UGradStudents
 VALUES (399437700),
