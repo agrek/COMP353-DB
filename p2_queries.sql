@@ -26,7 +26,7 @@ SET dept_id = 7
 WHERE ssn = 666666666;
 
 -- d) Display
-SELECT concat(first_name, ' ', last_name) AS Professor,
+SELECT concat(first_name, ' ', last_name)                       AS Professor,
        concat(office_building_abbreviation, office_room_number) AS office,
        phone,
        email,
@@ -140,7 +140,7 @@ SELECT name,
        num_floors,
        total_number_rooms,
        room_floor,
-       count(room_number) AS room_per_floor,
+       count(room_number)                                                                AS room_per_floor,
        group_concat(room_number, ' (', type, ')', ' [', equipment, ']' SEPARATOR '\r\n') AS rooms
 FROM (
          SELECT name,
@@ -148,11 +148,12 @@ FROM (
                 A.city,
                 A.postal_code,
                 num_floors,
-                Building.num_rooms AS total_number_rooms,
+                Building.num_rooms  AS total_number_rooms,
                 R.room_number,
                 R.type,
                 R.room_floor,
-                group_concat(ifnull(quantity, ''), ifnull(equipment, '') ORDER BY equipment SEPARATOR ' & ') AS equipment
+                group_concat(ifnull(quantity, ''), ifnull(equipment, '') ORDER BY equipment SEPARATOR
+                             ' & ') AS equipment
 
          FROM Building
                   LEFT JOIN Address A ON Building.address = A.id
@@ -194,8 +195,8 @@ GROUP BY code;
 -- number of enrolled students.
 
 SELECT code,
-       Course.name AS course_name,
-       Section.name AS section,
+       Course.name                        AS course_name,
+       Section.name                       AS section,
        start_time,
        end_time,
        day,
@@ -203,7 +204,7 @@ SELECT code,
        Section.term,
        credits,
        concat(first_name, ' ', last_name) AS Professor,
-       count(student_ssn) AS num_students,
+       count(student_ssn)                 AS num_students,
        Section.building_abbreviation,
        Section.room_floor,
        Section.room_number,
@@ -315,7 +316,7 @@ WHERE section_id IN (
 -- students who received research funds in a given term.
 
 SELECT concat(Person.first_name, ' ', Person.last_name) AS name,
-       sum(amount) AS funds
+       sum(amount)                                      AS funds
 FROM GradStudents GS
          INNER JOIN Person ON Person.ssn = GS.ssn
          INNER JOIN ResearchFundingApplications ON student_ssn = Person.ssn
@@ -328,8 +329,8 @@ GROUP BY GS.ssn;
 -- xvii. For each department, find the total number of courses offered by the
 -- department and the name of its chairman.
 
-SELECT Department.name AS dep_name,
-       count(Course.code) AS num_courses,
+SELECT Department.name                                  AS dep_name,
+       count(Course.code)                               AS num_courses,
        concat(Person.first_name, ' ', Person.last_name) AS Professor
 FROM Department
          LEFT JOIN Course ON Department.id = Course.department_id
@@ -400,16 +401,16 @@ WHERE SectionEnrollment.student_ssn = 752713919
 -- GPA, etc.)
 
 -- included publications, awards, experience; only 2 students have awards; 0 students have exp or publications (!)
-SELECT concat(Person.first_name, ' ', Person.last_name) AS name,
+SELECT concat(Person.first_name, ' ', Person.last_name)                                            AS name,
        email,
        Person.id,
        Person.ssn,
        Student.gpa,
-       group_concat(DISTINCT concat_WS('-', Pub.title, Pub.type, Pub.date) SEPARATOR '\r\n') AS Publication,
+       group_concat(DISTINCT concat_WS('-', Pub.title, Pub.type, Pub.date) SEPARATOR '\r\n')       AS Publication,
        group_concat(DISTINCT concat_WS('-', Ex.start_date, Ex.company, Ex.title) SEPARATOR '\r\n') AS experience,
-       group_concat(DISTINCT concat_WS('-', Awards.name, Awards.date) SEPARATOR '\r\n') AS awards,
-       group_concat(DISTINCT Degree.name SEPARATOR ', ') AS degrees,
-       group_concat(CC.course_code, '= \'', CC.grade, '\'' SEPARATOR '\r\n') AS grades
+       group_concat(DISTINCT concat_WS('-', Awards.name, Awards.date) SEPARATOR '\r\n')            AS awards,
+       group_concat(DISTINCT Degree.name SEPARATOR ', ')                                           AS degrees,
+       group_concat(CC.course_code, '= \'', CC.grade, '\'' SEPARATOR '\r\n')                       AS grades
 FROM Person
          INNER JOIN Student ON Person.ssn = Student.ssn
          LEFT JOIN Experience Ex ON Person.ssn = Ex.ssn
