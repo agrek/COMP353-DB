@@ -543,7 +543,7 @@ BEGIN
 
     IF (@multipleSecs > 0) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
-                'A student cannot register to two different sections of same type,term, and year';
+                'A student cannot register to two different sections of same type, term, and year';
 
     END IF;
 
@@ -563,7 +563,7 @@ BEGIN
 
     IF (@totalStudentSec >= @roomcap) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
-                'ERROR: Student enrollment for this section has reached/exceeded room capacity.';
+                'ERROR: Student enrollment for this section has reached/exceeded room capacity';
     END IF;
 
     /******************* Prerequisites Check *******************/
@@ -1214,6 +1214,10 @@ CREATE TRIGGER preDeleteStudentTrigger
 BEGIN
     DELETE
     FROM SectionEnrollment
+    WHERE student_ssn = OLD.ssn;
+
+    DELETE
+    FROM CourseCompleted
     WHERE student_ssn = OLD.ssn;
 
     DELETE
