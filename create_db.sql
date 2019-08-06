@@ -543,7 +543,7 @@ BEGIN
 
     IF (@multipleSecs > 0) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
-                'A student cannot register to two different sections of same type, term, and year';
+                'A student cannot register to two different sections of same course, type, term, and year';
 
     END IF;
 

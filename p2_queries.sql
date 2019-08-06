@@ -150,7 +150,7 @@ SELECT name,
        total_number_rooms,
        room_floor,
        count(room_number)                                                                AS room_per_floor,
-       group_concat(room_number, ' (', type, ')', ' [', equipment, ']' SEPARATOR '\r\n') AS rooms
+       group_concat(room_number, ' (', type, ')', ' [', equipment, ']' SEPARATOR '\r\n') AS `room (type) needs`
 FROM (
          SELECT name,
                 A.street,
@@ -189,12 +189,12 @@ WHERE Department.name = 'Computer Science';
 SELECT code, Course.name AS course_name
 FROM Course
          INNER JOIN Section ON Course.code = Section.course_code
-WHERE term = 'winter'
+WHERE term = 'fall'
   AND year = 2018
   AND department_id IN (
     SELECT id
     FROM Department
-    WHERE name = 'Computer Science'
+    WHERE name = 'Software Engineering'
 )
 GROUP BY code;
 
@@ -227,19 +227,19 @@ FROM Section
          INNER JOIN Person ON Employee.ssn = Person.ssn
          INNER JOIN Course ON Section.course_code = Course.code
          INNER JOIN SectionEnrollment ON Section.id = SectionEnrollment.section_id
-WHERE term = 'summer'
+WHERE term = 'fall'
   AND year = 2018
   AND department_id = (
     SELECT id
     FROM Department
-    WHERE Department.name = 'Computer Science'
+    WHERE Department.name = 'Software Engineering'
 )
 GROUP BY Section.id;
 
 -- x. Find ID, first name and last name of all the students who are enrolled in a
 -- specific program in a given term.
 
-SELECT concat(first_name, ' ', last_name) AS name, Person.ssn
+SELECT concat(first_name, ' ', last_name) AS name, Person.id
 FROM Person
 WHERE ssn IN (
     SELECT student_ssn
@@ -287,7 +287,7 @@ WHERE Advisor.ssn IN (
 -- xiv. Find the name and IDs of all the graduate students who are supervised by
 -- a specific Professor.
 
-SELECT DISTINCT concat(first_name, ' ', last_name) AS student_name, ssn
+SELECT DISTINCT concat(first_name, ' ', last_name) AS student_name, id
 FROM Person
 WHERE ssn IN (
     SELECT ssn
@@ -308,7 +308,7 @@ WHERE ssn IN (
 -- who are assigned as teaching assistants to a specific course on a given
 -- term.
 
-SELECT assignee_ssn,
+SELECT id,
        position,
        concat(Person.first_name, ' ', Person.last_name) AS TA_name
 FROM Person
