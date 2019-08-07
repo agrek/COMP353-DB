@@ -1,19 +1,26 @@
--- i. a) Create a faculty member.
-START TRANSACTION;
+DROP PROCEDURE IF EXISTS insertInstructor;
+DELIMITER //
+CREATE PROCEDURE insertInstructor(IN SSN1 INT(9), IN fn VARCHAR(45), IN ln VARCHAR(45), IN em VARCHAR(45),
+                                  IN address1 INT, IN ph VARCHAR(14), IN bAbb VARCHAR(45),
+                                  IN oFloor INT(2), IN oNum INT(3), IN deptID INT, IN fundingAv BOOL)
+BEGIN
 
-SET @ID = 666666666;
+    -- i. a) Create a faculty member.
 
-INSERT INTO Person(ssn, id, first_name, last_name, email, address, phone)
-VALUES (@ID, 78, 'Ray', 'Sfacelo', 'ray666@gmail.com', 51, '(514) 666-3232');
+    INSERT INTO Person(ssn, first_name, last_name, email, address, phone)
+    VALUES (SSN1, fn, ln, em, address1, ph);
 
-INSERT INTO Employee(ssn, retired, office_building_abbreviation, office_room_floor, office_room_number)
-VALUES (@ID, 0, 'MB', 10, 1020);
+    INSERT INTO Employee(ssn, office_building_abbreviation, office_room_floor, office_room_number)
+    VALUES (SSN1, bAbb, oFloor, oNum);
 
-INSERT INTO Instructor (ssn, dept_id, funding_available)
-VALUES (@ID, 3, FALSE);
+    INSERT INTO Instructor (ssn, dept_id, funding_available)
+    VALUES (SSN1, deptID, fundingAv);
 
-COMMIT;
 
+END //
+DELIMITER ;
+
+CALL insertInstructor (666666666, 'Ray', 'Sfacelo', 'ray666@gmail.com', 51, '(514) 666-3232', 'MB', 10, 1020, 3, FALSE);
 -- i. b) Delete a faculty member.
 DELETE
 FROM Advisor
@@ -37,20 +44,25 @@ FROM Person
 WHERE Person.ssn = 747652718;
 
 -- ii. a) Create a Student.
-START TRANSACTION;
+DROP PROCEDURE IF EXISTS insertStudent;
+DELIMITER //
+CREATE PROCEDURE insertStudent(IN SSN1 INT(9), IN fn VARCHAR(45), IN ln VARCHAR(45), IN em VARCHAR(45),
+                                  IN address1 INT, IN ph VARCHAR(14))
+BEGIN
 
-SET @ID = 777777777;
-
-INSERT INTO Person(ssn, id, first_name, last_name, email, address, phone)
-VALUES (@ID, 79, 'Samuel', 'Eto', 'eto@gmail.com', 30, '(450) 123-1111');
+INSERT INTO Person(ssn, first_name, last_name, email, address, phone)
+VALUES (SSN1, fn, ln, em, address1, ph);
 
 INSERT INTO Student(ssn)
-VALUES (@ID);
+VALUES (SSN1);
 
 INSERT INTO UGradStudents
-VALUES (@ID);
+VALUES (SSN1);
 
-COMMIT;
+END //
+DELIMITER ;
+
+CALL insertStudent (777777777, 'Samuel', 'Eto', 'eto@gmail.com', 30, '(450) 123-1111');
 
 -- ii. b) Delete a Student.
 DELETE
