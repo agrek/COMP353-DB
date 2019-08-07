@@ -16,11 +16,11 @@ BEGIN
     INSERT INTO Instructor (ssn, dept_id, funding_available)
     VALUES (SSN1, deptID, fundingAv);
 
-
 END //
 DELIMITER ;
 
 CALL insertInstructor (666666666, 'Ray', 'Sfacelo', 'ray666@gmail.com', 51, '(514) 666-3232', 'MB', 10, 1020, 3, FALSE);
+
 -- i. b) Delete a faculty member.
 DELETE
 FROM Advisor
