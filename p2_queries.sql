@@ -100,7 +100,7 @@ SELECT assignee_ssn,
        concat(Person.first_name, ' ', Person.last_name) AS TA_name
 FROM Person
          INNER JOIN TAPosition ON Person.ssn = assignee_ssn
-         INNER JOIN Section S on TAPosition.section_id = S.id
+         INNER JOIN Section S ON TAPosition.section_id = S.id
 WHERE assignee_ssn = 814392875;
 
 DELETE

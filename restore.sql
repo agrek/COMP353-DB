@@ -5,7 +5,7 @@
 -- i. a) Create a faculty member.
 DELETE
 FROM Instructor
-where ssn = 666666666;
+WHERE ssn = 666666666;
 
 -- i. b) Delete a faculty member.
 INSERT INTO Person(ssn, id, first_name, last_name, email, address, phone)

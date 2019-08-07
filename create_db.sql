@@ -135,11 +135,11 @@ CREATE TABLE Person
 
 CREATE TABLE Employee
 (
-    ssn                          INT                NOT NULL,
-    retired                      BOOL               DEFAULT FALSE,
-    office_building_abbreviation VARCHAR(45)        NULL,
-    office_room_floor            INT(2)             NULL,
-    office_room_number           INT(3)             NULL,
+    ssn                          INT         NOT NULL,
+    retired                      BOOL DEFAULT FALSE,
+    office_building_abbreviation VARCHAR(45) NULL,
+    office_room_floor            INT(2)      NULL,
+    office_room_number           INT(3)      NULL,
     CONSTRAINT Employee_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Employee_Person_ssn_fk
