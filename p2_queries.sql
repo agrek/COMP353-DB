@@ -1,11 +1,10 @@
+-- i. a) Create a faculty member.
 DROP PROCEDURE IF EXISTS insertInstructor;
 DELIMITER //
 CREATE PROCEDURE insertInstructor(IN SSN1 INT(9), IN fn VARCHAR(45), IN ln VARCHAR(45), IN em VARCHAR(45),
                                   IN address1 INT, IN ph VARCHAR(14), IN bAbb VARCHAR(45),
                                   IN oFloor INT(2), IN oNum INT(3), IN deptID INT, IN fundingAv BOOL)
 BEGIN
-
-    -- i. a) Create a faculty member.
 
     INSERT INTO Person(ssn, first_name, last_name, email, address, phone)
     VALUES (SSN1, fn, ln, em, address1, ph);
@@ -19,7 +18,7 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL insertInstructor (666666666, 'Ray', 'Sfacelo', 'ray666@gmail.com', 51, '(514) 666-3232', 'MB', 10, 1020, 3, FALSE);
+CALL insertInstructor(666666666, 'Ray', 'Sfacelo', 'ray666@gmail.com', 51, '(514) 666-3232', 'MB', 10, 1020, 3, FALSE);
 
 -- i. b) Delete a faculty member.
 DELETE
@@ -47,22 +46,22 @@ WHERE Person.ssn = 747652718;
 DROP PROCEDURE IF EXISTS insertStudent;
 DELIMITER //
 CREATE PROCEDURE insertStudent(IN SSN1 INT(9), IN fn VARCHAR(45), IN ln VARCHAR(45), IN em VARCHAR(45),
-                                  IN address1 INT, IN ph VARCHAR(14))
+                               IN address1 INT, IN ph VARCHAR(14))
 BEGIN
 
-INSERT INTO Person(ssn, first_name, last_name, email, address, phone)
-VALUES (SSN1, fn, ln, em, address1, ph);
+    INSERT INTO Person(ssn, first_name, last_name, email, address, phone)
+    VALUES (SSN1, fn, ln, em, address1, ph);
 
-INSERT INTO Student(ssn)
-VALUES (SSN1);
+    INSERT INTO Student(ssn)
+    VALUES (SSN1);
 
-INSERT INTO UGradStudents
-VALUES (SSN1);
+    INSERT INTO UGradStudents
+    VALUES (SSN1);
 
 END //
 DELIMITER ;
 
-CALL insertStudent (777777777, 'Samuel', 'Eto', 'eto@gmail.com', 30, '(450) 123-1111');
+CALL insertStudent(777777777, 'Samuel', 'Eto', 'eto@gmail.com', 30, '(450) 123-1111');
 
 -- ii. b) Delete a Student.
 DELETE
