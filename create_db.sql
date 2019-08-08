@@ -150,7 +150,7 @@ CREATE TABLE Employee
         PRIMARY KEY (ssn),
     CONSTRAINT Employee_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn)
-        ON UPDATE CASCADE,
+        ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT Employee_Building_abbreviation_fk
         FOREIGN KEY (office_building_abbreviation, office_room_floor, office_room_number) REFERENCES Room (building_abbreviation, room_floor, room_number)
         ON UPDATE CASCADE
@@ -167,7 +167,7 @@ CREATE TABLE Contract
         PRIMARY KEY (ssn, start_date, end_date),
     CONSTRAINT Contract_Employee_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Employee (ssn)
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Student
@@ -248,7 +248,7 @@ CREATE TABLE Experience
         PRIMARY KEY (ssn, title, company, start_date, end_date),
     CONSTRAINT Experience_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn)
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Publications
@@ -262,7 +262,7 @@ CREATE TABLE Publications
         PRIMARY KEY (ssn, date, title, publisher),
     CONSTRAINT Publications_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn)
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Awards
@@ -274,7 +274,7 @@ CREATE TABLE Awards
         PRIMARY KEY (ssn, date, name),
     CONSTRAINT Awards_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn)
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Degree
@@ -301,7 +301,7 @@ CREATE TABLE HasDegree
         ON UPDATE CASCADE,
     CONSTRAINT HasDegree_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn)
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE LetterToGpa
@@ -319,7 +319,7 @@ CREATE TABLE Advisor
         PRIMARY KEY (ssn),
     CONSTRAINT Advisor_Employee_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Employee (ssn)
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Program
@@ -334,7 +334,7 @@ CREATE TABLE Program
         PRIMARY KEY (id),
     CONSTRAINT Program_Advisor_ssn_fk
         FOREIGN KEY (advisor_ssn) REFERENCES Advisor (ssn)
-        ON UPDATE CASCADE,
+        ON UPDATE CASCADE ON DELETE SET NULL,
     CONSTRAINT Program_Department_id_fk
         FOREIGN KEY (department_id) REFERENCES Department (id)
         ON UPDATE CASCADE
@@ -1309,58 +1309,5 @@ BEGIN
     DELETE
     FROM Person
     WHERE ssn = OLD.ssn;
-END//
-DELIMITER ;
-
-DROP TRIGGER IF EXISTS preDeleteAdvisorTrigger;
-DELIMITER //
-CREATE TRIGGER preDeleteAdvisorTrigger
-    BEFORE DELETE
-    ON Advisor
-    FOR EACH ROW
-
-BEGIN
-    UPDATE Program
-    SET advisor_ssn = NULL
-    WHERE advisor_ssn = OLD.ssn;
-
-    DELETE
-    FROM HasDegree
-    WHERE ssn = OLD.ssn;
-
-    DELETE
-    FROM Awards
-    WHERE ssn = OLD.ssn;
-
-    DELETE
-    FROM Publications
-    WHERE ssn = OLD.ssn;
-
-    DELETE
-    FROM Experience
-    WHERE ssn = OLD.ssn;
-
-    DELETE
-    FROM Contract
-    WHERE ssn = OLD.ssn;
-END//
-DELIMITER ;
-
-DROP TRIGGER IF EXISTS postDeleteAdvisorTrigger;
-DELIMITER //
-CREATE TRIGGER postDeleteAdvisorTrigger
-    AFTER DELETE
-    ON Advisor
-    FOR EACH ROW
-
-BEGIN
-    DELETE
-    FROM Employee
-    WHERE ssn = OLD.ssn;
-
-    DELETE
-    FROM Person
-    WHERE ssn = OLD.ssn;
-
 END//
 DELIMITER ;
