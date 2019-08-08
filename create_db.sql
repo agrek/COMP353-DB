@@ -123,7 +123,7 @@ CREATE TABLE RoomNeeds
 
 CREATE TABLE Person
 (
-    ssn        INT         NOT NULL	DEFAULT 000000000,
+    ssn        INT         NOT NULL,
     id         INT AUTO_INCREMENT,
     first_name VARCHAR(45) NOT NULL,
     last_name  VARCHAR(45) NOT NULL,
@@ -210,7 +210,7 @@ CREATE TABLE Instructor
 ALTER TABLE Department
     ADD CONSTRAINT Department_Chairman_ssn_fk
         FOREIGN KEY (chairman_ssn) REFERENCES Instructor (ssn) 
-        ON UPDATE CASCADE;
+        ON UPDATE CASCADE ON DELETE SET NULL;
 
 CREATE TABLE UGradStudents
 (
@@ -231,7 +231,7 @@ CREATE TABLE GradStudents
         PRIMARY KEY (ssn),
     CONSTRAINT GradStudents_Instructor_ssn_fk
         FOREIGN KEY (supervisor_ssn) REFERENCES Instructor (ssn)
-        ON UPDATE CASCADE,
+		ON UPDATE CASCADE ON DELETE SET DEFAULT,
     CONSTRAINT Grad_Student_id_fk
         FOREIGN KEY (ssn) REFERENCES Student (ssn)
         ON UPDATE CASCADE ON DELETE CASCADE
@@ -427,7 +427,7 @@ CREATE TABLE Section
         ON UPDATE CASCADE,
     CONSTRAINT Section_Instructor_ssn_fk
         FOREIGN KEY (instructor_ssn) REFERENCES Instructor (ssn)
-        ON UPDATE CASCADE,
+        ON UPDATE CASCADE ON DELETE SET DEFAULT,
     CONSTRAINT term_name_fk
         FOREIGN KEY (term) REFERENCES TermToNumber (term)
         ON UPDATE CASCADE
@@ -1198,54 +1198,7 @@ BEGIN
     SET instructor_ssn = 000000000
     WHERE instructor_ssn = OLD.ssn;
 
-    DELETE
-    FROM Awards
-    WHERE ssn = OLD.ssn;
-
-    DELETE
-    FROM Publications
-    WHERE ssn = OLD.ssn;
-
-    DELETE
-    FROM Experience
-    WHERE ssn = OLD.ssn;
-
     UPDATE GradStudents
     SET supervisor_ssn = 000000000
     WHERE supervisor_ssn = OLD.ssn;
-
-    DELETE
-    FROM Contract
-    WHERE ssn = OLD.ssn;
-
-    DELETE
-    FROM HasDegree
-    WHERE ssn = OLD.ssn;
-
-    UPDATE Department
-    SET chairman_ssn = NULL
-    WHERE chairman_ssn = OLD.ssn;
-
 END//
-DELIMITER ;
-
-DROP TRIGGER IF EXISTS postDeleteInstructorTrigger;
-DELIMITER //
-CREATE TRIGGER postDeleteInstructorTrigger
-    AFTER DELETE
-    ON Instructor
-    FOR EACH ROW
-
-BEGIN
-    DELETE
-    FROM Employee
-    WHERE ssn = OLD.ssn;
-
-    DELETE
-    FROM Person
-    WHERE ssn = OLD.ssn;
-
-END//
-DELIMITER ;
-
-
