@@ -178,7 +178,7 @@ CREATE TABLE Student
         PRIMARY KEY (ssn),
     CONSTRAINT Student_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn)
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Department
@@ -219,7 +219,7 @@ CREATE TABLE UGradStudents
         PRIMARY KEY (ssn),
     CONSTRAINT Undergrad_Student_id_fk
         FOREIGN KEY (ssn) REFERENCES Student (ssn)
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE GradStudents
@@ -234,7 +234,7 @@ CREATE TABLE GradStudents
         ON UPDATE CASCADE,
     CONSTRAINT Grad_Student_id_fk
         FOREIGN KEY (ssn) REFERENCES Student (ssn)
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Experience
@@ -354,7 +354,7 @@ CREATE TABLE Studies
         ON UPDATE CASCADE,
     CONSTRAINT Studies_Student_id_fk
         FOREIGN KEY (student_ssn) REFERENCES Student (ssn)
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Course
@@ -447,7 +447,7 @@ CREATE TABLE TAPosition
         ON UPDATE CASCADE,
     CONSTRAINT TA_GradStudents_id_fk
         FOREIGN KEY (assignee_ssn) REFERENCES GradStudents (ssn)
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 CREATE TABLE ResearchFunds
@@ -473,7 +473,7 @@ CREATE TABLE ResearchFundingApplications
         PRIMARY KEY (id),
     CONSTRAINT ResearchFundingApplications_GradStudents_ssn_fk
         FOREIGN KEY (student_ssn) REFERENCES GradStudents (ssn)
-        ON UPDATE CASCADE,
+        ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT ResearchFundingApplications_ResearchFunds_id_fk
         FOREIGN KEY (research_fund_id) REFERENCES ResearchFunds (id)
         ON UPDATE CASCADE
@@ -490,7 +490,7 @@ CREATE TABLE SectionEnrollment
         ON UPDATE CASCADE,
     CONSTRAINT SectionEnrollment_Student_ssn_fk
         FOREIGN KEY (student_ssn) REFERENCES Student (ssn)
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Requisites
