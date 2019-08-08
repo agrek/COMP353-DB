@@ -231,7 +231,8 @@ CREATE TABLE GradStudents
         PRIMARY KEY (ssn),
     CONSTRAINT GradStudents_Instructor_ssn_fk
         FOREIGN KEY (supervisor_ssn) REFERENCES Instructor (ssn)
-		ON UPDATE CASCADE,
+		ON UPDATE CASCADE
+        ON DELETE SET NULL,
     CONSTRAINT Grad_Student_id_fk
         FOREIGN KEY (ssn) REFERENCES Student (ssn)
         ON UPDATE CASCADE ON DELETE CASCADE
@@ -411,7 +412,7 @@ CREATE TABLE Section
     end_time              TIME        NOT NULL,
     term                  VARCHAR(45) NOT NULL,
     year                  INT(4)      NOT NULL,
-    instructor_ssn        INT(9)      NOT NULL,
+    instructor_ssn        INT(9)      NULL,
     building_abbreviation VARCHAR(45) NULL,
     room_floor            INT(2)      NULL,
     room_number           INT(3)      NOT NULL,
@@ -427,7 +428,8 @@ CREATE TABLE Section
         ON UPDATE CASCADE,
     CONSTRAINT Section_Instructor_ssn_fk
         FOREIGN KEY (instructor_ssn) REFERENCES Instructor (ssn)
-        ON UPDATE CASCADE,
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
     CONSTRAINT term_name_fk
         FOREIGN KEY (term) REFERENCES TermToNumber (term)
         ON UPDATE CASCADE
@@ -1185,7 +1187,7 @@ END;
 //
 DELIMITER ;
 /**** END OF BUILDING TABLE CONSISTENCY CHECK ****/
-
+/*
 DROP TRIGGER IF EXISTS preDeleteInstructorTrigger;
 DELIMITER //
 CREATE TRIGGER preDeleteInstructorTrigger
@@ -1202,3 +1204,4 @@ BEGIN
     SET supervisor_ssn = 000000000
     WHERE supervisor_ssn = OLD.ssn;
 END//
+*/

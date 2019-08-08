@@ -17,8 +17,8 @@ COMMIT;
 
 -- b) Delete
 DELETE
-FROM Instructor
-WHERE ssn = 666666666;
+FROM Person
+WHERE ssn = 254156867;
 
 -- c) Edit
 UPDATE Instructor
