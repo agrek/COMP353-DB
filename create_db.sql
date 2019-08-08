@@ -73,9 +73,11 @@ CREATE TABLE Building
     CONSTRAINT Building_pk
         PRIMARY KEY (abbreviation),
     CONSTRAINT Building_Campus_abbreviation_fk
-        FOREIGN KEY (campus) REFERENCES Campus (abbreviation),
+        FOREIGN KEY (campus) REFERENCES Campus (abbreviation)
+        ON UPDATE CASCADE,
     CONSTRAINT Building_Address_id_fk
         FOREIGN KEY (address) REFERENCES Address (id)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE Room
@@ -89,6 +91,7 @@ CREATE TABLE Room
         PRIMARY KEY (building_abbreviation, room_floor, room_number),
     CONSTRAINT Room_Building_abbreviation_fk
         FOREIGN KEY (building_abbreviation) REFERENCES Building (abbreviation)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE RoomOverhead
@@ -111,9 +114,11 @@ CREATE TABLE RoomNeeds
     CONSTRAINT RoomNeeds_pk
         PRIMARY KEY (building_abbreviation, room_floor, room_number, room_overhead_id),
     CONSTRAINT RoomNeeds_RoomOverhead_id_fk
-        FOREIGN KEY (room_overhead_id) REFERENCES RoomOverhead (id),
+        FOREIGN KEY (room_overhead_id) REFERENCES RoomOverhead (id)
+        ON UPDATE CASCADE,
     CONSTRAINT RoomNeeds_Room_building_abbreviation_room_number_fk
         FOREIGN KEY (building_abbreviation, room_floor, room_number) REFERENCES Room (building_abbreviation, room_floor, room_number)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE Person
@@ -131,6 +136,7 @@ CREATE TABLE Person
         UNIQUE (id, email),
     CONSTRAINT Person_Address_id_fk
         FOREIGN KEY (address) REFERENCES Address (id)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE Employee
@@ -143,9 +149,11 @@ CREATE TABLE Employee
     CONSTRAINT Employee_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Employee_Person_ssn_fk
-        FOREIGN KEY (ssn) REFERENCES Person (ssn),
+        FOREIGN KEY (ssn) REFERENCES Person (ssn)
+        ON UPDATE CASCADE,
     CONSTRAINT Employee_Building_abbreviation_fk
         FOREIGN KEY (office_building_abbreviation, office_room_floor, office_room_number) REFERENCES Room (building_abbreviation, room_floor, room_number)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE Contract
@@ -159,6 +167,7 @@ CREATE TABLE Contract
         PRIMARY KEY (ssn, start_date, end_date),
     CONSTRAINT Contract_Employee_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Employee (ssn)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE Student
@@ -169,6 +178,7 @@ CREATE TABLE Student
         PRIMARY KEY (ssn),
     CONSTRAINT Student_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE Department
@@ -190,14 +200,17 @@ CREATE TABLE Instructor
     CONSTRAINT Instructor_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Instructor_Department_id_fk
-        FOREIGN KEY (dept_id) REFERENCES Department (id),
+        FOREIGN KEY (dept_id) REFERENCES Department (id)
+        ON UPDATE CASCADE,
     CONSTRAINT Instructor_Employee_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Employee (ssn)
+        ON UPDATE CASCADE
 );
 
 ALTER TABLE Department
     ADD CONSTRAINT Department_Chairman_ssn_fk
-        FOREIGN KEY (chairman_ssn) REFERENCES Instructor (ssn);
+        FOREIGN KEY (chairman_ssn) REFERENCES Instructor (ssn) 
+        ON UPDATE CASCADE;
 
 CREATE TABLE UGradStudents
 (
@@ -206,6 +219,7 @@ CREATE TABLE UGradStudents
         PRIMARY KEY (ssn),
     CONSTRAINT Undergrad_Student_id_fk
         FOREIGN KEY (ssn) REFERENCES Student (ssn)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE GradStudents
@@ -216,9 +230,11 @@ CREATE TABLE GradStudents
     CONSTRAINT GradStudents_pk
         PRIMARY KEY (ssn),
     CONSTRAINT GradStudents_Instructor_ssn_fk
-        FOREIGN KEY (supervisor_ssn) REFERENCES Instructor (ssn),
+        FOREIGN KEY (supervisor_ssn) REFERENCES Instructor (ssn)
+        ON UPDATE CASCADE,
     CONSTRAINT Grad_Student_id_fk
         FOREIGN KEY (ssn) REFERENCES Student (ssn)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE Experience
@@ -232,6 +248,7 @@ CREATE TABLE Experience
         PRIMARY KEY (ssn, title, company, start_date, end_date),
     CONSTRAINT Experience_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE Publications
@@ -245,6 +262,7 @@ CREATE TABLE Publications
         PRIMARY KEY (ssn, date, title, publisher),
     CONSTRAINT Publications_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE Awards
@@ -256,6 +274,7 @@ CREATE TABLE Awards
         PRIMARY KEY (ssn, date, name),
     CONSTRAINT Awards_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE Degree
@@ -278,9 +297,11 @@ CREATE TABLE HasDegree
     CONSTRAINT HasDegree_pk
         PRIMARY KEY (ssn, degree_id),
     CONSTRAINT HasDegree_Degree_id_fk
-        FOREIGN KEY (degree_id) REFERENCES Degree (id),
+        FOREIGN KEY (degree_id) REFERENCES Degree (id)
+        ON UPDATE CASCADE,
     CONSTRAINT HasDegree_Person_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Person (ssn)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE LetterToGpa
@@ -298,6 +319,7 @@ CREATE TABLE Advisor
         PRIMARY KEY (ssn),
     CONSTRAINT Advisor_Employee_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Employee (ssn)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE Program
@@ -311,9 +333,11 @@ CREATE TABLE Program
     CONSTRAINT Program_pk
         PRIMARY KEY (id),
     CONSTRAINT Program_Advisor_ssn_fk
-        FOREIGN KEY (advisor_ssn) REFERENCES Advisor (ssn),
+        FOREIGN KEY (advisor_ssn) REFERENCES Advisor (ssn)
+        ON UPDATE CASCADE,
     CONSTRAINT Program_Department_id_fk
         FOREIGN KEY (department_id) REFERENCES Department (id)
+        ON UPDATE CASCADE
 );
 
 CREATE UNIQUE INDEX Program_uq
@@ -326,9 +350,11 @@ CREATE TABLE Studies
     CONSTRAINT Program_pk
         PRIMARY KEY (student_ssn, program_id),
     CONSTRAINT Studies_Program_id_fk
-        FOREIGN KEY (program_id) REFERENCES Program (id),
+        FOREIGN KEY (program_id) REFERENCES Program (id)
+        ON UPDATE CASCADE,
     CONSTRAINT Studies_Student_id_fk
         FOREIGN KEY (student_ssn) REFERENCES Student (ssn)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE Course
@@ -343,6 +369,7 @@ CREATE TABLE Course
         UNIQUE (name),
     CONSTRAINT Course_Department_id_fk
         FOREIGN KEY (department_id) REFERENCES Department (id)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE CourseCompleted
@@ -355,11 +382,14 @@ CREATE TABLE CourseCompleted
     CONSTRAINT CourseCompleted_pk
         PRIMARY KEY (student_ssn, course_code, year, term),
     CONSTRAINT CourseCompleted_Course_code_fk
-        FOREIGN KEY (course_code) REFERENCES Course (code),
+        FOREIGN KEY (course_code) REFERENCES Course (code)
+        ON UPDATE CASCADE,
     CONSTRAINT CourseCompleted_LetterToGpa_letter_fk
-        FOREIGN KEY (grade) REFERENCES LetterToGpa (letter),
+        FOREIGN KEY (grade) REFERENCES LetterToGpa (letter)
+        ON UPDATE CASCADE,
     CONSTRAINT CourseCompleted_Student_ssn_fk
         FOREIGN KEY (student_ssn) REFERENCES Student (ssn)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE TermToNumber
@@ -390,13 +420,17 @@ CREATE TABLE Section
     CONSTRAINT Section_uq
         UNIQUE (course_code, name),
     CONSTRAINT Section_Building_abbreviation_num_rooms_fk
-        FOREIGN KEY (building_abbreviation, room_floor, room_number) REFERENCES Room (building_abbreviation, room_floor, room_number),
+        FOREIGN KEY (building_abbreviation, room_floor, room_number) REFERENCES Room (building_abbreviation, room_floor, room_number)
+        ON UPDATE CASCADE,
     CONSTRAINT Section_Course_code_fk
-        FOREIGN KEY (course_code) REFERENCES Course (code),
+        FOREIGN KEY (course_code) REFERENCES Course (code)
+        ON UPDATE CASCADE,
     CONSTRAINT Section_Instructor_ssn_fk
-        FOREIGN KEY (instructor_ssn) REFERENCES Instructor (ssn),
+        FOREIGN KEY (instructor_ssn) REFERENCES Instructor (ssn)
+        ON UPDATE CASCADE,
     CONSTRAINT term_name_fk
         FOREIGN KEY (term) REFERENCES TermToNumber (term)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE TAPosition
@@ -409,9 +443,11 @@ CREATE TABLE TAPosition
     CONSTRAINT TAPosition_pk
         PRIMARY KEY (section_id),
     CONSTRAINT TAPosition_Section_id_fk
-        FOREIGN KEY (section_id) REFERENCES Section (id),
+        FOREIGN KEY (section_id) REFERENCES Section (id)
+        ON UPDATE CASCADE,
     CONSTRAINT TA_GradStudents_id_fk
         FOREIGN KEY (assignee_ssn) REFERENCES GradStudents (ssn)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE ResearchFunds
@@ -436,9 +472,11 @@ CREATE TABLE ResearchFundingApplications
     CONSTRAINT ResearchFundingApplications_pk
         PRIMARY KEY (id),
     CONSTRAINT ResearchFundingApplications_GradStudents_ssn_fk
-        FOREIGN KEY (student_ssn) REFERENCES GradStudents (ssn),
+        FOREIGN KEY (student_ssn) REFERENCES GradStudents (ssn)
+        ON UPDATE CASCADE,
     CONSTRAINT ResearchFundingApplications_ResearchFunds_id_fk
         FOREIGN KEY (research_fund_id) REFERENCES ResearchFunds (id)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE SectionEnrollment
@@ -448,9 +486,11 @@ CREATE TABLE SectionEnrollment
     CONSTRAINT SectionEnrollment_pk
         PRIMARY KEY (section_id, student_ssn),
     CONSTRAINT SectionEnrollment_Section_id_fk
-        FOREIGN KEY (section_id) REFERENCES Section (id),
+        FOREIGN KEY (section_id) REFERENCES Section (id)
+        ON UPDATE CASCADE,
     CONSTRAINT SectionEnrollment_Student_ssn_fk
         FOREIGN KEY (student_ssn) REFERENCES Student (ssn)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE Requisites
@@ -461,9 +501,11 @@ CREATE TABLE Requisites
     CONSTRAINT Requisites_pk
         PRIMARY KEY (course_code, req_code),
     CONSTRAINT Requisites_Course_code_fk
-        FOREIGN KEY (course_code) REFERENCES Course (code),
+        FOREIGN KEY (course_code) REFERENCES Course (code)
+        ON UPDATE CASCADE,
     CONSTRAINT Requisites_Course_code_fk_2
         FOREIGN KEY (req_code) REFERENCES Course (code)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE ProgramRequirements
@@ -473,9 +515,11 @@ CREATE TABLE ProgramRequirements
     CONSTRAINT ProgramRequirements_pk
         PRIMARY KEY (program_id, course_code),
     CONSTRAINT ProgramRequirements_Course_code_fk
-        FOREIGN KEY (course_code) REFERENCES Course (code),
+        FOREIGN KEY (course_code) REFERENCES Course (code)
+        ON UPDATE CASCADE,
     CONSTRAINT ProgramRequirements_Program_id_fk
         FOREIGN KEY (program_id) REFERENCES Program (id)
+        ON UPDATE CASCADE
 );
 
 
