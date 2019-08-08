@@ -231,7 +231,7 @@ CREATE TABLE GradStudents
         PRIMARY KEY (ssn),
     CONSTRAINT GradStudents_Instructor_ssn_fk
         FOREIGN KEY (supervisor_ssn) REFERENCES Instructor (ssn)
-		ON UPDATE CASCADE ON DELETE SET DEFAULT,
+		ON UPDATE CASCADE,
     CONSTRAINT Grad_Student_id_fk
         FOREIGN KEY (ssn) REFERENCES Student (ssn)
         ON UPDATE CASCADE ON DELETE CASCADE
@@ -427,7 +427,7 @@ CREATE TABLE Section
         ON UPDATE CASCADE,
     CONSTRAINT Section_Instructor_ssn_fk
         FOREIGN KEY (instructor_ssn) REFERENCES Instructor (ssn)
-        ON UPDATE CASCADE ON DELETE SET DEFAULT,
+        ON UPDATE CASCADE,
     CONSTRAINT term_name_fk
         FOREIGN KEY (term) REFERENCES TermToNumber (term)
         ON UPDATE CASCADE
