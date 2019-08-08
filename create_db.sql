@@ -1187,21 +1187,3 @@ END;
 //
 DELIMITER ;
 /**** END OF BUILDING TABLE CONSISTENCY CHECK ****/
-/*
-DROP TRIGGER IF EXISTS preDeleteInstructorTrigger;
-DELIMITER //
-CREATE TRIGGER preDeleteInstructorTrigger
-    BEFORE DELETE
-    ON Person
-    FOR EACH ROW
-
-BEGIN
-    UPDATE Section
-    SET instructor_ssn = 000000000
-    WHERE instructor_ssn = OLD.ssn;
-
-    UPDATE GradStudents
-    SET supervisor_ssn = 000000000
-    WHERE supervisor_ssn = OLD.ssn;
-END//
-*/
