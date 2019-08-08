@@ -389,7 +389,7 @@ CREATE TABLE CourseCompleted
         ON UPDATE CASCADE,
     CONSTRAINT CourseCompleted_Student_ssn_fk
         FOREIGN KEY (student_ssn) REFERENCES Student (ssn)
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE TermToNumber
@@ -1249,7 +1249,7 @@ END//
 DELIMITER ;
 
 DROP TRIGGER IF EXISTS preDeleteStudentTrigger;
-DELIMITER //
+/*DELIMITER //
 CREATE TRIGGER preDeleteStudentTrigger
     BEFORE DELETE
     ON Student
@@ -1296,10 +1296,10 @@ BEGIN
     FROM UGradStudents
     WHERE ssn = OLD.ssn;
 END//
-DELIMITER ;
+DELIMITER ;*/
 
 DROP TRIGGER IF EXISTS postDeleteStudentTrigger;
-DELIMITER //
+/*DELIMITER //
 CREATE TRIGGER postDeleteStudentTrigger
     AFTER DELETE
     ON Student
@@ -1310,4 +1310,4 @@ BEGIN
     FROM Person
     WHERE ssn = OLD.ssn;
 END//
-DELIMITER ;
+DELIMITER ;*/
