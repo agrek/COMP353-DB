@@ -123,7 +123,7 @@ CREATE TABLE RoomNeeds
 
 CREATE TABLE Person
 (
-    ssn        INT         NOT NULL,
+    ssn        INT         NOT NULL	DEFAULT 000000000,
     id         INT AUTO_INCREMENT,
     first_name VARCHAR(45) NOT NULL,
     last_name  VARCHAR(45) NOT NULL,
