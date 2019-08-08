@@ -1190,7 +1190,7 @@ DROP TRIGGER IF EXISTS preDeleteInstructorTrigger;
 DELIMITER //
 CREATE TRIGGER preDeleteInstructorTrigger
     BEFORE DELETE
-    ON Instructor
+    ON Person
     FOR EACH ROW
 
 BEGIN
