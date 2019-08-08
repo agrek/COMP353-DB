@@ -204,7 +204,7 @@ CREATE TABLE Instructor
         ON UPDATE CASCADE,
     CONSTRAINT Instructor_Employee_ssn_fk
         FOREIGN KEY (ssn) REFERENCES Employee (ssn)
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 ALTER TABLE Department
