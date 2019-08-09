@@ -30,8 +30,8 @@ VALUES (1, 'Computer Engineering'),
        (11, 'General Engineering');
 
 INSERT INTO Course
-VALUES ('COMP353', 'Databases', 3, '4.0'),
-       ('COMP352', 'Data structures and algorithms', 3, '3.0'),
+VALUES ('COMP353', 'Databases', 4, '4.0'),
+       ('COMP352', 'Data structures and algorithms', 4, '3.0'),
        ('SOEN341', 'Software processes', 4, '3.0'),
        ('SOEN342', 'Software requirements and specifications', 4, '3.5'),
        ('SOEN343', 'Software architecture and design 1', 4, '3.0'),
@@ -602,7 +602,7 @@ VALUES (1, 'Actuarial Mathematics Undergraduate', 'undergraduate', 90, 8, 565829
        (14, 'Chemistry Graduate', 'graduate', 44, 5, 502405693),
        (15, 'Biochemistry Undergraduate', 'undergraduate', 90, 5, 502405693),
        (16, 'Biochemistry Graduate', 'graduate', 44, 5, 502405693),
-       (17, 'Computer Systems Undergraduate', 'undergraduate', 90, 3, 269828604),
+       (17, 'Computer Systems Undergraduate', 'undergraduate', 90, 3, 502405693),
        (18, 'Computer Systems Graduate', 'graduate', 44, 3, 772846507),
        (19, 'Computer Science Undergraduate', 'undergraduate', 90, 3, 813718676),
        (20, 'Computer Science Graduate', 'graduate', 44, 3, 269828604),

@@ -1,31 +1,37 @@
--- i. Create/Delete/Edit/Display a faculty member.
--- a) Create
-START TRANSACTION;
+-- i. a) Create a faculty member.
+DROP PROCEDURE IF EXISTS insertInstructor;
+DELIMITER //
+CREATE PROCEDURE insertInstructor(IN SSN1 INT(9), IN fn VARCHAR(45), IN ln VARCHAR(45), IN em VARCHAR(45),
+                                  IN address1 INT, IN ph VARCHAR(14), IN bAbb VARCHAR(45),
+                                  IN oFloor INT(2), IN oNum INT(3), IN deptID INT, IN fundingAv BOOL)
+BEGIN
 
-SET @ID = 666666666;
+    INSERT INTO Person(ssn, first_name, last_name, email, address, phone)
+    VALUES (SSN1, fn, ln, em, address1, ph);
 
-INSERT INTO Person(ssn, id, first_name, last_name, email, address, phone)
-VALUES (@ID, 78, 'Ray', 'Sfacelo', 'ray666@gmail.com', 51, '(514) 666-3232');
+    INSERT INTO Employee(ssn, office_building_abbreviation, office_room_floor, office_room_number)
+    VALUES (SSN1, bAbb, oFloor, oNum);
 
-INSERT INTO Employee(ssn, retired, office_building_abbreviation, office_room_floor, office_room_number)
-VALUES (@ID, 0, 'MB', 10, 1020);
+    INSERT INTO Instructor (ssn, dept_id, funding_available)
+    VALUES (SSN1, deptID, fundingAv);
 
-INSERT INTO Instructor (ssn, dept_id, funding_available)
-VALUES (@ID, 3, FALSE);
+END //
+DELIMITER ;
 
-COMMIT;
+CALL insertInstructor(666666666, 'Ray', 'Sfacelo', 'ray666@gmail.com', 51, '(514) 666-3232', 'MB', 10, 1020, 3, FALSE);
 
--- b) Delete
+-- i. b) Delete a faculty member.
 DELETE
 FROM Person
-WHERE ssn = 666666666;
+WHERE ssn = 195310678;
 
--- c) Edit
+
+-- i. c) Edit a faculty member.
 UPDATE Instructor
 SET dept_id = 7
-WHERE ssn = 666666666;
+WHERE ssn = 817794537;
 
--- d) Display
+-- i. d) Display a faculty member.
 SELECT concat(first_name, ' ', last_name)                       AS Professor,
        concat(office_building_abbreviation, office_room_number) AS office,
        phone,
@@ -35,37 +41,41 @@ SELECT concat(first_name, ' ', last_name)                       AS Professor,
 FROM Person
          INNER JOIN Employee ON Person.ssn = Employee.ssn
          INNER JOIN Address ON Person.address = Address.id
-WHERE Person.ssn = 666666666;
+WHERE Person.ssn = 747652718;
 
--- ii. Create/Delete/Edit/Display a Student.
--- a) Create
-START TRANSACTION;
+-- ii. a) Create a Student.
+DROP PROCEDURE IF EXISTS insertStudent;
+DELIMITER //
+CREATE PROCEDURE insertStudent(IN SSN1 INT(9), IN fn VARCHAR(45), IN ln VARCHAR(45), IN em VARCHAR(45),
+                               IN address1 INT, IN ph VARCHAR(14))
+BEGIN
 
-SET @ID = 777777777;
+    INSERT INTO Person(ssn, first_name, last_name, email, address, phone)
+    VALUES (SSN1, fn, ln, em, address1, ph);
 
-INSERT INTO Person(ssn, id, first_name, last_name, email, address, phone)
-VALUES (@ID, 79, 'Samuel', 'Eto', 'eto@gmail.com', 30, '(450) 123-1111');
+    INSERT INTO Student(ssn)
+    VALUES (SSN1);
 
-INSERT INTO Student(ssn)
-VALUES (@ID);
+    INSERT INTO UGradStudents
+    VALUES (SSN1);
 
-INSERT INTO UGradStudents
-VALUES (@ID);
+END //
+DELIMITER ;
 
-COMMIT;
+CALL insertStudent(777777777, 'Samuel', 'Eto', 'eto@gmail.com', 30, '(450) 123-1111');
 
--- b) Delete
+-- ii. b) Delete a Student.
 DELETE
 FROM Student
-WHERE ssn = 777777777;
+WHERE ssn = 108906305;
 
--- c) Edit
-UPDATE UGradStudents UGS
-    INNER JOIN Person P ON P.ssn = UGS.ssn
-SET last_name = 'Untermyer'
-WHERE UGS.ssn = 777777777;
+-- ii. c) Edit a Student.
+UPDATE Student S
+    INNER JOIN Person P ON P.ssn = S.ssn
+SET last_name = 'Bruceter'
+WHERE S.ssn = 373307205;
 
--- d) Display
+-- ii. d) Display a Student.
 SELECT concat(first_name, ' ', last_name) AS name,
        gpa,
        phone,
@@ -75,26 +85,37 @@ SELECT concat(first_name, ' ', last_name) AS name,
 FROM Student
          INNER JOIN Person P ON Student.ssn = P.ssn
          INNER JOIN Address ON P.address = Address.id
-WHERE P.ssn = 108906305;
+WHERE P.ssn = 667004396;
 
--- iii. Create/Delete/Edit/Display a Teaching Assistant.
--- a) Create
+-- iii. a) Create a Teaching Assistant.
 INSERT INTO TAPosition
 VALUES (64, 'Lab Instructor', 50, 965277745, 1000);
 
--- b) Delete
+-- iii. b) Delete a Teaching Assistant.
+-- display the TA's positions first
+SELECT assignee_ssn,
+       position,
+       section_id,
+       course_code,
+       salary,
+       concat(Person.first_name, ' ', Person.last_name) AS TA_name
+FROM Person
+         INNER JOIN TAPosition ON Person.ssn = assignee_ssn
+         INNER JOIN Section S ON TAPosition.section_id = S.id
+WHERE assignee_ssn = 814392875;
+
 DELETE
 FROM TAPosition
-WHERE assignee_ssn = 965277745;
+WHERE section_id = 27;
 
--- c) Edit
+-- iii. c) Edit a Teaching Assistant.
 UPDATE TAPosition
 SET salary = 1220
 WHERE assignee_ssn = 965277745
   AND section_id = 64;
 -- in case TA gives multiple sections, we edit for a specific section (!)
 
--- d) Display
+-- iii. d) Display a Teaching Assistant.
 SELECT concat(first_name, ' ', last_name) AS name,
        phone,
        email,
@@ -141,7 +162,7 @@ SELECT name,
        total_number_rooms,
        room_floor,
        count(room_number)                                                                AS room_per_floor,
-       group_concat(room_number, ' (', type, ')', ' [', equipment, ']' SEPARATOR '\r\n') AS rooms
+       group_concat(room_number, ' (', type, ')', ' [', equipment, ']' SEPARATOR '\r\n') AS `room (type) needs`
 FROM (
          SELECT name,
                 A.street,
@@ -180,12 +201,12 @@ WHERE Department.name = 'Computer Science';
 SELECT code, Course.name AS course_name
 FROM Course
          INNER JOIN Section ON Course.code = Section.course_code
-WHERE term = 'winter'
+WHERE term = 'fall'
   AND year = 2018
   AND department_id IN (
     SELECT id
     FROM Department
-    WHERE name = 'Computer Science'
+    WHERE name = 'Software Engineering'
 )
 GROUP BY code;
 
@@ -218,19 +239,19 @@ FROM Section
          INNER JOIN Person ON Employee.ssn = Person.ssn
          INNER JOIN Course ON Section.course_code = Course.code
          INNER JOIN SectionEnrollment ON Section.id = SectionEnrollment.section_id
-WHERE term = 'summer'
+WHERE term = 'fall'
   AND year = 2018
   AND department_id = (
     SELECT id
     FROM Department
-    WHERE Department.name = 'Computer Science'
+    WHERE Department.name = 'Software Engineering'
 )
 GROUP BY Section.id;
 
 -- x. Find ID, first name and last name of all the students who are enrolled in a
 -- specific program in a given term.
 
-SELECT concat(first_name, ' ', last_name) AS name, Person.ssn
+SELECT concat(first_name, ' ', last_name) AS name, Person.id
 FROM Person
 WHERE ssn IN (
     SELECT student_ssn
@@ -262,7 +283,7 @@ FROM GradStudents
 
 -- xiii. Give a list of all the advisors in a given department.
 
-SELECT concat(first_name, ' ', last_name) AS advisior
+SELECT concat(first_name, ' ', last_name) AS advisor
 FROM Advisor
          INNER JOIN Person ON Advisor.ssn = Person.ssn
 WHERE Advisor.ssn IN (
@@ -278,7 +299,7 @@ WHERE Advisor.ssn IN (
 -- xiv. Find the name and IDs of all the graduate students who are supervised by
 -- a specific Professor.
 
-SELECT DISTINCT concat(first_name, ' ', last_name) AS student_name, ssn
+SELECT DISTINCT concat(first_name, ' ', last_name) AS student_name, id
 FROM Person
 WHERE ssn IN (
     SELECT ssn
@@ -299,7 +320,7 @@ WHERE ssn IN (
 -- who are assigned as teaching assistants to a specific course on a given
 -- term.
 
-SELECT assignee_ssn,
+SELECT id,
        position,
        concat(Person.first_name, ' ', Person.last_name) AS TA_name
 FROM Person
@@ -360,8 +381,16 @@ GROUP BY course_code;
 -- xx. Register a student in a specific course.
 
 -- this is done on 2 steps in order to choose the section; subquerying the section would return multiple records (!)
-SELECT id
-FROM Section
+SELECT S.id,
+       term,
+       year,
+       day,
+       start_time,
+       end_time,
+       concat(Person.first_name, ' ', Person.last_name) AS Professorr
+FROM Section S
+         INNER JOIN Instructor I ON S.instructor_ssn = I.ssn
+         INNER JOIN Person ON Person.ssn = instructor_ssn
 WHERE course_code = 'MATH209';
 
 INSERT INTO SectionEnrollment
@@ -371,8 +400,8 @@ VALUES (46, 752713919);
 
 DELETE
 FROM SectionEnrollment
-WHERE SectionEnrollment.student_ssn = 752713919
-  AND SectionEnrollment.section_id IN (SELECT id FROM Section WHERE course_code = 'CHEM325')
+WHERE SectionEnrollment.student_ssn = 157682678
+  AND SectionEnrollment.section_id IN (SELECT id FROM Section WHERE course_code = 'PHYS393')
   AND SectionEnrollment.section_id NOT IN (
     SELECT *
     FROM (SELECT section_id
@@ -383,18 +412,18 @@ WHERE SectionEnrollment.student_ssn = 752713919
                                                     S.term = CC.term AND
                                                     S.course_code = CC.course_code AND
                                                     S.year = CC.year
-          WHERE SE.student_ssn = 752713919
+          WHERE SE.student_ssn = 157682678
          ) temp);
 
 -- insert it back for testing/demo
 # INSERT INTO SectionEnrollment
-# VALUES (46, 752713919);
+# VALUES (53, 157682678);
 
 -- display enrolled courses for testing/demo
 # SELECT group_concat(DISTINCT course_code SEPARATOR '\r\n') AS enrolled
 # FROM SectionEnrollment
 #          INNER JOIN Section S ON SectionEnrollment.section_id = S.id
-# WHERE student_ssn = 752713919;
+# WHERE student_ssn = 157682678;
 
 -- xxii. Give a detailed report for a specific student (This include personal data,
 -- academic history, courses taken and grades received for each course,

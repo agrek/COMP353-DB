@@ -141,11 +141,11 @@ CREATE TABLE Person
 
 CREATE TABLE Employee
 (
-    ssn                          INT                NOT NULL,
-    retired                      BOOL DEFAULT FALSE NOT NULL,
-    office_building_abbreviation VARCHAR(45)        NULL,
-    office_room_floor            INT(2)             NULL,
-    office_room_number           INT(3)             NULL,
+    ssn                          INT         NOT NULL,
+    retired                      BOOL DEFAULT FALSE,
+    office_building_abbreviation VARCHAR(45) NULL,
+    office_room_floor            INT(2)      NULL,
+    office_room_number           INT(3)      NULL,
     CONSTRAINT Employee_pk
         PRIMARY KEY (ssn),
     CONSTRAINT Employee_Person_ssn_fk
@@ -589,7 +589,7 @@ BEGIN
 
     IF (@multipleSecs > 0) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
-                'A student cannot register to two different sections of same type,term, and year';
+                'A student cannot register to two different sections of same course, type, term, and year';
 
     END IF;
 
@@ -609,7 +609,7 @@ BEGIN
 
     IF (@totalStudentSec >= @roomcap) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
-                'ERROR: Student enrollment for this section has reached/exceeded room capacity.';
+                'ERROR: Student enrollment for this section has reached/exceeded room capacity';
     END IF;
 
     /******************* Prerequisites Check *******************/
