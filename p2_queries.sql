@@ -25,7 +25,6 @@ DELETE
 FROM Person
 WHERE ssn = 195310678;
 
-
 -- i. c) Edit a faculty member.
 UPDATE Instructor
 SET dept_id = 7
