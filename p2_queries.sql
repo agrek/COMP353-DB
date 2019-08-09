@@ -22,8 +22,9 @@ CALL insertInstructor(666666666, 'Ray', 'Sfacelo', 'ray666@gmail.com', 51, '(514
 
 -- i. b) Delete a faculty member.
 DELETE
-FROM Advisor
+FROM Person
 WHERE ssn = 195310678;
+
 
 -- i. c) Edit a faculty member.
 UPDATE Instructor
