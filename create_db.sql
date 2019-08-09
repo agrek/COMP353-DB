@@ -59,9 +59,9 @@ CREATE TABLE Address
 
 CREATE TABLE Area
 (
-    city         VARCHAR(45) NOT NULL,
-    postal_code  VARCHAR(6)  NOT NULL,
-    province     VARCHAR(45) NOT NULL,
+    city        VARCHAR(45) NOT NULL,
+    postal_code VARCHAR(6)  NOT NULL,
+    province    VARCHAR(45) NOT NULL,
     CONSTRAINT Area_pk
         PRIMARY KEY (city, postal_code)
 );
@@ -89,8 +89,8 @@ CREATE TABLE Building
 
 CREATE TABLE BuildingCampus
 (
-    address      INT         NOT NULL,
-    campus       VARCHAR(45) NOT NULL,
+    address INT         NOT NULL,
+    campus  VARCHAR(45) NOT NULL,
     CONSTRAINT Building_pk
         PRIMARY KEY (address),
     CONSTRAINT BuildingCampus_abbreviation_fk
