@@ -50,7 +50,11 @@ CREATE TABLE Address
     CONSTRAINT Address_pk
         PRIMARY KEY (id),
     CONSTRAINT Address_uq
-        UNIQUE (civic_number, street, city, postal_code, apt)
+        UNIQUE (civic_number, street, city, postal_code, apt),
+    CONSTRAINT Address_Area_city_fk
+        FOREIGN KEY (city) REFERENCES Area (city),
+    CONSTRAINT Address_Area_postal_code_fk
+        FOREIGN KEY (postal_code) REFERENCES Area (postal_code)
 );
 
 CREATE TABLE Area
@@ -59,11 +63,7 @@ CREATE TABLE Area
     postal_code  VARCHAR(6)  NOT NULL,
     province     VARCHAR(45) NOT NULL,
     CONSTRAINT Area_pk
-        PRIMARY KEY (city, postal_code),
-    CONSTRAINT Area_Address_city_fk
-        FOREIGN KEY (city) REFERENCES Address (city),
-    CONSTRAINT Area_Address_postal_code_fk
-        FOREIGN KEY (postal_code) REFERENCES Address (postal_code)
+        PRIMARY KEY (city, postal_code)
 );
 
 CREATE TABLE Campus
@@ -83,20 +83,20 @@ CREATE TABLE Building
     address      INT         NOT NULL,
     CONSTRAINT Building_pk
         PRIMARY KEY (abbreviation),
-    CONSTRAINT Building_Address_id_fk
-        FOREIGN KEY (address) REFERENCES Address (id)
+    CONSTRAINT BuildingCampus_Address_id_fk
+        FOREIGN KEY (address) REFERENCES BuildingCampus (address)
 );
 
 CREATE TABLE BuildingCampus
 (
-    campus       VARCHAR(45) NOT NULL,
     address      INT         NOT NULL,
+    campus       VARCHAR(45) NOT NULL,
     CONSTRAINT Building_pk
         PRIMARY KEY (address),
     CONSTRAINT BuildingCampus_abbreviation_fk
         FOREIGN KEY (campus) REFERENCES Campus (abbreviation),
     CONSTRAINT BuildingCampus_Address_id_fk
-        FOREIGN KEY (address) REFERENCES Building (address)
+        FOREIGN KEY (address) REFERENCES Address (id)
 );
 
 CREATE TABLE Room
