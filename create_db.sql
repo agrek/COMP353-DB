@@ -3,10 +3,12 @@
 # CREATE DATABASE IF NOT EXISTS arc353_1;
 USE arc353_1;
 SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS arc353_1.Area;
 DROP TABLE IF EXISTS arc353_1.Address;
 DROP TABLE IF EXISTS arc353_1.Advisor;
 DROP TABLE IF EXISTS arc353_1.Awards;
 DROP TABLE IF EXISTS arc353_1.Building;
+DROP TABLE IF EXISTS arc353_1.BuildingCampus;
 DROP TABLE IF EXISTS arc353_1.Campus;
 DROP TABLE IF EXISTS arc353_1.Contract;
 DROP TABLE IF EXISTS arc353_1.Course;
@@ -39,6 +41,15 @@ DROP TABLE IF EXISTS arc353_1.TermToNumber;
 DROP TABLE IF EXISTS arc353_1.UGradStudents;
 SET FOREIGN_KEY_CHECKS = 1;
 
+CREATE TABLE Area
+(
+    city        VARCHAR(45) NOT NULL,
+    postal_code VARCHAR(6)  NOT NULL,
+    province    VARCHAR(45) NOT NULL,
+    CONSTRAINT Area_pk
+        PRIMARY KEY (city, postal_code)
+);
+
 CREATE TABLE Address
 (
     id           INT AUTO_INCREMENT,
@@ -52,18 +63,8 @@ CREATE TABLE Address
     CONSTRAINT Address_uq
         UNIQUE (civic_number, street, city, postal_code, apt),
     CONSTRAINT Address_Area_city_fk
-        FOREIGN KEY (city) REFERENCES Area (city),
-    CONSTRAINT Address_Area_postal_code_fk
-        FOREIGN KEY (postal_code) REFERENCES Area (postal_code)
-);
-
-CREATE TABLE Area
-(
-    city        VARCHAR(45) NOT NULL,
-    postal_code VARCHAR(6)  NOT NULL,
-    province    VARCHAR(45) NOT NULL,
-    CONSTRAINT Area_pk
-        PRIMARY KEY (city, postal_code)
+        FOREIGN KEY (city, postal_code) REFERENCES Area (city, postal_code)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE Campus
@@ -72,6 +73,20 @@ CREATE TABLE Campus
     name         VARCHAR(45) NOT NULL,
     CONSTRAINT Campus_pk
         PRIMARY KEY (abbreviation)
+);
+
+CREATE TABLE BuildingCampus
+(
+    address INT         NOT NULL,
+    campus  VARCHAR(45) NOT NULL,
+    CONSTRAINT Building_pk
+        PRIMARY KEY (address),
+    CONSTRAINT BuildingCampus_abbreviation_fk
+        FOREIGN KEY (campus) REFERENCES Campus (abbreviation)
+        ON UPDATE CASCADE   ON DELETE CASCADE ,
+    CONSTRAINT BuildingCampus_Address_id_fk
+        FOREIGN KEY (address) REFERENCES Address (id)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE Building
@@ -83,20 +98,9 @@ CREATE TABLE Building
     address      INT         NOT NULL,
     CONSTRAINT Building_pk
         PRIMARY KEY (abbreviation),
-    CONSTRAINT BuildingCampus_Address_id_fk
+    CONSTRAINT Building_Address_id_fk
         FOREIGN KEY (address) REFERENCES BuildingCampus (address)
-);
-
-CREATE TABLE BuildingCampus
-(
-    address INT         NOT NULL,
-    campus  VARCHAR(45) NOT NULL,
-    CONSTRAINT Building_pk
-        PRIMARY KEY (address),
-    CONSTRAINT BuildingCampus_abbreviation_fk
-        FOREIGN KEY (campus) REFERENCES Campus (abbreviation),
-    CONSTRAINT BuildingCampus_Address_id_fk
-        FOREIGN KEY (address) REFERENCES Address (id)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE Room

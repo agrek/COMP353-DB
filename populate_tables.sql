@@ -249,14 +249,9 @@ VALUES (74, 'SGW'),
        (91, 'SGW'),
        (92, 'LOY'),
        (93, 'LOY'),
-       (92, 'LOY'),
-       (92, 'LOY'),
        (94, 'LOY'),
-       (92, 'LOY'),
-       (95, 'LOY'),
-       (94, 'LOY'),
-       (92, 'LOY'),
-       (92, 'LOY');
+       (95, 'LOY');
+
 
 INSERT INTO Building(abbreviation, name, address)
 VALUES ('H', 'Henry F. Hall Building', 74),
