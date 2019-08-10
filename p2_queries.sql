@@ -137,14 +137,14 @@ WHERE P.ssn = 965277745;
 SELECT *
 FROM Campus;
 
--- v. Give a list of buildings on a given campus.
+-- v. Give a list of buildings on a given campus. TODO: update in website
 
 SELECT name, abbreviation
 FROM Building
-WHERE campus IN (
-    SELECT abbreviation
-    FROM Campus
-    WHERE name = 'Loyola'
+WHERE address IN (
+    SELECT address
+    FROM BuildingCampus
+    WHERE campus = 'LOY'
 );
 
 -- vi. Give details of a specific building (this include address of the building,
