@@ -183,8 +183,25 @@ SELECT ssn, gpa
 FROM Student
 WHERE ssn = 399437700;
 
+# Test insert
 INSERT INTO CourseCompleted
 VALUES (399437700, 'ENGL233', 2018, 'fall', 'A+');
+
+SELECT ssn, gpa
+FROM Student
+WHERE ssn = 399437700;
+
+# Test update
+UPDATE CourseCompleted SET grade = 'B+' WHERE student_ssn = 399437700 AND course_code = 'ENGL233'
+                                            AND year = 2018 AND term = 'fall';
+
+SELECT ssn, gpa
+FROM Student
+WHERE ssn = 399437700;
+
+# Test delete
+DELETE FROM CourseCompleted WHERE  student_ssn = 399437700 AND course_code = 'ENGL233'
+                                            AND year = 2018 AND term = 'fall';
 
 SELECT ssn, gpa
 FROM Student
@@ -245,6 +262,8 @@ WHERE building_abbreviation = 'H'
 
 INSERT INTO SectionEnrollment
 VALUES (48, 399437700);
+
+UPDATE SectionEnrollment SET section_id = 48 WHERE section_id = 2 AND student_ssn = 399437700;
 
 /*
     14) End_time should be after start_time in Section

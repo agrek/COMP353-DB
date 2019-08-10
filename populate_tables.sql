@@ -1297,8 +1297,7 @@ VALUES (41, 889993771),
        (32, 373307205),
        (33, 373307205);
 
-INSERT INTO TAPosition
-VALUES (4, 'TA', 35, 882108144, 1000),
+INSERT INTO TAPosition VALUES (4, 'TA', 35, 882108144, 1000),
        (9, 'Lab Instructor', 90, 882108144, 1000),
        (1, 'marker', 65, 814392875, 1000),
        (2, 'marker', 65, 814392875, 1000),
@@ -1340,7 +1339,7 @@ VALUES (4, 'TA', 35, 882108144, 1000),
        (41, 'marker', 110, 683192608, 1000),
        (42, 'marker', 110, 683192608, 1000),
        (43, 'marker', 110, 445761402, 1000),
-       (44, 'marker', 110, 445761402, 1000),
+       (44, 'marker', 10, 445761402, 1000),
        (45, 'marker', 120, 309348312, 1000),
        (46, 'marker', 120, 204794691, 1000),
        (47, 'marker', 120, 309348312, 1000),
@@ -1360,7 +1359,7 @@ VALUES (4, 'TA', 35, 882108144, 1000),
        (65, 'Lab Instructor', 40, 293904265, 2000);
 
 INSERT INTO Experience
-VALUES (254156867, 'Electrical Technician', 'Concordia University', '2011-09-22', '2015-09-04'),
+VALUES (934347739, 'Electrical Technician', 'Concordia University', '2011-09-22', '2015-09-04'),
        (803179891, 'Teacher Assistant', 'McGill', '2017-08-01', '2017-09-30'),
        (394025466, 'Manager', 'Ford Motor', '2015-03-02', '2017-09-05'),
        (226130537, 'Engineer', 'Schindler', '1993-09-08', '1999-09-01'),
@@ -1368,7 +1367,7 @@ VALUES (254156867, 'Electrical Technician', 'Concordia University', '2011-09-22'
        (472665242, 'Business Owner', 'Matrinox', '1983-09-04', '2000-01-01'),
        (842440083, 'Assistant Professor', 'Oxford University', '2016-01-09', '2019-03-02'),
        (747652718, 'Developer', 'Uber', '2016-02-20', '2017-09-09'),
-       (575933767, 'Seller', 'Pfizer', '2003-04-03', '2005-02-21'),
+       (934347739, 'Seller', 'Pfizer', '2003-04-03', '2005-02-21'),
        (415879768, 'Biomedical Development', 'Aventis', '2001-09-23', '2014-04-01'),
        (330264593, 'Researcher', 'Kroger', '1999-12-29', '2001-09-01'),
        (817794537, 'Coordinator', 'Sears', '2011-10-10', '2019-05-09'),
@@ -1385,13 +1384,13 @@ VALUES (254156867, 'Electrical Technician', 'Concordia University', '2011-09-22'
        (195310678, 'Engineer', 'STM', '2012-01-16', '2016-09-09');
 
 INSERT INTO Publications
-VALUES (254156867, 'conference', '1991-01-03', 'Q-Bits, soon a reality!', 'Akashic'),
+VALUES (934347739, 'conference', '1991-01-03', 'Q-Bits, soon a reality!', 'Akashic'),
        (803179891, 'conference', '1991-10-02', 'New Species soon extinct', 'Dzanc'),
        (394025466, 'journal', '1992-01-29', 'VHDL, Verilog and Others', 'McSweeney'),
        (226130537, 'journal', '1993-11-25', 'Thinking and questioning, the step toward the new philosophy', 'Folio'),
        (206289429, 'conference', '1994-02-01', 'ANOVA Enhanced', 'McGraw Hill'),
        (472665242, 'journal', '1997-04-11', 'Not new, but still used extensively, 68K', 'Deitel'),
-       (842440083, 'conference', '1999-07-23', 'Artificial Intelligence not for yesterday', 'Phaidon'),
+       (934347739, 'conference', '1999-07-23', 'Artificial Intelligence not for yesterday', 'Phaidon'),
        (747652718, 'journal', '1999-10-13', 'Energy Consumption, not the whole story', 'Concordia University'),
        (575933767, 'conference', '1999-11-18', 'Ignore me, Ignore yourself', 'Century'),
        (415879768, 'conference', '2001-05-24', 'Vikings, the real first', 'Freikr'),
@@ -1412,14 +1411,14 @@ VALUES (254156867, 'conference', '1991-01-03', 'Q-Bits, soon a reality!', 'Akash
 INSERT INTO Awards
 VALUES (772846507, '2009-02-06', 'Design Award, 1st Place'),
        (394025466, '2009-05-23', 'Pulitzer Price'),
-       (226130537, '2010-09-21', 'Provost’s Distinction'),
+       (934347739, '2010-09-21', 'Provost’s Distinction'),
        (206289429, '2010-10-21', 'Certificate of Commitment for Sony Ericson'),
        (472665242, '2011-10-03', 'Lambda Chi Alpha Prize'),
        (772846507, '2011-11-08', 'Best Electronic Patent of the Year'),
        (747652718, '2011-12-30', 'Faculty of Arts, Second Price for Journal Review'),
        (575933767, '2012-06-24', 'Dean’s List'),
        (415879768, '2013-07-29', 'Prix Napoleon'),
-       (330264593, '2012-09-09', 'Deans List'),
+       (934347739, '2012-09-09', 'Deans List'),
        (817794537, '2012-09-28', 'City of Montreal, best Concept'),
        (477887758, '2012-12-25', 'Carl Friedrich Gauss Prize'),
        (772846507, '2013-03-15', 'Leadership Award'),
@@ -1512,10 +1511,10 @@ VALUES ('Concordia University', 'Bachelor Electrical Engineering', 1),
        ('Universidad Autonoma de Nuevo Leon', 'Master Degree Software Eng', 73);
 
 INSERT INTO HasDegree
-VALUES (779332036, '2003-08-11', 1, 4.28),
+VALUES (934347739, '2003-08-11', 1, 4.28),
        (445761402, '2004-03-08', 2, 3.48),
        (448602365, '2004-03-26', 3, 4.12),
-       (453920929, '2006-08-01', 4, 3.24),
+       (934347739, '2006-08-01', 4, 3.24),
        (223680290, '2006-09-26', 5, 3.11),
        (245007722, '2006-10-02', 6, 4.18),
        (146344051, '2008-07-30', 7, 3.82),
