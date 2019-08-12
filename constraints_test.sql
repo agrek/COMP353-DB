@@ -269,12 +269,9 @@ WHERE building_abbreviation = 'H'
   AND room_number = 520;
 
 INSERT INTO SectionEnrollment
-VALUES (48, 399437700);
+VALUES (48, 293904265);
 
-UPDATE SectionEnrollment
-SET section_id = 48
-WHERE section_id = 2
-  AND student_ssn = 399437700;
+UPDATE SectionEnrollment SET section_id = 48 WHERE section_id = 2 AND student_ssn = 293904265;
 
 /*
     14) End_time should be after start_time in Section
