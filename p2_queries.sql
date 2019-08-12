@@ -140,8 +140,8 @@ FROM Campus;
 
 SELECT B.name, B.abbreviation
 FROM Campus C
-         INNER JOIN BuildingCampus BC on C.abbreviation = BC.campus
-         INNER JOIN Building B on BC.address = B.address
+         INNER JOIN BuildingCampus BC ON C.abbreviation = BC.campus
+         INNER JOIN Building B ON BC.address = B.address
 WHERE C.name = 'Loyola';
 
 -- vi. Give details of a specific building (this include address of the building,
