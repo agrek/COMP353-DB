@@ -1,4 +1,3 @@
-
 /********************* Start of CourseCompleted Triggers *********************/
 DROP TRIGGER IF EXISTS courseCompletedTriggerINS;
 DELIMITER //
@@ -149,7 +148,8 @@ BEGIN
                            NEW.room_floor, NEW.room_number);
 
     /******************* Instructor Time Conflict Check *******************/
-    CALL instructorConflictCheck(NEW.id, NEW.start_time, NEW.end_time, NEW.day, NEW.term, NEW.year, NEW.instructor_ssn, NEW.type);
+    CALL instructorConflictCheck(NEW.id, NEW.start_time, NEW.end_time, NEW.day, NEW.term, NEW.year, NEW.instructor_ssn,
+                                 NEW.type);
 END
 //
 DROP TRIGGER IF EXISTS secTrigUPD;
@@ -169,12 +169,12 @@ BEGIN
                            NEW.room_floor, NEW.room_number);
 
     /******************* Instructor Time Conflict Check *******************/
-    CALL instructorConflictCheck(NEW.id, NEW.start_time, NEW.end_time, NEW.day, NEW.term, NEW.year, NEW.instructor_ssn, NEW.type);
+    CALL instructorConflictCheck(NEW.id, NEW.start_time, NEW.end_time, NEW.day, NEW.term, NEW.year, NEW.instructor_ssn,
+                                 NEW.type);
 END
 //
 DELIMITER ;
 /******************** END of Section Triggers *******************/
-
 
 DROP TRIGGER IF EXISTS researchTriggerINS;
 DELIMITER //
@@ -184,10 +184,10 @@ CREATE TRIGGER researchTriggerINS
     FOR EACH ROW
 BEGIN
     # Check eligibility of applicant in terms of GPA
-    CALL fundingGPACheck (NEW.student_ssn);
+    CALL fundingGPACheck(NEW.student_ssn);
 
     # Check the availability of funding under the student's supervisor
-    CALL fundingAvailabilityCheck (NEW.student_ssn);
+    CALL fundingAvailabilityCheck(NEW.student_ssn);
 END;
 //
 
@@ -199,10 +199,10 @@ CREATE TRIGGER researchTriggerUPD
 BEGIN
     IF (NEW.student_ssn <> OLD.student_ssn) THEN
         # Check eligibility of applicant in terms of GPA
-        CALL fundingGPACheck (NEW.student_ssn);
+        CALL fundingGPACheck(NEW.student_ssn);
 
         # Check the availability of funding under the student's supervisor
-        CALL fundingAvailabilityCheck (NEW.student_ssn);
+        CALL fundingAvailabilityCheck(NEW.student_ssn);
     END IF;
 END;
 //
@@ -281,7 +281,6 @@ END;
 //
 DELIMITER ;
 /**** END OF BUILDING TABLE CONSISTENCY CHECK ****/
-
 
 DROP PROCEDURE IF EXISTS updateGPA;
 DELIMITER //
@@ -525,7 +524,6 @@ BEGIN
                 'The section conflicts with other sections taken by the student in the same semester';
     END IF;
 
-
 END //
 DELIMITER ;
 
@@ -683,8 +681,8 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS roomConflictCheck;
 DELIMITER //
 CREATE PROCEDURE roomConflictCheck(IN sec_id INT, IN start_time1 TIME, IN end_time1 TIME, IN day1 VARCHAR(45)
-                                  , IN term1 VARCHAR(45), IN year1 INT
-                                  , IN building_abbreviation1 VARCHAR(45), IN room_floor1 INT, IN room_number1 INT)
+, IN term1 VARCHAR(45), IN year1 INT
+, IN building_abbreviation1 VARCHAR(45), IN room_floor1 INT, IN room_number1 INT)
 BEGIN
     DROP TEMPORARY TABLE IF EXISTS numbers;
     DROP TEMPORARY TABLE IF EXISTS newRow;
@@ -792,7 +790,8 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS instructorConflictCheck;
 DELIMITER //
 CREATE PROCEDURE instructorConflictCheck(IN sec_id INT, IN start_time1 TIME, IN end_time1 TIME, IN day1 VARCHAR(45),
-                                         IN term1 VARCHAR(45), IN year1 INT, IN instructor_ssn1 INT, IN sec_type VARCHAR(45))
+                                         IN term1 VARCHAR(45), IN year1 INT, IN instructor_ssn1 INT,
+                                         IN sec_type VARCHAR(45))
 BEGIN
     DROP TEMPORARY TABLE IF EXISTS numbers;
     DROP TEMPORARY TABLE IF EXISTS newRow;
@@ -802,7 +801,6 @@ BEGIN
     DROP TEMPORARY TABLE IF EXISTS separatedOld;
     DROP TEMPORARY TABLE IF EXISTS oldSecs;
     DROP TEMPORARY TABLE IF EXISTS conflictSecs;
-
 
     IF sec_type = 'lecture' THEN
 

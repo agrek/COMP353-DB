@@ -1294,7 +1294,8 @@ VALUES (41, 889993771),
        (32, 373307205),
        (33, 373307205);
 
-INSERT INTO TAPosition VALUES (4, 'TA', 35, 882108144, 1000),
+INSERT INTO TAPosition
+VALUES (4, 'TA', 35, 882108144, 1000),
        (9, 'Lab Instructor', 90, 882108144, 1000),
        (1, 'marker', 65, 814392875, 1000),
        (2, 'marker', 65, 814392875, 1000),
