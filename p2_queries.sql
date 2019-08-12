@@ -112,7 +112,6 @@ UPDATE TAPosition
 SET salary = 1220
 WHERE assignee_ssn = 965277745
   AND section_id = 64;
--- in case TA gives multiple sections, we edit for a specific section (!)
 
 -- iii. d) Display a Teaching Assistant.
 SELECT concat(first_name, ' ', last_name) AS name,
@@ -139,13 +138,11 @@ FROM Campus;
 
 -- v. Give a list of buildings on a given campus. TODO: update in website
 
-SELECT name, abbreviation
-FROM Building
-WHERE address IN (
-    SELECT address
-    FROM BuildingCampus
-    WHERE campus = 'LOY'
-);
+SELECT B.name, B.abbreviation
+FROM Campus C
+         INNER JOIN BuildingCampus BC ON C.abbreviation = BC.campus
+         INNER JOIN Building B ON BC.address = B.address
+WHERE C.name = 'Loyola';
 
 -- vi. Give details of a specific building (this include address of the building,
 -- number of floors, number of rooms in each floor, and details of each room
@@ -379,7 +376,6 @@ GROUP BY course_code;
 
 -- xx. Register a student in a specific course.
 
--- this is done on 2 steps in order to choose the section; subquerying the section would return multiple records (!)
 SELECT S.id,
        term,
        year,
@@ -428,17 +424,16 @@ WHERE SectionEnrollment.student_ssn = 157682678
 -- academic history, courses taken and grades received for each course,
 -- GPA, etc.)
 
--- included publications, awards, experience; only 2 students have awards; 0 students have exp or publications (!)
 SELECT concat(Person.first_name, ' ', Person.last_name)                                            AS name,
        email,
        Person.id,
        Person.ssn,
        Student.gpa,
+       group_concat(DISTINCT concat_WS(' ', course_code, grade, term, year) SEPARATOR '\r\n')      AS grades,
        group_concat(DISTINCT concat_WS('-', Pub.title, Pub.type, Pub.date) SEPARATOR '\r\n')       AS Publication,
        group_concat(DISTINCT concat_WS('-', Ex.start_date, Ex.company, Ex.title) SEPARATOR '\r\n') AS experience,
        group_concat(DISTINCT concat_WS('-', Awards.name, Awards.date) SEPARATOR '\r\n')            AS awards,
-       group_concat(DISTINCT Degree.name SEPARATOR ', ')                                           AS degrees,
-       group_concat(CC.course_code, '= \'', CC.grade, '\'' SEPARATOR '\r\n')                       AS grades
+       group_concat(DISTINCT Degree.name SEPARATOR '\r\n')                                         AS degrees
 FROM Person
          INNER JOIN Student ON Person.ssn = Student.ssn
          LEFT JOIN Experience Ex ON Person.ssn = Ex.ssn
