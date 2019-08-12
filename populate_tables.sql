@@ -1409,7 +1409,7 @@ VALUES (934347739, 'conference', '1991-01-03', 'Q-Bits, soon a reality!', 'Akash
 INSERT INTO Awards
 VALUES (772846507, '2009-02-06', 'Design Award, 1st Place'),
        (394025466, '2009-05-23', 'Pulitzer Price'),
-       (934347739, '2010-09-21', 'Provost’s Distinction'),
+       (934347739, '2010-09-21', 'Provost Distinction'),
        (206289429, '2010-10-21', 'Certificate of Commitment for Sony Ericson'),
        (472665242, '2011-10-03', 'Lambda Chi Alpha Prize'),
        (772846507, '2011-11-08', 'Best Electronic Patent of the Year'),
