@@ -1,4 +1,3 @@
-
 /********************* START of CourseCompleted Triggers *********************/
 DROP TRIGGER IF EXISTS courseCompletedTriggerINS;
 DELIMITER //
@@ -179,9 +178,9 @@ BEGIN
             (
                 NEW.instructor_ssn, NEW.id, NEW.start_time, NEW.end_time,
                 NEW.day, NEW.term, NEW.year, 'Prof',
-                NULL, NUll, NULL
+                NULL, NULL, NULL
             );
-    END IF ;
+    END IF;
 END
 //
 
@@ -211,9 +210,9 @@ BEGIN
             (
                 NEW.instructor_ssn, NEW.id, NEW.start_time, NEW.end_time,
                 NEW.day, NEW.term, NEW.year, 'Prof',
-                NULL, NUll, NULL
+                NULL, NULL, NULL
             );
-    END IF ;
+    END IF;
 END
 //
 /******************** END of Section Triggers *******************/
@@ -295,7 +294,6 @@ END;
 /******************** END of Room Triggers *******************/
 DELIMITER ;
 
-
 -- ----------------------------   PROCEDURE DECLARATIONS ----------------------------
 DROP PROCEDURE IF EXISTS buildingConsistencyCheck;
 DELIMITER //
@@ -314,7 +312,8 @@ BEGIN
     WHERE Room.building_abbreviation = t_row_id;
 
     UPDATE Building
-    SET num_rooms = @numOfRooms, num_floors = @numOfFloors
+    SET num_rooms  = @numOfRooms,
+        num_floors = @numOfFloors
     WHERE Building.abbreviation = t_row_id;
 END //
 DELIMITER ;
@@ -327,8 +326,11 @@ BEGIN
     DROP TEMPORARY TABLE IF EXISTS allGrades;
 
     CREATE TEMPORARY TABLE allGrades AS (SELECT grade, credits, gpa, credits * gpa mult
-                                         FROM Course, CourseCompleted INNER JOIN LetterToGpa ON grade = letter
-                                         WHERE CourseCompleted.course_code = Course.code AND student_ssn = ssn1);
+                                         FROM Course,
+                                              CourseCompleted
+                                                  INNER JOIN LetterToGpa ON grade = letter
+                                         WHERE CourseCompleted.course_code = Course.code
+                                           AND student_ssn = ssn1);
 
     SELECT SUM(credits), SUM(mult) INTO @sumCredits, @sumMult FROM allGrades;
 
@@ -343,8 +345,14 @@ CREATE PROCEDURE duplicateTypeSec_roomCapacityCheck(IN ssn1 INT(9), IN secId INT
 BEGIN
 
     DROP TEMPORARY TABLE IF EXISTS secInfo;
-    CREATE TEMPORARY TABLE secInfo AS (SELECT id, course_code, type, term, year,
-                                              room_number, room_floor, building_abbreviation
+    CREATE TEMPORARY TABLE secInfo AS (SELECT id,
+                                              course_code,
+                                              type,
+                                              term,
+                                              year,
+                                              room_number,
+                                              room_floor,
+                                              building_abbreviation
                                        FROM Section
                                        WHERE id = secId);
 
@@ -352,8 +360,9 @@ BEGIN
     SELECT COUNT(*)
     INTO @multipleSecs
     FROM (SELECT Section.id
-          FROM Section INNER JOIN SectionEnrollment SE ON Section.id = SE.section_id
-                       INNER JOIN secInfo ON Section.course_code = secInfo.course_code
+          FROM Section
+                   INNER JOIN SectionEnrollment SE ON Section.id = SE.section_id
+                   INNER JOIN secInfo ON Section.course_code = secInfo.course_code
           WHERE student_ssn = ssn1
             AND Section.type = secInfo.type
             AND Section.year = secInfo.year
@@ -361,20 +370,23 @@ BEGIN
 
     IF (@multipleSecs > 0) THEN
         SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'ERROR: A student cannot register to two different sections of same course, type, term, and year';
+            SET MESSAGE_TEXT =
+                    'ERROR: A student cannot register to two different sections of same course, type, term, and year';
 
     END IF;
 
     -- Check: Student enrollment in a course does not exceed room capacity
     SELECT capacity
     INTO @roomCap
-    FROM Room INNER JOIN secInfo ON secInfo.room_number = Room.room_number AND
-                                    secInfo.room_floor = Room.room_floor AND
-                                    secInfo.building_abbreviation = Room.building_abbreviation;
+    FROM Room
+             INNER JOIN secInfo ON secInfo.room_number = Room.room_number AND
+                                   secInfo.room_floor = Room.room_floor AND
+                                   secInfo.building_abbreviation = Room.building_abbreviation;
 
     SELECT COUNT(*)
     INTO @totalStudentSec
-    FROM SectionEnrollment SE INNER JOIN secInfo ON SE.section_id = secInfo.id;
+    FROM SectionEnrollment SE
+             INNER JOIN secInfo ON SE.section_id = secInfo.id;
 
     IF (@totalStudentSec >= @roomCap) THEN
         SIGNAL SQLSTATE '45000'
@@ -394,19 +406,26 @@ BEGIN
 
     CREATE TEMPORARY TABLE Req_Table AS (
         SELECT req_code
-        FROM Requisites INNER JOIN Course_Code ON Requisites.course_code = Course_Code.course_code
+        FROM Requisites
+                 INNER JOIN Course_Code ON Requisites.course_code = Course_Code.course_code
         WHERE type = 'prerequisite');
 
     CREATE TEMPORARY TABLE Common_Table AS (
         SELECT course_code, grade
-        FROM CourseCompleted INNER JOIN Req_Table ON CourseCompleted.course_code = Req_Table.req_code
+        FROM CourseCompleted
+                 INNER JOIN Req_Table ON CourseCompleted.course_code = Req_Table.req_code
         WHERE CourseCompleted.student_ssn = ssn1);
 
     SELECT count(*) INTO @num_Pre FROM Req_Table;
     SELECT count(*) INTO @notTaken FROM Common_Table;
-    SELECT count(*) INTO @numFail FROM (SELECT *
-                                        FROM Common_Table
-                                        WHERE grade = 'F' OR grade = 'FNS' OR grade = 'R' OR grade = 'NR') t;
+    SELECT count(*)
+    INTO @numFail
+    FROM (SELECT *
+          FROM Common_Table
+          WHERE grade = 'F'
+             OR grade = 'FNS'
+             OR grade = 'R'
+             OR grade = 'NR') t;
 
     IF (@numFail > 0 OR ((@notTaken = 0) AND (@num_Pre > 0))) THEN
         SIGNAL SQLSTATE '45000'
@@ -418,11 +437,9 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS Stud_TA_Prof_Rm_ConflictCheck;
 DELIMITER //
 CREATE PROCEDURE Stud_TA_Prof_Rm_ConflictCheck
-(
-    IN ssn1 INT(9), IN sec_id INT, IN start_time1 TIME, IN end_time1 TIME,
-    IN day1 VARCHAR(45), IN term1 VARCHAR(45), IN year1 INT, IN who VARCHAR(5),
-    IN building_abbreviation1 VARCHAR(45), IN room_floor1 INT, IN room_number1 INT
-)
+(IN ssn1 INT(9), IN sec_id INT, IN start_time1 TIME, IN end_time1 TIME,
+ IN day1 VARCHAR(45), IN term1 VARCHAR(45), IN year1 INT, IN who VARCHAR(5),
+ IN building_abbreviation1 VARCHAR(45), IN room_floor1 INT, IN room_number1 INT)
     READS SQL DATA
 BEGIN
     DROP TEMPORARY TABLE IF EXISTS numbers, newRow, separatedNew, newEntry,
@@ -473,41 +490,55 @@ BEGIN
     CREATE TEMPORARY TABLE newEntry AS
         (
             SELECT newRow.id, separatedNew.day, start_time, end_time, term, year
-            FROM newRow INNER JOIN separatedNew ON separatedNew.id = newRow.id);
+            FROM newRow
+                     INNER JOIN separatedNew ON separatedNew.id = newRow.id);
 
     /* Fetching all sections taken by the student in same year, and term*/
 
     CREATE TEMPORARY TABLE oldPerRmSec
     (
-        id                    INT,
-        day                   VARCHAR(45) ,
-        start_time            TIME        ,
-        end_time              TIME        ,
-        term                  VARCHAR(45) ,
-        year                  INT(4)
+        id         INT,
+        day        VARCHAR(45),
+        start_time TIME,
+        end_time   TIME,
+        term       VARCHAR(45),
+        year       INT(4)
     );
 
     IF (who = 'Stu') THEN
         INSERT INTO oldPerRmSec
         SELECT Section.id, day, start_time, end_time, term, year
-        FROM Section INNER JOIN SectionEnrollment SE ON Section.id = SE.section_id
-        WHERE SE.student_ssn = ssn1 AND year = @year AND term = @term;
+        FROM Section
+                 INNER JOIN SectionEnrollment SE ON Section.id = SE.section_id
+        WHERE SE.student_ssn = ssn1
+          AND year = @year
+          AND term = @term;
     ELSEIF (who = 'TA') THEN
         INSERT INTO oldPerRmSec
         SELECT Section.id, day, start_time, end_time, term, year
-        FROM Section INNER JOIN TAPosition ON section_id = id
-        WHERE ssn1 = assignee_ssn AND (type = 'tutorial' OR type = 'lab') AND year = @year AND term = @term;
+        FROM Section
+                 INNER JOIN TAPosition ON section_id = id
+        WHERE ssn1 = assignee_ssn
+          AND (type = 'tutorial' OR type = 'lab')
+          AND year = @year
+          AND term = @term;
     ELSEIF (who = 'Prof') THEN
         INSERT INTO oldPerRmSec
         SELECT Section.id, day, start_time, end_time, term, year
         FROM Section
-        WHERE type = 'lecture' AND instructor_ssn = ssn1 AND year = @year AND term = @term;
+        WHERE type = 'lecture'
+          AND instructor_ssn = ssn1
+          AND year = @year
+          AND term = @term;
     ELSEIF (who = 'Rm') THEN
         INSERT INTO oldPerRmSec
         SELECT Section.id, day, start_time, end_time, term, year
         FROM Section
         WHERE building_abbreviation = building_abbreviation1
-          AND room_floor = room_floor1 AND room_number = room_number1 AND year = @year AND term = @term;
+          AND room_floor = room_floor1
+          AND room_number = room_number1
+          AND year = @year
+          AND term = @term;
     END IF;
 
     CREATE TEMPORARY TABLE separatedOld AS
@@ -524,17 +555,26 @@ BEGIN
 
     CREATE TEMPORARY TABLE oldSecs AS
         (
-            SELECT Section.id, separatedOld.day,
-                   start_time, end_time, term, year
-            FROM Section INNER JOIN separatedOld ON separatedOld.id = Section.id
+            SELECT Section.id,
+                   separatedOld.day,
+                   start_time,
+                   end_time,
+                   term,
+                   year
+            FROM Section
+                     INNER JOIN separatedOld ON separatedOld.id = Section.id
         );
 
     CREATE TEMPORARY TABLE conflictSecs AS
         (
-            SELECT oldSecs.day         d1, newEntry.day        d2,
-                   oldSecs.start_time  s1, newEntry.start_time s2,
-                   oldSecs.end_time    e1, newEntry.end_time   e2
-            FROM oldSecs INNER JOIN newEntry ON oldSecs.day = newEntry.day
+            SELECT oldSecs.day         d1,
+                   newEntry.day        d2,
+                   oldSecs.start_time  s1,
+                   newEntry.start_time s2,
+                   oldSecs.end_time    e1,
+                   newEntry.end_time   e2
+            FROM oldSecs
+                     INNER JOIN newEntry ON oldSecs.day = newEntry.day
             WHERE ((oldSecs.start_time >= newEntry.start_time) AND
                    (oldSecs.start_time < newEntry.end_time))
                OR ((newEntry.start_time >= oldSecs.start_time) AND
@@ -546,7 +586,8 @@ BEGIN
     IF @confCount > 0 THEN
         IF (who = 'Stu') THEN
             SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'ERROR: The section conflicts with other sections taken by the student in the same semester';
+                SET MESSAGE_TEXT =
+                        'ERROR: The section conflicts with other sections taken by the student in the same semester';
         ELSEIF (who = 'TA') THEN
             SIGNAL SQLSTATE '45000'
                 SET MESSAGE_TEXT = 'ERROR: The TA has a time conflict with another section he teaches';
@@ -571,8 +612,10 @@ BEGIN
     SELECT SUM(hours)
     INTO @totalHours
     FROM (SELECT DISTINCT (TAPosition.section_id), hours
-          FROM TAPosition INNER JOIN Section ON TAPosition.section_id = Section.id
-          WHERE assignee_ssn = ta_ssn AND year = @posYear) t;
+          FROM TAPosition
+                   INNER JOIN Section ON TAPosition.section_id = Section.id
+          WHERE assignee_ssn = ta_ssn
+            AND year = @posYear) t;
 
     IF ((@totalHours + hrs) > 260) THEN
         SIGNAL SQLSTATE '45000'
@@ -626,12 +669,14 @@ BEGIN
 
     SELECT type
     INTO @stuType
-    FROM Student INNER JOIN GradStudents GS ON Student.ssn = GS.ssn
+    FROM Student
+             INNER JOIN GradStudents GS ON Student.ssn = GS.ssn
     WHERE Student.ssn = student_ssn;
 
     IF @applicantGpa < 3 AND @stuType = 'thesis' THEN
         SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'ERROR: The student does not meet the minimum GPA required for research funding which is 3';
+            SET MESSAGE_TEXT =
+                    'ERROR: The student does not meet the minimum GPA required for research funding which is 3';
     END IF;
 END //
 DELIMITER ;
