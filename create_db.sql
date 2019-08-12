@@ -356,6 +356,8 @@ CREATE TABLE Program
     advisor_ssn   INT         NULL,
     CONSTRAINT Program_pk
         PRIMARY KEY (id),
+    CONSTRAINT Program_uq
+        UNIQUE (name),
     CONSTRAINT Program_Advisor_ssn_fk
         FOREIGN KEY (advisor_ssn) REFERENCES Advisor (ssn)
             ON UPDATE CASCADE ON DELETE SET NULL,
@@ -363,9 +365,6 @@ CREATE TABLE Program
         FOREIGN KEY (department_id) REFERENCES Department (id)
             ON UPDATE CASCADE
 );
-
-CREATE UNIQUE INDEX Program_uq
-    ON Program (name);
 
 CREATE TABLE Studies
 (
