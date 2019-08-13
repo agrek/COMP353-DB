@@ -368,8 +368,10 @@ CREATE TABLE Program
 
 CREATE TABLE Studies
 (
-    student_ssn INT NOT NULL,
-    program_id  INT NOT NULL,
+    student_ssn INT         NOT NULL,
+    program_id  INT         NOT NULL,
+    term        VARCHAR(45) NOT NULL,
+    year        INT         NOT NULL,
     CONSTRAINT Program_pk
         PRIMARY KEY (student_ssn, program_id),
     CONSTRAINT Studies_Program_id_fk
