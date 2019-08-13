@@ -252,8 +252,9 @@ FROM Person
 WHERE ssn IN (
     SELECT student_ssn
     FROM Studies
-    WHERE year = 2017 AND term = 'winter' AND
-          program_id = (
+    WHERE year = 2017
+      AND term = 'winter'
+      AND program_id = (
         SELECT id
         FROM Program
         WHERE name = 'Computer Science Undergraduate'
